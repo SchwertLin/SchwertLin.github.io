@@ -36,9 +36,9 @@ href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 src="https://s3.bmp.ovh/imgs/2022/06/06/747f167878761af9.png" /></p>
 <h2 id="一绪论">（一）绪论</h2>
 <h3 id="计算机的发展">1. 计算机的发展</h3>
-<p>现代计算机的==理论基础==：布尔代数、==物质基础==：双稳态触发器。</p>
+<p>现代计算机的<strong>理论基础</strong>：布尔代数、<strong>物质基础</strong>：双稳态触发器。</p>
 <p>1946年，美国，ENIAC，电子数字积分和计算机</p>
-<p>1946年6月，冯·诺伊曼提出以二进制，程序存储和程序控制为核心的思想，==奠定了当代电子数字计算机体系结构的基础==。</p>
+<p>1946年6月，冯·诺伊曼提出以二进制，程序存储和程序控制为核心的思想，<strong>奠定了当代电子数字计算机体系结构的基础</strong>。</p>
 <ul>
 <li>1946-1954年，第1代，电子管计算机，ENIAC、IBM 701</li>
 <li>1955-1964年，第2代，晶体管计算机，IBM 7030、Univac LARC</li>
@@ -50,8 +50,8 @@ src="https://s3.bmp.ovh/imgs/2022/06/06/747f167878761af9.png" /></p>
 <h3 id="计算机的基本组成">2. 计算机的基本组成</h3>
 <p><img
 src="https://s3.bmp.ovh/imgs/2022/06/06/953808da12ac0696.png" /></p>
-<p>==这是去年的考题！！！==</p>
-<p>冯·诺伊曼机的硬件固定，==不同的运算功能依靠预先放在存储器中的程序实现==，这是存储程序控制的基本原理，也是区别其他运算工具的关键。</p>
+<p><strong>这是去年的考题！！！</strong></p>
+<p>冯·诺伊曼机的硬件固定，<strong>不同的运算功能依靠预先放在存储器中的程序实现</strong>，这是存储程序控制的基本原理，也是区别其他运算工具的关键。</p>
 <p><img
 src="https://s3.bmp.ovh/imgs/2022/06/06/f31e31c05eac787b.png" /></p>
 <p><strong>计算机的软件</strong>：</p>
@@ -68,7 +68,7 @@ src="https://s3.bmp.ovh/imgs/2022/06/06/811c3d8446a22bea.png" /></p>
 <p>巨型机、大型机、中型机、小型机、微机、单片机</p></li>
 <li><p>按用途分类：</p>
 <p>通用机（如：PC机）、专用机（如：嵌入式计算机）</p></li>
-<li><p>按信息处理的特性分类：==（FLYNN）费林分类法==</p>
+<li><p>按信息处理的特性分类：<strong>（FLYNN）费林分类法</strong></p>
 <ol type="1">
 <li>单指令流单数据流计算机（SISD）</li>
 <li>单指令流多数据流计算机（SIMD）</li>
@@ -109,26 +109,26 @@ src="https://s3.bmp.ovh/imgs/2022/06/06/0a50caa0dd5c58da.png" /></p>
 <li>特殊的移码： 0 表示真值是负数； 1 表示真值是正数。</li>
 </ol>
 </blockquote>
-<p>==0有唯一的编码==：补码、移码。</p>
+<p><strong>0有唯一的编码</strong>：补码、移码。</p>
 <blockquote>
 <p>原码：1000 0000 | 0000 0000</p>
 <p>反码：1111 1111 | 0000 0000</p>
 </blockquote>
-<p>==符号位用0表示正、用1表示负==：原码、反码、补码</p>
+<p><strong>符号位用0表示正、用1表示负</strong>：原码、反码、补码</p>
 <blockquote>
 <p>移码：1表示正、0表示负</p>
 </blockquote>
-<p>==满足真值大则码值大==：移码</p>
+<p><strong>满足真值大则码值大</strong>：移码</p>
 <blockquote>
 <p>最高位符号位1为负数（真值小码值小）：原码、反码、补码</p>
 </blockquote>
-<p>==存在负值的真值越大码值越小==：原码</p>
+<p><strong>存在负值的真值越大码值越小</strong>：原码</p>
 <blockquote>
 <p>【-1】补=【1000 0001】补=【1111
 1111】可见是：最大的负值、最大的码值。</p>
 <p>反码 = 补码 - 1、移码 = 补码最高符号位取反 因此均不是。</p>
 </blockquote>
-<p>==负数的码值大于正数的码值==：原码、反码、补码</p>
+<p><strong>负数的码值大于正数的码值</strong>：原码、反码、补码</p>
 <blockquote>
 <p>原理是：负数的码值最高位符号位为1</p>
 </blockquote>
@@ -139,13 +139,13 @@ class="math inline">\(~\)</span> 1$之间。</p>
 class="math inline">\(M=0.1XX...X\)</span>是规格化数。</p>
 <p>若<span class="math inline">\(M\lt0\)</span>：由于<span
 class="math inline">\([-\frac{1}2]_{补}=1.1000...0\)</span>、<span
-class="math inline">\([-1]_{补}=1.000...0\)</span>。==为了使计算机判断方便，一般不把<span
+class="math inline">\([-1]_{补}=1.000...0\)</span>。<strong>为了使计算机判断方便，一般不把<span
 class="math inline">\([-\frac{1}2]\)</span>列为规格化的数，而把<span
-class="math inline">\([-1]\)</span>列为规格化的数。==<span
+class="math inline">\([-1]\)</span>列为规格化的数。</strong><span
 class="math inline">\(M=1.0XXX...X\)</span>时，是规格化数。</p>
 <p><img
 src="https://s3.bmp.ovh/imgs/2022/06/06/7ae803cb8265a010.png" /></p>
-<p>==貌似左规和右规都是在采用了双符号位，也就是变形补码后产生的。==</p>
+<p><strong>貌似左规和右规都是在采用了双符号位，也就是变形补码后产生的。</strong></p>
 <p><strong>左规</strong>：结果的尾数为<span
 class="math inline">\(00.0XXX...X\)</span>或<span
 class="math inline">\(11.1XXX...X\)</span>的形式时，需将尾数左移1位，阶码
@@ -166,29 +166,29 @@ src="https://s3.bmp.ovh/imgs/2022/06/06/c29e8a1bbadb7397.png" /></p>
 <p><strong>单精度格式：</strong>1+8+23（符号+阶码+尾数）</p>
 <p><img
 src="https://s3.bmp.ovh/imgs/2022/06/06/11c6dcb2e4dce176.png" /></p>
-<p>==更多的重点还是放在单精度的浮点数上，至于双精度格式（1+11+52）只是被提了一下。==</p>
+<p><strong>更多的重点还是放在单精度的浮点数上，至于双精度格式（1+11+52）只是被提了一下。</strong></p>
 <h2 id="三运算方法和运算器">（三）运算方法和运算器</h2>
-<p>运算器用于==数值运算及加工处理数据。==</p>
-<p>运算器的==结构==取决于：==指令系统、数据的表示方法、运算方法以及所选用的硬件。==</p>
+<p>运算器用于<strong>数值运算及加工处理数据。</strong></p>
+<p>运算器的<strong>结构</strong>取决于：<strong>指令系统、数据的表示方法、运算方法以及所选用的硬件。</strong></p>
 <blockquote>
 <p>它由CPU中的ALU、GR（通用寄存器）等部件组成。</p>
 </blockquote>
 <h3 id="定点数运算">1. 定点数运算</h3>
 <h4 id="加减">1.1 加减</h4>
-<p>特别声明的是：==求补运算==</p>
-<p>（主要用于 ==<span
-class="math inline">\([X]_{补}\leftrightarrow[-X]_{补}\)</span>==
+<p>特别声明的是：<strong>求补运算</strong></p>
+<p>（主要用于 <strong><span
+class="math inline">\([X]_{补}\leftrightarrow[-X]_{补}\)</span></strong>
 这种情况，对于符号位和数值位均按位取反，末位+1）</p>
 <h5 id="溢出判断">1.1.1 溢出判断</h5>
-<p>==只有当两个同符号的数相加（or
-相异符号数相减），运算结果才可能溢出。==异号相加，永远不会产生溢出。</p>
+<p><strong>只有当两个同符号的数相加（or
+相异符号数相减），运算结果才可能溢出。</strong>异号相加，永远不会产生溢出。</p>
 <p>发生溢出时，运算结果<strong>肯定</strong>是错误的。防止溢出发生的<strong>最简单有效的方法</strong>即：增加补码的二进制编码长度。</p>
 <blockquote>
 <p>我还想的是采用双符号位呢...不过双符号位并不能防止溢出，而是判断是否溢出。果然。</p>
 </blockquote>
 <h6 id="双符号位判决法最常用">① 双符号位判决法（最常用）</h6>
-<p>==补码==采用两位表示符号，即00(+)和11(-)。</p>
-<p>==一旦发生溢出，则两个符号位就一定不一致。==</p>
+<p><strong>补码</strong>采用两位表示符号，即00(+)和11(-)。</p>
+<p><strong>一旦发生溢出，则两个符号位就一定不一致。</strong></p>
 <ol type="1">
 <li>出现01，结果 &gt; +1</li>
 <li>出现10，结果 &lt; -1</li>
@@ -199,9 +199,9 @@ class="math inline">\([X]_{补}\leftrightarrow[-X]_{补}\)</span>==
 <h6 id="进位判决法">② 进位判决法</h6>
 <p>类似于双符号位，【最高数值位向符号位的进位】<span
 class="math inline">\(\oplus\)</span>【符号位的进位】</p>
-<h5 id="移码加减-x_移pmy_移nexpm-y_移">1.1.2 移码加减 ==<span
+<h5 id="移码加减-x_移pmy_移nexpm-y_移">1.1.2 移码加减 <strong><span
 class="math inline">\([X]_{移}\pm[Y]_{移}\ne[X\pm
-Y]_{移}\)</span>==</h5>
+Y]_{移}\)</span></strong></h5>
 <p><img
 src="https://s3.bmp.ovh/imgs/2022/06/13/845f22869f86bd75.png" /></p>
 <h4 id="乘">1.2 乘</h4>
@@ -220,7 +220,7 @@ src="https://s3.bmp.ovh/imgs/2022/06/13/65cb96226aadac22.png" /></p>
 <h6 id="加减交替法">② 加减交替法</h6>
 <p><img
 src="https://s3.bmp.ovh/imgs/2022/06/13/22f1495d78756a8b.png" /></p>
-<p>==末位商如果为0，此时的余数是错误的。此时通过恢复余数码来得到正确的余数。==</p>
+<p><strong>末位商如果为0，此时的余数是错误的。此时通过恢复余数码来得到正确的余数。</strong></p>
 <p><img
 src="https://s3.bmp.ovh/imgs/2022/06/13/87511f48474eca6e.png" /></p>
 <blockquote>
@@ -238,7 +238,7 @@ src="https://s3.bmp.ovh/imgs/2022/06/13/87511f48474eca6e.png" /></p>
 <h4 id="运算器的结构">2.1 运算器的结构</h4>
 <p>基本组成包括算术逻辑单元ALU、暂存器、通用寄存器堆、内部总线。</p>
 <h5 id="标志寄存器标志位">2.1.1 标志寄存器、标志位</h5>
-<p>标志寄存器，又称状态寄存器。（我感觉状态寄存器更常用一点）用于保存ALU操作结果的某些状态。不同CPU，标志寄存器中包含的标志不尽相同。==但是都会有如下最基本的5中标志位==：</p>
+<p>标志寄存器，又称状态寄存器。（我感觉状态寄存器更常用一点）用于保存ALU操作结果的某些状态。不同CPU，标志寄存器中包含的标志不尽相同。<strong>但是都会有如下最基本的5中标志位</strong>：</p>
 <ul>
 <li>ZF=1：结果全为0。</li>
 <li>CF=1：表示有进位或者是借位。</li>
@@ -249,7 +249,7 @@ src="https://s3.bmp.ovh/imgs/2022/06/13/87511f48474eca6e.png" /></p>
 <h3 id="浮点运算">3. 浮点运算</h3>
 <h4 id="浮点加减">3.1 浮点加减</h4>
 <p><strong>①对阶</strong>：只有在两者的阶码相同时才能进行尾数的加减运算。<strong>其原则是小阶对大阶</strong>。也就是将小阶码（更小的数字挪到大数字的小数点处）</p>
-<p>不断地右移获得阶码+1。==但是会在对阶时丢失尾数的低位，造成的误差相对较小。==但要是大阶对小阶，就会就是尾数的高位，导致错误的结果。</p>
+<p>不断地右移获得阶码+1。<strong>但是会在对阶时丢失尾数的低位，造成的误差相对较小。</strong>但要是大阶对小阶，就会就是尾数的高位，导致错误的结果。</p>
 <p><strong>②尾数进行加减运算（直接相加或是加补）</strong></p>
 <p><strong>③规格化</strong>：在进行完计算后可能得到的是一个非规格化数。则需要进行规格化。</p>
 <blockquote>
@@ -294,7 +294,7 @@ src="https://s3.bmp.ovh/imgs/2022/06/13/98c126fe6b747995.png" /></p>
 </ul>
 <h3 id="寻址方式">2. 寻址方式</h3>
 <p>指令中以什么方式提供操作数或操作数地址，称为寻址方式（或是编址方式）。</p>
-<p>==以下是以8086/8088为例==：</p>
+<p><strong>以下是以8086/8088为例</strong>：</p>
 <p><img src="https://s3.bmp.ovh/imgs/2022/06/17/ba66d891dddf1cd8.png" style="zoom: 40%;" /></p>
 <h3 id="pc指令系统">3. PC指令系统</h3>
 <h3 id="汇编">4. 汇编</h3>
