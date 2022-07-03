@@ -1,34 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/2022/06/07/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very
-first post. Check <a href="https://hexo.io/docs/">documentation</a> for
-more info. If you get any problems when using Hexo, you can find the
-answer in <a
-href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or
-you can ask me on <a
-href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="quick-start">Quick Start</h2>
-<h3 id="create-a-new-post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a
-href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="run-server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="generate-static-files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a
-href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a
-href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>review</title>
     <url>/2022/06/17/review/</url>
     <content><![CDATA[<h1 id="总复习">总复习</h1>
@@ -305,6 +277,621 @@ src="https://s3.bmp.ovh/imgs/2022/06/13/98c126fe6b747995.png" /></p>
       <tags>
         <tag>计算机组成原理</tag>
         <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2022/06/07/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very
+first post. Check <a href="https://hexo.io/docs/">documentation</a> for
+more info. If you get any problems when using Hexo, you can find the
+answer in <a
+href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or
+you can ask me on <a
+href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="create-a-new-post">Create a new post</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a
+href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="run-server">Run server</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="generate-static-files">Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a
+href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a
+href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>数模日记1</title>
+    <url>/2022/07/03/%E6%95%B0%E6%A8%A1%E6%97%A5%E8%AE%B01/</url>
+    <content><![CDATA[<h1 id="差分方程和虫口模型">差分方程和虫口模型</h1>
+<p>[TOC]</p>
+<h2 id="fibonacci数列">Fibonacci数列</h2>
+<p><span
+class="math inline">\(a_0=0,a_1=1,a_{n}=a_{n-1}+a_{n-2}\)</span></p>
+<h3 id="兔子问题">兔子问题</h3>
+<p>假设一开始有一万只兔子，兔子有两个月的成熟期，每一个月一对兔子可以生一对兔子，且==假设出生的兔子都存活==，兔子的寿命为6个月。那么求解一年后有多少只兔子？</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>月份</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1</strong></td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td><strong>2</strong></td>
+<td></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td><strong>3</strong></td>
+<td></td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td><strong>4</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td><strong>5</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td><strong>6</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>3</td>
+<td>3</td>
+<td>3</td>
+<td>3</td>
+<td>3</td>
+<td>3</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td><strong>7</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td><strong>8</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>7</td>
+<td>7</td>
+<td>7</td>
+<td>7</td>
+<td>7</td>
+</tr>
+<tr class="odd">
+<td><strong>9</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>11</td>
+<td>11</td>
+<td>11</td>
+<td>11</td>
+</tr>
+<tr class="even">
+<td><strong>10</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>18</td>
+<td>18</td>
+<td>18</td>
+</tr>
+<tr class="odd">
+<td><strong>11</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>29</td>
+<td>29</td>
+</tr>
+<tr class="even">
+<td><strong>12</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>47</td>
+</tr>
+<tr class="odd">
+<td><strong>总数</strong></td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>5</td>
+<td>8</td>
+<td>12</td>
+<td>19</td>
+<td>30</td>
+<td>48</td>
+<td>77</td>
+<td>124</td>
+</tr>
+<tr class="even">
+<td><strong>原总数</strong></td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>5</td>
+<td>8</td>
+<td>13</td>
+<td>21</td>
+<td>34</td>
+<td>55</td>
+<td>89</td>
+<td>144</td>
+</tr>
+<tr class="odd">
+<td><strong>每月死去的兔子</strong></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>4</td>
+<td>7</td>
+<td>12</td>
+<td>20</td>
+</tr>
+</tbody>
+</table>
+<p>行是每个月新出生的兔子数、列是在该月还存活的兔子数。</p>
+<h2 id="差分方程">差分方程</h2>
+<p><span class="math display">\[
+\Delta f(x)=f(x+1)-f(x)
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\Delta f(x)\)</span>是<span
+class="math inline">\(f(x)\)</span>的差分。<span
+class="math inline">\(\Delta\)</span>称为差分算子。</li>
+<li><span class="math inline">\(E\ f(x)=f(x+1)\)</span>称为<span
+class="math inline">\(f(x)\)</span>在x的位移，<span
+class="math inline">\(E\)</span>为位移算子。</li>
+<li><span class="math inline">\(I\ f(x)=f(x)\)</span>，<span
+class="math inline">\(I\)</span>称为恒等算子。</li>
+</ul>
+<p>求解差分方程不现实，因此引入对差分方程的定性分析，如找到解的性质等。</p>
+<h3 id="平衡解及其稳定性">平衡解及其稳定性</h3>
+<p><strong>平衡解</strong>：若有<span
+class="math inline">\(x^*\)</span>，使得<span
+class="math inline">\(x^*=f(x^*)\)</span>，则称<span
+class="math inline">\(x^*\)</span>为方程<span
+class="math inline">\(x(t+1)=f(x(t))\)</span>的平衡解。</p>
+<blockquote>
+<p>就是虽然不知道后面的方程是什么，但是解释一下平衡解的意思：</p>
+<p>​ 指<span class="math inline">\(x^{*}\)</span>在 f 的作用（or
+映射）下还是保持原<span
+class="math inline">\(x^*\)</span>点不发生变动。</p>
+</blockquote>
+<p><strong>最终平衡解</strong>：存在如下的<span
+class="math inline">\(x^*\)</span>， <span class="math display">\[
+x_r=x^*\\
+x_{r-1}\ne x^*
+\]</span></p>
+<blockquote>
+<p>此处的最终平衡解指的是：所有的<span
+class="math inline">\(x_n\)</span>都可以通过迭代得到<span
+class="math inline">\(x^*\)</span>。</p>
+</blockquote>
+<p><strong>周期解</strong>：存在正整数T，使得<span
+class="math inline">\(x(t+T)=x(t)\)</span>。</p>
+<blockquote>
+<p>不是迭代一次，而是迭代了T次。</p>
+</blockquote>
+<p><strong>平衡解的稳定性</strong>：</p>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/27/0ea762d342346733.png" /></p>
+<p>当<span class="math inline">\(x^*\)</span>附近的解都在<span
+class="math inline">\(x^*\)</span>的附近，则是稳定的；否则不稳定。</p>
+<p><strong>一些概念</strong>：</p>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/27/091e6336ff9f08b3.png" /></p>
+<p>一个栗子：</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/06/27/e56ed6889a7b1383.png" style="zoom:40%;" /></p>
+<p><strong>如何不通过相图法来得到这个点是否吸引？</strong></p>
+<p>设<span class="math inline">\(f(x)\)</span>有三阶连续导数，<span
+class="math inline">\(x^{*}\)</span>是平衡点。</p>
+<p>当<span class="math inline">\(|f&#39;(x^*)|\lt 1\)</span>：<span
+class="math inline">\(x^{*}\)</span> 渐近稳定。</p>
+<p>当<span class="math inline">\(|f&#39;(x^*)|\gt 1\)</span>：<span
+class="math inline">\(x^{*}\)</span> 不稳定。</p>
+<p><strong>周期解</strong>：</p>
+<p><span class="math inline">\(f(x)\)</span>的 <span
+class="math inline">\(n\)</span> 周期点 <span
+class="math inline">\(x^*\)</span> 是指 <span
+class="math inline">\(f^n(x)=x\)</span> 的解，满足 <span
+class="math inline">\(f^n(x)=x\)</span> 的最小正整数 <span
+class="math inline">\(n\)</span> 称为 <span
+class="math inline">\(x\)</span> 的真周期。</p>
+<h2 id="虫口模型与倍周期分支">虫口模型与倍周期分支</h2>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/28/60dbb4b74c9cd76e.png" /></p>
+]]></content>
+      <tags>
+        <tag>数学模型</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数模日记3</title>
+    <url>/2022/07/03/%E6%95%B0%E6%A8%A1%E6%97%A5%E8%AE%B03/</url>
+    <content><![CDATA[<h1 id="排队论模型">排队论模型</h1>
+<p>PS：此处的排队论，真的就是单纯的排队。</p>
+<p>排队论研究随机服务系统的确定性规律。</p>
+<p>等待时间、服务时间、到达时间具有随机性。</p>
+<p>[TOC]</p>
+<h2 id="基本组成">基本组成</h2>
+<h4 id="输入">输入</h4>
+<ul>
+<li>顾客总体的数量：有限/无限</li>
+<li>顾客到来的方式：个体/批</li>
+<li>到达的间隔时间：不确定（随机变量，遵从概率分布）</li>
+</ul>
+<p>顾客的行为<strong>假定</strong>为：</p>
+<ul>
+<li>在未服务之前不会离开（等待制）</li>
+<li>当看到队列很长的时候离开（有损失）</li>
+<li>从一个队列移到另一个队列（上两种结合）</li>
+</ul>
+<h4 id="排队规则">排队规则</h4>
+<ul>
+<li><p>队列容量：有限/无限</p>
+<p>----- 此处的队列是排队队列。</p></li>
+<li><p>排队规则：FCFS、LCFS、RSS（random）、PS（priority）、GD（一般规则）</p></li>
+</ul>
+<h4 id="服务规则">服务规则</h4>
+<ul>
+<li>服务机构（1 / 多）个</li>
+<li>服务台：并行、串行、混合排列</li>
+<li>服务方式：单个/批处理</li>
+</ul>
+<h2 id="数量指标">数量指标</h2>
+<p>每天的排队人数是随机的，所以取长期的平均值。</p>
+<ul>
+<li><p><span class="math inline">\(L_s\)</span>：(line
+system)平均队长。既在排队、又在接受服务的人。</p></li>
+<li><p><span class="math inline">\(L_q\)</span>：(line
+query)平均队<strong>列</strong>长。只包括排队的人，不包括正在接受服务的人。</p></li>
+<li><p><span class="math inline">\(W_s\)</span>：(wait
+system)平均逗留时间。顾客在这个系统中（排队+服务）停留的时间平均值。</p></li>
+<li><p><span class="math inline">\(W_q\)</span>：(wait
+query)平均等待时间。顾客在排队的时间的平均值。</p></li>
+</ul>
+<p><strong>为求解以上4个指标，引入</strong>：</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/07/03/e5f54faf244ba774.png" style="zoom: 50%;" /></p>
+<h2 id="记号方案">记号方案</h2>
+<h4 id="kendall-记号">Kendall 记号</h4>
+<ul>
+<li><code>X</code>：顾客到达的时间分布，输入过程的特征。</li>
+<li><code>Y</code>：服务时间分布。</li>
+<li><code>Z</code>：服务台的个数。取值 1/c（<span
+class="math inline">\(c \gt 1\)</span>，表示多个服务台）</li>
+<li><code>A</code>：排队系统允许的最大顾客容量。取值有限/无限。</li>
+<li><code>B</code>：顾客总体数量，指不在排队的、外部的顾客数量。（多分
+）取值有限/无限。</li>
+<li><code>C</code>：排队队则，如FCFS。</li>
+</ul>
+<p>常见：<span class="math inline">\(X/Y/Z/A/B/C = M/M/1/\infty/ \infty
+/FCFS\)</span></p>
+<p><strong>X/Y</strong>：</p>
+<ul>
+<li>M：表示泊松过程 or 负指数分布</li>
+<li>D：表示确定型分布</li>
+<li><span class="math inline">\(E_k\)</span>：表示 k
+阶埃尔朗分布（综合到一起的分布）</li>
+<li>G：表示一般服务时间分布</li>
+<li>GI：表示一般相互独立的时间间隔分布</li>
+</ul>
+<h2 id="排队论模型-1">排队论模型</h2>
+<h3 id="单服务台模型fcfs">单服务台模型(FCFS)</h3>
+<h4 id="mm1标准型"><span
+class="math inline">\(M/M/1\)</span>（标准型）</h4>
+<p>$ M/M/1// /FCFS$</p>
+<p><strong>求解要建立稳态概率方程</strong>： <span
+class="math display">\[
+\begin{cases}
+\lambda P_0=\mu P_1 \\
+\lambda P_{n-1}+\mu P_{n+1}-(\lambda +\mu)P_n=0&amp; ,n\ge 1 \\
+\end{cases}
+\]</span> 由递推公式得： <span class="math display">\[
+P_n = (\frac{\lambda}{\mu})^n P_0
+\]</span> 令<span class="math inline">\(\rho =
+\frac{\lambda}{\mu}\)</span>： <span class="math display">\[
+\sum^{\infty}_{n=0}P_n=1\\
+P_0\sum^{\infty}_{n=0}P_n= \frac{P_0}{1-\rho}=1
+\]</span> 故： <span class="math display">\[
+P_0=1-\rho\\
+P_n=(1-\rho)\rho^n
+\]</span> 这是系统状态为 <span class="math inline">\(n\)</span>
+的概率，然后接下来计算上述的4个指标。</p>
+<p><strong>平均队长</strong><span
+class="math inline">\(L_s\)</span>：(serve+queue) <span
+class="math display">\[
+L_s=\sum_{n=1}^\infty nP_n=\sum_{n=1}^\infty n (1-\rho)\rho^n =
+\frac{\rho}{1-\rho}=\frac{\lambda}{\mu-\lambda}
+\]</span> <strong>平均队列长</strong><span
+class="math inline">\(L_q\)</span>：(queue) <span
+class="math display">\[
+L_q=\sum_{n=1}^\infty(n-1)P_n=\frac{\rho\lambda}{\mu-\lambda}
+\]</span> <strong>平均逗留时间</strong><span
+class="math inline">\(W_s\)</span>：(serve+queue) <span
+class="math display">\[
+W_S=\frac 1{\mu-\lambda}=\frac{\rho}{\lambda(1-\rho)}
+\]</span> <strong>平均等待时间</strong><span
+class="math inline">\(W_q\)</span>：(queue) <span
+class="math display">\[
+W_q=W_s-\frac 1{\mu}=\frac{\rho}{\mu-\lambda}=\rho\times W_S
+\]</span>
+<img src="https://s3.bmp.ovh/imgs/2022/07/03/3a1fb146106946da.png" style="zoom:50%;" /></p>
+<h4 id="mm1n">$ M/M/1/N/ $</h4>
+<p><strong>其稳态概率方程</strong>： <span class="math display">\[
+\left\{
+\begin{aligned}
+\lambda P_1&amp;=\mu P_1 \\
+\lambda P_{n-1}+\mu P_{n+1}&amp;=(\lambda +\mu)P_n&amp; ,1\le n\le N-1
+\\
+\mu P_N&amp;=\lambda P_{N-1}
+\end{aligned}
+\right.
+\]</span></p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/07/03/e9ca13e1d6d8b509.png" style="zoom:50%;" /></p>
+<p>它的计算结果已知，自己去Google。</p>
+<h4 id="mm1m">$ M/M/1//m$</h4>
+<p>顾客的总体数量是有限的，该模型等价于<span
+class="math inline">\(M/M/1/m/m\)</span></p>
+<p>假设每个顾客到达率相同且为 <span
+class="math inline">\(\lambda\)</span>，在系统外的平均顾客数为 <span
+class="math inline">\(m-L_S\)</span>。</p>
+<p>系统的有效到达率<span class="math inline">\(\lambda
+_e=\lambda(m-L_s)\)</span></p>
+<p><em>(有效到达率与顾客总容量以及当前剩余的容量有关)</em></p>
+<p><strong>其稳态方程</strong>： <span class="math display">\[
+\left\{
+\begin{aligned}
+m\lambda_e P_1&amp;=\mu P_1 \\
+(m-n+1)\lambda_e P_{n-1}+\mu P_{n+1}&amp;=[(m-n)\lambda_e +\mu]P_n&amp;
+,1\le n\le m-1 \\
+\mu P_m&amp;=\lambda_e P_{m-1}
+\end{aligned}
+\right.
+\]</span>
+<img src="https://s3.bmp.ovh/imgs/2022/07/03/93599712c29fb995.png" style="zoom:50%;" /></p>
+<h3 id="多服务台模型fcfs">多服务台模型（FCFS）</h3>
+<h4 id="mmc标准型"><span
+class="math inline">\(M/M/c\)</span>（标准型）</h4>
+<p>顾客流为泊松流，平均到达率为 <span
+class="math inline">\(\lambda\)</span>，各个服务台的平均服务率是 <span
+class="math inline">\(\mu\)</span>，则：</p>
+<p><strong>整个服务机构的平均服务率是</strong>：<span
+class="math inline">\(n\mu\ (n \lt c)\)</span> or <span
+class="math inline">\(c\mu\ (n\ge c)\)</span>，令<span
+class="math inline">\(\rho =
+\frac{\lambda}{c\mu}\)</span>(系统服务强度)</p>
+<p>当 <span class="math inline">\(\rho &gt;1\)</span>
+时，会出现排队现象。</p>
+<p><strong>稳态方程如下。</strong> <span class="math display">\[
+\begin{cases}
+\lambda P_0=\mu P_1 \\
+\lambda P_{n-1}+(n-1)\mu P_{n+1}=(\lambda +n\mu)P_n&amp; ,1\le n\le c \\
+c\mu P_{n+1}+\lambda P_{n-1}=(\lambda+c\mu)P_n&amp;,n\gt c
+\end{cases}
+\]</span>
+<img src="https://s3.bmp.ovh/imgs/2022/07/03/2e0096930e842c38.png" style="zoom:45%;" /></p>
+<h4 id="mmcninfty系统容量有限型"><span
+class="math inline">\(M/M/c/N/\infty\)</span>（系统容量有限型）</h4>
+<h4 id="mmcinftym顾客源有限型"><span
+class="math inline">\(M/M/c/\infty/m\)</span>（顾客源有限型）</h4>
+<p>略，Google。</p>
+]]></content>
+      <tags>
+        <tag>数学模型</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数模日记2</title>
+    <url>/2022/07/03/%E6%95%B0%E6%A8%A1%E6%97%A5%E8%AE%B02/</url>
+    <content><![CDATA[<h1 id="综合评价">综合评价</h1>
+<p>[TOC]</p>
+<p>评价的对象有多个，评价的指标也有多个。</p>
+<p>基本思想是将多个指标转化为一个能够反映综合情况的指标来进行评价。</p>
+<h2 id="一般步骤-数据处理">一般步骤 &amp; 数据处理</h2>
+<h3 id="步骤">步骤</h3>
+<ol type="1">
+<li>选择恰当的评价指标</li>
+<li>确定各评价指标的权重</li>
+<li>合理确定各单个指标的评价等级及其界限</li>
+<li>建立综合评价模型</li>
+<li>确定多指标综合评价的等级数量界限，并根据实践对已建立模型考察、修改和完善。</li>
+</ol>
+<h3 id="数据处理">数据处理</h3>
+<p>量化。将评价的如“质量很高”转换成打分“9”这样。</p>
+<p><strong>指标类型的一致化</strong>：（化为极大型，越大越好）</p>
+<ul>
+<li><p>对于极小型指标<span class="math inline">\(a_{ij}\)</span>：</p>
+<p><span class="math inline">\(b_{ij}=M-a_{ij}\)</span>，M是max；</p>
+<p><span class="math inline">\(b_{ij}=\frac{1}{a_{ij}}\)</span></p></li>
+<li><p>对于居中型指标<span class="math inline">\(a_{ik}\)</span>：</p>
+<p>==越靠近中间，指标评估越大。== <span class="math display">\[
+b_{ik}=
+\left\{
+\begin{aligned}
+\frac{2(a_{ik}-m)}{M-m} \ \ \ &amp;m\le a_{ik}\le \frac{m+M}{2}\\
+\frac{2(M-a_{ik})}{M-m} \ \ \ &amp;\frac{m+M}{2}\le a_{ik} \le M\\
+\end{aligned}
+\right.
+\]</span></p></li>
+</ul>
+<p><strong>标准化</strong>：将单位一致化。</p>
+<ul>
+<li>向量归一法</li>
+</ul>
+<p><img src="https://s3.bmp.ovh/imgs/2022/06/29/ee4194c4afffdc7a.png" style="zoom:50%;" /></p>
+<ul>
+<li>极差变换法</li>
+</ul>
+<p><img src="https://s3.bmp.ovh/imgs/2022/06/29/bf4868362de2b313.png" style="zoom: 33%;" /></p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/06/29/7d05577037fd7ed0.png" style="zoom:33%;" /></p>
+<ul>
+<li>线选比例法</li>
+</ul>
+<p><img src="https://s3.bmp.ovh/imgs/2022/06/29/90292b7e557d1d76.png" style="zoom:33%;" /></p>
+<h2 id="评价方法">评价方法</h2>
+<p><strong>非线性加权</strong>，适用于各指标间有较强的关联性。</p>
+<blockquote>
+<ol type="1">
+<li>突出了各指标值的一致性，即平衡评价指标值较小的指标影响的作用。</li>
+<li>权重系数大小的影响不是特别明显，而对指标值的大小差异相对较敏感。</li>
+</ol>
+</blockquote>
+<h3 id="模糊综合评价">模糊综合评价</h3>
+<h4 id="模糊子集-隶属函数">模糊子集 &amp; 隶属函数</h4>
+<h2 id="灰色系统">灰色系统</h2>
+<p>信息不完全的系统。</p>
+]]></content>
+      <tags>
+        <tag>数学模型</tag>
       </tags>
   </entry>
 </search>
