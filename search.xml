@@ -1,0 +1,2794 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>2023.3.13</title>
+    <url>/2023/03/13/2023-3-13/</url>
+    <content><![CDATA[<p>我在考虑要不要去找份实习。问一下吧。</p>
+<p>问问有些已经有这个意向的同学。<strong>不，已经问了袁权了。他说明天去找他。</strong></p>
+<p>先去试一把呗，搞不好可以呢。</p>
+<p>找日常实习。</p>
+<p>目前最为要紧的是CCFCSP一定要过，然后再是张亮的代码讲解。还有三天的时间。</p>
+<p>[TOC]</p>
+<h4 id="z字扫描zigzag-scan">Z字扫描(Zigzag Scan)</h4>
+<p>将二维矩阵压缩成行输出：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> index=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;rows+cols<span class="number">-1</span>;i++)&#123;<span class="comment">//i是第几条对角线</span></span><br><span class="line">    <span class="keyword">if</span>(i&amp;<span class="number">1</span>)&#123;<span class="comment">//odd,向下扫描</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="built_in">max</span>(<span class="number">0</span>,i-cols+<span class="number">1</span>);j&lt;=<span class="built_in">min</span>(i,row<span class="number">-1</span>);j++)&#123;</span><br><span class="line">            res[index++]=mtx[j][i-j];</span><br><span class="line">        &#125;<span class="comment">//</span></span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;<span class="comment">//偶数，向上扫描</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="built_in">min</span>(i,rows<span class="number">-1</span>);j&gt;=<span class="built_in">max</span>(<span class="number">0</span>,i-cols+<span class="number">1</span>);j--)&#123;</span><br><span class="line">            res[index++]=mtx[j][i-j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//假如是正方形：</span></span><br><span class="line"><span class="type">int</span> n,index;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">2</span>*n<span class="number">-1</span>;i++)&#123;</span><br><span class="line">    <span class="keyword">if</span>(i&amp;<span class="number">1</span>)&#123;<span class="comment">//odd</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="built_in">max</span>(i,i-n+<span class="number">1</span>);j&lt;=<span class="built_in">min</span>(i,n<span class="number">-1</span>);j--)&#123;</span><br><span class="line">            res[index++]=mtx[j][i-j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;<span class="comment">//偶数</span></span><br><span class="line">    	<span class="keyword">for</span>(<span class="type">int</span> j=<span class="built_in">min</span>(i,n<span class="number">-1</span>);j&gt;=<span class="built_in">max</span>(i,i-n+<span class="number">1</span>);j++)&#123;</span><br><span class="line">            res[index++]=mtx[j][i-j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>那么反过来，输入一串数字，变成Z型矩阵：</p>
+<blockquote>
+<p>只需要更改中间赋值代码：</p>
+<p><code>res[index++]=mtx[j][i-j]</code>-&gt;<code>mtx[j][i-j]=res[index++]</code></p>
+</blockquote>
+<p>根据CCF例题中读入扫描数据，将扫描数据按照这样的顺序写入矩阵
+M：从左上角<span
+class="math inline">\(M_{0,0}\)</span>开始，接下来填充它的右侧相邻的元素<span
+class="math inline">\(M_{0,1}\)</span>，然后依次向左下方填充直至<span
+class="math inline">\(M_{1,0}\)</span>，接下来从它下侧相邻的元素<span
+class="math inline">\(M_{2,0}\)</span>开始，依次向右上方填充直至 <span
+class="math inline">\(M_{0,2}\)</span>，依次类推，循环往复，直至填充满整个矩阵或用尽所有扫描数据。</p>
+<blockquote>
+<p>由于 Z 字形扫描的路径是从左上角到右下角，数组结尾处可能存在着连续的
+0，为了节省空间，可以不存储这些连续的 0。得到的数据被称为扫描数据。</p>
+</blockquote>
+<p>输入的数组元素可能是只有部分，针对它的实现是：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> index=<span class="number">1</span>,n;<span class="comment">//n是数组的元素个数=8</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">15</span>;i++)&#123;<span class="comment">//2*8-1=15</span></span><br><span class="line">	<span class="keyword">if</span>(i&amp;<span class="number">1</span>)&#123;<span class="comment">//odd</span></span><br><span class="line">    	<span class="keyword">for</span>(<span class="type">int</span> j=<span class="built_in">max</span>(<span class="number">0</span>,i<span class="number">-7</span>);j&lt;=<span class="built_in">min</span>(i,<span class="number">7</span>);j++)&#123;</span><br><span class="line">       		<span class="type">int</span> num=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span>(index&lt;=n)&#123;</span><br><span class="line">                cin&gt;&gt;num;</span><br><span class="line">                index++;</span><br><span class="line">            &#125;</span><br><span class="line">            mtx[j][i-j]=num;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="built_in">min</span>(i,<span class="number">7</span>);j&gt;=<span class="built_in">max</span>(<span class="number">0</span>,i<span class="number">-7</span>);j--)&#123;</span><br><span class="line">            <span class="type">int</span> num=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span>(index&lt;=n)&#123;</span><br><span class="line">                cin&gt;&gt;num;</span><br><span class="line">                index++;</span><br><span class="line">            &#125;</span><br><span class="line">            mtx[j][i-j]=num;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面又有可以进行优化的地方。在初始化的时候我们把每个矩阵元素都置为0.所以可以在满足条件之后跳出。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> n;<span class="comment">//输入数组元素的个数</span></span><br><span class="line"><span class="type">int</span> index=<span class="number">1</span>;</span><br><span class="line"><span class="type">bool</span> flag=<span class="literal">false</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">15</span>;i++)&#123;</span><br><span class="line">	<span class="keyword">if</span>(i&amp;<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="built_in">max</span>(<span class="number">0</span>,i<span class="number">-7</span>);j&lt;=<span class="built_in">min</span>(i,<span class="number">7</span>);j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(index==n)&#123;</span><br><span class="line">                flag=<span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            index++;</span><br><span class="line">            cin&gt;&gt;mtx[j][i-j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="built_in">min</span>(i,<span class="number">7</span>);j&gt;=<span class="built_in">max</span>(<span class="number">0</span>,i<span class="number">-7</span>);j--)&#123;</span><br><span class="line">            <span class="keyword">if</span>(index==n)&#123;</span><br><span class="line">                flag=<span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            index++;</span><br><span class="line">            cin&gt;&gt;mtx[j][i-j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(flag)<span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="并查集union-find-set">并查集(Union Find Set)</h4>
+<p>并查集支持：</p>
+<ul>
+<li>查询：两个点u，v是否属于同一个集合。(==查询根节点是否一样,递归==)</li>
+<li>合并：把u，v所在的集合合并成一个。(==把A的根节点更换为B树上的节点==)</li>
+</ul>
+<p>使用数组来模拟树结构，数组index=i位置上存的树，表示i节点父节点的编号。</p>
+<table>
+<thead>
+<tr class="header">
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>4</td>
+<td>4</td>
+<td>6</td>
+<td>6</td>
+<td>7</td>
+</tr>
+</tbody>
+</table>
+<p>存储直接父亲是谁。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> father[<span class="number">1e5</span>];</span><br><span class="line"><span class="comment">//Init初始化</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">    father[i]=i;<span class="comment">//自己是自己的父亲，每个节点都是一个独立的集合。</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> a)</span></span>&#123;<span class="comment">//查找节点a的父亲</span></span><br><span class="line">    <span class="keyword">if</span>(father[a]==a)<span class="keyword">return</span> a;</span><br><span class="line">    <span class="keyword">return</span> father[a]=<span class="built_in">find</span>(father[a]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">merge</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span></span>&#123;</span><br><span class="line">     father[<span class="built_in">find</span>(x)]=father[y];</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="路径压缩">路径压缩</h5>
+<p>当树的深度比较深，将其</p>
+<h4 id="动态规划dynamic-plan">动态规划(Dynamic Plan)</h4>
+<p>是我觉得很麻烦且一直没掌握好的dp。</p>
+<p>给出一个数组，找出最长的递增的子序列。</p>
+<blockquote>
+<p>[1,5,2,4,3]-&gt;3 [1,2,4]or[1,2,3]</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//dfs</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">L</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;nums,<span class="type">int</span> i)</span></span>&#123;<span class="comment">//nums是array，i标记此时的深度</span></span><br><span class="line">    <span class="type">int</span> max_len=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(i==nums.<span class="built_in">size</span>()<span class="number">-1</span>)&#123;<span class="comment">//最后一个number</span></span><br><span class="line">    	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j=i+<span class="number">1</span>,j&lt;=nums.<span class="built_in">size</span>();j++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums[j]&gt;nums[i])max_len=<span class="built_in">max</span>(max_len,<span class="built_in">L</span>(nums,j)+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max_len;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用递归去深搜比较慢。因此选择对算法进行优化：</p>
+<p>动态规划避免重复节点的计算，利用Hash表来保存计算的中间结果。</p>
+<p>好吧这个还没有学会，明天继续。</p>
+]]></content>
+      <tags>
+        <tag>每天の学习日记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2023.3.10</title>
+    <url>/2023/03/10/2023-3-10/</url>
+    <content><![CDATA[<p>考柿考完了的第一天。</p>
+<p>今天的任务是：</p>
+<ul>
+<li><p>Spider（话说我的目的是---）</p></li>
+<li><p>UC/OS-2、与AJ的课程--制定计划</p></li>
+<li><p>算法--查找</p></li>
+<li><p>力扣-5个题</p></li>
+<li><p>开始收集信息-参加夏令营-老师-需要哪些芝士</p></li>
+</ul>
+<p>1.自己准备好自己的各项资料，包括成绩排名证明、荣誉称号、奖学金、科研竞赛奖状、英语成绩、近期一寸照片、身份证扫描、学生证扫描等等。</p>
+<p>2.撰写文书：一页纸简历、个人陈述、自我介绍。</p>
+<p>3.复习专业课以及准备可能被问到的英语问题及回答。</p>
+<p>4.报名夏令营的同时积极联系老师。</p>
+<blockquote>
+<p>资料：成绩排名、各类奖状、身份证学生证扫描</p>
+<p>文书：简历（个人陈述），推荐信</p>
+</blockquote>
+<h4 id="二分查找">二分查找</h4>
+<p>基本条件是==数组有序，查找的数量是一个==。</p>
+<p>需要注意的是[low,high]还是[low,high)or(low,high]。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span>(low&lt;=high)&#123;</span><br><span class="line">	<span class="type">int</span> mid=low+high&gt;&gt;<span class="number">1</span>;<span class="comment">//&gt;&gt;的优先级低于+，向下取整。若是向上取整：low+high+1&gt;&gt;1</span></span><br><span class="line">	<span class="keyword">if</span>(nums[mid]&gt;target)&#123;</span><br><span class="line">		high=mid;</span><br><span class="line">	&#125;<span class="keyword">else</span> <span class="keyword">if</span>(nums[mid]&lt;target)&#123;</span><br><span class="line">		low=mid;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;<span class="keyword">return</span> mid;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面是梳理过程：</p>
+<p><img src="https://s1.ax1x.com/2023/03/10/ppu8SbR.png" style="zoom: 33%;" /></p>
+<p><img src="https://s1.ax1x.com/2023/03/10/ppu8ZKH.png" style="zoom:33%;" /></p>
+<h4 id="二分答案">二分答案</h4>
+<p>二分答案指的是我想要的答案在一个区间(需要自己去找到这个区间)，然后逐步缩小这个区间，得到我们的值。</p>
+<p>luogugu上面有典题：木材加工<a
+href="https://www.luogu.com.cn/problem/P2440">P2440 木材加工</a></p>
+<blockquote>
+<p>大概题意是给你一些数量的木头，然后把这些木头分别裁成相同长度的小块。比如有11
+21cm的两块木头，需要被裁成6块等长的小木块。</p>
+<p>我可以在11上切2块，21上切4块。那么切割出来的6块小木块的最长长度是5。我是这么算的：</p>
+<p>（11+21）/6=5······2</p>
+</blockquote>
+<p>当然这个例子是很简单的一个例子，可能存在的情况是：</p>
+<ul>
+<li>得到的数字远远大于其中某一节木块(1
+100切5块)，那么我应该选择不使用1这个木块，而是选择把100切5段，得到20.</li>
+<li>在相差不是很大的情况下，均分除出来的数字比其中一节木块大，考虑直接使用最小的那节木块的长度来切。</li>
+</ul>
+<p>==将最值问题转化为判定问题==</p>
+<p>init区间：[1,max(木头)]</p>
+<ul>
+<li>长度越长，切出来的个数越少。</li>
+<li>当长度x能满足条件时，小于长度x的一定也能满足条件。（low符合）</li>
+<li>所以看high这边还有没有符合的。（进行二分）</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">check</span><span class="params">(<span class="type">int</span> mid)</span></span>&#123;</span><br><span class="line">    <span class="comment">//验证小段木头的长度为mid时是否可以满足条件</span></span><br><span class="line">    <span class="type">long</span> <span class="type">long</span> sum=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;<span class="comment">//len木头数组遍历</span></span><br><span class="line">        sum+=len[i]/mid;<span class="comment">//第i根木头除mid</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum&gt;=k;<span class="comment">//true false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="力扣">力扣</h3>
+<h4 id="判断-栈弹出-得到的序列是否有效y">判断 栈弹出
+得到的序列是否有效、Y</h4>
+]]></content>
+      <tags>
+        <tag>每天の学习日记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2023.3.17</title>
+    <url>/2023/03/17/2023-3-17/</url>
+    <content><![CDATA[<p>[TOC]</p>
+<h3 id="dp解题思路">DP解题思路</h3>
+<ol type="1">
+<li>分解子问题
+<ul>
+<li>根据题目特点，合理划分解决问题的阶段，每个阶段都解决一个和原问题相同的子问题</li>
+<li>子问题能解决，原问题就可以解决</li>
+<li>子问题的结果被保存，确保每个子问题只计算一次</li>
+</ul></li>
+<li>确定状态
+<ul>
+<li>对于每个子问题，相关变量的一组取值，叫做一个状态</li>
+<li>一个状态的值，就是这个状态下子问题的解</li>
+<li>状态の集合，叫做本问题的状态空间</li>
+<li>比如一个状态可以用k个整数表示，状态空间一般是k维数组</li>
+<li>状态该的值不一定是一个整数，可以是一个数据结构</li>
+</ul></li>
+<li>状态转移
+<ul>
+<li>首先确定Init初始状态（比如：fib(1)=fib(0)=1)</li>
+<li>确定状态之间如何迁移(比如：fib(n)=fib(n-1)+fib(n-2)，为状态转移方程)</li>
+</ul></li>
+</ol>
+<h3 id="dp能解决问题的特点">DP能解决问题的特点</h3>
+<ul>
+<li><p>最优子结构：问题的最优解所包含的子问题的解是最优的。</p></li>
+<li><p>无后效性：当前的若干个状态值一旦确定，则后续过程的演变就<strong>只与当前状态的值有关</strong>。和之前演变路径无关。</p></li>
+</ul>
+<blockquote>
+<p>这个就和图论不太一样，比如BF算法就会和之前的状态的值相关捏。</p>
+</blockquote>
+<h3 id="线性dp">线性DP</h3>
+<p>所有的状态是在一个线性状态下进行递推。</p>
+<blockquote>
+<p>最长上升子序列问题(LIS)</p>
+<ul>
+<li>dp[i]:以数组第i个数截为的最长上升子序列的最大长度</li>
+<li>dp[i]=max{dp[j]}+1(j&lt;i,a[j]&lt;a[i],边界条件：dp(1)=1)</li>
+<li>最终答案是max{dp(i)}：求完dp数组后再取max</li>
+<li>==时间复杂度：O(<span class="math inline">\(n^2\)</span>)==</li>
+</ul>
+</blockquote>
+<h4 id="p1020">P1020</h4>
+<p>某国为了防御敌国的导弹袭击，发展出一种导弹拦截系统。但是这种导弹拦截系统有一个缺陷：虽然它的第一发炮弹能够到达任意的高度，但是以后每一发炮弹都不能高于前一发的高度。某天，雷达捕捉到敌国的导弹来袭。由于该系统还在试用阶段，所以只有一套系统，因此有可能不能拦截所有的导弹。输入导弹依次飞来的高度，<strong>计算这套系统最多能拦截多少导弹</strong>，<strong>如果要拦截所有导弹最少要配备多少套这种导弹拦截系统。</strong></p>
+<p><code>dilworthd定理</code>:</p>
+<blockquote>
+<ul>
+<li>用最长不上升子序列覆盖整个序列，所需要的最少个数=最长上升序列长度</li>
+<li>用最长上升子序列覆盖整改序列，所需要的最少个数=最长不上升序列长度</li>
+</ul>
+</blockquote>
+<p><strong>所以P1020相当于求一个最长不上升子序列，再求一个最长上升子序列。</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> a[<span class="number">100005</span>],dp[<span class="number">100005</span>];</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=N;i++)&#123;</span><br><span class="line">    dp[i]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;i;j++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(a[j]&lt;a[i])dp[i]=<span class="built_in">max</span>(dp[i],dp[j]+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    ans=<span class="built_in">max</span>(ans,dp[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>由于这个的算法复杂度为O(<span
+class="math inline">\(n^2\)</span>)，需要将算法优化到O(<span
+class="math inline">\(nlogn\)</span>)才能过。</p>
+</blockquote>
+<p><strong>二分优化时间复杂度</strong></p>
+<ul>
+<li>dp[i]：表示长度为i的上升子序列的最小的结尾。</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>index</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>a</td>
+<td>1</td>
+<td>7</td>
+<td>3</td>
+<td>5</td>
+<td>9</td>
+<td>4</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<td>dp_1</td>
+<td>1</td>
+<td>7</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>dp_2</td>
+<td>1</td>
+<td>3</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dp_3</td>
+<td>1</td>
+<td>3</td>
+<td>5</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>dp_4</td>
+<td>1</td>
+<td>3</td>
+<td>5</td>
+<td>9</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dp_5</td>
+<td>1</td>
+<td>3</td>
+<td>4</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>dp_6</td>
+<td>1</td>
+<td>3</td>
+<td>4</td>
+<td>8</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> max_length=<span class="number">0</span>;</span><br><span class="line">dp[<span class="number">0</span>]=<span class="number">200000</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">    <span class="keyword">if</span>(dp[max_length]&gt;=a[i])&#123;<span class="comment">//计算的是最长不上升子序列，所以要小才好</span></span><br><span class="line">        dp[++max_length]=a[i];</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;<span class="comment">//二分</span></span><br><span class="line">        <span class="type">int</span> l=<span class="number">1</span>,r=max_length;</span><br><span class="line">        <span class="keyword">while</span>(l&lt;r)&#123;</span><br><span class="line">            <span class="type">int</span> mid=(l+r)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(dp[mid]&lt;a[i])&#123;</span><br><span class="line">                ans=mid;</span><br><span class="line">                r=mid<span class="number">-1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                l=mid+<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        dp[ans]=a[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="poj1458">POJ1458</h4>
+<p>最长公共子序列：子序列中的每个字符都能在两个原串中找到，而且每个字符的先后顺序与原串中的先后顺序一致。</p>
+<p>设：<span
+class="math inline">\(len_1=strlen(s_1),len_2=strlen(s_2)\)</span>，则题目要求
+求<span class="math inline">\(f(len1,len2)\)</span>.</p>
+<p>初始条件：<span class="math inline">\(f(i,0)=0\
+i=1,2,...,len1\)</span>，<span class="math inline">\(f(0,j)=0\
+j=1,2,...,len2\)</span> <span class="math display">\[
+f(i,j)=\begin{cases}
+f(i-1,j-1)+1,&amp;s_1[i]=s_2[i]\\
+max(f(i,j-1),f(i-1,j)),&amp;s_1[i]\ne s_2[i]\\
+\end{cases}
+\]</span></p>
+<h4 id="p2758-编辑距离">P2758-编辑距离</h4>
+<p>设 <span class="math inline">\(A\)</span> 和 <span
+class="math inline">\(B\)</span>
+是两个字符串。我们要用最少的字符操作次数，将字符串 <span
+class="math inline">\(A\)</span> 转换为字符串 <span
+class="math inline">\(B\)</span>。这里所说的字符操作共有三种：</p>
+<ol type="1">
+<li>删除一个字符；</li>
+<li>插入一个字符；</li>
+<li>将一个字符改为另一个字符。</li>
+</ol>
+<p><span class="math inline">\(A, B\)</span> 均只包含小写字母。</p>
+<p><code>dp[i][j]</code>：表示第一个串用到第i个字符，第二个串用到第j个字符的最小边集距离。</p>
+<p>IF a[i]==b[j]：匹配，<code>dp[i][j]=dp[i-1][j-1]</code></p>
+<p>ELSE：有三种处理方式：</p>
+<ul>
+<li>去掉a[i]</li>
+<li>去掉b[j]</li>
+<li>改写a[i]-&gt;b[j]</li>
+</ul>
+<p><span class="math display">\[
+dp[i][j]=\begin{cases}
+dp[i-1][j-1],&amp;a[i]=b[j]\\
+min(dp[i-1][j-1],dp[i][j-1],dp[i-1][j])+1,&amp;a[i]\ne b[j]\\
+\end{cases}
+\]</span></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> dp[<span class="number">2005</span>][<span class="number">2005</span>];</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">char</span> a[<span class="number">2005</span>],b[<span class="number">2005</span>];</span><br><span class="line">   </span><br><span class="line">    cin&gt;&gt;(a+<span class="number">1</span>)&gt;&gt;(b+<span class="number">1</span>);<span class="comment">//表示从a[1]开始输入数据</span></span><br><span class="line">	a[<span class="number">0</span>]=<span class="string">&#x27; &#x27;</span>,b[<span class="number">0</span>]=<span class="string">&#x27; &#x27;</span>;</span><br><span class="line">    <span class="type">int</span> len_a=<span class="built_in">strlen</span>(a),len_b=<span class="built_in">strlen</span>(b);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;len_a;i++)&#123;dp[i][<span class="number">0</span>]=i;&#125;<span class="comment">//这个是当一串子串为空，另一串不为空时需要的编辑距离</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;len_b;j++)&#123;dp[<span class="number">0</span>][j]=j;&#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;len_a;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;len_b;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a[i]==b[i])&#123;</span><br><span class="line">                dp[i][j]=dp[i<span class="number">-1</span>][j<span class="number">-1</span>];</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                dp[i][j]=<span class="built_in">min</span>(dp[i<span class="number">-1</span>][j<span class="number">-1</span>],<span class="built_in">min</span>(dp[i<span class="number">-1</span>][j],dp[i][j<span class="number">-1</span>])+<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;dp[len_a<span class="number">-1</span>][len_b<span class="number">-1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>每天の学习日记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2023.3.14</title>
+    <url>/2023/03/14/2023-3-14/</url>
+    <content><![CDATA[<p>今天有三节课，但是没事，可以翘。</p>
+<p>今天有算法分析作业。</p>
+<p>[TOC]</p>
+<p>record一下：</p>
+<p><img src="https://s1.ax1x.com/2023/03/14/ppl1y6O.png" /></p>
+<h3 id="动态规划">动态规划</h3>
+<blockquote>
+<h1
+id="为什么使用递归求斐波纳契数列很慢">为什么使用递归求斐波纳契数列很慢？</h1>
+<p>复杂度是<span
+class="math inline">\(2^n\)</span>（大概），多个重叠子问题，重复计算。<strong>使用空间换时间，避免重复计算。</strong></p>
+<p>我算fib(5) -&gt; fib(3) + fib(4) -&gt; fib(1)+fib(2) +
+fib(2)+fib(3)</p>
+</blockquote>
+<h4 id="basic-idea">Basic idea</h4>
+<ul>
+<li>保存子问题的结果，避免重复计算。</li>
+<li>用额外的数据保存（备忘录memo）</li>
+<li>空间换时间</li>
+<li>大问题可以由子问题推出（状态转移）<em>我个人感觉很像分治</em></li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> memo[<span class="number">10005</span>];</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">fib</span><span class="params">(<span class="type">int</span> n)</span></span>&#123;<span class="comment">//[递归+备忘]</span></span><br><span class="line">    <span class="keyword">if</span>(memo[n]!=<span class="number">0</span>)<span class="keyword">return</span> memo[n];</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">1</span>||n==<span class="number">2</span>)<span class="keyword">return</span> memo[n]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> memo[n]=<span class="built_in">fib</span>(n<span class="number">-1</span>)+<span class="built_in">fib</span>(n<span class="number">-2</span>);</span><br><span class="line">&#125;<span class="comment">//时间复杂度O(n)</span></span><br></pre></td></tr></table></figure>
+<h5 id="p1216">P1216</h5>
+<p><img src="https://s1.ax1x.com/2023/03/14/ppllIL4.png" /></p>
+<p><strong>递归：</strong><span
+class="math inline">\(d(r,j)\)</span>表示第r行，第j个数（r,j从1开始）</p>
+<p><code>maxSum(r,j)</code>:表示从(r,j)位置到底表最优路线和。 <span
+class="math display">\[
+maxSum(r,j)=\begin{cases}
+d(r,j)&amp;r=n\\
+Max(maxSum(r+1,j),maxSum(r+1,j+1))+d(r,j)&amp;r\ne n\\
+\end{cases}
+\]</span></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> MAXN=<span class="number">1005</span>;</span><br><span class="line"><span class="type">int</span> d[MAXN][MAXN];</span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">maxSum</span><span class="params">(<span class="type">int</span> r,<span class="type">int</span> j)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(r==n)<span class="keyword">return</span> d[r][j];</span><br><span class="line">    <span class="type">int</span> x=<span class="built_in">maxSum</span>(r+<span class="number">1</span>,j);</span><br><span class="line">    <span class="type">int</span> y=<span class="built_in">maxSum</span>(r+<span class="number">1</span>,j+<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">max</span>(x,y)+d[r][j];</span><br><span class="line">&#125;<span class="comment">//也可以把求过的点存下来</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=i;j++)&#123;cin&gt;&gt;d[r][j];&#125;</span><br><span class="line">    &#125;<span class="comment">//感觉可以优化的地方有很多，这里使用的二维数组，可以压缩成一维的。</span></span><br><span class="line">    cout&lt;&lt;<span class="built_in">maxSum</span>(<span class="number">1</span>,<span class="number">1</span>)&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用MEMO：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> memo[MAXN][MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">maxSum</span><span class="params">(<span class="type">int</span> r,<span class="type">int</span> j)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(memo[r][j]!=<span class="number">-1</span>)<span class="keyword">return</span> memo[r][j];</span><br><span class="line">    <span class="keyword">if</span>(r==n)<span class="keyword">return</span> memo[r][j]=d[r][j];</span><br><span class="line">    <span class="type">int</span> x=<span class="built_in">maxSum</span>(r+<span class="number">1</span>,j);</span><br><span class="line">    <span class="type">int</span> y=<span class="built_in">maxSum</span>(r+<span class="number">1</span>,j+<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> memo[r][j]=<span class="built_in">max</span>(x,y)+d[r][j];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    <span class="built_in">memset</span>(memo,<span class="number">-1</span>,<span class="built_in">sizeof</span>(memo));</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=i;j++)&#123;cin&gt;&gt;d[i][j];&#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;<span class="built_in">maxSum</span>(<span class="number">1</span>,<span class="number">1</span>)&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的这种方法是自顶向下的：在main函数内是<code>maxSum(1,1)</code>从第一行第一个元素开始。</p>
+<p>我们也可以选择从下往上填MEMO。</p>
+<p>递推+填表</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 23%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>7</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th>|</th>
+<th>30</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>3</td>
+<td>8</td>
+<td></td>
+<td></td>
+<td></td>
+<td>|</td>
+<td>23</td>
+<td>21</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>1</td>
+<td>0</td>
+<td></td>
+<td></td>
+<td>|</td>
+<td>20</td>
+<td>13</td>
+<td>10</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>7</td>
+<td>4</td>
+<td>4</td>
+<td></td>
+<td>|</td>
+<td>7=max(4,5)+2</td>
+<td>12</td>
+<td>10</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>5</td>
+<td>2</td>
+<td>6</td>
+<td>5</td>
+<td>|</td>
+<td>4</td>
+<td>5</td>
+<td>2</td>
+<td>6</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> memo[MAXN][MAXN];</span><br><span class="line"><span class="type">int</span> d[MAXN][MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;<span class="comment">//输出数组</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=i;j++)&#123;cin&gt;&gt;d[i][j];&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;memo[n][i]=d[n][i];&#125;<span class="comment">//把最后第n层给预备好。</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=n<span class="number">-1</span>;i;i--)&#123;<span class="comment">//自底向上，从倒数第二层开始。</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=i;j++)&#123;<span class="comment">//确保在memo这里不会越界。</span></span><br><span class="line">            memo[i][j]=<span class="built_in">max</span>(memo[i+<span class="number">1</span>][j],memo[i+<span class="number">1</span>][j+<span class="number">1</span>])+d[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;memo[<span class="number">1</span>][<span class="number">1</span>]&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到，上面会使用到二维数组。但是我们实际上只填了一半，比较浪费。可以优化成一维数组。先可以把memo的二维数组变成一维（一行n）。</p>
+<blockquote>
+<h1 id="basic-idea-1">basic idea:</h1>
+<p>主要是求完memo[r][j]后memo[r+1][j]就不再使用，因此可以用memo[r][j]覆盖memo[r+1][j]。</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> memo[MAXN];<span class="comment">//压缩成一维。</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=i;j++)&#123;cin&gt;&gt;d[i][j];&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;memo[i]=d[n][i];&#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=n<span class="number">-1</span>;i;i--)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=i;j&lt;=i;j++)&#123;</span><br><span class="line">            memo[j]=<span class="built_in">max</span>(memo[j],memo[j+<span class="number">1</span>])+d[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;memo[<span class="number">1</span>]&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="p2-训练计划">P2 训练计划</h3>
+<p>这题乍看是个DP，但是实际上应该是计算图以及最短路。（感觉并查集就好了）</p>
+<p><img src="https://s1.ax1x.com/2023/03/14/pplY2FJ.png" style="zoom:33%;" /></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//input</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">input</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> course[<span class="number">105</span>][<span class="number">2</span>];<span class="comment">//[1]:father,[2]:day</span></span><br><span class="line">    <span class="type">int</span> n,m;<span class="comment">//距离大赛开幕的天数和训练科目的数量</span></span><br><span class="line">    cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;<span class="comment">//填充并查集</span></span><br><span class="line">        cin&gt;&gt;course[i][<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">if</span>(!course[i][<span class="number">0</span>])course[i][<span class="number">0</span>]=i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;<span class="comment">//填充value</span></span><br><span class="line">        cin&gt;&gt;course[i][<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>计算每科的最早开始时间；计算完之后计算maxTime&gt;n时，就不往后计算了。否则就要逆推得到每科的最晚开始时间。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> i)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(earliest_time[i]!=<span class="number">-1</span>)<span class="keyword">return</span> earliest_time[i];</span><br><span class="line">    <span class="keyword">if</span>(course[i][<span class="number">0</span>]==i)<span class="keyword">return</span> earliest_time[i]=<span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> father=course[i][<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">return</span> earliest_time[i]=<span class="built_in">find</span>(a)+course[a][<span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">iuput</span>();</span><br><span class="line">    <span class="comment">//计算最早开始时间--</span></span><br><span class="line">    <span class="comment">//大概的想法是if(father[a]==a)那么a科不存在依赖，最早开始时间是一天。</span></span><br><span class="line">    <span class="comment">//然后对于有依赖关系的，通过find找，但是在递归的过程中可以+路径，最后return 总路径</span></span><br><span class="line">    <span class="type">int</span> earliest_time[m];</span><br><span class="line">    <span class="built_in">memset</span>(earliest_time,<span class="number">-1</span>,<span class="built_in">sizeof</span>(earliest_time));</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">        cout&lt;&lt;<span class="built_in">find</span>(i)&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试是否会超过给的时间：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//test over the given time</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">    <span class="keyword">if</span>(earliest_time[i]+course[i][<span class="number">1</span>]&gt;n)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//latest_time</span></span><br><span class="line"><span class="type">int</span> latest_time[<span class="number">105</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find_late</span><span class="params">(<span class="type">int</span> i)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(latest_time[i]!=<span class="number">-1</span>)<span class="keyword">return</span> latest_time[i];</span><br><span class="line">    <span class="keyword">if</span>(course[i][<span class="number">0</span>]==i)<span class="keyword">return</span> latest_time[i]=(n+<span class="number">1</span>-course[i][<span class="number">1</span>]);</span><br><span class="line">    <span class="type">int</span> fa=course[i][<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">return</span> latest_time[i]=<span class="built_in">find_late</span>(fa)-course[i][<span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="算法分析作业">算法分析作业</h3>
+<p>每个子问题的规模都一样，且相对于父问题都是成比例缩小。 <span
+class="math display">\[
+T(n)=aT(\frac n 2)+f(n)
+\]</span></p>
+]]></content>
+      <tags>
+        <tag>每天の学习日记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2023.3.15</title>
+    <url>/2023/03/15/2023-3-15/</url>
+    <content><![CDATA[<p>怎么都315了。今天是周三，须在今天完成嵌入式OS的PPT制作以及搞懂。在明天的时候要复盘一下ppt的讲解。</p>
+<blockquote>
+<p>PPT写完了，但是明天中午要完善一下讲解文档，确保我每个都知道。</p>
+</blockquote>
+<p>今天又看完了一本小说。但是给我感觉不是很好，就是势均力敌的爱情才有得说道。虽说双方都是</p>
+<p><strong>中国文学</strong></p>
+<p>古典文学：四大名著，经史子集诗词歌赋。</p>
+<p>近现代文学：鲁迅（从故事新编入手），老舍（短篇小，日常现实），沈从文（乡土农村），郁达夫，萧红，张爱玲（有门槛）</p>
+<p>当代文学：汪曾祺（生活化）钟阿城(三王)，余华莫言史铁生，苏童(残酷与美，中式恐怖)格非王安忆等等。王小波</p>
+<p><strong>外国文学</strong></p>
+<p>消除我们的偏见与狭隘。</p>
+<p>毛姆 黑塞 卡尔维诺 芥川龙之介 屠格涅夫《猎人笔记》</p>
+<p>人生终极问题。</p>
+<p>sci （science citation index）</p>
+<p>jcr中的1 2 3 4区。 ei</p>
+<p>北大核心 收录它认可的期刊（文科比较认）</p>
+<p>利理科类：CSCD CSTPCD</p>
+<h3 id="paper">paper</h3>
+<p>先找到明确的领域方向，有一定的基础知识。</p>
+<p>一个科研周期：</p>
+<ul>
+<li>文献查找 与 阅读</li>
+<li>问题发现 与 创新点发掘</li>
+<li>实验验证</li>
+<li>论文写作</li>
+<li>Rebuttal</li>
+</ul>
+<p>CCF（中国计算机学会）。先对他们认可的期刊分类级别找找。</p>
+<ol start="2" type="1">
+<li>找文章 CV：CVPR ICCV 谷歌学术</li>
+<li>文献阅读 精读abstract introduction related_work</li>
+<li>跑代码</li>
+<li><strong>其他文献阅读</strong>（创新点来源）</li>
+</ol>
+<p><strong>问题发现与创新点发掘</strong></p>
+<p>问题 动机 贡献</p>
+<p><strong>实验验证</strong></p>
+<ul>
+<li>获取正确的评价指标的代码</li>
+<li>小模型小数据集验证有效性（预先尝试）</li>
+<li>大模型大规模数据级验证先进性</li>
+</ul>
+<p><strong>与先进方法对比实验</strong></p>
+<ul>
+<li>效果高于对比论文：直接引用其论文结果（高效，但是结果比较难调，适合会议论文）</li>
+<li>效果不及论文的论文：复现/下载他人代码（结果比别人好，适合期刊论文）</li>
+</ul>
+<p><strong>论文写作</strong></p>
+<ul>
+<li>Abstract--要解决什么问题，提出了什么方法，怎么做的，实验效果怎么样。</li>
+<li>Introduction</li>
+<li>Related Work</li>
+<li>Our method</li>
+<li>Experiment</li>
+<li>Conclusion</li>
+</ul>
+<p>明天写一下简历，分为实习简历以及保研简历。</p>
+]]></content>
+      <tags>
+        <tag>每天の学习日记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2023.3.18</title>
+    <url>/2023/03/18/2023-3-18/</url>
+    <content><![CDATA[<p><a href="https://github.com/NIvykk/DENet">NIvykk/DENet: PyTorch code
+for our ACCV2022 paper "DENet: Detection-driven Enhancement Network for
+Object Detection under Adverse Weather Conditions" (github.com)</a></p>
+<p><a
+href="https://dl.acm.org/doi/10.1007/978-3-031-26313-2_30#:~:text=Recently%2C%20the%20deep%20learning-based%20object%20detection%20methods%20have,three%20key%20modules%20for%20object%20detection%20is%20proposed.">DENet:
+Detection-driven Enhancement Network for Object Detection Under Adverse
+Weather Conditions | Computer Vision – ACCV 2022 (acm.org)</a></p>
+<p>打算利用这个把CV重新捡起来，再更改项目经历，多加一点东西。</p>
+<p>我好像在图像学什么中文期刊上看到做口罩遮挡人脸检测的。</p>
+]]></content>
+      <tags>
+        <tag>每天の学习日记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2023.3.19</title>
+    <url>/2023/03/19/2023-3-19/</url>
+    <content><![CDATA[<h1 id="背包和完全背包">01背包和完全背包</h1>
+<h2 id="背包">01背包</h2>
+<p>有N个背包，第i个物品的价值为v[i],重量为w[i]。选一些物品装到容器为C的背包中，使得背包内物品在总重量不超过C的前提下价值尽量大。</p>
+<h3 id="p1048">P1048</h3>
+<p><code>f[i][j]:取前i中物品，背包容量为j，能取到的最大价值</code></p>
+<ul>
+<li>0：不拿</li>
+<li>1：拿</li>
+</ul>
+<p><span class="math display">\[
+f[i][j]=max(f[i-1][j],f[i-1][j-w[i]]+v[i])\\
+第二种情况：j\ge w[i]
+\]</span></p>
+<p>边界条件：<code>f[0][j]=f[i][0]=0</code></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//边界条件</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)f[i][<span class="number">0</span>]=<span class="number">0</span>;<span class="comment">//n个物品</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;m;j++)f[<span class="number">0</span>][j]=<span class="number">0</span>;<span class="comment">//m容量</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>当我只有一个物品的时候，背包容量不管是多少，那么取到的最大价值都是value。</p>
+<ul>
+<li><code>f[i-1][j]</code>:不要第i个物品</li>
+<li><code>f[i-1][j-w[i]]+v[i]</code>:要第i个物品</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>每天の学习日记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2023.3.21</title>
+    <url>/2023/03/21/2023-3-21/</url>
+    <content><![CDATA[<h1 id="section">2023.3.21</h1>
+<p>减少了学习软件的时间，Copilot可以帮助我们去达成我们的目的。</p>
+<p>ChatGPT是认知智能吗？</p>
+<p>不行了，要开始节食了555太胖了</p>
+<h3 id="p1115最大连续字段和">P1115最大连续字段和</h3>
+<p>优美的code。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> n, a, cur_sum, max_sum = <span class="number">-2147483647</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	cin &gt;&gt; n;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">		cin &gt;&gt; a;</span><br><span class="line">		cur_sum = <span class="built_in">max</span>(cur_sum + a, a);</span><br><span class="line">		max_sum = <span class="built_in">max</span>(max_sum, cur_sum);</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; max_sum;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>每天の学习日记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2023.3.22</title>
+    <url>/2023/03/22/2023-3-22/</url>
+    <content><![CDATA[<h1 id="港校-req">港校-req</h1>
+<ol type="1">
+<li>English CV</li>
+<li>optional research statement</li>
+<li>supporting documents--transcript, class ranking, proof of English
+proficiency, certificates of academic achievements</li>
+</ol>
+<p><a href="https://i.cs.hku.hk/~gradappl/index.html">HKU CS
+Postgraduate Recruitment</a></p>
+<p><a
+href="https://www.cse.cuhk.edu.hk/admission/mphil-phd/early-admission/">Early
+Admission - CUHK CSE</a></p>
+]]></content>
+      <tags>
+        <tag>每天の学习日记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2023.3.24</title>
+    <url>/2023/03/24/2023-3-24/</url>
+    <content><![CDATA[<h1 id="section">2023.3.24</h1>
+<p>MSE(mean square error)</p>
+<blockquote>
+<p>基于U-GAT-IT改进</p>
+<p>看一看代码，同步收集一个婚纱照和Q版手绘图的数据集，尝试用这些算法实现一下婚纱照到Q版手绘的生成</p>
+</blockquote>
+<p>今天就算了，主要是想一下如何进行实现。首先我手里得有图片数据集。</p>
+<p>然后需要再把U-GAT-IT的论文再仔细看一看，并复现它的结果。</p>
+<p>然后着手试一下复现代码</p>
+<h1 id="深基12.例1贪心">【深基12.例1】贪心</h1>
+<h2 id="题目描述">题目描述</h2>
+<p>阿里巴巴走进了装满宝藏的藏宝洞。藏宝洞里面有 <span
+class="math inline">\(N(N \le 100)\)</span> 堆金币，第 <span
+class="math inline">\(i\)</span> 堆金币的总重量和总价值分别是 <span
+class="math inline">\(m_i,v_i(1\le m_i,v_i \le
+100)\)</span>。阿里巴巴有一个承重量为 <span class="math inline">\(T(T
+\le 1000)\)</span>
+的背包，但并不一定有办法将全部的金币都装进去。他想装走尽可能多价值的金币。所有金币都可以随意分割，分割完的金币重量价值比（也就是单位价格）不变。请问阿里巴巴最多可以拿走多少价值的金币？</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> N,T;</span><br><span class="line"><span class="type">int</span> m[<span class="number">105</span>],v[<span class="number">105</span>];</span><br><span class="line"><span class="type">double</span> u[<span class="number">105</span>];<span class="comment">//单位金币的价格</span></span><br><span class="line">cin&gt;&gt;N&gt;&gt;T;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;N;i++)&#123;</span><br><span class="line">    cin&gt;&gt;m[i]&gt;&gt;v[i];</span><br><span class="line">    u[i]=<span class="number">1.0</span>*v[i]/m[i];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>ee</p>
+<p>不是背包，是贪心</p>
+<p>very easy的那种。</p>
+]]></content>
+      <tags>
+        <tag>每天の学习日记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2023.3.25</title>
+    <url>/2023/03/25/2023-3-25/</url>
+    <content><![CDATA[<h1 id="搜索">搜索</h1>
+<h2 id="p2089烤鸡">P2089烤鸡</h2>
+<p>有10种配料，每一种配料都有三种可能：1g, 2g, 3g</p>
+<p>所以——所有可能的种类是3^10个=59049个</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> a[<span class="number">11</span>];</span><br><span class="line"><span class="type">int</span> res[<span class="number">60000</span>][<span class="number">11</span>];</span><br><span class="line"><span class="type">int</span> cnt=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> layer,<span class="type">int</span> left)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    <span class="keyword">if</span>(index==<span class="number">11</span>)&#123;<span class="comment">//找到了最后一个</span></span><br><span class="line">        <span class="keyword">if</span>(left==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">10</span>;i++)res[cnt][i]=a[i];</span><br><span class="line">            cnt++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">3</span>&amp;&amp;i&lt;=left;i++)&#123;</span><br><span class="line">            a[layer]=i;</span><br><span class="line">            <span class="built_in">dfs</span>(layer+<span class="number">1</span>,left-i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    <span class="keyword">if</span>(n&gt;=<span class="number">10</span>||n&lt;=<span class="number">30</span>)&#123;<span class="comment">//才能正常输出</span></span><br><span class="line">        <span class="built_in">dfs</span>(<span class="number">1</span>,n);<span class="comment">//第1层，还剩n g</span></span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;cout&lt;&lt;<span class="number">0</span>;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="p1706-全排列">P1706 全排列</h2>
+<p><strong>回溯</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> used[<span class="number">10</span>]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="type">int</span> a[<span class="number">10</span>];</span><br><span class="line"><span class="type">int</span> n;    </span><br><span class="line"><span class="function"><span class="type">void</span>  <span class="title">f</span><span class="params">(<span class="type">int</span> k)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(k==n+<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;cout&lt;&lt;<span class="built_in">setw</span>(<span class="number">5</span>)&lt;&lt;left&lt;&lt;a[i];&#125;</span><br><span class="line">        cout&lt;&lt;endl;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(!used[i])&#123;<span class="comment">//没有被用过</span></span><br><span class="line">            a[k]=i;</span><br><span class="line">            used[i]=<span class="literal">true</span>;</span><br><span class="line">            <span class="built_in">f</span>(k+<span class="number">1</span>);</span><br><span class="line">            used[i]=<span class="literal">false</span>;<span class="comment">//very important,回溯要消除前面关于used[i]=true。</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    <span class="built_in">f</span>(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>每天の学习日记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2023.3.26</title>
+    <url>/2023/03/26/2023-3-26/</url>
+    <content><![CDATA[<h1 id="section">2023.3.26</h1>
+<p>[TOC]</p>
+<h3 id="p4995-跳跳"><a
+href="https://www.luogu.com.cn/problem/P4995">P4995 跳跳</a></h3>
+<p>你是一只小跳蛙，你特别擅长在各种地方跳来跳去。</p>
+<p>这一天，你和朋友小 F
+一起出去玩耍的时候，遇到了一堆高矮不同的石头，其中第 <span
+class="math inline">\(i\)</span> 块的石头高度为 <span
+class="math inline">\(h_i\)</span>，地面的高度是 <span
+class="math inline">\(h_0 = 0\)</span>。你估计着，从第 <span
+class="math inline">\(i\)</span> 块石头跳到第 <span
+class="math inline">\(j\)</span> 块石头上耗费的体力值为 <span
+class="math inline">\((h_i - h_j) ^ 2\)</span>，从地面跳到第 <span
+class="math inline">\(i\)</span> 块石头耗费的体力值是 <span
+class="math inline">\((h_i) ^ 2\)</span>。</p>
+<p>为了给小 F
+展现你超级跳的本领，你决定跳到每个石头上各一次，并最终停在任意一块石头上，并且小跳蛙想耗费<strong>尽可能多</strong>的体力值。</p>
+<p>当然，你只是一只小跳蛙，你只会跳，不知道怎么跳才能让本领更充分地展现。</p>
+<p>不过你有救啦！小 F 给你递来了一个写着 AK
+的电脑，你可以使用计算机程序帮你解决这个问题，万能的计算机会告诉你怎么跳。</p>
+<p>那就请你——会写代码的小跳蛙——写下这个程序，为你 NOIp AK
+踏出坚实的一步吧！</p>
+<blockquote>
+<p>这个题要求从地面上跳到一块石头上，然后再在不同的石头上跳来跳去，使得消耗的体力最大。</p>
+<p><strong>需要注意的是：只能由地面跳到石头上一次，然后不能先挑到地面上然后再跳到石头上。</strong></p>
+<p>然后我们跳的思路就是：先从地面上跳到最高的石头，再跳到最低的石头；再跳到次高的石头···</p>
+<p><strong>Main goal</strong>：使得每两次跳跃的石头的高度差max</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="type">long</span> <span class="type">long</span> ans;</span><br><span class="line">vector &lt;<span class="type">int</span>&gt; a;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">max</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;a)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">auto</span> now_pos = <span class="built_in">max_element</span>(a.<span class="built_in">begin</span>(), a.<span class="built_in">end</span>());</span><br><span class="line">	<span class="type">int</span> now_index = now_pos - a.<span class="built_in">begin</span>();</span><br><span class="line">	<span class="comment">//cout &lt;&lt; &quot;max:&quot; &lt;&lt; now_index &lt;&lt; endl;</span></span><br><span class="line">	<span class="keyword">return</span> now_index;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">min</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;a)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">auto</span> now_pos = <span class="built_in">min_element</span>(a.<span class="built_in">begin</span>(), a.<span class="built_in">end</span>());</span><br><span class="line">	<span class="type">int</span> now_index = now_pos - a.<span class="built_in">begin</span>();</span><br><span class="line">	<span class="comment">//cout &lt;&lt; &quot;min:&quot; &lt;&lt; now_index &lt;&lt; endl;</span></span><br><span class="line">	<span class="keyword">return</span> now_index;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="type">bool</span> flag = <span class="literal">false</span>;</span><br><span class="line">	<span class="comment">//false:max-min(last)</span></span><br><span class="line">	<span class="comment">//true:min-max(last)</span></span><br><span class="line">	<span class="type">int</span> last = <span class="number">0</span>, index, num;</span><br><span class="line"></span><br><span class="line">	cin &gt;&gt; n;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">		cin &gt;&gt; num;</span><br><span class="line">		a.<span class="built_in">push_back</span>(num);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (!a.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">		<span class="keyword">if</span> (!flag) &#123; <span class="comment">//取max</span></span><br><span class="line">			flag = <span class="literal">true</span>;</span><br><span class="line">			index = <span class="built_in">max</span>(a);</span><br><span class="line">			ans += (a[index] - last) * (a[index] - last);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			flag = <span class="literal">false</span>;</span><br><span class="line">			index = <span class="built_in">min</span>(a);</span><br><span class="line">			ans += (last - a[index]) * (last - a[index]);</span><br><span class="line">		&#125;</span><br><span class="line">		last = a[index];</span><br><span class="line">		a.<span class="built_in">erase</span>(a.<span class="built_in">begin</span>() + index);</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="p1090合并果子"><a
+href="https://www.luogu.com.cn/problem/P1090">P1090合并果子</a></h3>
+<p>在一个果园里，多多已经将所有的果子打了下来，而且按果子的不同种类分成了不同的堆。多多决定把所有的果子合成一堆。</p>
+<p>每一次合并，多多可以把两堆果子合并到一起，消耗的体力等于两堆果子的重量之和。可以看出，所有的果子经过
+<span class="math inline">\(n-1\)</span> 次合并之后，
+就只剩下一堆了。多多在合并果子时总共消耗的体力等于每次合并所耗体力之和。</p>
+<p>因为还要花大力气把这些果子搬回家，所以多多在合并果子时要尽可能地节省体力。假定每个果子重量都为
+<span class="math inline">\(1\)</span> ，并且已知果子的种类
+数和每种果子的数目，你的任务是设计出合并的次序方案，使多多耗费的体力最少，并输出这个最小的体力耗费值。</p>
+<p>例如有 <span class="math inline">\(3\)</span> 种果子，数目依次为
+<span class="math inline">\(1\)</span> ， <span
+class="math inline">\(2\)</span> ， <span
+class="math inline">\(9\)</span> 。可以先将 <span
+class="math inline">\(1\)</span> 、 <span
+class="math inline">\(2\)</span> 堆合并，新堆数目为 <span
+class="math inline">\(3\)</span> ，耗费体力为 <span
+class="math inline">\(3\)</span>
+。接着，将新堆与原先的第三堆合并，又得到新的堆，数目为 <span
+class="math inline">\(12\)</span> ，耗费体力为 <span
+class="math inline">\(12\)</span> 。所以多多总共耗费体力 <span
+class="math inline">\(=3+12=15\)</span> 。可以证明 <span
+class="math inline">\(15\)</span> 为最小的体力耗费值。</p>
+<blockquote>
+<p>和上面这个题差不多捏。</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n, num, sum = <span class="number">0</span>;</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; a;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	cin &gt;&gt; n;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		cin &gt;&gt; num;</span><br><span class="line">		a.<span class="built_in">push_back</span>(num);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (a.<span class="built_in">size</span>() &gt; <span class="number">1</span>) &#123;</span><br><span class="line">		<span class="built_in">sort</span>(a.<span class="built_in">begin</span>(), a.<span class="built_in">end</span>());</span><br><span class="line">		<span class="type">int</span> cost = a[<span class="number">0</span>] + a[<span class="number">1</span>];</span><br><span class="line">		sum += cost;</span><br><span class="line">		a.<span class="built_in">erase</span>(a.<span class="built_in">begin</span>(), a.<span class="built_in">begin</span>() + <span class="number">2</span>);</span><br><span class="line">		a.<span class="built_in">push_back</span>(cost);</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果这么写T了，只有30分。改用优先队列，省去每次循环都要排序，然后过了。</p>
+<blockquote>
+<p>ps:
+这里不是说优先队列就不用排序，只是在push的时候根据小根堆的结点来插入，会更快）</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n, num, sum = <span class="number">0</span>;</span><br><span class="line">priority_queue&lt;<span class="type">int</span>, vector&lt;<span class="type">int</span>&gt;, greater&lt;<span class="type">int</span>&gt;&gt;q;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	cin &gt;&gt; n;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		cin &gt;&gt; num;</span><br><span class="line">		q.<span class="built_in">push</span>(num);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (q.<span class="built_in">size</span>() &gt; <span class="number">1</span>) &#123;</span><br><span class="line">		<span class="type">int</span> cost = q.<span class="built_in">top</span>();</span><br><span class="line">		q.<span class="built_in">pop</span>();</span><br><span class="line">		cost += q.<span class="built_in">top</span>();</span><br><span class="line">		q.<span class="built_in">pop</span>();</span><br><span class="line">		q.<span class="built_in">push</span>(cost);</span><br><span class="line"></span><br><span class="line">		sum += cost;</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="p4447分组--受挫"><a
+href="https://www.luogu.com.cn/problem/P4447">P4447分组</a>--受挫</h3>
+<p>小可可的学校信息组总共有 <span class="math inline">\(n\)</span>
+个队员，每个人都有一个实力值 <span
+class="math inline">\(a_i\)</span>。现在，一年一度的编程大赛就要到了，小可可的学校获得了若干个参赛名额，教练决定把学校信息组的
+<span class="math inline">\(n\)</span>
+个队员分成若干个小组去参加这场比赛。</p>
+<p>但是每个队员都不会愿意与实力跟自己过于悬殊的队员组队，于是要求分成的每个小组的队员实力值连续，同时，一个队不需要两个实力相同的选手。举个例子：<span
+class="math inline">\([1, 2, 3, 4, 5]\)</span>
+是合法的分组方案，因为实力值连续；<span class="math inline">\([1, 2, 3,
+5]\)</span> 不是合法的分组方案，因为实力值不连续；<span
+class="math inline">\([0, 1, 1, 2]\)</span>
+同样不是合法的分组方案，因为出现了两个实力值为 <span
+class="math inline">\(1\)</span> 的选手。</p>
+<p>如果有小组内人数太少，就会因为时间不够而无法获得高分，于是小可可想让你给出一个合法的分组方案，满足所有人都恰好分到一个小组，使得人数最少的组人数最多，输出人数最少的组人数的最大值。</p>
+<p>注意：实力值可能是负数，分组的数量没有限制。</p>
+<blockquote>
+<p>噢我的上帝啊，瞧瞧“使得人数最少的组人数最多，输出人数最少的组人数的最大值”这句话多么拗口啊。</p>
+<p>但是这句话也是一个典型的二分答案。</p>
+</blockquote>
+<p>当我们看到最大值最小化，最小值最大化，以及一些连续性限制时，通常会想到使用二分答案来解决问题。具体来说，我们可以二分一个小组的人数，然后检查能否将所有队员分成若干个小组，满足每个小组的人数不超过二分得到的值，并且每个小组的队员实力值连续，且没有出现相同实力值的队员。</p>
+<p>由于要检查每个小组的队员实力值是否连续，我们需要将队员按照实力值排序。排序之后，我们可以使用一个二维数组
+<code>groups</code> 来保存已经分好的小组，其中 <code>groups[i]</code>
+表示第 <span class="math inline">\(i\)</span>
+个小组中的队员实力值，从小到大排序。</p>
+<p>我们从左到右扫描排序后的队员实力值。如果遇到相同实力值的队员，就无法满足条件，因为一个小组中不能有两个实力值相同的队员。如果当前队员实力值和上一个小组的最大实力值连续，那么我们将其添加到上一个小组中，否则我们新开一个小组。</p>
+<p>在检查能否将所有队员分成若干个小组时，我们从前往后遍历小组，对于每个小组，我们需要检查：</p>
+<ol type="1">
+<li>最小值是否小于当前二分得到的值减一，如果是，那么这个小组无法满足条件；</li>
+<li>当前组的人数是否超过二分得到的值，如果是，那么这个小组无法满足条件；</li>
+<li>最大值是否大于下一个小组的最小值加上当前二分得到的值减一，如果是，那么这个小组无法满足条件。</li>
+</ol>
+<p>如果所有小组都能满足条件，那么当前二分得到的值就是最小的满足条件的小组人数，否则我们需要增大小组人数。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> n,num;</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; vec;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">        cin&gt;&gt;num;</span><br><span class="line">        vec.<span class="built_in">push_back</span>(num);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">sort</span>(vec.<span class="built_in">begin</span>(),vec.<span class="built_in">end</span>());</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="novelnook">NovelNook</h2>
+<p>goal: online library management system</p>
+<blockquote>
+<p>The British Library</p>
+<p>provide info services to
+<code>academic,business,research and scientific communities</code>.</p>
+<ul>
+<li>access the catalog</li>
+<li>manage usr accounts</li>
+<li>borrow materials</li>
+<li>它还应该通过自动发送过期提醒和处理新材料等任务来简化图书馆的操作。</li>
+</ul>
+</blockquote>
+<h3 id="catalog">Catalog</h3>
+<ul>
+<li>books</li>
+<li>ebooks</li>
+<li>DVDs</li>
+<li>CDs</li>
+</ul>
+<p>可以according to 标题、作者、主题和其他相关标准搜索</p>
+<h3 id="usr-manage">Usr manage</h3>
+<p>登录系统，允许用户：、</p>
+<ul>
+<li>创建账户</li>
+<li>查询借阅历史</li>
+<li>保存借出的items</li>
+</ul>
+<h3 id="system">system</h3>
+<ul>
+<li>auto 追踪checkout dates/due dates</li>
+<li>send reminders</li>
+<li>assess late fees</li>
+<li>manage 每本书的 multiple copies --track their
+stats（location，availbility）</li>
+<li>处理新的materials</li>
+</ul>
+<h3 id="usr">USR</h3>
+<h4 id="reader">reader</h4>
+<p>他们借阅资料并使用图书馆的资源。他们可以登录系统查看他们的借阅历史，保存材料，并续借物品</p>
+<ul>
+<li>借阅资料</li>
+<li>使用library的resource</li>
+<li>查看借阅</li>
+<li>place holds on materials</li>
+<li>续借materials</li>
+</ul>
+<h4 id="library-staff">Library Staff</h4>
+<p>负责管理图书馆的运作。他们可能能够向顾客检查材料，处理新材料，并管理目录</p>
+<ul>
+<li>check materials towards usr</li>
+<li>deal new materials</li>
+<li>manage catalog</li>
+</ul>
+<h4 id="adminprogrammer">Admin(programmer)</h4>
+<p>建立和维护图书馆管理系统的用户。他们可能能够创建和删除用户帐户，为不同的用户角色设置权限，并管理系统的设置。</p>
+<ul>
+<li>创建用户</li>
+<li>删除用户</li>
+<li>set different rights</li>
+<li>管理系统的设置（deal with...）</li>
+</ul>
+<h4 id="super-usr">Super usr</h4>
+<p>这些用户拥有library
+staff和admin的所有权限。他们可能负责监督图书馆的运作，并确保系统平稳运行。</p>
+<h4 id="guests游客">Guests(游客)</h4>
+<ul>
+<li>查看图书馆的目录</li>
+<li>搜索资料</li>
+</ul>
+<blockquote>
+<p>不能：</p>
+<ul>
+<li>借阅资料</li>
+<li>登录系统</li>
+</ul>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>每天の学习日记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2023.3.5-复习排序算法</title>
+    <url>/2023/03/05/2023-3-5/</url>
+    <content><![CDATA[<h1 id="复习排序算法">2023.3.5-复习排序算法</h1>
+<p>[TOC]</p>
+<p>不同的排序算法有不同的算法复杂度。</p>
+<h2 id="初级排序算法">初级排序算法</h2>
+<p>学习这些简单的算法的原因在于：</p>
+<ul>
+<li>通过它们熟悉一些术语和简单的技巧</li>
+<li>这些算法在某些情况下会比复杂算法更加有效。</li>
+</ul>
+<h3 id="游戏规则">游戏规则</h3>
+<p>我们的操作对象是数组元素，其中每个元素都有一个主键。</p>
+<p>排序的目的：<strong>所有元素的主键按照某种方式进行排列。</strong></p>
+<blockquote>
+<p>对于数组来说，他有index和value。一般来说我们通过改变index的值，使其value升序排序（或是逆序）。</p>
+</blockquote>
+<p><strong>验证正确性</strong>：使用assert来确认在排序后数组元素都是有序的。</p>
+<h3 id="select">Select</h3>
+<p>==不断选择剩下元素中的最小者。==</p>
+<ol type="1">
+<li>首先找到数组元素中最小的元素，与数组的第一个元素交换位置。</li>
+<li>然后再找到剩下的数组中最小的元素，与数组的第二个元素交换位置。</li>
+<li>······</li>
+<li>直至整个数组有序。</li>
+</ol>
+<h4 id="c-random库">C++ random库</h4>
+<p><code>#include&lt;random&gt;</code></p>
+<p>在random类中，通过一组协作的类来完成随机数的生成：</p>
+<ul>
+<li>random-numbers engine</li>
+<li>random-numbers distribution</li>
+</ul>
+<p>engine可以生成<code>unsigned</code>随机数列，distribution使用engine生成指定类型（指定范围，服从指定概率分布的随机数）。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">default_random_engine e;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">size_t</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)cout&lt;&lt;<span class="built_in">e</span>()&lt;&lt;endl;<span class="comment">//调用e()生成下一个随机数</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function">uniform_int_distribution&lt;<span class="type">unsigned</span>&gt; <span class="title">u</span><span class="params">(<span class="number">0</span>,<span class="number">9</span>)</span></span></span><br><span class="line"><span class="function"><span class="title">for</span><span class="params">(<span class="type">size_t</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)</span>cout&lt;&lt;<span class="title">u</span><span class="params">(e)</span>&lt;&lt;endl</span>;<span class="comment">//将u作为随机数源，每个调用返回在指定范围内并服从均匀分布的值</span></span><br></pre></td></tr></table></figure>
+<h5 id="使用engine生成数值序列">使用engine生成数值序列</h5>
+<p>随机数发生器：==生成的树看起来是随机的==。</p>
+<p>但是对于一个给定的随机数发生器，每次运行程序都会返回相同发的数值序列（假随机）</p>
+<blockquote>
+<p>这也是为什么我们如果使用C语言的rand之前要先srand(0);</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">vector&lt;<span class="type">unsigned</span> &gt;<span class="built_in">bad_randVec</span>()&#123;</span><br><span class="line">    default_random_engine e;</span><br><span class="line">    uniform_int_distribution&lt;<span class="type">unsigned</span> &gt;<span class="built_in">u</span>(<span class="number">0</span>,<span class="number">9</span>);</span><br><span class="line">    vector&lt;<span class="type">unsigned</span> &gt;ret;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">size_t</span> i = <span class="number">0</span>;i&lt;<span class="number">100</span>;i++)</span><br><span class="line">        ret.<span class="built_in">push_back</span>(<span class="built_in">u</span>(e));</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 但是 每次调用这个函数都会返回相同的 vector</span></span><br><span class="line">vector&lt;<span class="type">unsigned</span> &gt;<span class="built_in">v1</span>(<span class="built_in">bad_randVec</span>());</span><br><span class="line">vector&lt;<span class="type">unsigned</span> &gt;<span class="built_in">v2</span>(<span class="built_in">bad_randVec</span>());</span><br><span class="line"><span class="comment">// 将会打印输出 equal</span></span><br><span class="line">cout &lt;&lt; ((v1==v2) ? <span class="string">&quot;equal&quot;</span> : <span class="string">&quot;not equal&quot;</span>) &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>每天の学习日记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JDBC</title>
+    <url>/2022/10/19/JDBC/</url>
+    <content><![CDATA[<h1 id="jdbc">JDBC</h1>
+<p>即使用java语言操作关系型数据库的一套API。</p>
+<p><strong>本质</strong>：</p>
+<ul>
+<li>官方定义的一套操作所有关系型数据库的规则，即接口；</li>
+<li>各个数据库厂商去实现这套接口，提供数据库驱动jar包；</li>
+<li>可以使用这套接口(JDBC)去编程，<strong>但是真正执行代码的是驱动jar包中的实现类</strong>。</li>
+</ul>
+<p><strong>好处</strong>：</p>
+<ul>
+<li>各数据库厂商使用相同的接口，Java代码不需要针对不同数据库分别开发；</li>
+<li>可以随时更换底层数据库，访问数据库的java代码基本不变。</li>
+</ul>
+<h2 id="大体步骤">大体步骤</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//注册驱动</span></span><br><span class="line">Class.forName(<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>);<span class="comment">//由于导入的jar包是8.0之后的版本</span></span><br><span class="line"><span class="comment">//获取连接对象</span></span><br><span class="line">String url=<span class="string">&quot;jdbc:mysql://127.0.0.1:3306/bank_175?useUnicode=true&amp;characterEncoding=UTF-8&amp;userSSL=false&amp;serverTimezone=GMT%2B8&quot;</span>;</span><br><span class="line">String username=<span class="string">&quot;root&quot;</span>;</span><br><span class="line">String password=<span class="string">&quot;123456&quot;</span>;</span><br><span class="line">Connection conn= DriverManager.getConnection(url,username,password);</span><br><span class="line"><span class="comment">//定义sql语句</span></span><br><span class="line">String sql=<span class="string">&quot;update account_175 set balance=500.0 where account_number=&#x27;A_101&#x27; &quot;</span>;</span><br><span class="line"><span class="comment">//获取执行sql对象---这里会变更</span></span><br><span class="line">Statement stmt=conn.createStatement();</span><br><span class="line"><span class="comment">//执行sql</span></span><br><span class="line"><span class="type">int</span> count=stmt.executeUpdate(sql);</span><br><span class="line"><span class="comment">//处理结果，cnt=受影响的行数；</span></span><br><span class="line">System.out.println(<span class="string">&quot;受影响的行：&quot;</span>+count);</span><br><span class="line"><span class="comment">//释放资源</span></span><br><span class="line">stmt.close();</span><br><span class="line">conn.close();</span><br></pre></td></tr></table></figure>
+<h2 id="jdbc-api">JDBC API</h2>
+<h3 id="drivermanager">DriverManager</h3>
+<p>驱动管理类的作用：</p>
+<ul>
+<li>注册驱动</li>
+<li>获取数据库连接</li>
+</ul>
+<h4 id="注册驱动">1.注册驱动</h4>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//注册驱动</span></span><br><span class="line">Class.forName(<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>);<span class="comment">//由于导入的jar包是8.0之后的版本</span></span><br></pre></td></tr></table></figure>
+<p>但是对于<code>MYSQL 5</code>之后的驱动包，可以省略注册驱动的步骤。自动加载jar包中如下的驱动类：</p>
+<blockquote>
+<p>然后你发现和上述代码中的字符串一模一样（）</p>
+</blockquote>
+<p><img src="https://s1.ax1x.com/2022/10/18/xr2twF.png" /></p>
+<h4 id="获取连接">2.获取连接</h4>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> Connection | getConnection(String url,String user,String password)</span><br></pre></td></tr></table></figure>
+<p><code>user</code>和<code>password</code>没啥好说的，即自己数据库用户账密（一般用的都是root）。<strong>所以主要就是url</strong>。</p>
+<p><code>url</code>，我们在计网中学过，它叫统一资源定位符。在这里，<code>url</code>是连接数据库的路径。</p>
+<blockquote>
+<ul>
+<li><strong>语法</strong>：<code>jdbc:mysql://ip地址(域名):端口号/数据库名称?参数键值对1&amp;参数键值对2...</code></li>
+<li><strong>示例</strong>：<code>jdbc:mysql://127.0.0.1:3306</code></li>
+<li><strong>细节</strong>：
+<ol type="1">
+<li><code>jdbc:mysql://</code>表明是<code>JDBC</code>的<code>mysql</code>的协议。</li>
+<li>如果连接的是本机的<code>mysql</code>服务器，并且<code>mysql</code>服务器默认端口是3306（或许你自己改了，一般没改就是这个捏），那么可以简写成<code>jdbc:mysql:///数据库名称?参数键值对1&amp;参数键值对2...</code></li>
+<li>配置<code>useSSL=false</code>参数，禁用安全连接方式，解决警告提示。</li>
+</ol></li>
+</ul>
+</blockquote>
+<h3 id="connection">Connection</h3>
+<p>数据库连接对象的作用：</p>
+<ul>
+<li>获取执行SQL的对象</li>
+<li>管理事务</li>
+</ul>
+<h4 id="获取执行sql的对象">1.获取执行SQL的对象</h4>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//普通执行SQL对象</span></span><br><span class="line">Statement <span class="title function_">createStatement</span><span class="params">()</span></span><br><span class="line"><span class="comment">//预编译SQL的执行对象：防止SQL注入</span></span><br><span class="line">PreparedStatement <span class="title function_">prepareStatement</span><span class="params">(sql)</span></span><br><span class="line"><span class="comment">//执行存储过程的对象</span></span><br><span class="line">CallableStatement <span class="title function_">prepareCall</span><span class="params">(sql)</span>    </span><br></pre></td></tr></table></figure>
+<h4 id="事务管理">2.事务管理</h4>
+<p><code>MYSQL</code>的事务管理：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#mysql default下默认自动提交事务</span><br><span class="line">#开启事务</span><br><span class="line">begin;start transaction;</span><br><span class="line">#提交事务</span><br><span class="line">commit;</span><br><span class="line">#回滚事务</span><br><span class="line">rollback;</span><br></pre></td></tr></table></figure>
+<p><code>JDBC</code>的事务管理：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//开启事务--true:自动提交事务；false:手动提交事务，即开启事务</span></span><br><span class="line">setAutoCommit(<span class="type">boolean</span> autoCommit);</span><br><span class="line">setAutoCommit(<span class="literal">false</span>);<span class="comment">//开启事务！</span></span><br><span class="line"><span class="comment">//提交事务</span></span><br><span class="line">commit();</span><br><span class="line"><span class="comment">//回滚事务</span></span><br><span class="line">rollback();</span><br></pre></td></tr></table></figure>
+<h3 id="statement">Statement</h3>
+<p><code>Statement</code>的作用：执行SQL语句。</p>
+<h4 id="执行sql语句">1.执行SQL语句</h4>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">executeUpdate</span><span class="params">(sql)</span>;<span class="comment">//执行DML、DDL语句</span></span><br><span class="line"><span class="comment">//return: 1.DML语句影响行数 2.DDL语句执行后，执行成功【也可能】返回0</span></span><br><span class="line">ResultSet <span class="title function_">executeQuery</span><span class="params">(sql)</span>;<span class="comment">//执行DQL语句</span></span><br><span class="line"><span class="comment">//return:ResultSet结果集对象</span></span><br></pre></td></tr></table></figure>
+<h3 id="resultset">ResultSet</h3>
+<p>结果集对象的作用：</p>
+<ul>
+<li>封装了DQL查询语句的结果</li>
+</ul>
+<h4 id="封装dql查询语句的结果">1.封装DQL查询语句的结果</h4>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">ResultSet stmt.executeQuery(sql);<span class="comment">//执行DQL语句，返回ResultSet对象</span></span><br><span class="line"><span class="comment">//【获取查询结果】</span></span><br><span class="line"><span class="type">boolean</span> <span class="title function_">next</span><span class="params">()</span>;</span><br><span class="line"><span class="comment">//将光标从当前行向前移动一行，判断当前行是否为有效行。</span></span><br><span class="line"><span class="comment">//return:</span></span><br><span class="line"><span class="comment">//	1.true:有效行、当前行有数据</span></span><br><span class="line"><span class="comment">//	2.false:无效行、当前行没有数据</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//【获取数据】</span></span><br><span class="line">xxx <span class="title function_">getXxx</span><span class="params">(params)</span>;</span><br><span class="line"><span class="comment">//xxx:数据类型,eg: int getInt(1),String getString(&quot;name&quot;)</span></span><br><span class="line"><span class="comment">//params:第几列,可选择int or String来选择</span></span><br><span class="line"><span class="comment">//	int:列的编号，从1开始</span></span><br><span class="line"><span class="comment">//	String:列的名称</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//【使用方法】</span></span><br><span class="line"><span class="keyword">while</span>(re.next())&#123;</span><br><span class="line">    rs.getXxx();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里可以将每一行的数据载入ArrayList。</p>
+<p>通过定义一个类：装载所有的schema捏。</p>
+</blockquote>
+<h3 id="preparedstatement">PreparedStatement</h3>
+<p>PreparedStatement作用：</p>
+<ul>
+<li>预编译SQL语句并执行，预防SQL注入问题。</li>
+</ul>
+<blockquote>
+<p>SQL注入：通过操作输入事先定义好的SQL语句，用以达到执行代码对服务器进行攻击的方法。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//【获取PreparedStatement对象】</span></span><br><span class="line"><span class="comment">//SQL语句中的参数值使用&#x27;?&#x27;占位符来替代</span></span><br><span class="line">String sql=<span class="string">&quot;select * from user where username = ? and password =?&quot;</span>;</span><br><span class="line"><span class="comment">//通过Connection对象获取，并传入对应的sql语句</span></span><br><span class="line">PreparedStatement pstmt=conn.prepareStatement(sql);</span><br><span class="line"></span><br><span class="line"><span class="comment">//【设置参数值】</span></span><br><span class="line"><span class="comment">//PreparedStatement对象:setXxx(param1,param2):给?赋值</span></span><br><span class="line"><span class="comment">//Xxx:数据类型,eg:setInt(...)</span></span><br><span class="line"><span class="comment">//params:</span></span><br><span class="line"><span class="comment">//	param1:?的位置编号，从1开始</span></span><br><span class="line"><span class="comment">//	param2:?的值</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//【执行SQL】</span></span><br><span class="line">executeUpdate();</span><br><span class="line">executeQuery();</span><br></pre></td></tr></table></figure>
+<h4 id="预编译sql">1.预编译SQL</h4>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//开启预编译功能--加入url后面</span></span><br><span class="line">useSeverPrepStmts=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>鹅鹅鹅，下面这个可能不需要捏。</p>
+</blockquote>
+<p>加入MYSQL的日志<code>my.ini</code>(重启完成)</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">log-out=FILE</span><br><span class="line">general-log=1</span><br><span class="line">general_log_file=&quot;D:\mysql.log&quot;</span><br><span class="line">slow-query-log=1</span><br><span class="line">slow-query-log-file=&quot;D:\mysql_slow.log&quot;</span><br><span class="line">long_query_time=2</span><br></pre></td></tr></table></figure>
+<h2 id="数据库连接池">数据库连接池</h2>
+<p>数据库连接池：是个容器，负责分配、管理数据库连接(<code>Connection</code>)。</p>
+<ul>
+<li>它允许应用程序重复使用一个现有的数据库连接，而不是重新建立一个；</li>
+<li>释放空间时间超过最大空闲时间的数据库连接来避免因为没有释放数据库而引起的数据库连接遗漏。</li>
+</ul>
+<p><strong>好处</strong></p>
+<ul>
+<li>资源重用</li>
+<li>提升系统响应速度</li>
+<li>避免数据库连接遗漏</li>
+</ul>
+<h4 id="实现">实现</h4>
+<p>标准接口：<code>DataSource</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//功能：获取连接</span></span><br><span class="line">Connection <span class="title function_">getConnection</span><span class="params">()</span>;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>常见的数据库连接池：</p>
+<ul>
+<li>DBCP</li>
+<li>C3P0</li>
+<li>Druid（One of Best）</li>
+</ul>
+</blockquote>
+<h4 id="使用步骤">使用步骤</h4>
+<ul>
+<li>导入jar包 druid-1.1.10.jar</li>
+<li>定义配置文件</li>
+<li>加载配置文件</li>
+<li>获取数据库连接池对象</li>
+<li>获取连接</li>
+</ul>
+<blockquote>
+<p>捣鼓半天，成功了。</p>
+</blockquote>
+<p><img src="https://s1.ax1x.com/2022/10/19/xyC8MR.png" /></p>
+]]></content>
+      <tags>
+        <tag>Java</tag>
+        <tag>数据库</tag>
+        <tag>MYSQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2022/06/07/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very
+first post. Check <a href="https://hexo.io/docs/">documentation</a> for
+more info. If you get any problems when using Hexo, you can find the
+answer in <a
+href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or
+you can ask me on <a
+href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="create-a-new-post">Create a new post</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a
+href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="run-server">Run server</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="generate-static-files">Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a
+href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a
+href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>review</title>
+    <url>/2022/06/17/review/</url>
+    <content><![CDATA[<h1 id="总复习">总复习</h1>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/06/747f167878761af9.png" /></p>
+<h2 id="一绪论">（一）绪论</h2>
+<h3 id="计算机的发展">1. 计算机的发展</h3>
+<p>现代计算机的<strong>理论基础</strong>：布尔代数、<strong>物质基础</strong>：双稳态触发器。</p>
+<p>1946年，美国，ENIAC，电子数字积分和计算机</p>
+<p>1946年6月，冯·诺伊曼提出以二进制，程序存储和程序控制为核心的思想，<strong>奠定了当代电子数字计算机体系结构的基础</strong>。</p>
+<ul>
+<li>1946-1954年，第1代，电子管计算机，ENIAC、IBM 701</li>
+<li>1955-1964年，第2代，晶体管计算机，IBM 7030、Univac LARC</li>
+<li>1965-1974年，第3代，集成电路计算机，IBM 360、370、DEC PDP-8</li>
+<li>1975-1990年，第4代，超大规模集成电路计算机，IBM 3090、VAX
+9000、PC机、苹果机</li>
+<li>1991-，第5代，多核处理器（4核和8核）</li>
+</ul>
+<h3 id="计算机的基本组成">2. 计算机的基本组成</h3>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/06/953808da12ac0696.png" /></p>
+<p><strong>这是去年的考题！！！</strong></p>
+<p>冯·诺伊曼机的硬件固定，<strong>不同的运算功能依靠预先放在存储器中的程序实现</strong>，这是存储程序控制的基本原理，也是区别其他运算工具的关键。</p>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/06/f31e31c05eac787b.png" /></p>
+<p><strong>计算机的软件</strong>：</p>
+<ul>
+<li>计算机语言：机器语言、汇编语言、高级语言</li>
+<li>软件分类：系统软件、应用软件、中间件</li>
+</ul>
+<h3 id="计算机的层次结构">3. 计算机的层次结构</h3>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/06/811c3d8446a22bea.png" /></p>
+<h3 id="计算机的分类">4. 计算机的分类</h3>
+<ul>
+<li><p>按照规模和功能分类：</p>
+<p>巨型机、大型机、中型机、小型机、微机、单片机</p></li>
+<li><p>按用途分类：</p>
+<p>通用机（如：PC机）、专用机（如：嵌入式计算机）</p></li>
+<li><p>按信息处理的特性分类：<strong>（FLYNN）费林分类法</strong></p>
+<ol type="1">
+<li>单指令流单数据流计算机（SISD）</li>
+<li>单指令流多数据流计算机（SIMD）</li>
+<li>多指令流单数据流计算机（MISD）</li>
+<li>多指令流多数据流计算机（MIMD）</li>
+</ol></li>
+</ul>
+<p>Flynn分类法：按照计算机在执行程序的过程中信息流的特征进行分类的。</p>
+<figure>
+<img src="https://s3.bmp.ovh/imgs/2022/06/06/767d3ceb251db1b1.png"
+alt="8" />
+<figcaption aria-hidden="true">8</figcaption>
+</figure>
+<h3 id="计算机的性能描述">5. 计算机的性能描述</h3>
+<p>（个人认为可能概率会出题）</p>
+<ul>
+<li>MIPS：每秒钟执行指令的百万条数</li>
+<li>MFLOPS：每秒钟执行浮点数的百万次操作的数量</li>
+<li>CPI：每条指令执行所用的时钟数</li>
+<li>N：每条指令执行所用的时钟数</li>
+<li><span class="math inline">\(f_{CLK}\)</span>：时钟频率</li>
+</ul>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/06/3b929200f2274023.png" /></p>
+<hr />
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/06/3f1b643efd3b5142.png" /></p>
+<h2 id="二计算机中的数据表示">（二）计算机中的数据表示</h2>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/06/781abaaa7f6d295e.jpg" /></p>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/06/0a50caa0dd5c58da.png" /></p>
+<h3 id="不同编码的比较">1. 不同编码的比较</h3>
+<blockquote>
+<ol type="1">
+<li>真值为 + ：原码、补码、反码的表示形式均相同。</li>
+<li>真值为 - ：原码、补码、反码的表示形式不同。</li>
+<li>特殊的移码： 0 表示真值是负数； 1 表示真值是正数。</li>
+</ol>
+</blockquote>
+<p><strong>0有唯一的编码</strong>：补码、移码。</p>
+<blockquote>
+<p>原码：1000 0000 | 0000 0000</p>
+<p>反码：1111 1111 | 0000 0000</p>
+</blockquote>
+<p><strong>符号位用0表示正、用1表示负</strong>：原码、反码、补码</p>
+<blockquote>
+<p>移码：1表示正、0表示负</p>
+</blockquote>
+<p><strong>满足真值大则码值大</strong>：移码</p>
+<blockquote>
+<p>最高位符号位1为负数（真值小码值小）：原码、反码、补码</p>
+</blockquote>
+<p><strong>存在负值的真值越大码值越小</strong>：原码</p>
+<blockquote>
+<p>【-1】补=【1000 0001】补=【1111
+1111】可见是：最大的负值、最大的码值。</p>
+<p>反码 = 补码 - 1、移码 = 补码最高符号位取反 因此均不是。</p>
+</blockquote>
+<p><strong>负数的码值大于正数的码值</strong>：原码、反码、补码</p>
+<blockquote>
+<p>原理是：负数的码值最高位符号位为1</p>
+</blockquote>
+<h3 id="浮点数">2. 浮点数</h3>
+<p>规格化指的是尾数的绝对值限定在$ <span
+class="math inline">\(~\)</span> 1$之间。</p>
+<p>若<span class="math inline">\(M\ge0\)</span>：<span
+class="math inline">\(M=0.1XX...X\)</span>是规格化数。</p>
+<p>若<span class="math inline">\(M\lt0\)</span>：由于<span
+class="math inline">\([-\frac{1}2]_{补}=1.1000...0\)</span>、<span
+class="math inline">\([-1]_{补}=1.000...0\)</span>。<strong>为了使计算机判断方便，一般不把<span
+class="math inline">\([-\frac{1}2]\)</span>列为规格化的数，而把<span
+class="math inline">\([-1]\)</span>列为规格化的数。</strong><span
+class="math inline">\(M=1.0XXX...X\)</span>时，是规格化数。</p>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/06/7ae803cb8265a010.png" /></p>
+<p><strong>貌似左规和右规都是在采用了双符号位，也就是变形补码后产生的。</strong></p>
+<p><strong>左规</strong>：结果的尾数为<span
+class="math inline">\(00.0XXX...X\)</span>或<span
+class="math inline">\(11.1XXX...X\)</span>的形式时，需将尾数左移1位，阶码
+-1，<strong>直到尾数为规格化形式为止</strong>。</p>
+<p><strong>右规</strong>：当浮点运算结果的尾数出现<span
+class="math inline">\(01.XXX...X\)</span>或<span
+class="math inline">\(10.XXX...X\)</span>的形式时，<strong>并不一定溢出</strong>，将尾数右移1位，阶码
++1，然后判断<strong>阶码</strong>是否溢出。</p>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/06/14d5bc2f83dce320.png" /></p>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/06/93a0bdde09679128.png" /></p>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/06/d40d385e76c4cd27.png" /></p>
+<h4 id="ieee754">2.1 IEEE754</h4>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/06/c29e8a1bbadb7397.png" /></p>
+<p><strong>单精度格式：</strong>1+8+23（符号+阶码+尾数）</p>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/06/11c6dcb2e4dce176.png" /></p>
+<p><strong>更多的重点还是放在单精度的浮点数上，至于双精度格式（1+11+52）只是被提了一下。</strong></p>
+<h2 id="三运算方法和运算器">（三）运算方法和运算器</h2>
+<p>运算器用于<strong>数值运算及加工处理数据。</strong></p>
+<p>运算器的<strong>结构</strong>取决于：<strong>指令系统、数据的表示方法、运算方法以及所选用的硬件。</strong></p>
+<blockquote>
+<p>它由CPU中的ALU、GR（通用寄存器）等部件组成。</p>
+</blockquote>
+<h3 id="定点数运算">1. 定点数运算</h3>
+<h4 id="加减">1.1 加减</h4>
+<p>特别声明的是：<strong>求补运算</strong></p>
+<p>（主要用于 <strong><span
+class="math inline">\([X]_{补}\leftrightarrow[-X]_{补}\)</span></strong>
+这种情况，对于符号位和数值位均按位取反，末位+1）</p>
+<h5 id="溢出判断">1.1.1 溢出判断</h5>
+<p><strong>只有当两个同符号的数相加（or
+相异符号数相减），运算结果才可能溢出。</strong>异号相加，永远不会产生溢出。</p>
+<p>发生溢出时，运算结果<strong>肯定</strong>是错误的。防止溢出发生的<strong>最简单有效的方法</strong>即：增加补码的二进制编码长度。</p>
+<blockquote>
+<p>我还想的是采用双符号位呢...不过双符号位并不能防止溢出，而是判断是否溢出。果然。</p>
+</blockquote>
+<h6 id="双符号位判决法最常用">① 双符号位判决法（最常用）</h6>
+<p><strong>补码</strong>采用两位表示符号，即00(+)和11(-)。</p>
+<p><strong>一旦发生溢出，则两个符号位就一定不一致。</strong></p>
+<ol type="1">
+<li>出现01，结果 &gt; +1</li>
+<li>出现10，结果 &lt; -1</li>
+</ol>
+<blockquote>
+<p>所以01是上溢、10是下溢吗？</p>
+</blockquote>
+<h6 id="进位判决法">② 进位判决法</h6>
+<p>类似于双符号位，【最高数值位向符号位的进位】<span
+class="math inline">\(\oplus\)</span>【符号位的进位】</p>
+<h5 id="移码加减-x_移pmy_移nexpm-y_移">1.1.2 移码加减 <strong><span
+class="math inline">\([X]_{移}\pm[Y]_{移}\ne[X\pm
+Y]_{移}\)</span></strong></h5>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/13/845f22869f86bd75.png" /></p>
+<h4 id="乘">1.2 乘</h4>
+<h5 id="原码一位乘">1.2.1 原码一位乘</h5>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/13/1286feb14e3d15a9.png" /></p>
+<p>对于原码二位乘，只需了解（我认为意思是不会考）。</p>
+<h5 id="补码一位乘booth法">1.2.2 补码一位乘（Booth法）</h5>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/13/24b8a70e354a8cce.png" /></p>
+<h4 id="除">1.3 除</h4>
+<h5 id="原码一位除">1.3.1 原码一位除</h5>
+<h6 id="恢复余数法">① 恢复余数法</h6>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/13/65cb96226aadac22.png" /></p>
+<h6 id="加减交替法">② 加减交替法</h6>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/13/22f1495d78756a8b.png" /></p>
+<p><strong>末位商如果为0，此时的余数是错误的。此时通过恢复余数码来得到正确的余数。</strong></p>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/13/87511f48474eca6e.png" /></p>
+<blockquote>
+<p>我觉得恢复余数法和加减交替法之间在计算过程中并无差异，主要是思想上的不同：恢复余数指的是不断减去除数，如果余数是负的，就要恢复余数为正的（加上除数），再不断减去除数；加减交替指看余数的正负，正的就减除数，负的就加除数。</p>
+</blockquote>
+<h5 id="补码一位除">1.3.2 补码一位除</h5>
+<p>这个是课后学习，但是出了一道关于这个的课后题。所以还是看看。</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/06/13/d07bf2d2d053ed5c.png" style="zoom: 67%;" /></p>
+<p>余数的校正规则：</p>
+<ol type="1">
+<li>若商为正：余数与被除数异号，余数+除数</li>
+<li>若商为负：余数与被除数异号时，余数-除数</li>
+</ol>
+<h3 id="alu">2. ALU</h3>
+<h4 id="运算器的结构">2.1 运算器的结构</h4>
+<p>基本组成包括算术逻辑单元ALU、暂存器、通用寄存器堆、内部总线。</p>
+<h5 id="标志寄存器标志位">2.1.1 标志寄存器、标志位</h5>
+<p>标志寄存器，又称状态寄存器。（我感觉状态寄存器更常用一点）用于保存ALU操作结果的某些状态。不同CPU，标志寄存器中包含的标志不尽相同。<strong>但是都会有如下最基本的5中标志位</strong>：</p>
+<ul>
+<li>ZF=1：结果全为0。</li>
+<li>CF=1：表示有进位或者是借位。</li>
+<li>OF=1：运算溢出。</li>
+<li>SF=1：运算结果为正数。（现代微机中，有符号数采用补码表示）</li>
+<li>PF=1：反映运算结果中‘1’的个数为偶数。</li>
+</ul>
+<h3 id="浮点运算">3. 浮点运算</h3>
+<h4 id="浮点加减">3.1 浮点加减</h4>
+<p><strong>①对阶</strong>：只有在两者的阶码相同时才能进行尾数的加减运算。<strong>其原则是小阶对大阶</strong>。也就是将小阶码（更小的数字挪到大数字的小数点处）</p>
+<p>不断地右移获得阶码+1。<strong>但是会在对阶时丢失尾数的低位，造成的误差相对较小。</strong>但要是大阶对小阶，就会就是尾数的高位，导致错误的结果。</p>
+<p><strong>②尾数进行加减运算（直接相加或是加补）</strong></p>
+<p><strong>③规格化</strong>：在进行完计算后可能得到的是一个非规格化数。则需要进行规格化。</p>
+<blockquote>
+<p><strong>（1）左规</strong> ←</p>
+<p>尾数是：<span class="math inline">\(00.0XX···X\)</span> 或是 <span
+class="math inline">\(11.1XX···X\)</span></p>
+<p>左规时，尾数每左移一位，阶码减1，必须同时判断阶码是否减到比所能表示的阶码还小。</p>
+<p>如果出现，阶码无法表示太小的阶码，就出现了下溢出。（下溢出发生可认为结果=0）</p>
+</blockquote>
+<blockquote>
+<p><strong>（2）右规</strong> →</p>
+<p>结果出现：<span class="math inline">\(10.XXX···X\)</span> 或是 $
+{0}1.XXX···X$</p>
+<p>表示尾数出现溢出，但并不代表整个结果浮点数溢出。</p>
+<p>出现上述情况，可将尾数右移最多一次，阶码+1。</p>
+<p>可能会出现阶码超出能表示的最大范围，发生上溢出。</p>
+</blockquote>
+<p><strong>④舍入处理</strong>：在对阶以及规格化的时候，需要将尾数右移，右移会丢弃尾数的最低位，出现了舍入的问题。一般采用以下三种方法。</p>
+<p><strong>（1）截断法</strong>：将需要丢弃的尾数低位丢弃。</p>
+<p><strong>（2）末位恒置1法</strong>：无论尾数右移丢弃的是0还是1，此法需要保证保留的尾数的最低位永远为1.</p>
+<p><strong>（3）0舍1入法</strong>：当尾数右移丢弃的是1，要保留的最末位+1，当丢弃0，保留的最末位不变。</p>
+<p>（<em>但是可能遇到01.1111111时发生溢出，因此需要使用截尾法。</em>）</p>
+<h4 id="浮点乘除">3.2 浮点乘除</h4>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/13/24754efac72e0d16.png" /></p>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/13/98c126fe6b747995.png" /></p>
+<h2 id="四指令系统和汇编语言">（四）指令系统和汇编语言</h2>
+<h3 id="指令格式">1. 指令格式</h3>
+<p>设置指令系统的要求是：完备性、有效性、规整性、兼容性。</p>
+<p><strong>Huffman编码的主要缺点：</strong></p>
+<ul>
+<li>操作码长度很不规整，硬件编码困难。</li>
+<li>与地址吗共同组成固定长的指令比较困难。</li>
+</ul>
+<h4 id="扩展编码方式">扩展编码方式</h4>
+<p>有等长15/15/15...扩展法 or 等长
+8/64/512...扩展法。（只是众多扩展法之二）</p>
+<ul>
+<li>是一种重要的指令优化技术：缩短指令平均长度、减少程序总位数和增加指令字所能表示的操作信息。</li>
+<li>一般用在指令字长较短的微、小型机上。</li>
+</ul>
+<h3 id="寻址方式">2. 寻址方式</h3>
+<p>指令中以什么方式提供操作数或操作数地址，称为寻址方式（或是编址方式）。</p>
+<p><strong>以下是以8086/8088为例</strong>：</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/06/17/ba66d891dddf1cd8.png" style="zoom: 40%;" /></p>
+<h3 id="pc指令系统">3. PC指令系统</h3>
+<h3 id="汇编">4. 汇编</h3>
+<h3 id="cisc-rics">5. CISC &amp; RICS</h3>
+<h2 id="五存储系统">（五）存储系统</h2>
+<h2 id="六处理器设计">（六）处理器设计</h2>
+]]></content>
+      <tags>
+        <tag>计算机组成原理</tag>
+        <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>嵌入式上机实验1</title>
+    <url>/2022/10/13/%E5%B5%8C%E5%85%A5%E5%BC%8F%E4%B8%8A%E6%9C%BA%E5%AE%9E%E9%AA%8C1/</url>
+    <content><![CDATA[<h2 id="实验一">实验一</h2>
+<h4 id="一实验目的">一、实验目的</h4>
+<ul>
+<li>熟悉Proteus硬件仿真环境</li>
+<li>掌握使用Keil uVision5进行STM32程序开发</li>
+<li>掌握Proteus和Keil联调的方法</li>
+</ul>
+<h4 id="二实验环境">二、实验环境</h4>
+<p>OS：Windows11</p>
+<p>软件：Keil uVision5，Proteus</p>
+<h4 id="三实验内容及实验原理">三、实验内容及实验原理</h4>
+<p>根据实验原理图配置对应的GPIO口，实现下述功能：</p>
+<p><strong>①</strong>根据按键状态来控制LED灯<strong>亮灭状态</strong>，每个按键控制一个LED灯，LED灯初始状态为亮，按键按下时对应LED灯灭，按键抬起时对应LED灯亮。</p>
+<p><strong>②</strong>根据按键状态来控制LED灯的<strong>闪烁方式</strong>，没有按键按下时三个LED灯都亮，第一个按键按下时三个LED灯<strong>同步周期性慢速闪烁</strong>，第二个按键按下时三个LED灯<strong>同步周期性快速闪烁</strong>，第三个按键按下时三个LED灯<strong>跑马灯方式闪烁</strong>。</p>
+<h5
+id="使能apb2总线上使用引脚所属的gpio端口的时钟">(1)使能<code>APB2</code>总线上使用引脚所属的<code>GPIO</code>端口的时钟</h5>
+<p>老师已经在工程中配置好了电源电路，因此直接开始配置时钟电路。如果没有稳定的时钟信号，即使接入电源，也无法正常工作。STM32F103通常选用8MHZ的外部晶振，因此该工程也是采用的该频率的外部晶振，使能GPIOA,GPIOB,USARTA1。</p>
+<p>GPIOB使用引脚PB7~12用于连接LED的电路。GPIOA用于USART模块实现双向通信，任何USART双向通信至少需要2个引脚：接受数据输入(RX)和发送数据输出(TX)：</p>
+<ul>
+<li><p>RX: 接受数据串行输入，使用引脚PA9，连接虚拟串口输出框。</p></li>
+<li><p>TX: 发送数据输出，使用引脚PA10。</p></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Enable GPIOA&#x27;s and GPIOB&#x27;s Clock</span></span><br><span class="line">RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);	</span><br><span class="line">RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);	</span><br><span class="line"><span class="comment">//Enable USART1&#x27;s Clock</span></span><br><span class="line">RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE);</span><br></pre></td></tr></table></figure>
+<h5
+id="通过gpio_inittypedef结构体变量配置gpio引脚">(2)通过GPIO_InitTypeDef结构体变量配置GPIO引脚</h5>
+<p>设置引脚PB7-9为推挽输出，与LED灯相连，控制LED灯的亮灭；设置引脚PB10-12为上拉输入，来接受按钮的输入信号。再将PB7-9复位，设置为低电平，实施LED灯初始为未点亮状态。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//设置推挽输出的引脚</span></span><br><span class="line">GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;  </span><br><span class="line">GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;  </span><br><span class="line">GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7 | GPIO_Pin_8 | GPIO_Pin_9;  </span><br><span class="line">GPIO_Init(GPIOB, &amp;GPIO_InitStructure);  </span><br><span class="line"><span class="comment">//设置上拉输入的引脚</span></span><br><span class="line">GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;  </span><br><span class="line">GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;  </span><br><span class="line">GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10 | GPIO_Pin_11 | GPIO_Pin_12;</span><br><span class="line">GPIO_Init(GPIOB, &amp;GPIO_InitStructure);  </span><br><span class="line"><span class="comment">//将指定引脚复位</span></span><br><span class="line">GPIO_ResetBits(GPIOB, GPIO_Pin_7);  </span><br><span class="line">GPIO_ResetBits(GPIOB, GPIO_Pin_8);  </span><br><span class="line">GPIO_ResetBits(GPIOB, GPIO_Pin_9); </span><br></pre></td></tr></table></figure>
+<h5 id="操作该引脚完成相应的功能">(3)操作该引脚完成相应的功能</h5>
+<p>首先完成功能一：要求是按下按键时LED灯灭。因此可以将其写为非负判断：若不存在输入值，那么将对应的引脚置位，使得LED灯亮；若存在输入值(即按下了按键)，则将对应的引脚复位，使得LED灯灭。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//功能1：LED灯初始为亮，只有按下按键使得灯灭。</span></span><br><span class="line"><span class="keyword">if</span>(!GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_10)) GPIO_SetBits(GPIOB, GPIO_Pin_7); </span><br><span class="line"><span class="keyword">else</span> GPIO_ResetBits(GPIOB, GPIO_Pin_7); </span><br><span class="line">         </span><br><span class="line"><span class="keyword">if</span>(!GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_11))GPIO_SetBits(GPIOB, GPIO_Pin_8); </span><br><span class="line"><span class="keyword">else</span> GPIO_ResetBits(GPIOB, GPIO_Pin_8); </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(!GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_12)) GPIO_SetBits(GPIOB, GPIO_Pin_9); </span><br><span class="line"><span class="keyword">else</span> GPIO_ResetBits(GPIOB, GPIO_Pin_9); </span><br></pre></td></tr></table></figure>
+<p>再完成功能二：根据按键状态来控制LED灯的闪烁方式，没有按键按下时三个LED灯都亮，第一个按键按下时三个LED灯同步周期性慢速闪烁，第二个按键按下时三个LED灯同步周期性快速闪烁，第三个按键按下时三个LED灯跑马灯方式闪烁。编写代码如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> i; </span><br><span class="line"><span class="comment">//第一个按键按下时三个LED灯同步周期性慢速闪烁</span></span><br><span class="line"><span class="keyword">if</span>(!GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_10))&#123;  </span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">1000000</span>; i++);  </span><br><span class="line">	GPIO_SetBits(GPIOB, GPIO_Pin_7|GPIO_Pin_8|GPIO_Pin_9);  </span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">1000000</span>; i++); </span><br><span class="line">	GPIO_ResetBits(GPIOB, GPIO_Pin_7|GPIO_Pin_8|GPIO_Pin_9);  </span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;SLOW LIGHT\r\n&quot;</span>);  </span><br><span class="line">&#125;<span class="keyword">else</span>  GPIO_ResetBits(GPIOB, GPIO_Pin_7|GPIO_Pin_8|GPIO_Pin_9); </span><br><span class="line"><span class="comment">//第二个按键按下时三个LED灯同步周期性快速闪烁</span></span><br><span class="line"><span class="keyword">if</span>(!GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_11))&#123;  </span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">300000</span>; i++);  </span><br><span class="line">	GPIO_SetBits(GPIOB, GPIO_Pin_7|GPIO_Pin_8|GPIO_Pin_9);  </span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">300000</span>; i++);  </span><br><span class="line">	GPIO_ResetBits(GPIOB, GPIO_Pin_7|GPIO_Pin_8|GPIO_Pin_9);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;FAST LIGHT\r\n&quot;</span>);  </span><br><span class="line">&#125;<span class="keyword">else</span>  GPIO_ResetBits(GPIOB, GPIO_Pin_7|GPIO_Pin_8|GPIO_Pin_9); </span><br><span class="line"><span class="comment">//第三个按键按下时三个LED灯跑马灯方式闪烁	          </span></span><br><span class="line"><span class="keyword">if</span>(!GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_12))&#123;  </span><br><span class="line">		<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">100000</span>; i++) &#123;  </span><br><span class="line">				GPIO_ResetBits(GPIOB, GPIO_Pin_7);</span><br><span class="line">				GPIO_SetBits(GPIOB, GPIO_Pin_8|GPIO_Pin_9);   </span><br><span class="line">		&#125;                </span><br><span class="line">		<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">100000</span>; i++)&#123;  </span><br><span class="line">				GPIO_ResetBits(GPIOB, GPIO_Pin_8);  </span><br><span class="line">				GPIO_SetBits(GPIOB, GPIO_Pin_7|GPIO_Pin_9);  </span><br><span class="line">		&#125;              </span><br><span class="line">		<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">100000</span>; i++)&#123;  </span><br><span class="line">				GPIO_ResetBits(GPIOB, GPIO_Pin_9);  </span><br><span class="line">				GPIO_SetBits(GPIOB, GPIO_Pin_7|GPIO_Pin_8);  </span><br><span class="line">		&#125;  </span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;CIRCULATION LIGHT\r\n&quot;</span>);  </span><br><span class="line">&#125;<span class="keyword">else</span>  GPIO_ResetBits(GPIOB, GPIO_Pin_7 | GPIO_Pin_8 | GPIO_Pin_9);</span><br></pre></td></tr></table></figure>
+<h4 id="四实验结果及其分析">四、实验结果及其分析</h4>
+<p>使用C语言中的#if与#endif完成分支编译。对于功能二的实现，需要长按某按钮实现。此处选择的快速约是慢速的三倍左右。</p>
+<p><strong>具体结果见视频。</strong></p>
+<h4 id="五心得体会与建议">五、心得体会与建议</h4>
+<p>通过本次实验，我在PC上安装了嵌入式学习的软件：Keil和Proteus，并对其基本操作进行了了解。针对老师给出的实验内容，对要求实现的功能进行了C语言代码的编写。并通过Keil进行编译运行，再在Proteus的硬件仿真环境下进行结果验证。</p>
+<p>在调试的过程中，会遇到一定的问题：比如写出的<code>printf</code>函数中使用了换行的转义字符，但是在显示上并没有换行。在Keil上未成功编译就急忙打开Proteus想要验证，但是导致Proteus未响应最后只能退出。</p>
+<p>但是经过这次实验，我对这两个软件的联调也有了一定的认识，操作上熟练了一些。</p>
+]]></content>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>实验</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>嵌入式上机实验2</title>
+    <url>/2022/10/19/%E5%B5%8C%E5%85%A5%E5%BC%8F%E4%B8%8A%E6%9C%BA%E5%AE%9E%E9%AA%8C2/</url>
+    <content><![CDATA[<h2 id="实验二-定时器">实验二 定时器</h2>
+<p>对于定时器的实现：</p>
+<p>软件实现的for循环不太精确，采用内部系统时钟，可实现精确的定时，其工作模式为：普通模式、比较输出/PWM输出模式、捕获输入模式</p>
+<p>PWM：输出指定波形</p>
+<p>捕获输入：测量输入信号频率和占空比，测量外部时间</p>
+<p>示波器：可以以准确的时间看捏</p>
+<h4 id="一实验目的">一、实验目的</h4>
+<ul>
+<li><p>掌握Proteus和Keil联调的方法。</p></li>
+<li><p>掌握STM32上利用定时器的技术模式进行延时的方法。</p></li>
+<li><p>掌握STM32上定时器的PWM模式的运用方法。</p></li>
+</ul>
+<h4 id="二实验环境">二、实验环境</h4>
+<p>OS：Windows11</p>
+<p>软件：Keil uVision5，Proteus</p>
+<h4 id="三实验内容">三、实验内容</h4>
+<p>根据实验原理图配置对应的GPIO口和定时器，实现下述功能：</p>
+<p>① 配置三个LED和串口相关的IO功能；</p>
+<p>②
+配置TIM1，根据系统8MHz时钟，配置定时周期为1秒，向上计数模式；然后在while循环中使能定时器，查询等待定时器时间到，点亮3个LED灯，再次使能定时器，等待定时时间到，熄灭3个LED灯，循环往复。</p>
+<p>③
+配置TIM1，根据系统8MHz时钟，配置定时周期为1秒，向上计数模式；配置TIM1的CH1、CH2、CH3为PWM模式，生成占空比为50%的波形；使能定时器和PWM输出；在while循环中空循环即可。</p>
+<p>④
+上述两种模式可以单独实现，也可通过宏定义控制的形式实现在一个<code>main.c</code>中。</p>
+<h4 id="四实验原理">四、实验原理</h4>
+<p>①首先配置三个LED灯和串口相关的IO功能，此处使用的是实验一中介绍的片内外设GPIO来配置。使能APB1总线上的引脚PA8,9,10所属端口GPIOA的时钟，设置需要使用的GPIOA端口，将PA8,9,10配置为普通推挽输出。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//now need config the IO-PA8,9,10</span></span><br><span class="line">GPIO_InitStructure.GPIO_Pin=GPIO_Pin_10|GPIO_Pin_9|GPIO_Pin_8;</span><br><span class="line">GPIO_InitStructure.GPIO_Speed=GPIO_Speed_50MHz;</span><br><span class="line">GPIO_InitStructure.GPIO_Mode=GPIO_Mode_Out_PP;</span><br><span class="line">GPIO_Init(GPIOA,&amp;GPIO_InitStructure);</span><br></pre></td></tr></table></figure>
+<p>再来配置TIM1：根据系统内8MHZ的时钟，配置器定时周期为1s。对于定时周期为1s的设置，需要根据公式：
+<span class="math display">\[
+T=\frac{(TIM_{Prescaler}+1)(TIM_{Period}+1)}{TIMxCLK}
+\]</span>
+<code>TIMxCLK</code>在软件仿真中取值8MHZ，因此为使T=1s，则<span
+class="math inline">\((TIM_{Prescaler}+1)(TIM_{Period}+1)\)</span>要取值为8M。此处取<code>Prescaler</code>预分频为8k，那么<code>Period</code>持续时间选择1k。</p>
+<p>然后，将TIM1设置为向上计数模式。对于计数模式共有两种：中心对齐和边沿对齐。此处选择的是边沿对齐的向上计数。因此就将TIM1的要求配置完毕。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//then finish TIM1&#x27;s requirements</span></span><br><span class="line">TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;</span><br><span class="line">RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1,ENABLE);</span><br><span class="line">TIM_TimeBaseStructure.TIM_Prescaler=<span class="number">8000</span><span class="number">-1</span>;<span class="comment">//1khz=1ms</span></span><br><span class="line">TIM_TimeBaseStructure.TIM_Period=<span class="number">1000</span><span class="number">-1</span>;<span class="comment">//1ms*1k=1s</span></span><br><span class="line">TIM_TimeBaseStructure.TIM_ClockDivision=<span class="number">0</span>;</span><br><span class="line">TIM_TimeBaseStructure.TIM_RepetitionCounter=<span class="number">0</span>;</span><br><span class="line">TIM_TimeBaseStructure.TIM_CounterMode=TIM_CounterMode_Up;</span><br><span class="line">TIM_TimeBaseInit(TIM1,&amp;TIM_TimeBaseStructure);</span><br></pre></td></tr></table></figure>
+<p>②对于完成第二项功能，使用的是普通输出模式。要求将自行在<code>while(1)</code>无限循环中写于有关的测试代码以实现：在<code>while</code>循环中使能定时器，查询等待定时时间到，点亮3个LED灯，再此使能定时器，等待定时时间到，熄灭3个LED灯。</p>
+<p>因此先将<code>PA8,9,10</code>引脚设置为低电平，这样三个LED灯的初始状态即为亮；在开启TIM1计时后，会通过循环轮询TIM1标志位的状态。当TIM1计时结束后，清除TIM1的标志位的状态。此时将<code>PA8,9,10</code>引脚设置为高电平，这样三个LED灯就会熄灭；再次进行TIM1计时，以达到循环亮灭的目的。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* Infinite loop */</span></span><br><span class="line"><span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">	GPIO_ResetBits(GPIOA,GPIO_Pin_8|GPIO_Pin_9|GPIO_Pin_10);<span class="comment">//light on</span></span><br><span class="line">	TIM_Cmd(TIM1,ENABLE);</span><br><span class="line">	<span class="keyword">while</span>(TIM_GetFlagStatus(TIM1,TIM_FLAG_Update)==RESET);</span><br><span class="line">	TIM_ClearFlag(TIM1,TIM_FLAG_Update);</span><br><span class="line">		</span><br><span class="line">	GPIO_SetBits(GPIOA,GPIO_Pin_8|GPIO_Pin_9|GPIO_Pin_10);<span class="comment">//light off</span></span><br><span class="line">	TIM_Cmd(TIM1,ENABLE);</span><br><span class="line">	<span class="keyword">while</span>(TIM_GetFlagStatus(TIM1,TIM_FLAG_Update)==RESET);</span><br><span class="line">	TIM_ClearFlag(TIM1,TIM_FLAG_Update);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>③功能三需要使用PWM模式，要求其占空比为50%。对于使用PWM模式的输出，需要先复用端口，即将上文中的<code>GPIO_InitStructure.GPIO_Mode=GPIO_Mode_Out_PP</code>改为<code>GPIO_InitStructure.GPIO_Mode=GPIO_Mode_AF_PP</code>，设置为复用推挽输出模式。</p>
+<p>在PWM模式下电平的高低有PWM模块进行控制，而不是芯片来控制，因此需要复用PA8,9,10三个引脚即可，而while循环中空循环即可。</p>
+<p><code>TIM_OCInitTypeDef</code>结构体来储存配置信息。我们设置<code>TIM_OCMode</code>为<code>TIM_OCMode_PWM1</code>，<code>TIM_OCPolarity</code>为<code>TIM_OCPolarity_Low</code>。我们需要设置占空比为<code>50%</code>，根据公式，占空比等于<span
+class="math inline">\(\frac{（TIM_{Pulse}）}{（TIM_{Period} +
+1）}\)</span>，上面我们设置了<code>TIM_Period</code>为1000 –
+1，这里为了达到占空比为<code>50%</code>，需要设置<code>TIM_Period</code>为500，然后开启输出比较状态。</p>
+<p>配置TIM1的CH1,2,3为PWM模式：根据复用关系表我们可以知道，三个端口PA8,9,10分别复用了TIM1的通道1，通道2和通道3，因此我们需要分别初始化三个通道和使能三个通道的CCR预装载器。最后使能ARR的预装载器；最后，我们只需要开启TIM1，使能TIM1的主输出即可。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//set OCL/OCH=1:1 and start state</span></span><br><span class="line">	TIM_OCInitTypeDef TIM_OCInitStructure;</span><br><span class="line">	TIM_OCInitStructure.TIM_OCMode=TIM_OCMode_PWM1;</span><br><span class="line">	TIM_OCInitStructure.TIM_OCPolarity=TIM_OCPolarity_Low;</span><br><span class="line">	TIM_OCInitStructure.TIM_Pulse=<span class="number">500</span>;</span><br><span class="line">	TIM_OCInitStructure.TIM_OutputState=TIM_OutputState_Enable;</span><br><span class="line"><span class="comment">//AF_OC1,2,3</span></span><br><span class="line">	TIM_OC1Init(TIM1, &amp;TIM_OCInitStructure);</span><br><span class="line">	TIM_OC2Init(TIM1, &amp;TIM_OCInitStructure);</span><br><span class="line">	TIM_OC3Init(TIM1, &amp;TIM_OCInitStructure);</span><br><span class="line">	TIM_ARRPreloadConfig(TIM1,ENABLE);</span><br><span class="line"><span class="comment">//start TIM1</span></span><br><span class="line">	TIM_Cmd(TIM1,ENABLE);</span><br><span class="line">	TIM_CtrlPWMOutputs(TIM1,ENABLE);</span><br></pre></td></tr></table></figure>
+<h4 id="五实验结果及其分析">五、实验结果及其分析</h4>
+<p>先不用PWM，常用推挽输出模式，所得的结果为：三个LED灯周期性闪烁，当PA8,9,10为高电平时，LED灯熄灭。反之，则LED灯亮起。其亮起的时间(即示波为低电平的时间)为<code>5*0.2ms=1ms</code>。</p>
+<p><img src="https://s1.ax1x.com/2022/10/15/x0lMxU.png" /></p>
+<p>使用PWM模式下，所得的周期是推挽输出模式的一半。</p>
+<p><img src="https://s1.ax1x.com/2022/10/15/x0l1r4.png" /></p>
+<p>定时器时间没变的情况下，为什么跑出来的周期不一样呢？</p>
+<blockquote>
+<p>对于普通的推挽模式下选择的是每次经过一次完整计时后设置小灯的状态；但是对于PWM模式下就是将一个周期通过设置占空比将其分为两部分，其中一半的时间小灯熄灭，一半的时间小灯亮起。</p>
+</blockquote>
+<p><img src="https://s1.ax1x.com/2022/10/15/x01Nwj.png" /></p>
+<p><img src="https://s1.ax1x.com/2022/10/15/x01tmQ.png" /></p>
+<p>对于上述的两功能，选择<code>#ifdef</code>：判断某个宏是否被定义，若已定义，执行随后的语句。来选择执行的代码部分。</p>
+<p><strong>具体结果见视频。</strong></p>
+<h4 id="六心得体会与建议">六、心得体会与建议</h4>
+<p>通过本次实验，深入学习掌握了TIM定时器系统和PWM定时输出模式。</p>
+]]></content>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>实验</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>嵌入式上机实验3</title>
+    <url>/2022/10/23/%E5%B5%8C%E5%85%A5%E5%BC%8F%E4%B8%8A%E6%9C%BA%E5%AE%9E%E9%AA%8C3/</url>
+    <content><![CDATA[<h4 id="一实验目的">一、实验目的</h4>
+<ul>
+<li>掌握Proteus和Keil联调的方法。</li>
+<li>掌握STM32中NVIC的特点、内部结构、工作原理和主要特性。</li>
+<li>熟悉STM32上NVIC和EXTI相关的常用库函数的使用。</li>
+</ul>
+<h4 id="二实验环境">二、实验环境</h4>
+<p>OS：Windows11</p>
+<p>软件：Keil uVision5，Proteus</p>
+<h4 id="三实验内容">三、实验内容</h4>
+<p>根据实验原理图配置对应的<code>GPIO</code>口和定时器，实现下述功能：</p>
+<ol type="1">
+<li>配置三个<code>KEY</code>、四个<code>LED</code>和串口相关的<code>IO</code>功能；</li>
+<li>配置<code>TIM3</code>，根据系统<code>8MHz</code>时钟，配置定时周期为<code>0.5</code>秒，向上计数模式；</li>
+<li>配置<code>TIM3</code>的中断，在中断响应函数中翻转<code>PA8</code>的输出状态，实现<code>LED1</code>的闪烁；</li>
+<li>配置<code>PB4</code>、<code>PB5</code>、<code>PB6</code>为上拉输入，使能<code>AFIO</code>；</li>
+<li>配置<code>EXTI4</code>和<code>EXTI9_5</code>的中断优先级；</li>
+<li>配置<code>PB4</code>、<code>PB5</code>、<code>PB6</code>的中断模式为下降沿中断；</li>
+<li>在<code>PB4</code>、<code>PB5</code>、<code>PB6</code>的中断响应函数中分别翻转<code>LED2</code>、<code>LED3</code>、<code>LED4</code>的状态，实现按一下灯亮，再按一下灯灭。</li>
+</ol>
+<h4 id="四实验原理">四、实验原理</h4>
+<p>在<code>Proteus</code>中的电路图中，可见<code>PA8~11</code>与LED灯相连。对于内容①要求配置三个<code>KEY</code>、四个<code>LED</code>和串口相关的<code>IO</code>功能：首先配置四个LED灯和串口相关的IO功能，此处使用的是实验一中介绍的片内外设GPIO来配置。使能APB1总线上的引脚PA8~11所属端口GPIOA的时钟，设置需要使用的GPIOA端口，将PA8~11配置为普通推挽输出。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 		</span><br><span class="line">GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;	 	</span><br><span class="line">GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_8 | GPIO_Pin_9 | GPIO_Pin_10 | GPIO_Pin_11;	<span class="comment">//PA.8-11</span></span><br><span class="line">GPIO_Init(GPIOA, &amp;GPIO_InitStructure);	</span><br></pre></td></tr></table></figure>
+<p>对于串口相关的功能：GPIOA用于USART模块实现双向通信，任何USART双向通信至少需要2个引脚：接受数据输入(RX)和发送数据输出(TX)：</p>
+<ul>
+<li><p>RX: 接受数据串行输入，使用引脚PA2，连接虚拟串口输出框。</p></li>
+<li><p>TX: 发送数据输出，使用引脚PA3。</p></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//USART2_TX   GPIOA.2</span></span><br><span class="line">GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2; <span class="comment">//PA.2</span></span><br><span class="line">GPIO_InitStructure.GPIO_Speed = GPIO_Speed_10MHz;</span><br><span class="line">GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;	</span><br><span class="line">GPIO_Init(GPIOA, &amp;GPIO_InitStructure);<span class="comment">//GPIOA.2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Set USART2&#x27;s Config</span></span><br><span class="line">USART_InitStructure.USART_BaudRate = <span class="number">9600</span>;</span><br><span class="line">USART_InitStructure.USART_WordLength = USART_WordLength_8b;</span><br><span class="line">USART_InitStructure.USART_StopBits = USART_StopBits_1;</span><br><span class="line">USART_InitStructure.USART_Parity = USART_Parity_No;</span><br><span class="line">USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;</span><br><span class="line">USART_InitStructure.USART_Mode = USART_Mode_Tx;	</span><br><span class="line">USART_Init(USART2, &amp;USART_InitStructure); </span><br><span class="line"></span><br><span class="line"><span class="comment">//Enable USART2</span></span><br><span class="line">USART_Cmd(USART2, ENABLE); </span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;USART2 Init Completely\r\n&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>接下来将完成内容②配置TIM3：由于要求配置的定时周期为0.5s，根据如下的公式：
+<span class="math display">\[
+T=\frac{(TIM_{Prescaler}+1)(TIM_{Period}+1)}{TIMxCLK}
+\]</span>
+<code>TIMxCLK</code>在软件仿真中取值8MHZ，因此为使T=0.5s，则<span
+class="math inline">\((TIM_{Prescaler}+1)(TIM_{Period}+1)\)</span>要取值为4M。此处取<code>Prescaler</code>预分频为4k，那么<code>Period</code>持续时间选择1k。</p>
+<p>对于<code>TIM3</code>计数模式的选择，此处选择的是边沿对齐的向上计数。然后通过<code>TIM_TimeBaseInit</code>函数对<code>TIM3</code>进行初始化设置；通过<code>TIM_ITConfig</code>，使能<code>TIM3</code>的指定中断。此处选择的是<code>TIM_IT_Update</code>TIM更新中断。最后开启<code>TIM3</code>的时钟计数。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//config TIM3</span></span><br><span class="line">TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;</span><br><span class="line">RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);</span><br><span class="line">TIM_TimeBaseStructure.TIM_Prescaler = <span class="number">4000</span><span class="number">-1</span>;</span><br><span class="line">TIM_TimeBaseStructure.TIM_Period = <span class="number">1000</span><span class="number">-1</span>;</span><br><span class="line">TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;<span class="comment">//向上计数</span></span><br><span class="line">TIM_TimeBaseInit(TIM3, &amp;TIM_TimeBaseStructure);<span class="comment">//Init</span></span><br><span class="line">TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE);<span class="comment">//定时器中断使能，定时到即产生中断</span></span><br><span class="line">TIM_Cmd(TIM3, ENABLE);<span class="comment">//开启TIM3的时钟计数</span></span><br></pre></td></tr></table></figure>
+<h5 id="内部中断">1.内部中断</h5>
+<p><strong>对于内部中断来说，根据定时器每到一次时间，产生一次中断</strong>。内容③要求在中断响应函数中翻转<code>PA8</code>的输出状态，实现<code>LED1</code>的闪烁。在写中断响应函数之前，首先应该进行<code>NVIC</code>的配置来关联<code>TIM3</code>的时钟中断：</p>
+<p>对于优先级的设置，此处选择的是<code>NVIC_PriorityGroup_1</code>，对应抢占优先级1位，子优先级3位。然后使能<code>IRQ</code>通道为<code>TIM3_IRQn</code>，即<code>TIM3</code>的全局中断，从而使NVIC与TIM3的中断相关联。设置<code>IRQ</code>通道的抢占优先级为1，子优先级为0。最后使能指定<code>NVIC_IRQChannel</code>中定义的IRQ通道，即<code>TIM3_IRQn</code>。并通过<code>NVIC_Init</code>来将配置信息写入<code>NVIC</code>中。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">NVIC_InitTypeDef NVIC_InitStructure;</span><br><span class="line"><span class="comment">//优先级设置</span></span><br><span class="line">NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1);<span class="comment">//抢占优先级1位，子优先级3位。</span></span><br><span class="line">NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;</span><br><span class="line">NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = <span class="number">1</span>;</span><br><span class="line">NVIC_InitStructure.NVIC_IRQChannelSubPriority = <span class="number">0</span>;</span><br><span class="line">NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;<span class="comment">//使能指定NVIC_IRQChannel中定义的IRQ通道，即TIM3_IRQn。</span></span><br><span class="line">NVIC_Init(&amp;NVIC_InitStructure);</span><br></pre></td></tr></table></figure>
+<p>完成TIM3的计时器和NVIC中断向量控制器相关联后，在TIM3的发生中断响应时，就可以触发TIM3的中断响应函数。而在TIM3的中断相应函数中就可以反转PA8的状态，实现LED1的闪烁。<strong>若要实现循环闪烁，则在每次反转后都需要清除TIM的中断标志。</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">TIM3_IRQHandler</span><span class="params">(<span class="type">void</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(GPIO_ReadOutputDataBit(GPIOA, GPIO_Pin_8) == Bit_SET)GPIO_ResetBits(GPIOA, GPIO_Pin_8);</span><br><span class="line">	<span class="keyword">else</span> GPIO_SetBits(GPIOA, GPIO_Pin_8);</span><br><span class="line">	TIM_ClearITPendingBit(TIM3, TIM_IT_Update);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="外部中断">2.外部中断</h5>
+<p>若使用STM32F103引脚的外部中断功能，需打开APB2总线上该引脚对应的端口时钟和AFTO功能时钟。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB|RCC_APB2Periph_AFIO, ENABLE);</span><br></pre></td></tr></table></figure>
+<p>内容④要求配置PB4~6为上拉输入，并使能AFIO。则要求我们通过GPIO来进行外部中断的控制。通过上述函数已将该引脚对应的端口时钟和AFTO功能时钟使能。然后进行关于PB4~6的GPIO口的设置。由于使用KEY来控制输入，因此输入模式的配置为上拉输入。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;</span><br><span class="line">GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;</span><br><span class="line">GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_6;</span><br><span class="line">GPIO_Init(GPIOB, &amp;GPIO_InitStructure);</span><br></pre></td></tr></table></figure>
+<p>内容⑤要求配置<code>EXTI4</code>和<code>EXTI9_5</code>的中断优先级；对于EXTI0~4的中断是独立的，自己拥有独占的中断；而对于EXTI9~5，则需要共享一个<code>EXTI9_5_IRQn</code>通道以及中断响应函数<code>EXTI9_5_IRQHandler</code>。设置二者的抢占优先级均为1，子优先级为1；然后使能IRQ通道。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">NVIC_InitStructure.NVIC_IRQChannel = EXTI4_IRQn;</span><br><span class="line">NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = <span class="number">1</span>;</span><br><span class="line">NVIC_InitStructure.NVIC_IRQChannelSubPriority = <span class="number">1</span>;</span><br><span class="line">NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;</span><br><span class="line">NVIC_Init(&amp;NVIC_InitStructure);</span><br><span class="line"></span><br><span class="line">NVIC_InitStructure.NVIC_IRQChannel = EXTI9_5_IRQn;</span><br><span class="line">NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = <span class="number">1</span>;</span><br><span class="line">NVIC_InitStructure.NVIC_IRQChannelSubPriority = <span class="number">1</span>;</span><br><span class="line">NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;</span><br><span class="line">NVIC_Init(&amp;NVIC_InitStructure);</span><br></pre></td></tr></table></figure>
+<p>内容⑥要求配置<code>PB4</code>、<code>PB5</code>、<code>PB6</code>的中断模式为下降沿中断；首先要先配置PB4~6为EXTI_Line4~6的引脚，只需要将外部中断线和GPIO对应的引脚相关联即可。通过<code>EXTI_InitStructure.EXTI_Trigger</code>设置PB4~66`的中断模式为下降沿中断，即按下按键时会产生中断；最后对外部中断进行使能即可。当GPIO引脚相关的KEY被按下，就会触发相应的中断，并执行相应的中断响应函数。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">EXTI_InitTypeDef EXTI_InitStructure;</span><br><span class="line"></span><br><span class="line">GPIO_EXTILineConfig(GPIO_PortSourceGPIOB, GPIO_PinSource4);</span><br><span class="line">EXTI_InitStructure.EXTI_Line = EXTI_Line4;</span><br><span class="line">EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;</span><br><span class="line">EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;	</span><br><span class="line">EXTI_InitStructure.EXTI_LineCmd = ENABLE;</span><br><span class="line">EXTI_Init(&amp;EXTI_InitStructure);</span><br><span class="line"></span><br><span class="line">GPIO_EXTILineConfig(GPIO_PortSourceGPIOB, GPIO_PinSource5);</span><br><span class="line">EXTI_InitStructure.EXTI_Line = EXTI_Line5;</span><br><span class="line">EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;</span><br><span class="line">EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;</span><br><span class="line">EXTI_InitStructure.EXTI_LineCmd = ENABLE;</span><br><span class="line">EXTI_Init(&amp;EXTI_InitStructure);</span><br><span class="line"></span><br><span class="line">GPIO_EXTILineConfig(GPIO_PortSourceGPIOB, GPIO_PinSource6);</span><br><span class="line">EXTI_InitStructure.EXTI_Line = EXTI_Line6;</span><br><span class="line">EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;</span><br><span class="line">EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;</span><br><span class="line">EXTI_InitStructure.EXTI_LineCmd = ENABLE;</span><br><span class="line">EXTI_Init(&amp;EXTI_InitStructure);</span><br></pre></td></tr></table></figure>
+<p>内容⑦要求在<code>PB4</code>、<code>PB5</code>、<code>PB6</code>的中断响应函数中分别翻转<code>LED2</code>、<code>LED3</code>、<code>LED4</code>的状态，实现按一下灯亮，再按一下灯灭。</p>
+<p>对于EXTI4外部中断，其中断响应函数是独立的，因此只要<code>PB4</code>触发<code>EXTI4</code>的中断，就只需要判断与<code>PB4</code>相关联的<code>PA9</code>的状态即可，这样就能实现<code>PB4</code>对<code>PA9</code>所连的LED灯的控制。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">EXTI4_IRQHandler</span><span class="params">(<span class="type">void</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(GPIO_ReadOutputDataBit(GPIOA, GPIO_Pin_9) == Bit_SET)GPIO_ResetBits(GPIOA, GPIO_Pin_9);</span><br><span class="line">	<span class="keyword">else</span> GPIO_SetBits(GPIOA, GPIO_Pin_9);</span><br><span class="line">	EXTI_ClearITPendingBit(EXTI_Line4);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而对于<code>PB5</code>和<code>PB6</code>，它们所绑定的中断事件则是共用一个中断响应函数的。因此在<code>EXTI9_5_IRQHandler</code>中，我们需要检测是哪个外部中断被触发：</p>
+<ul>
+<li><code>PB5</code>控制<code>PA10</code>，因此如果外部中断5发生，则检测<code>PA10</code>的状态；</li>
+<li><code>PB6</code>控制<code>PA11</code>，因此如果外部中断6发生，则检测<code>PA11</code>的状态。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">EXTI9_5_IRQHandler</span><span class="params">(<span class="type">void</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(EXTI_GetITStatus(EXTI_Line5) == SET)&#123;</span><br><span class="line">		<span class="keyword">if</span>(GPIO_ReadOutputDataBit(GPIOA, GPIO_Pin_10) == Bit_SET)GPIO_ResetBits(GPIOA, GPIO_Pin_10);</span><br><span class="line">		<span class="keyword">else</span> GPIO_SetBits(GPIOA, GPIO_Pin_10);</span><br><span class="line">		EXTI_ClearITPendingBit(EXTI_Line5);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>(EXTI_GetITStatus(EXTI_Line6) == SET)&#123;</span><br><span class="line">		<span class="keyword">if</span>(GPIO_ReadOutputDataBit(GPIOA, GPIO_Pin_11) == Bit_SET)GPIO_ResetBits(GPIOA, GPIO_Pin_11);</span><br><span class="line">		<span class="keyword">else</span> GPIO_SetBits(GPIOA, GPIO_Pin_11);</span><br><span class="line">		EXTI_ClearITPendingBit(EXTI_Line6);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="五实验结果及其分析">五、实验结果及其分析</h4>
+<p><img src="https://s1.ax1x.com/2022/10/21/xc8o8g.png" /></p>
+<p><strong>具体结果见视频</strong>。</p>
+<h4 id="六心得体会与建议">六、心得体会与建议</h4>
+<p>通过本次实验，深入学习掌握了TIM定时器系统和NVIC的中断控制原理。</p>
+]]></content>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>实验</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数据库上机实验1</title>
+    <url>/2022/09/25/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%8A%E6%9C%BA%E5%AE%9E%E9%AA%8C1/</url>
+    <content><![CDATA[<h1 id="实验1">实验1</h1>
+<p>[TOC]</p>
+<h3 id="section">1-6</h3>
+<h4 id="一-安装mysql">一<strong>、</strong>
+<strong>安装MYSQL</strong></h4>
+<p>在安装MYSQL的同时，也安装了DataGrip可视化界面，本次实验使用DataGrip与MYSQL命令行界面交叉使用来练习SQL语言。对于DataGrip来说，其显示的代码更完整，以及展示的更规整。</p>
+<h4 id="二-建立并使用bank">二、 <strong>建立并使用BANK</strong></h4>
+<p>我的学号是20069100175，因此选取后三位175作为bank的后缀。</p>
+<p><img src="https://s1.ax1x.com/2022/09/22/xFjbPx.png" /></p>
+<h4 id="三建表并输入数据">三、建表并输入数据</h4>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 建表：BRANCHxxx, CUSTOMERxxx, LOANxxx, BORROWERxxx, ACCOUNTxxx, DEPOSITORxxx；</span><br><span class="line">CREATE TABLE account_175 (</span><br><span class="line">    account_number char(10),</span><br><span class="line">    branch_name char(30),</span><br><span class="line">    balance  numeric(12,2),</span><br><span class="line">    PRIMARY KEY (account_number),</span><br><span class="line">    FOREIGN KEY (branch_name)</span><br><span class="line">	REFERENCES branch_175(branch_name),</span><br><span class="line">    CONSTRAINT chk_balance CHECK (balance &gt;= 0 )</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">create table  branch_175(</span><br><span class="line">    branch_name char(30),</span><br><span class="line">    branch_city char(10),</span><br><span class="line">    assets int,</span><br><span class="line">    primary key(branch_name)</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">create table customer_175(</span><br><span class="line">    customer_name char(10),</span><br><span class="line">    customer_street char(10),</span><br><span class="line">    customer_city char(20)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">create table depositor_175(</span><br><span class="line">    customer_name char(10),</span><br><span class="line">    customer_number char(10)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">create table loan_175(</span><br><span class="line">  loan_number char(10),</span><br><span class="line">  branch_name char(30),</span><br><span class="line">  amount int,</span><br><span class="line">  FOREIGN KEY (branch_name) REFERENCES branch_175(branch_name)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">create table borrower_175(</span><br><span class="line">  customer_name char(10),</span><br><span class="line">  loan_number char(10)</span><br><span class="line">);</span><br><span class="line"># 查询建表情况</span><br><span class="line">desc account_175;</span><br><span class="line"></span><br><span class="line"># 插入数据</span><br><span class="line">insert into account_175 values</span><br><span class="line">(&#x27;A_101&#x27;,&#x27;Downtown&#x27;,500),</span><br><span class="line">(&#x27;A_102&#x27;,&#x27;Perryridge&#x27;,400),</span><br><span class="line">(&#x27;A_201&#x27;,&#x27;Brighton&#x27;,900),</span><br><span class="line">(&#x27;A_215&#x27;,&#x27;Mianus&#x27;,700),</span><br><span class="line">(&#x27;A_217&#x27;,&#x27;Brighton&#x27;,750),</span><br><span class="line">(&#x27;A_222&#x27;,&#x27;Redwood&#x27;,700),</span><br><span class="line">(&#x27;A_305&#x27;,&#x27;Round Hill&#x27;,350);</span><br><span class="line"></span><br><span class="line">insert into branch_175 values</span><br><span class="line">(&#x27;Brighton&#x27;,&#x27;Brooklyn&#x27;,7100000),</span><br><span class="line">(&#x27;Downtown&#x27;,&#x27;Brooklyn&#x27;,9000000),</span><br><span class="line">(&#x27;Mianus&#x27;,&#x27;Horseneck&#x27;,400000),</span><br><span class="line">(&#x27;North Town&#x27;,&#x27;Rye&#x27;,3700000),</span><br><span class="line">(&#x27;Perryridge&#x27;,&#x27;Horseneck&#x27;,1700000),</span><br><span class="line">(&#x27;Pownal&#x27;,&#x27;Bennington&#x27;,300000),</span><br><span class="line">(&#x27;Redwood&#x27;,&#x27;Palo Alto&#x27;,2100000),</span><br><span class="line">(&#x27;Round Hill&#x27;,&#x27;Horseneck&#x27;,8000000);</span><br><span class="line"></span><br><span class="line">insert into customer_175 values</span><br><span class="line">(&#x27;Adams&#x27;,&#x27;Spring&#x27;,&#x27;Pittsfield&#x27;),</span><br><span class="line">(&#x27;Brooks&#x27;,&#x27;Senator&#x27;,&#x27;Brooklyn&#x27;),</span><br><span class="line">(&#x27;Curry&#x27;,&#x27;North&#x27;,&#x27;Rye&#x27;),</span><br><span class="line">(&#x27;Glenn&#x27;,&#x27;Sand Hill&#x27;,&#x27;Woodside&#x27;),</span><br><span class="line">(&#x27;Green&#x27;,&#x27;Walnut&#x27;,&#x27;Stamford&#x27;),</span><br><span class="line">(&#x27;Hayes&#x27;,&#x27;Main&#x27;,&#x27;Harrison&#x27;),</span><br><span class="line">(&#x27;Johnson&#x27;,&#x27;Alma&#x27;,&#x27;Palo Alto&#x27;),</span><br><span class="line">(&#x27;Jones&#x27;,&#x27;Main&#x27;,&#x27;Harrison&#x27;),</span><br><span class="line">(&#x27;Lindsay&#x27;,&#x27;Park&#x27;,&#x27;Pittsfield&#x27;),</span><br><span class="line">(&#x27;Smith&#x27;,&#x27;North&#x27;,&#x27;Rye&#x27;),</span><br><span class="line">(&#x27;Turner&#x27;,&#x27;Putnam&#x27;,&#x27;Stamford&#x27;),</span><br><span class="line">(&#x27;Williams&#x27;,&#x27;Nassau&#x27;,&#x27;Princeton&#x27;);</span><br><span class="line"></span><br><span class="line">insert into depositor_175 values</span><br><span class="line">(&#x27;Hayes&#x27;,&#x27;A-102&#x27;),</span><br><span class="line">(&#x27;Johnson&#x27;,&#x27;A-101&#x27;),</span><br><span class="line">(&#x27;Johnson&#x27;,&#x27;A-201&#x27;),</span><br><span class="line">(&#x27;Jones&#x27;,&#x27;A-217&#x27;),</span><br><span class="line">(&#x27;Lindsay&#x27;,&#x27;A-222&#x27;),</span><br><span class="line">(&#x27;Smith&#x27;,&#x27;A-215&#x27;),</span><br><span class="line">(&#x27;Turner&#x27;,&#x27;A-305&#x27;);</span><br><span class="line"></span><br><span class="line">insert into loan_175 values</span><br><span class="line">(&#x27;L-11&#x27;,&#x27;Round Hill&#x27;,900),</span><br><span class="line">(&#x27;L-14&#x27;,&#x27;Downtown&#x27;,1500),</span><br><span class="line">(&#x27;L-15&#x27;,&#x27;Perryridge&#x27;,1500),</span><br><span class="line">(&#x27;L-16&#x27;,&#x27;Perryridge&#x27;,1300),</span><br><span class="line">(&#x27;L-17&#x27;,&#x27;Downtown&#x27;,1000),</span><br><span class="line">(&#x27;L-23&#x27;,&#x27;Redwood&#x27;,2000),</span><br><span class="line">(&#x27;L-93&#x27;,&#x27;Mianus&#x27;,500);</span><br><span class="line"></span><br><span class="line">insert into borrower_175 values</span><br><span class="line">(&#x27;Admas&#x27;,&#x27;L-16&#x27;),</span><br><span class="line">(&#x27;Curry&#x27;,&#x27;L-93&#x27;),</span><br><span class="line">(&#x27;Hayes&#x27;,&#x27;L-15&#x27;),</span><br><span class="line">(&#x27;Jackson&#x27;,&#x27;L-14&#x27;),</span><br><span class="line">(&#x27;Jones&#x27;,&#x27;L-17&#x27;),</span><br><span class="line">(&#x27;Smith&#x27;,&#x27;L-11&#x27;),</span><br><span class="line">(&#x27;Smith&#x27;,&#x27;L-23&#x27;),</span><br><span class="line">(&#x27;Williams&#x27;,&#x27;L-17&#x27;);</span><br></pre></td></tr></table></figure>
+<p>批量建表如下:</p>
+<p><img src="https://s1.ax1x.com/2022/09/22/xFxY1f.png" /></p>
+<p>批量录入数据如下：</p>
+<p><img src="https://s1.ax1x.com/2022/09/24/xAuBRK.png" style="zoom:70%;" /><img src="https://s1.ax1x.com/2022/09/24/xAugZd.png" style="zoom:50%;" /></p>
+<p><img src="https://s1.ax1x.com/2022/09/24/xAuRII.png" style="zoom:70%;" /><img src="https://s1.ax1x.com/2022/09/24/xAuhJP.png" style="zoom:80%;" /></p>
+<p><img src="https://s1.ax1x.com/2022/09/24/xAuTsg.png" style="zoom:67%;" /><img src="https://s1.ax1x.com/2022/09/24/xAu7LQ.png" style="zoom:80%;" /></p>
+<h3 id="section-1">7</h3>
+<p>创建图3.12的四张表，输入一些数据，查询书上第三章3.2,
+3.9的作业题。</p>
+<h4 id="一创建表并输入数据">一、创建表并输入数据</h4>
+<p>在给定的<code>schema</code>中，<code>employee_name</code>是主键，说明要求每一位员工的姓名必须是不同的。<code>company_name</code>是主键，说明每一家公式的名字也是不同的。因此建立<code>schema</code>如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># set schema</span><br><span class="line">create table employee(</span><br><span class="line">    employee_name char(10) comment &#x27;职员姓名&#x27;,</span><br><span class="line">    street char(10),</span><br><span class="line">    city char(10),</span><br><span class="line">    primary key (employee_name)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">create table works(</span><br><span class="line">    employee_name char(10),</span><br><span class="line">    company_name char(10),</span><br><span class="line">    salary int,</span><br><span class="line">    primary key (employee_name),</span><br><span class="line">    foreign key (employee_name) references employee(employee_name)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">create table company(</span><br><span class="line">    company_name char(10),</span><br><span class="line">    city char(10),</span><br><span class="line">    primary key (company_name)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">create table managers(</span><br><span class="line">    employee_name char(10),</span><br><span class="line">    manager_name char(10),</span><br><span class="line">    primary key (employee_name),</span><br><span class="line">    foreign key (employee_name) references employee</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>对于每个员工的上司，最高级的员工，他的上司是他自己；上司的姓名也在员工表内。</p>
+<p>插入数据时没有写入<code>E5</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># insert data</span><br><span class="line"># City一共是C1-8，Street一共是S1-6，共有32名员工</span><br><span class="line">insert into employee values</span><br><span class="line">(&#x27;E1&#x27;,&#x27;S1&#x27;,&#x27;C1&#x27;),(&#x27;E2&#x27;,&#x27;S4&#x27;,&#x27;C1&#x27;),(&#x27;E3&#x27;,&#x27;S1&#x27;,&#x27;C1&#x27;),(&#x27;E4&#x27;,&#x27;S1&#x27;,&#x27;C1&#x27;),(&#x27;E6&#x27;,&#x27;S2&#x27;,&#x27;C2&#x27;),</span><br><span class="line">(&#x27;E7&#x27;,&#x27;S6&#x27;,&#x27;C2&#x27;),(&#x27;E8&#x27;,&#x27;S1&#x27;,&#x27;C2&#x27;),(&#x27;E9&#x27;,&#x27;S1&#x27;,&#x27;C2&#x27;),(&#x27;E10&#x27;,&#x27;S1&#x27;,&#x27;C3&#x27;),(&#x27;E11&#x27;,&#x27;S2&#x27;,&#x27;C3&#x27;),</span><br><span class="line">(&#x27;E12&#x27;,&#x27;S3&#x27;,&#x27;C3&#x27;),(&#x27;E13&#x27;,&#x27;S4&#x27;,&#x27;C3&#x27;),(&#x27;E14&#x27;,&#x27;S1&#x27;,&#x27;C4&#x27;),(&#x27;E15&#x27;,&#x27;S2&#x27;,&#x27;C4&#x27;),(&#x27;E16&#x27;,&#x27;S1&#x27;,&#x27;C4&#x27;),</span><br><span class="line">(&#x27;E17&#x27;,&#x27;S3&#x27;,&#x27;C5&#x27;),(&#x27;E18&#x27;,&#x27;S4&#x27;,&#x27;C4&#x27;),(&#x27;E19&#x27;,&#x27;S5&#x27;,&#x27;C5&#x27;),(&#x27;E20&#x27;,&#x27;S6&#x27;,&#x27;C1&#x27;),(&#x27;E21&#x27;,&#x27;S2&#x27;,&#x27;C8&#x27;),(&#x27;E22&#x27;,&#x27;S5&#x27;,&#x27;C8&#x27;),(&#x27;E23&#x27;,&#x27;S6&#x27;,&#x27;C8&#x27;),(&#x27;E24&#x27;,&#x27;S4&#x27;,&#x27;C8&#x27;),(&#x27;E25&#x27;,&#x27;S3&#x27;,&#x27;C8&#x27;),(&#x27;E26&#x27;,&#x27;S5&#x27;,&#x27;C1&#x27;),(&#x27;E27&#x27;,&#x27;S2&#x27;,&#x27;C9&#x27;),(&#x27;E28&#x27;,&#x27;S1&#x27;,&#x27;C9&#x27;),(&#x27;E29&#x27;,&#x27;S4&#x27;,&#x27;C9&#x27;),(&#x27;E30&#x27;,&#x27;S2&#x27;,&#x27;C9&#x27;),(&#x27;E31&#x27;,&#x27;S1&#x27;,&#x27;C7&#x27;),</span><br><span class="line">(&#x27;E32&#x27;,&#x27;S6&#x27;,&#x27;C6&#x27;);</span><br><span class="line">#这些员工在哪家公司工作？薪水是多少</span><br><span class="line">insert into works (employee_name, company_name, salary) values</span><br><span class="line">(&#x27;E1&#x27;,&#x27;COM1&#x27;,5100),(&#x27;E2&#x27;,&#x27;COM2&#x27;,6100),(&#x27;E3&#x27;,&#x27;COM1&#x27;,7100),(&#x27;E4&#x27;,&#x27;COM3&#x27;,9100),</span><br><span class="line">(&#x27;E6&#x27;,&#x27;COM6&#x27;,15600),(&#x27;E7&#x27;,&#x27;COM4&#x27;,1600),(&#x27;E8&#x27;,&#x27;COM5&#x27;,8600),(&#x27;E9&#x27;,&#x27;COM1&#x27;,6600),</span><br><span class="line">(&#x27;E10&#x27;,&#x27;COM2&#x27;,5000),(&#x27;E11&#x27;,&#x27;COM3&#x27;,2300),(&#x27;E12&#x27;,&#x27;COM4&#x27;,10200),(&#x27;E13&#x27;,&#x27;COM5&#x27;,8000),</span><br><span class="line">(&#x27;E14&#x27;,&#x27;COM6&#x27;,7000),(&#x27;E15&#x27;,&#x27;COM1&#x27;,8900),(&#x27;E16&#x27;,&#x27;COM1&#x27;,2300),(&#x27;E17&#x27;,&#x27;COM1&#x27;,1200),</span><br><span class="line">(&#x27;E18&#x27;,&#x27;COM1&#x27;,4500),(&#x27;E19&#x27;,&#x27;COM2&#x27;,6300),(&#x27;E20&#x27;,&#x27;COM2&#x27;,7400),(&#x27;E21&#x27;,&#x27;COM2&#x27;,13000),</span><br><span class="line">(&#x27;E22&#x27;,&#x27;COM3&#x27;,5000),(&#x27;E23&#x27;,&#x27;COM3&#x27;,6000),(&#x27;E24&#x27;,&#x27;COM3&#x27;,7000),(&#x27;E25&#x27;,&#x27;COM4&#x27;,8000),</span><br><span class="line">(&#x27;E26&#x27;,&#x27;COM4&#x27;,9000),(&#x27;E27&#x27;,&#x27;COM4&#x27;,1000),(&#x27;E28&#x27;,&#x27;COM5&#x27;,3000),(&#x27;E29&#x27;,&#x27;COM5&#x27;,800),</span><br><span class="line">(&#x27;E30&#x27;,&#x27;COM6&#x27;,4000),(&#x27;E31&#x27;,&#x27;COM6&#x27;,2000),(&#x27;E32&#x27;,&#x27;COM6&#x27;,1000);</span><br><span class="line"></span><br><span class="line">insert into company values</span><br><span class="line">(&#x27;COM1&#x27;,&#x27;C5&#x27;),(&#x27;COM2&#x27;,&#x27;C2&#x27;),(&#x27;COM3&#x27;,&#x27;C1&#x27;),</span><br><span class="line">(&#x27;COM4&#x27;,&#x27;C1&#x27;),(&#x27;COM5&#x27;,&#x27;C3&#x27;),(&#x27;COM6&#x27;,&#x27;C4&#x27;);</span><br><span class="line"></span><br><span class="line">insert into managers (employee_name, manager_name)values</span><br><span class="line">(&#x27;E1&#x27;,&#x27;E1&#x27;),(&#x27;E2&#x27;,&#x27;E10&#x27;),(&#x27;E3&#x27;,&#x27;E1&#x27;),(&#x27;E4&#x27;,&#x27;E11&#x27;),(&#x27;E6&#x27;,&#x27;E14&#x27;),(&#x27;E7&#x27;,&#x27;E12&#x27;),</span><br><span class="line">(&#x27;E8&#x27;,&#x27;E8&#x27;),(&#x27;E9&#x27;,&#x27;E1&#x27;),(&#x27;E10&#x27;,&#x27;E10&#x27;),(&#x27;E11&#x27;,&#x27;E11&#x27;),(&#x27;E12&#x27;,&#x27;E12&#x27;),(&#x27;E13&#x27;,&#x27;E8&#x27;),</span><br><span class="line">(&#x27;E14&#x27;,&#x27;E14&#x27;),(&#x27;E15&#x27;,&#x27;E3&#x27;),(&#x27;E16&#x27;,&#x27;E9&#x27;),(&#x27;E17&#x27;,&#x27;E3&#x27;),(&#x27;E18&#x27;,&#x27;E9&#x27;),(&#x27;E19&#x27;,&#x27;E10&#x27;),</span><br><span class="line">(&#x27;E20&#x27;,&#x27;E2&#x27;),(&#x27;E21&#x27;,&#x27;E2&#x27;),(&#x27;E22&#x27;,&#x27;E11&#x27;),(&#x27;E23&#x27;,&#x27;E22&#x27;),(&#x27;E24&#x27;,&#x27;E4&#x27;),(&#x27;E25&#x27;,&#x27;E7&#x27;),</span><br><span class="line">(&#x27;E26&#x27;,&#x27;E27&#x27;),(&#x27;E27&#x27;,&#x27;E12&#x27;),(&#x27;E28&#x27;,&#x27;E8&#x27;),(&#x27;E29&#x27;,&#x27;E8&#x27;),(&#x27;E30&#x27;,&#x27;E14&#x27;),(&#x27;E31&#x27;,&#x27;E30&#x27;),(&#x27;E32&#x27;,&#x27;E14&#x27;);</span><br></pre></td></tr></table></figure>
+<h4 id="二查询3.2">二、查询3.2</h4>
+<p><strong>1.
+找出<code>fisrt bank</code>公司所有员工的姓名以及居住城市</strong></p>
+<p>设<code>first bank</code>为<code>COM1</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select works.employee_name as name,city from employee,works where works.employee_name=employee.employee_name and company_name=&#x27;COM1&#x27;;</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<p><img src="https://s1.ax1x.com/2022/09/24/xA2Qx0.png" /></p>
+<p><strong>2.找出<code>fisrt bank</code>公司所有收入超1w美元的员工的姓名、街道地址、居住城市</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select works.employee_name as name,street,city,salary from works,employee where salary&gt;10000 and works.employee_name=employee.employee_name;</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/09/24/1ee5d949ec956b7d.png" /></p>
+<p><strong>3.找出DB范围内所有不为<code>fisrt bank</code>工作的员工</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select works.employee_name as name,company_name from employee,works where works.employee_name=employee.employee_name and company_name!=&#x27;COM1&#x27;;</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<p><img src="https://s1.ax1x.com/2022/09/24/xA2cIH.png" /></p>
+<p><strong>4.找出DB范围内所有收入高于<code>small bank</code>公司每一个员工的员工</strong></p>
+<p>假设<code>small bank</code>为<code>COM4</code>。在<code>COM4</code>中，工资最高的是<code>E12</code>，其工资为10200。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select * from works;# 首先查看全部员工的工资情况</span><br><span class="line">select employee_name,salary from works where company_name=&#x27;COM4&#x27;;# 再查看COM4的员工中的最高工资</span><br><span class="line">select * from works where salary&gt;( select max(salary) from works where company_name=&#x27;COM4&#x27;);#以此为筛选条件</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<p><img src="https://s1.ax1x.com/2022/09/24/xARL7D.png" /></p>
+<p><strong>5.假设公司位于多个城市。找到位于每个城市所有公司，在这些城市，<code>small Bank</code>也在</strong></p>
+<p>公司位于多个城市，可能是类似总公司与子公司的情况。但是由于题干中将<code>company_name</code>设置为了主键，因此是唯一的、不可重复的。由于其对应的<code>city</code>可以是多个，但是对于唯一的公司只能有一条数据，因此没有办法设置为多个城市？</p>
+<blockquote>
+<p>相当于暂时忽略掉主键的设定。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># (1)首先先取消掉设置的主键。并添加一些子公司的地址数据。</span><br><span class="line">insert into company values (&#x27;COM4&#x27;,&#x27;C2&#x27;),(&#x27;COM1&#x27;,&#x27;C2&#x27;),(&#x27;COM1&#x27;,&#x27;C1&#x27;);</span><br><span class="line"># (2)找到city where COM4 land</span><br><span class="line">create temporary table land_city(select city from company where company_name=&#x27;COM4&#x27;);# C1,C2</span><br><span class="line">select company_name,city from company natural join land_city where company_name!=&#x27;COM4&#x27;;</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<p><img src="https://s1.ax1x.com/2022/09/24/xA4OKI.png" /></p>
+<p>然后要删除添加的数据：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 把company修改为原来样子</span><br><span class="line">delete from company where company_name=&#x27;COM4&#x27; and city=&#x27;C2&#x27;;</span><br><span class="line">delete from company where city=&#x27;C2&#x27; and company_name=&#x27;COM1&#x27;;</span><br><span class="line">delete from company where company_name=&#x27;COM1&#x27; and city=&#x27;C1&#x27;;</span><br></pre></td></tr></table></figure>
+<p><strong>6.找到拥有最多的员工的公司</strong></p>
+<p>count解决问题！使用order对人数排序，排在第一的是人数最多的公司。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select company_name,count(employee_name)as cnt_employee from works group by company_name order by cnt_employee desc ;</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<p><img src="https://s1.ax1x.com/2022/09/24/xA4xVf.png" /></p>
+<p><strong>7.找出一些公司，这些公司员工的平均工资高于<code>fisrt bank</code>的平均工资</strong></p>
+<p><code>having</code>后的条件是进行分组后的数据再次进行筛选。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select company_name,avg(salary) as avg_salary from works group by company_name order by avg_salary desc;</span><br><span class="line">select company_name,avg(salary) as avg_salary from works group by company_name having avg_salary&gt;(select avg(salary) from works where company_name=&#x27;COM1&#x27;);</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<p><img src="https://s1.ax1x.com/2022/09/24/xA59Pg.png" /></p>
+<h5 id="查询代码">查询代码</h5>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 查询操作</span><br><span class="line">#1. 找出`fisrt bank`公司所有员工的姓名以及居住城市</span><br><span class="line">select works.employee_name as name,city from employee,works where works.employee_name=employee.employee_name and company_name=&#x27;COM1&#x27;;</span><br><span class="line">#2.找出`fisrt bank`公司所有收入超1w美元的员工的姓名、街道地址、居住城市</span><br><span class="line">select works.employee_name as name,street,city,salary from works,employee where salary&gt;10000 and works.employee_name=employee.employee_name;</span><br><span class="line">#3.找出DB范围内所有不为`fisrt bank`工作的员工</span><br><span class="line">select works.employee_name as name,company_name from employee,works where works.employee_name=employee.employee_name and company_name!=&#x27;COM1&#x27;;</span><br><span class="line">#4.找出DB范围内所有收入高于`small bank`公司每一个员工的员工</span><br><span class="line">select * from works;# 首先查看全部员工的工资情况</span><br><span class="line">select employee_name,salary from works where company_name=&#x27;COM4&#x27;;# 再查看COM4的员工中的最高工资</span><br><span class="line">select * from works where salary&gt;( select max(salary) from works where company_name=&#x27;COM4&#x27;);#以此为筛选条件</span><br><span class="line">#5.假设公司位于多个城市。找到位于每个城市所有公司，在这些城市，`small Bank`也在</span><br><span class="line"># (1)首先先取消掉设置的主键。并添加一些子公司的地址数据。</span><br><span class="line">insert into company values (&#x27;COM4&#x27;,&#x27;C2&#x27;),(&#x27;COM1&#x27;,&#x27;C2&#x27;),(&#x27;COM1&#x27;,&#x27;C1&#x27;);</span><br><span class="line"># (2)找到city where COM4 land</span><br><span class="line">create temporary table land_city(select city from company where company_name=&#x27;COM4&#x27;);# C1,C2</span><br><span class="line">select company_name,city from company natural join land_city where company_name!=&#x27;COM4&#x27;;</span><br><span class="line">#6.找到拥有最多的员工的公司</span><br><span class="line">select company_name,count(employee_name)as cnt_employee from works group by company_name order by cnt_employee desc ;</span><br><span class="line">#7.找出一些公司，这些公司员工的平均工资高于`fisrt bank`的平均工资</span><br><span class="line">select company_name,avg(salary) as avg_salary from works group by company_name order by avg_salary desc;</span><br><span class="line">select company_name,avg(salary) as avg_salary from works group by company_name having avg_salary&gt;(select avg(salary) from works where company_name=&#x27;COM1&#x27;);</span><br></pre></td></tr></table></figure>
+<h4 id="三查询3.9">三、查询3.9</h4>
+<p><strong>1.找出为<code>first bank</code>工作的所有员工的姓名</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select employee_name from employee natural join works where company_name=&#x27;COM1&#x27;;</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<p><img src="https://s1.ax1x.com/2022/09/24/xAWNg1.png" /></p>
+<p><strong>2.在DB范围中找出，居住地与所在公司的<code>city</code>相同的员工</strong></p>
+<p>这里给出了两种代码，所得到的结果是相同的；但是自然连接的代码会比较简洁。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select * from employee,company,works where works.employee_name=employee.employee_name and works.company_name=company.company_name and company.city=employee.city;</span><br><span class="line">select * from employee natural join works natural join company;</span><br></pre></td></tr></table></figure>
+<p><img src="https://s1.ax1x.com/2022/09/24/xA5P2j.png" /></p>
+<p><strong>3.在DB范围中找出，居住地与其经理的<code>city</code>相同、<code>street</code>相同的员工</strong></p>
+<p>由于我设计了多级的经理，最高级的经理的<code>manager</code>是他自己。因此这里的思路是：先从<code>managers</code>中找到所有的经理，由于所有的经理也在<code>employee</code>中，该表中也有他们的住址信息。因此对两表进行如下操作：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">create temporary table mana(select distinct manager_name from managers natural join employee);</span><br><span class="line">#找到一些经理。</span><br><span class="line">create temporary table mana_info(select manager_name as mana_name,street,city from employee,mana where employee_name=manager_name);</span><br><span class="line">create temporary table emp(select * from managers natural join employee);</span><br><span class="line">select * from mana_info,emp where emp.street=mana_info.street and emp.city=mana_info.city and emp.manager_name=mana_name;</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<p><img src="https://s1.ax1x.com/2022/09/24/xA5Eq0.png" /></p>
+<p><strong>4.找出每家公司中，所有收入高于该公司平均工资的员工</strong></p>
+<p>这里也是使用了建立临时表。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">create temporary table sub(select company_name,avg(salary) as avg_salary from works group by company_name);</span><br><span class="line">select * from sub;</span><br><span class="line">select * from works natural join sub where salary&gt;avg_salary;</span><br></pre></td></tr></table></figure>
+<p><img src="https://s1.ax1x.com/2022/09/24/xA5eaT.png" /></p>
+<p><strong>5.找到拥有最少的<code>payroll</code>的公司</strong></p>
+<p><code>payroll</code>指的是公司发放的工资总额。该处使用升序排序，因此排在第一个的公司即为目标公司。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select company_name,sum(salary)as payroll from works group by company_name order by payroll asc ;</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<p><img src="https://s1.ax1x.com/2022/09/24/xA5ZZV.png" /></p>
+<h5 id="查询代码-1">查询代码</h5>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 3.9</span><br><span class="line">#1.找出为`first bank`工作的所有员工的姓名</span><br><span class="line">select employee_name from employee natural join works where company_name=&#x27;COM1&#x27;;</span><br><span class="line">#2.在DB范围中找出，居住地与所在公司的`city`相同的员工</span><br><span class="line">select * from employee,company,works where works.employee_name=employee.employee_name and works.company_name=company.company_name and company.city=employee.city;</span><br><span class="line">select * from employee natural join works natural join company;</span><br><span class="line">#3.在DB范围中找出，居住地与其经理的`city`相同、`street`相同的员工</span><br><span class="line">create temporary table mana(select distinct manager_name from managers natural join employee);#找到一些经理。</span><br><span class="line">create temporary table mana_info(select manager_name as mana_name,street,city from employee,mana where employee_name=manager_name);</span><br><span class="line">create temporary table emp(select * from managers natural join employee);</span><br><span class="line">select * from mana_info,emp where emp.street=mana_info.street and emp.city=mana_info.city and emp.manager_name=mana_name;</span><br><span class="line">#4.找出每家公司中，所有收入高于该公司平均工资的员工</span><br><span class="line">create temporary table sub(select company_name,avg(salary) as avg_salary from works group by company_name);</span><br><span class="line">select * from sub;</span><br><span class="line">select * from works natural join sub where salary&gt;avg_salary;</span><br><span class="line">#5.找到拥有最少的`payroll`的公司</span><br><span class="line">select company_name,sum(salary)as payroll from works group by company_name order by payroll asc ;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>数据库</tag>
+        <tag>实验</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数模日记1</title>
+    <url>/2022/07/03/%E6%95%B0%E6%A8%A1%E6%97%A5%E8%AE%B01/</url>
+    <content><![CDATA[<h1 id="差分方程和虫口模型">差分方程和虫口模型</h1>
+<p>[TOC]</p>
+<h2 id="fibonacci数列">Fibonacci数列</h2>
+<p><span
+class="math inline">\(a_0=0,a_1=1,a_{n}=a_{n-1}+a_{n-2}\)</span></p>
+<h3 id="兔子问题">兔子问题</h3>
+<p>假设一开始有一万只兔子，兔子有两个月的成熟期，每一个月一对兔子可以生一对兔子，且==假设出生的兔子都存活==，兔子的寿命为6个月。那么求解一年后有多少只兔子？</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>月份</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1</strong></td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td><strong>2</strong></td>
+<td></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td><strong>3</strong></td>
+<td></td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td><strong>4</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td><strong>5</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td><strong>6</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>3</td>
+<td>3</td>
+<td>3</td>
+<td>3</td>
+<td>3</td>
+<td>3</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td><strong>7</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td><strong>8</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>7</td>
+<td>7</td>
+<td>7</td>
+<td>7</td>
+<td>7</td>
+</tr>
+<tr class="odd">
+<td><strong>9</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>11</td>
+<td>11</td>
+<td>11</td>
+<td>11</td>
+</tr>
+<tr class="even">
+<td><strong>10</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>18</td>
+<td>18</td>
+<td>18</td>
+</tr>
+<tr class="odd">
+<td><strong>11</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>29</td>
+<td>29</td>
+</tr>
+<tr class="even">
+<td><strong>12</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>47</td>
+</tr>
+<tr class="odd">
+<td><strong>总数</strong></td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>5</td>
+<td>8</td>
+<td>12</td>
+<td>19</td>
+<td>30</td>
+<td>48</td>
+<td>77</td>
+<td>124</td>
+</tr>
+<tr class="even">
+<td><strong>原总数</strong></td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>5</td>
+<td>8</td>
+<td>13</td>
+<td>21</td>
+<td>34</td>
+<td>55</td>
+<td>89</td>
+<td>144</td>
+</tr>
+<tr class="odd">
+<td><strong>每月死去的兔子</strong></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>4</td>
+<td>7</td>
+<td>12</td>
+<td>20</td>
+</tr>
+</tbody>
+</table>
+<p>行是每个月新出生的兔子数、列是在该月还存活的兔子数。</p>
+<h2 id="差分方程">差分方程</h2>
+<p><span class="math display">\[
+\Delta f(x)=f(x+1)-f(x)
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\Delta f(x)\)</span>是<span
+class="math inline">\(f(x)\)</span>的差分。<span
+class="math inline">\(\Delta\)</span>称为差分算子。</li>
+<li><span class="math inline">\(E\ f(x)=f(x+1)\)</span>称为<span
+class="math inline">\(f(x)\)</span>在x的位移，<span
+class="math inline">\(E\)</span>为位移算子。</li>
+<li><span class="math inline">\(I\ f(x)=f(x)\)</span>，<span
+class="math inline">\(I\)</span>称为恒等算子。</li>
+</ul>
+<p>求解差分方程不现实，因此引入对差分方程的定性分析，如找到解的性质等。</p>
+<h3 id="平衡解及其稳定性">平衡解及其稳定性</h3>
+<p><strong>平衡解</strong>：若有<span
+class="math inline">\(x^*\)</span>，使得<span
+class="math inline">\(x^*=f(x^*)\)</span>，则称<span
+class="math inline">\(x^*\)</span>为方程<span
+class="math inline">\(x(t+1)=f(x(t))\)</span>的平衡解。</p>
+<blockquote>
+<p>就是虽然不知道后面的方程是什么，但是解释一下平衡解的意思：</p>
+<p>​ 指<span class="math inline">\(x^{*}\)</span>在 f 的作用（or
+映射）下还是保持原<span
+class="math inline">\(x^*\)</span>点不发生变动。</p>
+</blockquote>
+<p><strong>最终平衡解</strong>：存在如下的<span
+class="math inline">\(x^*\)</span>， <span class="math display">\[
+x_r=x^*\\
+x_{r-1}\ne x^*
+\]</span></p>
+<blockquote>
+<p>此处的最终平衡解指的是：所有的<span
+class="math inline">\(x_n\)</span>都可以通过迭代得到<span
+class="math inline">\(x^*\)</span>。</p>
+</blockquote>
+<p><strong>周期解</strong>：存在正整数T，使得<span
+class="math inline">\(x(t+T)=x(t)\)</span>。</p>
+<blockquote>
+<p>不是迭代一次，而是迭代了T次。</p>
+</blockquote>
+<p><strong>平衡解的稳定性</strong>：</p>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/27/0ea762d342346733.png" /></p>
+<p>当<span class="math inline">\(x^*\)</span>附近的解都在<span
+class="math inline">\(x^*\)</span>的附近，则是稳定的；否则不稳定。</p>
+<p><strong>一些概念</strong>：</p>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/27/091e6336ff9f08b3.png" /></p>
+<p>一个栗子：</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/06/27/e56ed6889a7b1383.png" style="zoom:40%;" /></p>
+<p><strong>如何不通过相图法来得到这个点是否吸引？</strong></p>
+<p>设<span class="math inline">\(f(x)\)</span>有三阶连续导数，<span
+class="math inline">\(x^{*}\)</span>是平衡点。</p>
+<p>当<span class="math inline">\(|f&#39;(x^*)|\lt 1\)</span>：<span
+class="math inline">\(x^{*}\)</span> 渐近稳定。</p>
+<p>当<span class="math inline">\(|f&#39;(x^*)|\gt 1\)</span>：<span
+class="math inline">\(x^{*}\)</span> 不稳定。</p>
+<p><strong>周期解</strong>：</p>
+<p><span class="math inline">\(f(x)\)</span>的 <span
+class="math inline">\(n\)</span> 周期点 <span
+class="math inline">\(x^*\)</span> 是指 <span
+class="math inline">\(f^n(x)=x\)</span> 的解，满足 <span
+class="math inline">\(f^n(x)=x\)</span> 的最小正整数 <span
+class="math inline">\(n\)</span> 称为 <span
+class="math inline">\(x\)</span> 的真周期。</p>
+<h2 id="虫口模型与倍周期分支">虫口模型与倍周期分支</h2>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/28/60dbb4b74c9cd76e.png" /></p>
+]]></content>
+      <tags>
+        <tag>数学模型</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数据库上机实验2~3</title>
+    <url>/2022/11/23/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%8A%E6%9C%BA%E5%AE%9E%E9%AA%8C2-3/</url>
+    <content><![CDATA[<h1 id="实验23">实验2,3</h1>
+<h2 id="最重要的提醒">最重要的提醒！</h2>
+<p><strong>如果你正开始写或者写了一半了，请务必牢记下面三点。</strong></p>
+<ol type="1">
+<li>如果你传参的时候传了<code>connection</code>或是<code>statement</code>，不能在这个函数里<code>close</code>,不然你的主函数里就没法用了；</li>
+<li>每一个<code>statement</code>都最好只对应一个<code>SQL</code>语句（不然你可能在半途把<code>stmt.close()</code>）后面就不能使用了</li>
+<li>最好用的工具<code>try-catch(Exception e)&#123;e.printStackTrace();&#125;</code>可以快速定位到是哪里错了以及错误的原因；</li>
+</ol>
+<p><strong>血泪经验总结。然后，如果你还没开始写<code>JDBC</code>，建议去写<code>MyBatis</code>。</strong></p>
+<h3 id="一实验要求">一、实验要求</h3>
+<p>基于MySQL，设计并实现一个简单的旅行预订系统。该系统涉及的信息有航班、大巴班车、宾馆房间和客户数据等信息。其关系模式如下：</p>
+<blockquote>
+<p>FLIGHTS (<code>String flightNum</code>, int price, int numSeats, int
+numAvail, String FromCity, String ArivCity);
+HOTELS(<code>String location</code>, int price, int numRooms, int
+numAvail); BUS(<code>String location</code>, int price, int numBus, int
+numAvail); CUSTOMERS(<code>String custName</code>,custID);
+RESERVATIONS(String custName, int resvType, <code>String resvKey</code>)
+;</p>
+</blockquote>
+<p>为简单起见，对所实现的应用系统作下列假设：</p>
+<ol type="1">
+<li>在给定的一个班机上，所有的座位价格也一样；<code>flightNum</code>是表<code>FLIGHTS</code>的一个主码<code>（primary key）</code>。</li>
+<li>在<strong>同一个地方的所有的宾馆房间价格也一样</strong>；<code>location</code>是表<code>HOTELS</code>的一个主码。</li>
+<li>在同一个地方的所有大巴车价格一样；<code>location</code>是表<code>BUS</code>的一个主码。</li>
+<li><code>custName</code>是表<code>CUSTOMERS</code>的一个主码。</li>
+<li>表<code>RESERVATIONS</code>包含着那些和客户预订的航班、大巴车或宾馆房间相应的条目，具体的说，<code>resvType</code>指出预订的类型（1为预订航班，2为预订宾馆房间，3为预订大巴车），而<code>resvKey</code>是表<code>RESERVATIONS</code>的一个主码。(<em>这句话怎么理解？</em>)</li>
+<li>在表<code>FLIGHTS</code>中，<code>numAvail</code>表示指定航班上的还可以被预订的座位数。对于一个给定的航班<code>（flightNum）</code>,数据库一致性的条件之一是，表<code>RESERVATIONS</code>中所有预订该航班的条目数加上该航班的剩余座位数必须等于该航班上总的座位数。这个条件对于表<code>BUS</code>和表<code>HOTELS</code>同样适用。</li>
+</ol>
+<blockquote>
+<p>客户的名字竟是主码，是唯一不重复的；那么他的ID有什么用？身份证号吗？（暂且就这样吧）；Bus、Hotel在某一<code>location</code>下只能有一家(主码约束)。</p>
+<p>【关于<code>reservation</code>的分析】</p>
+<p>for
+<code>resvKey</code>：与<code>cust_name</code>、<code>resv_type</code>合起来是<code>reseveration</code>的主码。</p>
+</blockquote>
+<p><strong>应用系统应完成如下基本功能：</strong></p>
+<ul>
+<li>航班，大巴车，宾馆房间和客户基础数据的入库，更新（表中的属性也可以根据你的需要添加）。</li>
+<li>预定航班，大巴车，宾馆房间。</li>
+<li>查询航班，大巴车，宾馆房间，客户和预订信息。</li>
+<li>查询某个客户的旅行线路。</li>
+<li>检查预定线路的完整性。</li>
+<li>其他任意你愿意加上的功能。</li>
+</ul>
+<h3 id="二关于数据约束的讨论">二、关于数据约束的讨论</h3>
+<h4 id="完整性约束">1.完整性约束</h4>
+<ul>
+<li><p>对于<code>reservation</code>中的<code>resvType</code>取值只有：1,2,3。因此对于所有的<code>reservation</code>记录的<code>resvType</code>，若其值&gt;3,那么该记录就不应存在。</p>
+<p><code>constraint limType check ( resvType&gt;0 and resvType&lt;4)</code></p></li>
+<li><p>对于<code>reservation,bus,hotel</code>:<code>numXxx=numAvail+resveration中的记录条数</code></p></li>
+<li><p>对于<code>flight</code>中的<code>FromCity</code>不能等于<code>ArivCity</code>。</p></li>
+</ul>
+<h4 id="主码约束">2.主码约束</h4>
+<ul>
+<li>FLIGHTS (<strong>String flightNum</strong>, int price, int numSeats,
+int numAvail, String FromCity, String ArivCity);</li>
+<li>HOTELS(<strong>String location</strong>, int price, int numRooms,
+int numAvail);</li>
+<li>BUS(<strong>String location</strong>, int price, int numBus, int
+numAvail);</li>
+<li>CUSTOMERS(<strong>String custName</strong>,custID);</li>
+<li>RESERVATIONS(<strong>String custName, int resvType, String
+resvKey</strong>) ;</li>
+</ul>
+<blockquote>
+<ol type="1">
+<li>对于不同的航班来说，该航班号是唯一的。</li>
+<li>对于同一<code>location</code>下，只能存在一家<code>hotel</code>记录。</li>
+<li>对于同一<code>location</code>下，只能存在一家<code>bus</code>记录。</li>
+<li>每位<code>customer</code>的名字<code>custName</code>一定是不同的。</li>
+<li>对<code>reseverations</code>来说，其元素为<code>resv_type,resv_key,cust_name</code>，三者均可重复，但是三者组合起来作为<code>serveration</code>的主键，是唯一不重复的。</li>
+</ol>
+</blockquote>
+<h3 id="三程序实现">三、程序实现</h3>
+<h4 id="实现功能">1.实现功能</h4>
+<blockquote>
+<p><code>main</code>函数要实现的功能：
+1.添加<code>fight,bus,hotel,customer</code>数据-入库
+2.添加<code>reservation</code>数据-入库-&lt;会相应地变更其他数据库的内容，事务&gt;
+3.查询所有的数据-一键查询所有的数据？还是分开来写？
+4.查询某用户的旅行路线--什么是旅行路线？指订的航班、酒店、大巴酱？
+5.检查【预定线路】的完整性？--用户已预定，然后两地之间存在航班。</p>
+</blockquote>
+<h5
+id="功能①基本的增删改操作for-flightbushotelcustomer">功能①：基本的增删改操作(for
+flight,bus,hotel,customer)</h5>
+<p><strong>insert</strong>：好坑，就是使用<code>PreparedStatement</code>的时候，已经建立好<code>sql</code>语句后，应使用<code>pstmt.executeUpdate()</code><strong>注意括号内无sql参数！</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">sql=<span class="string">&quot;insert into flights values(?,?,?,?,?)&quot;</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>update</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">sql=<span class="string">&quot;update flights set price=?,&quot;</span> +</span><br><span class="line">                    <span class="string">&quot;num_seats=?,&quot;</span> +</span><br><span class="line">                    <span class="string">&quot;num_avail=?,&quot;</span> +</span><br><span class="line">                    <span class="string">&quot;from_city=?,&quot;</span> +</span><br><span class="line">                    <span class="string">&quot;ariv_city=?&quot;</span> +</span><br><span class="line">                    <span class="string">&quot;where flight_num=?&quot;</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>delete</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">sql=<span class="string">&quot;delete from flights where flight_num=?&quot;</span></span><br></pre></td></tr></table></figure>
+<h5
+id="功能②基本的增删改操作for-reseveration">功能②：基本的增删改操作(for
+reseveration)</h5>
+<p>预订航班、大巴车、宾馆房间。<strong>采用事务，原子性操作！</strong></p>
+<p><strong>操作流程</strong>：</p>
+<ul>
+<li>将事务自动提交设置为<code>false</code></li>
+<li>先更改用户指定的预订的对应航班、大巴车、宾馆表的数据(<code>num_avail</code>变更)；</li>
+<li>添加一条预订记录：正常在预订中insert数据。</li>
+<li>操作成功：事务提交；</li>
+<li>操作失败：事务回滚。</li>
+</ul>
+<h5 id="功能③查询操作">功能③：查询操作</h5>
+<p>就是显示数据，是十分简单的操作。</p>
+<h5 id="功能④查某用户的旅行路线">功能④：查某用户的旅行路线</h5>
+<p>操作流程：</p>
+<ul>
+<li>找到对应用户的<code>reservations</code>的信息，其中可能包括<code>flight,hotel,bus</code>的相关信息。</li>
+<li>分别对三者进行查询并归入<code>list</code>。</li>
+<li>分别打印输出。</li>
+</ul>
+<h5 id="功能⑤检查预定线路的完整性">功能⑤：检查预定线路的完整性</h5>
+<p><strong>对于题意的理解</strong>：对于特定的用户(给定用户的<code>cust_name</code>)，查询其航班信息是否真实存在，即在<code>flights</code>表中找到相应的航班信息。</p>
+<p><strong>实现</strong>：在实现功能②向<code>reservations</code>中插入预订信息之前，首先需要对操作者输入的信息进行检查(是否在相应的表中存在数据)</p>
+<h4 id="扩展功能">2.扩展功能</h4>
+<p><strong>操作者可能输入错误的数据，对于错误的数据会进入数据库中进行操作：</strong></p>
+<ul>
+<li>对于该部分采用了异常处理，用户输入错误的信息并不会导致程序抛出异常而错误退出；而是由我进行异常的捕获并进行处理，并提醒用户输入了错误的信息。</li>
+</ul>
+<p><strong>之后可以进行扩展</strong>：</p>
+<ul>
+<li>每一班的航班应当具有起飞时间-到达时间的信息；在超过了该预订日期之后会自动更新航班信息为新的日期以及全部可预订的座位；</li>
+<li>对于查询表格的信息，此处是以<code>List</code>形式打印；可以使用<code>Java API</code>中封装好的一些类进行优化；</li>
+<li>使用<code>MyBatis</code>(已封装)而不是<code>JDBC</code>(未封装，且易出现SQL注入问题)</li>
+</ul>
+<h3 id="四功能验证">四、功能验证</h3>
+<h4 id="功能①">功能①</h4>
+<h5 id="insert">insert</h5>
+<p><img src="https://s1.ax1x.com/2022/10/23/xggHjs.png" /></p>
+<p><img src="https://s1.ax1x.com/2022/10/23/xgg4N8.png" /></p>
+<h5 id="update">update</h5>
+<p>记录一下：当时出现错误，就是<code>PreparedStatement</code>的<code>sql</code>语句去给占位符赋值时搞错了顺序。然后很扯的事情来了，就是<strong>java会延迟，更新程序的部分并不能及时载入</strong>。（之前也这样过，得亏我想起来了）</p>
+<p><img src="https://s1.ax1x.com/2022/10/23/xgfjsJ.png" /></p>
+<p><img src="https://s1.ax1x.com/2022/10/23/xgfvL9.png" /></p>
+<h5 id="delete">delete</h5>
+<p><img src="https://s1.ax1x.com/2022/10/23/xg4J1O.png" /></p>
+<h4 id="功能②">功能②</h4>
+<h5 id="insert-1">insert</h5>
+<p><img src="https://s1.ax1x.com/2022/10/23/x2pt0I.png" /></p>
+<h5 id="update-1">update</h5>
+<p>感觉没什么用处，因此不考虑这个的实现。</p>
+<h5 id="delete-1">delete</h5>
+<p><img src="https://s1.ax1x.com/2022/10/23/x2COSO.png" /></p>
+<h4 id="功能③">功能③</h4>
+<p><img src="https://s1.ax1x.com/2022/10/23/x2CowR.png" /></p>
+<h4 id="功能④">功能④</h4>
+<p><img src="https://s1.ax1x.com/2022/10/23/x2Cj6e.png" /></p>
+<h3 id="五部分代码截图">五、部分代码截图</h3>
+<h4 id="test">test</h4>
+<p><img src="https://s1.ax1x.com/2022/10/23/x2FbYq.png" /></p>
+<h4 id="func1">Func1</h4>
+<p><img src="https://s1.ax1x.com/2022/10/23/x2FOpV.png" /></p>
+<h4 id="func2">Func2</h4>
+<p><img src="https://s1.ax1x.com/2022/10/23/x2kS0J.png" /></p>
+<h4 id="func3">Func3</h4>
+<p><img src="https://s1.ax1x.com/2022/10/23/x2FImQ.png" /></p>
+<h4 id="func4">Func4</h4>
+<p><img src="https://s1.ax1x.com/2022/10/23/x2FWSf.png" /></p>
+]]></content>
+      <tags>
+        <tag>数据库</tag>
+        <tag>实验</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数模日记3</title>
+    <url>/2022/07/03/%E6%95%B0%E6%A8%A1%E6%97%A5%E8%AE%B03/</url>
+    <content><![CDATA[<h1 id="排队论模型">排队论模型</h1>
+<p>PS：此处的排队论，真的就是单纯的排队。</p>
+<p>排队论研究随机服务系统的确定性规律。</p>
+<p>等待时间、服务时间、到达时间具有随机性。</p>
+<p>[TOC]</p>
+<h2 id="基本组成">基本组成</h2>
+<h4 id="输入">输入</h4>
+<ul>
+<li>顾客总体的数量：有限/无限</li>
+<li>顾客到来的方式：个体/批</li>
+<li>到达的间隔时间：不确定（随机变量，遵从概率分布）</li>
+</ul>
+<p>顾客的行为<strong>假定</strong>为：</p>
+<ul>
+<li>在未服务之前不会离开（等待制）</li>
+<li>当看到队列很长的时候离开（有损失）</li>
+<li>从一个队列移到另一个队列（上两种结合）</li>
+</ul>
+<h4 id="排队规则">排队规则</h4>
+<ul>
+<li><p>队列容量：有限/无限</p>
+<p>----- 此处的队列是排队队列。</p></li>
+<li><p>排队规则：FCFS、LCFS、RSS（random）、PS（priority）、GD（一般规则）</p></li>
+</ul>
+<h4 id="服务规则">服务规则</h4>
+<ul>
+<li>服务机构（1 / 多）个</li>
+<li>服务台：并行、串行、混合排列</li>
+<li>服务方式：单个/批处理</li>
+</ul>
+<h2 id="数量指标">数量指标</h2>
+<p>每天的排队人数是随机的，所以取长期的平均值。</p>
+<ul>
+<li><p><span class="math inline">\(L_s\)</span>：(line
+system)平均队长。既在排队、又在接受服务的人。</p></li>
+<li><p><span class="math inline">\(L_q\)</span>：(line
+query)平均队<strong>列</strong>长。只包括排队的人，不包括正在接受服务的人。</p></li>
+<li><p><span class="math inline">\(W_s\)</span>：(wait
+system)平均逗留时间。顾客在这个系统中（排队+服务）停留的时间平均值。</p></li>
+<li><p><span class="math inline">\(W_q\)</span>：(wait
+query)平均等待时间。顾客在排队的时间的平均值。</p></li>
+</ul>
+<p><strong>为求解以上4个指标，引入</strong>：</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/07/03/e5f54faf244ba774.png" style="zoom: 50%;" /></p>
+<h2 id="记号方案">记号方案</h2>
+<h4 id="kendall-记号">Kendall 记号</h4>
+<ul>
+<li><code>X</code>：顾客到达的时间分布，输入过程的特征。</li>
+<li><code>Y</code>：服务时间分布。</li>
+<li><code>Z</code>：服务台的个数。取值 1/c（<span
+class="math inline">\(c \gt 1\)</span>，表示多个服务台）</li>
+<li><code>A</code>：排队系统允许的最大顾客容量。取值有限/无限。</li>
+<li><code>B</code>：顾客总体数量，指不在排队的、外部的顾客数量。（多分
+）取值有限/无限。</li>
+<li><code>C</code>：排队队则，如FCFS。</li>
+</ul>
+<p>常见：<span class="math inline">\(X/Y/Z/A/B/C = M/M/1/\infty/ \infty
+/FCFS\)</span></p>
+<p><strong>X/Y</strong>：</p>
+<ul>
+<li>M：表示泊松过程 or 负指数分布</li>
+<li>D：表示确定型分布</li>
+<li><span class="math inline">\(E_k\)</span>：表示 k
+阶埃尔朗分布（综合到一起的分布）</li>
+<li>G：表示一般服务时间分布</li>
+<li>GI：表示一般相互独立的时间间隔分布</li>
+</ul>
+<h2 id="排队论模型-1">排队论模型</h2>
+<h3 id="单服务台模型fcfs">单服务台模型(FCFS)</h3>
+<h4 id="mm1标准型"><span
+class="math inline">\(M/M/1\)</span>（标准型）</h4>
+<p>$ M/M/1// /FCFS$</p>
+<p><strong>求解要建立稳态概率方程</strong>： <span
+class="math display">\[
+\begin{cases}
+\lambda P_0=\mu P_1 \\
+\lambda P_{n-1}+\mu P_{n+1}-(\lambda +\mu)P_n=0&amp; ,n\ge 1 \\
+\end{cases}
+\]</span> 由递推公式得： <span class="math display">\[
+P_n = (\frac{\lambda}{\mu})^n P_0
+\]</span> 令<span class="math inline">\(\rho =
+\frac{\lambda}{\mu}\)</span>： <span class="math display">\[
+\sum^{\infty}_{n=0}P_n=1\\
+P_0\sum^{\infty}_{n=0}P_n= \frac{P_0}{1-\rho}=1
+\]</span> 故： <span class="math display">\[
+P_0=1-\rho\\
+P_n=(1-\rho)\rho^n
+\]</span> 这是系统状态为 <span class="math inline">\(n\)</span>
+的概率，然后接下来计算上述的4个指标。</p>
+<p><strong>平均队长</strong><span
+class="math inline">\(L_s\)</span>：(serve+queue) <span
+class="math display">\[
+L_s=\sum_{n=1}^\infty nP_n=\sum_{n=1}^\infty n (1-\rho)\rho^n =
+\frac{\rho}{1-\rho}=\frac{\lambda}{\mu-\lambda}
+\]</span> <strong>平均队列长</strong><span
+class="math inline">\(L_q\)</span>：(queue) <span
+class="math display">\[
+L_q=\sum_{n=1}^\infty(n-1)P_n=\frac{\rho\lambda}{\mu-\lambda}
+\]</span> <strong>平均逗留时间</strong><span
+class="math inline">\(W_s\)</span>：(serve+queue) <span
+class="math display">\[
+W_S=\frac 1{\mu-\lambda}=\frac{\rho}{\lambda(1-\rho)}
+\]</span> <strong>平均等待时间</strong><span
+class="math inline">\(W_q\)</span>：(queue) <span
+class="math display">\[
+W_q=W_s-\frac 1{\mu}=\frac{\rho}{\mu-\lambda}=\rho\times W_S
+\]</span>
+<img src="https://s3.bmp.ovh/imgs/2022/07/03/3a1fb146106946da.png" style="zoom:50%;" /></p>
+<h4 id="mm1n">$ M/M/1/N/ $</h4>
+<p><strong>其稳态概率方程</strong>： <span class="math display">\[
+\left\{
+\begin{aligned}
+\lambda P_1&amp;=\mu P_1 \\
+\lambda P_{n-1}+\mu P_{n+1}&amp;=(\lambda +\mu)P_n&amp; ,1\le n\le N-1
+\\
+\mu P_N&amp;=\lambda P_{N-1}
+\end{aligned}
+\right.
+\]</span></p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/07/03/e9ca13e1d6d8b509.png" style="zoom:50%;" /></p>
+<p>它的计算结果已知，自己去Google。</p>
+<h4 id="mm1m">$ M/M/1//m$</h4>
+<p>顾客的总体数量是有限的，该模型等价于<span
+class="math inline">\(M/M/1/m/m\)</span></p>
+<p>假设每个顾客到达率相同且为 <span
+class="math inline">\(\lambda\)</span>，在系统外的平均顾客数为 <span
+class="math inline">\(m-L_S\)</span>。</p>
+<p>系统的有效到达率<span class="math inline">\(\lambda
+_e=\lambda(m-L_s)\)</span></p>
+<p><em>(有效到达率与顾客总容量以及当前剩余的容量有关)</em></p>
+<p><strong>其稳态方程</strong>： <span class="math display">\[
+\left\{
+\begin{aligned}
+m\lambda_e P_1&amp;=\mu P_1 \\
+(m-n+1)\lambda_e P_{n-1}+\mu P_{n+1}&amp;=[(m-n)\lambda_e +\mu]P_n&amp;
+,1\le n\le m-1 \\
+\mu P_m&amp;=\lambda_e P_{m-1}
+\end{aligned}
+\right.
+\]</span>
+<img src="https://s3.bmp.ovh/imgs/2022/07/03/93599712c29fb995.png" style="zoom:50%;" /></p>
+<h3 id="多服务台模型fcfs">多服务台模型（FCFS）</h3>
+<h4 id="mmc标准型"><span
+class="math inline">\(M/M/c\)</span>（标准型）</h4>
+<p>顾客流为泊松流，平均到达率为 <span
+class="math inline">\(\lambda\)</span>，各个服务台的平均服务率是 <span
+class="math inline">\(\mu\)</span>，则：</p>
+<p><strong>整个服务机构的平均服务率是</strong>：<span
+class="math inline">\(n\mu\ (n \lt c)\)</span> or <span
+class="math inline">\(c\mu\ (n\ge c)\)</span>，令<span
+class="math inline">\(\rho =
+\frac{\lambda}{c\mu}\)</span>(系统服务强度)</p>
+<p>当 <span class="math inline">\(\rho &gt;1\)</span>
+时，会出现排队现象。</p>
+<p><strong>稳态方程如下。</strong> <span class="math display">\[
+\begin{cases}
+\lambda P_0=\mu P_1 \\
+\lambda P_{n-1}+(n-1)\mu P_{n+1}=(\lambda +n\mu)P_n&amp; ,1\le n\le c \\
+c\mu P_{n+1}+\lambda P_{n-1}=(\lambda+c\mu)P_n&amp;,n\gt c
+\end{cases}
+\]</span>
+<img src="https://s3.bmp.ovh/imgs/2022/07/03/2e0096930e842c38.png" style="zoom:45%;" /></p>
+<h4 id="mmcninfty系统容量有限型"><span
+class="math inline">\(M/M/c/N/\infty\)</span>（系统容量有限型）</h4>
+<h4 id="mmcinftym顾客源有限型"><span
+class="math inline">\(M/M/c/\infty/m\)</span>（顾客源有限型）</h4>
+<p>略，Google。</p>
+]]></content>
+      <tags>
+        <tag>数学模型</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数模日记2</title>
+    <url>/2022/07/03/%E6%95%B0%E6%A8%A1%E6%97%A5%E8%AE%B02/</url>
+    <content><![CDATA[<h1 id="综合评价">综合评价</h1>
+<p>[TOC]</p>
+<p>评价的对象有多个，评价的指标也有多个。</p>
+<p>基本思想是将多个指标转化为一个能够反映综合情况的指标来进行评价。</p>
+<h2 id="一般步骤-数据处理">一般步骤 &amp; 数据处理</h2>
+<h3 id="步骤">步骤</h3>
+<ol type="1">
+<li>选择恰当的评价指标</li>
+<li>确定各评价指标的权重</li>
+<li>合理确定各单个指标的评价等级及其界限</li>
+<li>建立综合评价模型</li>
+<li>确定多指标综合评价的等级数量界限，并根据实践对已建立模型考察、修改和完善。</li>
+</ol>
+<h3 id="数据处理">数据处理</h3>
+<p>量化。将评价的如“质量很高”转换成打分“9”这样。</p>
+<p><strong>指标类型的一致化</strong>：（化为极大型，越大越好）</p>
+<ul>
+<li><p>对于极小型指标<span class="math inline">\(a_{ij}\)</span>：</p>
+<p><span class="math inline">\(b_{ij}=M-a_{ij}\)</span>，M是max；</p>
+<p><span class="math inline">\(b_{ij}=\frac{1}{a_{ij}}\)</span></p></li>
+<li><p>对于居中型指标<span class="math inline">\(a_{ik}\)</span>：</p>
+<p>==越靠近中间，指标评估越大。== <span class="math display">\[
+b_{ik}=
+\left\{
+\begin{aligned}
+\frac{2(a_{ik}-m)}{M-m} \ \ \ &amp;m\le a_{ik}\le \frac{m+M}{2}\\
+\frac{2(M-a_{ik})}{M-m} \ \ \ &amp;\frac{m+M}{2}\le a_{ik} \le M\\
+\end{aligned}
+\right.
+\]</span></p></li>
+</ul>
+<p><strong>标准化</strong>：将单位一致化。</p>
+<ul>
+<li>向量归一法</li>
+</ul>
+<p><img src="https://s3.bmp.ovh/imgs/2022/06/29/ee4194c4afffdc7a.png" style="zoom:50%;" /></p>
+<ul>
+<li>极差变换法</li>
+</ul>
+<p><img src="https://s3.bmp.ovh/imgs/2022/06/29/bf4868362de2b313.png" style="zoom: 33%;" /></p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/06/29/7d05577037fd7ed0.png" style="zoom:33%;" /></p>
+<ul>
+<li>线选比例法</li>
+</ul>
+<p><img src="https://s3.bmp.ovh/imgs/2022/06/29/90292b7e557d1d76.png" style="zoom:33%;" /></p>
+<h2 id="评价方法">评价方法</h2>
+<p><strong>非线性加权</strong>，适用于各指标间有较强的关联性。</p>
+<blockquote>
+<ol type="1">
+<li>突出了各指标值的一致性，即平衡评价指标值较小的指标影响的作用。</li>
+<li>权重系数大小的影响不是特别明显，而对指标值的大小差异相对较敏感。</li>
+</ol>
+</blockquote>
+<h3 id="模糊综合评价">模糊综合评价</h3>
+<h4 id="模糊子集-隶属函数">模糊子集 &amp; 隶属函数</h4>
+<h2 id="灰色系统">灰色系统</h2>
+<p>信息不完全的系统。</p>
+]]></content>
+      <tags>
+        <tag>数学模型</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>流水线</title>
+    <url>/2022/10/13/%E6%B5%81%E6%B0%B4%E7%BA%BF/</url>
+    <content><![CDATA[<h1 id="流水线">流水线</h1>
+<p>流水线的定义：将一<strong>重复的处理过程</strong>分解为若干子过程，每一个子过程都可有效地在其专用功能段上与其他子过程<strong>同时执行</strong>，这种技术成为流水线技术。</p>
+<h2 id="一流水线的特点">一、流水线的特点</h2>
+<ul>
+<li>流水过程由多个相关的子过程组成，这些子过程称为流水线的“级”或“段”。段的数目称为流水线的“深度”。</li>
+<li>每个子过程由专用的功能段实现，各功能段的时间应基本相等，通常为1个时钟周期。</li>
+<li>流水线需要经过一定的通过时间(CD时间)才能稳定。</li>
+<li>流水技术适合于大量重复的时序过程，且是并行处理。</li>
+<li>它不能缩短单个任务的响应时间，但是可以提高吞吐率。</li>
+</ul>
+<h2 id="二流水线类型">二、流水线类型</h2>
+<p><strong>1. 按流水线所完成的功能分类</strong></p>
+<ul>
+<li>单功能流水线：<em>只能完成一种固定功能</em></li>
+<li>多功能流水线：<em>各段可以进行不同的连接，有很多的类型，但是选取其中的几个，可以完成不同的功能</em></li>
+</ul>
+<p><img src="https://s1.ax1x.com/2022/10/11/xNgcuR.png" /></p>
+<p><strong>2. 按同一时间内流水线的连接方式划分</strong></p>
+<ul>
+<li>静态流水线：<em>同一时间内，流水线各段只能完成某一种功能</em></li>
+<li>动态流水线：<em>同一时间内，流水线各段可以完成不同的功能，比如又做加减、又做乘除</em></li>
+</ul>
+<blockquote>
+<p>PS：动态流水线使得流水线的控制变得很复杂。</p>
+</blockquote>
+<p><strong>3. 按照流水的级别划分</strong></p>
+<ul>
+<li>部件级流水线：<em>处理机的算术逻辑部件分段</em></li>
+<li>处理机级流水线：<em>解释指令的过程分段，比如分为取指、计算、存放</em></li>
+<li>处理机间流水线：<em>不同的处理机对同一数据进行处理</em></li>
+</ul>
+<blockquote>
+<p>PS：部件级与处理机级比较常见，而处理机间流水线更常用于OS。</p>
+</blockquote>
+<p><strong>4. 按照是否有反馈回路来进行分类</strong></p>
+<ul>
+<li>线性流水线：<em>各段串行连接，无反馈回路</em></li>
+<li>非线性流水线：<em>有反馈回路</em></li>
+</ul>
+<blockquote>
+<p>流水线调度：什么时候向流水线引入新的输入，从而使新输入的数据和先前操作的反馈数据在流水线中不产生冲突。</p>
+</blockquote>
+<p><strong>5.
+按照输出端任务流出顺序与输入端任务流入顺序是否相同划分</strong></p>
+<ul>
+<li>顺序流动流水线：<em>顺序流入，顺序流出</em></li>
+<li>乱序流动流水线：<em>顺序流入、乱序流出</em></li>
+</ul>
+<h2 id="三流水线的性能分析">三、流水线的性能分析</h2>
+<p>主要是三项性能指标：<strong>吞吐率、加速比、效率</strong></p>
+<h3 id="吞吐率">(1)吞吐率</h3>
+<p>吞吐率：单位时间内流水线所完成的任务数or输出结果的数量。</p>
+<h4 id="a.最大吞吐率">a.最大吞吐率</h4>
+<p>最大吞吐率<span
+class="math inline">\(TP_{max}\)</span>：<strong>流水线到达稳定状态后的吞吐率</strong></p>
+<ol type="1">
+<li><p>流水线各段时间相等，均为<span class="math inline">\(\Delta
+t_0\)</span>： <span class="math display">\[
+TP_{max}=\frac{1}{\Delta t_0}
+\]</span></p></li>
+<li><p>流水线各段时间不等，第<span
+class="math inline">\(i\)</span>段时间为<span
+class="math inline">\(\Delta t_i\)</span>(<span
+class="math inline">\(TP_{max}\)</span>取决于流水线中最慢一段所需时间，即瓶颈)：
+<span class="math display">\[
+TP_{max}=\frac{1}{max\{\Delta t_i\}}
+\]</span></p></li>
+</ol>
+<p><strong>消除瓶颈的方法</strong>：</p>
+<ul>
+<li>细分瓶颈段</li>
+<li>重复设置瓶颈段</li>
+</ul>
+<h4 id="b.实际吞吐率">b.实际吞吐率</h4>
+<p>实际吞吐率<span class="math inline">\(TP\)</span>：<span
+class="math inline">\(m\)</span>段流水线完成<span
+class="math inline">\(n\)</span>个任务的吞吐率。</p>
+<ol type="1">
+<li><p>若各段时间相等，均为<span class="math inline">\(\Delta
+t_0\)</span>： <span class="math display">\[
+T_{流水}=m\Delta t_0+(n-1)\Delta t_0\\
+TP=\frac{n}{T_{流水}}=\frac{TP_{max}}{1+\frac{m-1}{n}}
+\\n&gt;&gt;m:TP&gt;&gt;TP_{max}
+\]</span></p></li>
+<li><p>若各段时间不等，第<span
+class="math inline">\(i\)</span>段时间为<span
+class="math inline">\(\Delta t_i\)</span>： <span
+class="math display">\[
+T=\sum^m_{i=1}\Delta t_i+(n-1)\Delta t_j,\Delta t_j=max\{\Delta t_i\}\\
+TP=\frac {n}{T}
+\]</span></p></li>
+</ol>
+<h3 id="加速比">(2)加速比</h3>
+<p>加速比<span
+class="math inline">\(S\)</span>指的是流水线速度与等功能的<strong>非流水线</strong>速度之比。</p>
+<ol type="1">
+<li><p>各段时间相等： <span class="math display">\[
+S=\frac {T_{非流水}}{T_{流水}}=\frac{nm\Delta t_0}{m\Delta
+t_0+(n-1)\Delta t_0}=\frac{m}{1+\frac{m-1}{n}}
+\]</span></p></li>
+<li><p>各段时间不等： <span class="math display">\[
+S=\frac{n\sum^m_{i=1}\Delta t_i}{\sum^m_{i=1}\Delta t_i+(n-1)\Delta
+t_{max}}
+\]</span></p></li>
+</ol>
+<h3 id="效率">(3)效率</h3>
+<p>效率指流水线的<strong>设备利用率</strong>。</p>
+<blockquote>
+<p>流水线并不是一直满负荷工作，刚开始有通过时间(CD)，结束时有排空时间。</p>
+</blockquote>
+<ol type="1">
+<li><p>各段时间相等： <span class="math display">\[
+E=\frac{n}{m+n-1}
+\]</span></p></li>
+<li><p>各段时间不等： <span class="math display">\[
+E=\frac{n个任务占用的时空区}{m个段总的时间区}
+\]</span></p></li>
+</ol>
+<h3 id="相关关系">(4)相关关系</h3>
+<ol type="1">
+<li><p>效率是实际加速比<span class="math inline">\(S\)</span>与<span
+class="math inline">\(m\)</span>(<span
+class="math inline">\(m\)</span>段流水线)之比。 <span
+class="math display">\[
+E=\frac{m n\Delta t_0}{mT_{流水}}=\frac{S}{m}
+\]</span></p></li>
+<li><p>当<span class="math inline">\(\Delta
+t_0\)</span>不变时，流水线的效率与吞吐率成正比。 <span
+class="math display">\[
+E=TP\Delta t_0
+\]</span></p></li>
+<li><p>当<span class="math inline">\(m\)</span>和<span
+class="math inline">\(\Delta
+t_0\)</span>不变时，流水线的加速比与吞吐率呈正比。 <span
+class="math display">\[
+TP=\frac{S}{m\Delta t_0}
+\]</span></p></li>
+</ol>
+<p><img src="https://s1.ax1x.com/2022/10/11/xNIDXD.png" /></p>
+<p><img src="https://s1.ax1x.com/2022/10/12/xU9TzD.png" /></p>
+<h3 id="结论">(5)结论</h3>
+<ul>
+<li>流水线并不能减少单条指令的执行时间，但是可以提高吞吐率。</li>
+<li>流水线深度↑，流水线性能↑</li>
+<li>流水线深度<strong>受限于流水线延迟与额外开销</strong>。</li>
+<li>流水线寄存器使用<strong>高速锁存器</strong>。</li>
+<li>指令之间的相关，限制了流水线的性能。</li>
+</ul>
+<h2 id="四流水线中的相关">四、流水线中的相关</h2>
+<p>流水线中的相关是指相邻or相近的两条指令<strong>因存在某种关联，后一条指令不能在原先指定的时钟周期开始执行</strong>。</p>
+<blockquote>
+<p>basic solution：暂停</p>
+<p>暂停流水线中某条指令及其后面所有指令的执行，该指令之前的所有指令继续执行。</p>
+</blockquote>
+<p>全局性相关：转移指令引起的<strong>控制相关</strong>，对于流水计算机吞吐率、效率的影响比数据相关<strong>严重得多</strong>。</p>
+<p>局部性相关：一般这么称呼<strong>数据相关</strong>。</p>
+<h3 id="结构相关">(1)结构相关</h3>
+<p>当指令在重叠执行的过程中，硬件资源满足不了指令重叠执行的要求，发生资源冲突。</p>
+<blockquote>
+<p>比如存储器不能在同一时刻既取指又存数。</p>
+</blockquote>
+<p><strong>导致结构相关的常见原因</strong>：</p>
+<ul>
+<li>功能部件不是全流水</li>
+<li>重复设置的资源数量不足</li>
+</ul>
+<p><strong>解决方法</strong>：</p>
+<ul>
+<li>插入暂停周期（<em>等到可以继续执行的时间</em>）</li>
+<li>设置相互独立的指令存储器和数据存储器或者是<code>Cache</code>（<em>实际上也是对存储器流水化了，设置了多个段这样，还是增加了硬件资源</em>）</li>
+</ul>
+<h3 id="数据相关">(2)数据相关</h3>
+<p>因一条指令需要用到前面指令的结果，而无法与产生结果的指令重叠执行。</p>
+<p><strong>产生原因</strong>：当很多指令在执行的时候，读写操作数的顺序可能会改变，从而导致结果改变。</p>
+<p>举个栗子：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//写后读RAW</span></span><br><span class="line">MOV AX,<span class="number">1000</span></span><br><span class="line">MOV BL,<span class="number">123</span></span><br><span class="line">DIV BL<span class="comment">//AX=AX/BL</span></span><br><span class="line">MOV BX,AX<span class="comment">//BX=AX</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>对于第三条<code>DIV</code>指令，由于使除法，所以执行的很慢；但是由于流水线的存在，在<code>DIV</code>执行的时候，<code>MOV</code>指令也开始取指准备执行。但是<code>MOV</code>指令要使用<code>AX</code>，但是此时缓慢的<code>DIV</code>还在执行，没有将结果写入<code>AX</code>······</p>
+</blockquote>
+<h4 id="分类">分类</h4>
+<p>设有两条指令<code>i</code>和<code>j</code>，都会访问同一寄存器<code>R</code>。</p>
+<ul>
+<li><strong>RAW写后读</strong></li>
+</ul>
+<p>若<code>j</code>在<code>i</code>完成写之前从<code>R</code>中读出数据，会得到错误的结果（如上面的栗子）。</p>
+<ul>
+<li><strong>WAW写后写</strong></li>
+</ul>
+<p>若<code>j</code>在<code>i</code>之前完成写操作，<code>R</code>中保存错误的结果。</p>
+<ul>
+<li><strong>WAR读后写</strong></li>
+</ul>
+<p>若<code>j</code>先将数据写入<code>R</code>，<code>i</code>将读出错误的结果。</p>
+<blockquote>
+<p>RAR不会引起数据相关。</p>
+</blockquote>
+<h4 id="解决方法">解决方法</h4>
+<p><strong>向流水线中插入暂停周期</strong>。</p>
+<ul>
+<li>采用直通技术</li>
+</ul>
+<p>控制逻辑将前面指令的结果从其产生的地方直接连通到当前指令所处的位置。</p>
+<blockquote>
+<p>就没有存放这一步骤（暂时），因为浪费时间。</p>
+</blockquote>
+<p><img src="https://s1.ax1x.com/2022/10/13/xd3T4x.png" /></p>
+<ul>
+<li>增加专用硬件</li>
+</ul>
+<p>增加流水线互锁硬件(<code>interlock</code>)。互锁硬件先要检测流水线中指令的数据相关性，当互锁硬件发现数据相关是，使流水线工作停顿下来，直到相关消失为止。</p>
+<ul>
+<li>利用编译器</li>
+</ul>
+<p>流水线调度：编译器可以对指令<strong>重新排序或插入空操作指令</strong>，使得加载任何冲突数据的操作被延迟，但对重新逻辑or输出不受影响。</p>
+<blockquote>
+<p>在编译器这一步就对指令的执行顺序做出调整。</p>
+</blockquote>
+<h3 id="控制相关">(3)控制相关</h3>
+<p>当流水线遇到分支指令和其它会改变PC值的指令。</p>
+<blockquote>
+<p>无条件跳转、条件跳转</p>
+</blockquote>
+<p>那么其实无条件跳转相对来说好处理一点，在无条件转移指令之类的指令必须执行；但是对于条件转移，<strong>它有一个判断跳转到哪、做决策</strong>的过程。</p>
+<blockquote>
+<p>条件分支指令对于流水线性能的影响远比无条件转移指令要大。</p>
+</blockquote>
+<p><strong>所以，其实重点就是，如何对条件转移指令进行处理</strong>。</p>
+<p><strong>(1)冻结流水线</strong></p>
+<p><strong>用于早期CPU，已过时</strong>。一旦在指令译码段检测到分支指令，就在转移目标地址确定之前保存or删除所有紧随分支指令之后的指令，当分支指令从执行段流出，确定出新的PC值时，流水线才继续根据新的PC值填充流水线。</p>
+<blockquote>
+<p>这会严重影响流水线的性能。</p>
+</blockquote>
+<p><strong>(2)预取分支目标</strong></p>
+<p>在条件分支指令被识别时，除了紧随其后的指令外，分支目标也被预取放在当前流水线，并保存到分支指令被执行。</p>
+<blockquote>
+<p>分支目标 已经进行了取指等操作。</p>
+</blockquote>
+<p>如果分支跳转发生，已预取的目标指令可立刻执行。</p>
+<p><strong>(3)多流</strong></p>
+<p>在条件分支的两路上<strong>同时启动取指令操作</strong>，并将指令保存到分支指令被实际执行时。</p>
+<blockquote>
+<p>就是对于预取分支目标的扩展。但是个人感觉开销可能会更大？</p>
+</blockquote>
+<p><strong>(4)循环缓冲器</strong></p>
+<p><strong>什么是循环缓冲器？</strong>是一个小的、非常高速的存储器。</p>
+<p>循环缓冲器中保存着最近获取的n条<strong>顺序</strong>的指令。若分支发生，硬件先检查分支目标是否在缓冲器中；如果在，下一条指令从缓冲器中获取。</p>
+<blockquote>
+<p>它的好处是：</p>
+<ul>
+<li>当分支未发生时，顺序获取的指令已在缓冲器中。</li>
+<li>如果它的容量比较大(可以满足循环中的全部指令)，则循环中的指令只需要从内存中读出一次。</li>
+<li>假如它的容量比较大(但是也没有那么大，但也不小，指目标地址仅仅是在分支指令之后的几个单元处)，当分支发生时，目标已在缓冲器中。<em>应用：普通的if-then-else语句</em></li>
+</ul>
+</blockquote>
+<h4 id="分支预测">分支预测</h4>
+<h5 id="静态分支预测">静态分支预测</h5>
+<p>可以采用的预测方法：</p>
+<ul>
+<li>出错检测处理：预测分支不会发生。</li>
+<li>循环：预测分支总是发生。</li>
+<li>编译器预测(有先验预测)</li>
+<li>剖面法：实际运行该程序(模拟器上)，然后将有关信息送给编译器。(作弊，有后验预测)</li>
+</ul>
+<p><strong>如果预测错了咋办</strong>？</p>
+<ul>
+<li><p>对于已经执行的指令，其结果保存在临时寄存器中。</p></li>
+<li><p>对于将要执行的指令，把将要被覆盖的寄存器的原值保存在临时寄存器中。</p></li>
+</ul>
+<h5 id="动态分支预测">动态分支预测</h5>
+<p>分支历史表：也称为分支预测缓存。下面是一个栗子：</p>
+<p><img src="https://s1.ax1x.com/2022/10/13/xdyYe1.png" /></p>
+<h4 id="延迟分支">延迟分支</h4>
+<p>流水线遇到分支指令时，按照正常方式处理，同时执行延迟槽中的指令。</p>
+<blockquote>
+<p>分支延迟槽：程序中位于转移指令后面的存储单元的位置。</p>
+</blockquote>
+<h5 id="延迟转移技术">延迟转移技术</h5>
+<ol type="1">
+<li>对于放入延迟槽中的指令需满足：
+<ul>
+<li>被转移指令在移动过程中与所经过的指令之间没有数据相关。</li>
+<li>被移动指令不破坏条件码，至少不影响后面的指令使用条件码。</li>
+</ul></li>
+<li>如果找不到符合上述条件的指令，须在条件转移指令后插入空操作NOP。</li>
+<li>若指令的执行过程分为多个流水段，则需插入多条指令。</li>
+</ol>
+<p><strong>延迟槽调度</strong>：编译器的任务就是在延迟槽中放入有用的指令。有以下三种调度方法：</p>
+<ul>
+<li>从分支前(before)调入</li>
+<li>从目标处(target)调入</li>
+<li>从失败处(fall-through)调入</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2022/10/13/xd6mXd.png" /></p>
+<h5 id="指令取消技术">指令取消技术</h5>
+<p>如果采用延迟转移技术，<strong>经常会找不到可以用来调整的指令</strong>。</p>
+<p><strong>向后转移</strong>(适用于循环程序)：</p>
+<ol type="1">
+<li><strong>循环体的第一条指令</strong>安放在两个位置，分别在循环体的前面和后面。</li>
+<li><code>if</code>转移成功，则执行转移指令(循环体)后面的指令，然后转移到目标地址；</li>
+<li><code>else</code>，取消转移指令(循环体)后面的指令。</li>
+</ol>
+<p><strong>向前转移</strong>：</p>
+<ol type="1">
+<li><code>if</code>转移不成功，执行转移指令之后的下条指令；</li>
+<li><code>else</code>取消下条指令，转移到目标地址执行。</li>
+</ol>
+<p><img src="https://s1.ax1x.com/2022/10/13/xdc0rd.png" /></p>
+<h2 id="五指令级并行">五、指令级并行</h2>
+<p>当指令不相关时，它们在流水线中重叠执行，这种指令间潜在的并行性称为指令级并行。</p>
+<p>指令流水线的<strong>限制</strong>：增加<strong>指令发射的宽度</strong>和<strong>指令流水线的深度</strong>，要求复杂硬件电路和高频率时钟的支持。<strong>导致CPU功耗up</strong>。</p>
+<blockquote>
+<p><strong>功耗时限制当代处理器发展的首要因素</strong>。</p>
+</blockquote>
+<p><strong>突破限制的途径</strong>：</p>
+<ul>
+<li>流水线深度</li>
+<li>从更深层次解决流水线中可能存在的各种相关性</li>
+<li>多核CPU，多指令流水线</li>
+<li>提高指令级并行的技术
+<ul>
+<li>乱序执行</li>
+<li>寄存器重命名</li>
+<li>推测执行</li>
+</ul></li>
+</ul>
+<h4 id="提高指令性并行的技术">提高指令性并行的技术</h4>
+<h5 id="乱序执行寄存器重命名">乱序执行&amp;寄存器重命名</h5>
+<p>乱序执行：跳过相关的指令取执行后面不相关的指令，使得指令的执行顺序不再按原程序的顺序执行。</p>
+<blockquote>
+<p>要求指令调度算法必须保障程序的运行结果和按照顺序执行时的结果相同。</p>
+</blockquote>
+<p>寄存器重命名技术：使用隐秘寄存器对寄存器重命名，<strong>可有效地减少WAR和WAW相关</strong>。</p>
+<blockquote>
+<p>好处：使用乱序执行&amp;寄存器重命名，可以把运算速度几乎提高到原来的两倍。</p>
+<p>坏处：乱序完成使得中断不精确。</p>
+</blockquote>
+<h5 id="推测执行">推测执行</h5>
+<p>在不知道是否需要执行之前就执行代码的技术。</p>
+<blockquote>
+<ul>
+<li>需要编译器和硬件的支持。</li>
+<li>需要对体系结果进行扩展。</li>
+</ul>
+</blockquote>
+<p>对于推测执行，分为：</p>
+<ol type="1">
+<li>硬件推测：基于动态调度的分支的扩展。
+<ul>
+<li>在分支预测的结果时正确的情况下，硬件推测将按照预测的结果取指、发射指令并执行指令。</li>
+<li>动态调度仅获得和发射指令。</li>
+</ul></li>
+<li>软件推测：编译器。</li>
+</ol>
+<p><img src="https://s1.ax1x.com/2022/10/13/xdgOtP.png" /></p>
+<h4 id="多指令发射技术">多指令发射技术</h4>
+<p>一个时钟周期内流出多条指令，CPI(Cycles Per
+Instructions)&lt;1，IPC&gt;1。</p>
+<p>对于多指令流出处理器有三种基本结构：</p>
+<ul>
+<li>超标量(编译器静态调度or动态调度)</li>
+<li>超流水：将每个功能部件进一步流水化，特別是取指or指令流出被分解为多段。</li>
+<li>超长指令字：把很多条指令综合成一条超级长的指令，只能使用编译静态调度。</li>
+</ul>
+<h4 id="指令级高度并行的超级处理器">指令级高度并行的超级处理器</h4>
+<p>主要分为以下三种:</p>
+<ul>
+<li>超标量：内置多个流水线(不是流水线的段噢，是多个多个多个流水线)</li>
+<li>超流水线：将流水线的<code>IF,AD,ALU</code>等关键步骤进一步细分为多个阶段。</li>
+<li>超标量超流水线：多流水线+指令级细分</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2022/10/13/xd2lA1.png" /></p>
+<blockquote>
+<p>就是说在没有看到结果之前，可能有一些人(比如我)会觉得：超标量很好，超流水线也很好，那么综合得到的超标量超流水线应当是集二家之长，性能更优才对；为什么得到的结果会是：超标量&gt;超标量超流水线&gt;超流水线呢？</p>
+<p><em>主要是因为，实际上超流水线是很理想的，难以实现。但是超标量结构就比较简单酱。因此将不现实的与简单实际的融合···</em></p>
+</blockquote>
+<p>以下是正经解释(雾)：</p>
+<p><img src="https://s1.ax1x.com/2022/10/13/xd2540.png" /></p>
+<p>最后，以上关于流水线，主要是工作在单处理器的情况下。于是提出了对于现在常用的多核处理器运用流水线技术：</p>
+<p>这实际上是将<strong>指令级并行提升至线程级并行</strong>。是目前为止可以替代并超越<strong>超标量&amp;超长指令字</strong>(现在运用最多？反正就是最优的选择)的最佳选择。</p>
+]]></content>
+      <tags>
+        <tag>计算机组成原理</tag>
+        <tag>笔记</tag>
+      </tags>
+  </entry>
+</search>

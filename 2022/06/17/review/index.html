@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>review | Schwertlilien</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="计算机组成原理笔记" />
+  
+  
+  
+  
+  <meta name="description" content="总复习  （一）绪论 1. 计算机的发展 现代计算机的理论基础：布尔代数、物质基础：双稳态触发器。 1946年，美国，ENIAC，电子数字积分和计算机 1946年6月，冯·诺伊曼提出以二进制，程序存储和程序控制为核心的思想，奠定了当代电子数字计算机体系结构的基础。  1946-1954年，第1代，电子管计算机，ENIAC、IBM 701 1955-1964年，第2代，晶体管计算机">
+<meta property="og:type" content="article">
+<meta property="og:title" content="review">
+<meta property="og:url" content="http://example.com/2022/06/17/review/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="总复习  （一）绪论 1. 计算机的发展 现代计算机的理论基础：布尔代数、物质基础：双稳态触发器。 1946年，美国，ENIAC，电子数字积分和计算机 1946年6月，冯·诺伊曼提出以二进制，程序存储和程序控制为核心的思想，奠定了当代电子数字计算机体系结构的基础。  1946-1954年，第1代，电子管计算机，ENIAC、IBM 701 1955-1964年，第2代，晶体管计算机">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2022/06/06/767d3ceb251db1b1.png">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2022/06/13/d07bf2d2d053ed5c.png">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2022/06/17/ba66d891dddf1cd8.png">
+<meta property="article:published_time" content="2022-06-17T03:17:15.000Z">
+<meta property="article:modified_time" content="2022-06-17T03:44:12.956Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="计算机组成原理">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s3.bmp.ovh/imgs/2022/06/06/767d3ceb251db1b1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Schwertlilien" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/avatar.png">
+  <link rel="apple-touch-icon" href="/css/images/avatar.png">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("/css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("/css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("/css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
+
+  </style>
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+<script src="/js/jquery-3.1.1.min.js"></script>
+
+  
+<script src="/js/bootstrap.js"></script>
+
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    
+<link rel="stylesheet" href="/css/dialog.css">
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css" >
+  
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/avatar.png">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-review" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      review
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2022/06/17/review/" class="article-date">
+	  <time datetime="2022-06-17T03:17:15.000Z" itemprop="datePublished">2022-06-17</time>
+	</a>
+
+      
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="总复习">总复习</h1>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/06/747f167878761af9.png" /></p>
+<h2 id="一绪论">（一）绪论</h2>
+<h3 id="计算机的发展">1. 计算机的发展</h3>
+<p>现代计算机的<strong>理论基础</strong>：布尔代数、<strong>物质基础</strong>：双稳态触发器。</p>
+<p>1946年，美国，ENIAC，电子数字积分和计算机</p>
+<p>1946年6月，冯·诺伊曼提出以二进制，程序存储和程序控制为核心的思想，<strong>奠定了当代电子数字计算机体系结构的基础</strong>。</p>
+<ul>
+<li>1946-1954年，第1代，电子管计算机，ENIAC、IBM 701</li>
+<li>1955-1964年，第2代，晶体管计算机，IBM 7030、Univac LARC</li>
+<li>1965-1974年，第3代，集成电路计算机，IBM 360、370、DEC PDP-8</li>
+<li>1975-1990年，第4代，超大规模集成电路计算机，IBM 3090、VAX
+9000、PC机、苹果机</li>
+<li>1991-，第5代，多核处理器（4核和8核）</li>
+</ul>
+<h3 id="计算机的基本组成">2. 计算机的基本组成</h3>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/06/953808da12ac0696.png" /></p>
+<p><strong>这是去年的考题！！！</strong></p>
+<p>冯·诺伊曼机的硬件固定，<strong>不同的运算功能依靠预先放在存储器中的程序实现</strong>，这是存储程序控制的基本原理，也是区别其他运算工具的关键。</p>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/06/f31e31c05eac787b.png" /></p>
+<p><strong>计算机的软件</strong>：</p>
+<ul>
+<li>计算机语言：机器语言、汇编语言、高级语言</li>
+<li>软件分类：系统软件、应用软件、中间件</li>
+</ul>
+<h3 id="计算机的层次结构">3. 计算机的层次结构</h3>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/06/811c3d8446a22bea.png" /></p>
+<h3 id="计算机的分类">4. 计算机的分类</h3>
+<ul>
+<li><p>按照规模和功能分类：</p>
+<p>巨型机、大型机、中型机、小型机、微机、单片机</p></li>
+<li><p>按用途分类：</p>
+<p>通用机（如：PC机）、专用机（如：嵌入式计算机）</p></li>
+<li><p>按信息处理的特性分类：<strong>（FLYNN）费林分类法</strong></p>
+<ol type="1">
+<li>单指令流单数据流计算机（SISD）</li>
+<li>单指令流多数据流计算机（SIMD）</li>
+<li>多指令流单数据流计算机（MISD）</li>
+<li>多指令流多数据流计算机（MIMD）</li>
+</ol></li>
+</ul>
+<p>Flynn分类法：按照计算机在执行程序的过程中信息流的特征进行分类的。</p>
+<figure>
+<img src="https://s3.bmp.ovh/imgs/2022/06/06/767d3ceb251db1b1.png"
+alt="8" />
+<figcaption aria-hidden="true">8</figcaption>
+</figure>
+<h3 id="计算机的性能描述">5. 计算机的性能描述</h3>
+<p>（个人认为可能概率会出题）</p>
+<ul>
+<li>MIPS：每秒钟执行指令的百万条数</li>
+<li>MFLOPS：每秒钟执行浮点数的百万次操作的数量</li>
+<li>CPI：每条指令执行所用的时钟数</li>
+<li>N：每条指令执行所用的时钟数</li>
+<li><span class="math inline">\(f_{CLK}\)</span>：时钟频率</li>
+</ul>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/06/3b929200f2274023.png" /></p>
+<hr />
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/06/3f1b643efd3b5142.png" /></p>
+<h2 id="二计算机中的数据表示">（二）计算机中的数据表示</h2>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/06/781abaaa7f6d295e.jpg" /></p>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/06/0a50caa0dd5c58da.png" /></p>
+<h3 id="不同编码的比较">1. 不同编码的比较</h3>
+<blockquote>
+<ol type="1">
+<li>真值为 + ：原码、补码、反码的表示形式均相同。</li>
+<li>真值为 - ：原码、补码、反码的表示形式不同。</li>
+<li>特殊的移码： 0 表示真值是负数； 1 表示真值是正数。</li>
+</ol>
+</blockquote>
+<p><strong>0有唯一的编码</strong>：补码、移码。</p>
+<blockquote>
+<p>原码：1000 0000 | 0000 0000</p>
+<p>反码：1111 1111 | 0000 0000</p>
+</blockquote>
+<p><strong>符号位用0表示正、用1表示负</strong>：原码、反码、补码</p>
+<blockquote>
+<p>移码：1表示正、0表示负</p>
+</blockquote>
+<p><strong>满足真值大则码值大</strong>：移码</p>
+<blockquote>
+<p>最高位符号位1为负数（真值小码值小）：原码、反码、补码</p>
+</blockquote>
+<p><strong>存在负值的真值越大码值越小</strong>：原码</p>
+<blockquote>
+<p>【-1】补=【1000 0001】补=【1111
+1111】可见是：最大的负值、最大的码值。</p>
+<p>反码 = 补码 - 1、移码 = 补码最高符号位取反 因此均不是。</p>
+</blockquote>
+<p><strong>负数的码值大于正数的码值</strong>：原码、反码、补码</p>
+<blockquote>
+<p>原理是：负数的码值最高位符号位为1</p>
+</blockquote>
+<h3 id="浮点数">2. 浮点数</h3>
+<p>规格化指的是尾数的绝对值限定在$ <span
+class="math inline">\(~\)</span> 1$之间。</p>
+<p>若<span class="math inline">\(M\ge0\)</span>：<span
+class="math inline">\(M=0.1XX...X\)</span>是规格化数。</p>
+<p>若<span class="math inline">\(M\lt0\)</span>：由于<span
+class="math inline">\([-\frac{1}2]_{补}=1.1000...0\)</span>、<span
+class="math inline">\([-1]_{补}=1.000...0\)</span>。<strong>为了使计算机判断方便，一般不把<span
+class="math inline">\([-\frac{1}2]\)</span>列为规格化的数，而把<span
+class="math inline">\([-1]\)</span>列为规格化的数。</strong><span
+class="math inline">\(M=1.0XXX...X\)</span>时，是规格化数。</p>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/06/7ae803cb8265a010.png" /></p>
+<p><strong>貌似左规和右规都是在采用了双符号位，也就是变形补码后产生的。</strong></p>
+<p><strong>左规</strong>：结果的尾数为<span
+class="math inline">\(00.0XXX...X\)</span>或<span
+class="math inline">\(11.1XXX...X\)</span>的形式时，需将尾数左移1位，阶码
+-1，<strong>直到尾数为规格化形式为止</strong>。</p>
+<p><strong>右规</strong>：当浮点运算结果的尾数出现<span
+class="math inline">\(01.XXX...X\)</span>或<span
+class="math inline">\(10.XXX...X\)</span>的形式时，<strong>并不一定溢出</strong>，将尾数右移1位，阶码
++1，然后判断<strong>阶码</strong>是否溢出。</p>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/06/14d5bc2f83dce320.png" /></p>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/06/93a0bdde09679128.png" /></p>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/06/d40d385e76c4cd27.png" /></p>
+<h4 id="ieee754">2.1 IEEE754</h4>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/06/c29e8a1bbadb7397.png" /></p>
+<p><strong>单精度格式：</strong>1+8+23（符号+阶码+尾数）</p>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/06/11c6dcb2e4dce176.png" /></p>
+<p><strong>更多的重点还是放在单精度的浮点数上，至于双精度格式（1+11+52）只是被提了一下。</strong></p>
+<h2 id="三运算方法和运算器">（三）运算方法和运算器</h2>
+<p>运算器用于<strong>数值运算及加工处理数据。</strong></p>
+<p>运算器的<strong>结构</strong>取决于：<strong>指令系统、数据的表示方法、运算方法以及所选用的硬件。</strong></p>
+<blockquote>
+<p>它由CPU中的ALU、GR（通用寄存器）等部件组成。</p>
+</blockquote>
+<h3 id="定点数运算">1. 定点数运算</h3>
+<h4 id="加减">1.1 加减</h4>
+<p>特别声明的是：<strong>求补运算</strong></p>
+<p>（主要用于 <strong><span
+class="math inline">\([X]_{补}\leftrightarrow[-X]_{补}\)</span></strong>
+这种情况，对于符号位和数值位均按位取反，末位+1）</p>
+<h5 id="溢出判断">1.1.1 溢出判断</h5>
+<p><strong>只有当两个同符号的数相加（or
+相异符号数相减），运算结果才可能溢出。</strong>异号相加，永远不会产生溢出。</p>
+<p>发生溢出时，运算结果<strong>肯定</strong>是错误的。防止溢出发生的<strong>最简单有效的方法</strong>即：增加补码的二进制编码长度。</p>
+<blockquote>
+<p>我还想的是采用双符号位呢...不过双符号位并不能防止溢出，而是判断是否溢出。果然。</p>
+</blockquote>
+<h6 id="双符号位判决法最常用">① 双符号位判决法（最常用）</h6>
+<p><strong>补码</strong>采用两位表示符号，即00(+)和11(-)。</p>
+<p><strong>一旦发生溢出，则两个符号位就一定不一致。</strong></p>
+<ol type="1">
+<li>出现01，结果 &gt; +1</li>
+<li>出现10，结果 &lt; -1</li>
+</ol>
+<blockquote>
+<p>所以01是上溢、10是下溢吗？</p>
+</blockquote>
+<h6 id="进位判决法">② 进位判决法</h6>
+<p>类似于双符号位，【最高数值位向符号位的进位】<span
+class="math inline">\(\oplus\)</span>【符号位的进位】</p>
+<h5 id="移码加减-x_移pmy_移nexpm-y_移">1.1.2 移码加减 <strong><span
+class="math inline">\([X]_{移}\pm[Y]_{移}\ne[X\pm
+Y]_{移}\)</span></strong></h5>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/13/845f22869f86bd75.png" /></p>
+<h4 id="乘">1.2 乘</h4>
+<h5 id="原码一位乘">1.2.1 原码一位乘</h5>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/13/1286feb14e3d15a9.png" /></p>
+<p>对于原码二位乘，只需了解（我认为意思是不会考）。</p>
+<h5 id="补码一位乘booth法">1.2.2 补码一位乘（Booth法）</h5>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/13/24b8a70e354a8cce.png" /></p>
+<h4 id="除">1.3 除</h4>
+<h5 id="原码一位除">1.3.1 原码一位除</h5>
+<h6 id="恢复余数法">① 恢复余数法</h6>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/13/65cb96226aadac22.png" /></p>
+<h6 id="加减交替法">② 加减交替法</h6>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/13/22f1495d78756a8b.png" /></p>
+<p><strong>末位商如果为0，此时的余数是错误的。此时通过恢复余数码来得到正确的余数。</strong></p>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/13/87511f48474eca6e.png" /></p>
+<blockquote>
+<p>我觉得恢复余数法和加减交替法之间在计算过程中并无差异，主要是思想上的不同：恢复余数指的是不断减去除数，如果余数是负的，就要恢复余数为正的（加上除数），再不断减去除数；加减交替指看余数的正负，正的就减除数，负的就加除数。</p>
+</blockquote>
+<h5 id="补码一位除">1.3.2 补码一位除</h5>
+<p>这个是课后学习，但是出了一道关于这个的课后题。所以还是看看。</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/06/13/d07bf2d2d053ed5c.png" style="zoom: 67%;" /></p>
+<p>余数的校正规则：</p>
+<ol type="1">
+<li>若商为正：余数与被除数异号，余数+除数</li>
+<li>若商为负：余数与被除数异号时，余数-除数</li>
+</ol>
+<h3 id="alu">2. ALU</h3>
+<h4 id="运算器的结构">2.1 运算器的结构</h4>
+<p>基本组成包括算术逻辑单元ALU、暂存器、通用寄存器堆、内部总线。</p>
+<h5 id="标志寄存器标志位">2.1.1 标志寄存器、标志位</h5>
+<p>标志寄存器，又称状态寄存器。（我感觉状态寄存器更常用一点）用于保存ALU操作结果的某些状态。不同CPU，标志寄存器中包含的标志不尽相同。<strong>但是都会有如下最基本的5中标志位</strong>：</p>
+<ul>
+<li>ZF=1：结果全为0。</li>
+<li>CF=1：表示有进位或者是借位。</li>
+<li>OF=1：运算溢出。</li>
+<li>SF=1：运算结果为正数。（现代微机中，有符号数采用补码表示）</li>
+<li>PF=1：反映运算结果中‘1’的个数为偶数。</li>
+</ul>
+<h3 id="浮点运算">3. 浮点运算</h3>
+<h4 id="浮点加减">3.1 浮点加减</h4>
+<p><strong>①对阶</strong>：只有在两者的阶码相同时才能进行尾数的加减运算。<strong>其原则是小阶对大阶</strong>。也就是将小阶码（更小的数字挪到大数字的小数点处）</p>
+<p>不断地右移获得阶码+1。<strong>但是会在对阶时丢失尾数的低位，造成的误差相对较小。</strong>但要是大阶对小阶，就会就是尾数的高位，导致错误的结果。</p>
+<p><strong>②尾数进行加减运算（直接相加或是加补）</strong></p>
+<p><strong>③规格化</strong>：在进行完计算后可能得到的是一个非规格化数。则需要进行规格化。</p>
+<blockquote>
+<p><strong>（1）左规</strong> ←</p>
+<p>尾数是：<span class="math inline">\(00.0XX···X\)</span> 或是 <span
+class="math inline">\(11.1XX···X\)</span></p>
+<p>左规时，尾数每左移一位，阶码减1，必须同时判断阶码是否减到比所能表示的阶码还小。</p>
+<p>如果出现，阶码无法表示太小的阶码，就出现了下溢出。（下溢出发生可认为结果=0）</p>
+</blockquote>
+<blockquote>
+<p><strong>（2）右规</strong> →</p>
+<p>结果出现：<span class="math inline">\(10.XXX···X\)</span> 或是 $
+{0}1.XXX···X$</p>
+<p>表示尾数出现溢出，但并不代表整个结果浮点数溢出。</p>
+<p>出现上述情况，可将尾数右移最多一次，阶码+1。</p>
+<p>可能会出现阶码超出能表示的最大范围，发生上溢出。</p>
+</blockquote>
+<p><strong>④舍入处理</strong>：在对阶以及规格化的时候，需要将尾数右移，右移会丢弃尾数的最低位，出现了舍入的问题。一般采用以下三种方法。</p>
+<p><strong>（1）截断法</strong>：将需要丢弃的尾数低位丢弃。</p>
+<p><strong>（2）末位恒置1法</strong>：无论尾数右移丢弃的是0还是1，此法需要保证保留的尾数的最低位永远为1.</p>
+<p><strong>（3）0舍1入法</strong>：当尾数右移丢弃的是1，要保留的最末位+1，当丢弃0，保留的最末位不变。</p>
+<p>（<em>但是可能遇到01.1111111时发生溢出，因此需要使用截尾法。</em>）</p>
+<h4 id="浮点乘除">3.2 浮点乘除</h4>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/13/24754efac72e0d16.png" /></p>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/13/98c126fe6b747995.png" /></p>
+<h2 id="四指令系统和汇编语言">（四）指令系统和汇编语言</h2>
+<h3 id="指令格式">1. 指令格式</h3>
+<p>设置指令系统的要求是：完备性、有效性、规整性、兼容性。</p>
+<p><strong>Huffman编码的主要缺点：</strong></p>
+<ul>
+<li>操作码长度很不规整，硬件编码困难。</li>
+<li>与地址吗共同组成固定长的指令比较困难。</li>
+</ul>
+<h4 id="扩展编码方式">扩展编码方式</h4>
+<p>有等长15/15/15...扩展法 or 等长
+8/64/512...扩展法。（只是众多扩展法之二）</p>
+<ul>
+<li>是一种重要的指令优化技术：缩短指令平均长度、减少程序总位数和增加指令字所能表示的操作信息。</li>
+<li>一般用在指令字长较短的微、小型机上。</li>
+</ul>
+<h3 id="寻址方式">2. 寻址方式</h3>
+<p>指令中以什么方式提供操作数或操作数地址，称为寻址方式（或是编址方式）。</p>
+<p><strong>以下是以8086/8088为例</strong>：</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/06/17/ba66d891dddf1cd8.png" style="zoom: 40%;" /></p>
+<h3 id="pc指令系统">3. PC指令系统</h3>
+<h3 id="汇编">4. 汇编</h3>
+<h3 id="cisc-rics">5. CISC &amp; RICS</h3>
+<h2 id="五存储系统">（五）存储系统</h2>
+<h2 id="六处理器设计">（六）处理器设计</h2>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+
+<script src="/js/vdonate.js"></script>
+
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/WeChanQR.png',
+  alipayImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/AliPayQR.jpg'
+});
+</script>
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>本文作者:  </strong>Schwertlilien</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>本文链接:  </strong>
+          <a href="/2022/06/17/review/" target="_blank" title="review">http://example.com/2022/06/17/review/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明:   </strong>
+            本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            许可协议。转载请注明出处
+          </li>
+         
+        </ul>
+<div>
+
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" rel="tag">计算机组成原理</a></li></ul>
+
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/07/03/%E6%95%B0%E6%A8%A1%E6%97%A5%E8%AE%B01/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          数模日记1
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/06/07/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E5%A4%8D%E4%B9%A0"><span class="nav-number">1.</span> <span class="nav-text">总复习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E7%BB%AA%E8%AE%BA"><span class="nav-number">1.1.</span> <span class="nav-text">（一）绪论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E5%8F%91%E5%B1%95"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. 计算机的发展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%84%E6%88%90"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. 计算机的基本组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.3.</span> <span class="nav-text">3. 计算机的层次结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">1.1.4.</span> <span class="nav-text">4. 计算机的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E6%80%A7%E8%83%BD%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.1.5.</span> <span class="nav-text">5. 计算机的性能描述</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E8%A1%A8%E7%A4%BA"><span class="nav-number">1.2.</span> <span class="nav-text">（二）计算机中的数据表示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E5%90%8C%E7%BC%96%E7%A0%81%E7%9A%84%E6%AF%94%E8%BE%83"><span class="nav-number">1.2.1.</span> <span class="nav-text">1. 不同编码的比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0"><span class="nav-number">1.2.2.</span> <span class="nav-text">2. 浮点数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ieee754"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">2.1 IEEE754</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E8%BF%90%E7%AE%97%E6%96%B9%E6%B3%95%E5%92%8C%E8%BF%90%E7%AE%97%E5%99%A8"><span class="nav-number">1.3.</span> <span class="nav-text">（三）运算方法和运算器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E7%82%B9%E6%95%B0%E8%BF%90%E7%AE%97"><span class="nav-number">1.3.1.</span> <span class="nav-text">1. 定点数运算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A0%E5%87%8F"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">1.1 加减</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%BA%A2%E5%87%BA%E5%88%A4%E6%96%AD"><span class="nav-number">1.3.1.1.1.</span> <span class="nav-text">1.1.1 溢出判断</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%8F%8C%E7%AC%A6%E5%8F%B7%E4%BD%8D%E5%88%A4%E5%86%B3%E6%B3%95%E6%9C%80%E5%B8%B8%E7%94%A8"><span class="nav-number">1.3.1.1.1.1.</span> <span class="nav-text">① 双符号位判决法（最常用）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%BF%9B%E4%BD%8D%E5%88%A4%E5%86%B3%E6%B3%95"><span class="nav-number">1.3.1.1.1.2.</span> <span class="nav-text">② 进位判决法</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A7%BB%E7%A0%81%E5%8A%A0%E5%87%8F-x_%E7%A7%BBpmy_%E7%A7%BBnexpm-y_%E7%A7%BB"><span class="nav-number">1.3.1.1.2.</span> <span class="nav-text">1.1.2 移码加减 \([X]_{移}\pm[Y]_{移}\ne[X\pm
+Y]_{移}\)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B9%98"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">1.2 乘</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8E%9F%E7%A0%81%E4%B8%80%E4%BD%8D%E4%B9%98"><span class="nav-number">1.3.1.2.1.</span> <span class="nav-text">1.2.1 原码一位乘</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A1%A5%E7%A0%81%E4%B8%80%E4%BD%8D%E4%B9%98booth%E6%B3%95"><span class="nav-number">1.3.1.2.2.</span> <span class="nav-text">1.2.2 补码一位乘（Booth法）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%99%A4"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">1.3 除</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8E%9F%E7%A0%81%E4%B8%80%E4%BD%8D%E9%99%A4"><span class="nav-number">1.3.1.3.1.</span> <span class="nav-text">1.3.1 原码一位除</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%81%A2%E5%A4%8D%E4%BD%99%E6%95%B0%E6%B3%95"><span class="nav-number">1.3.1.3.1.1.</span> <span class="nav-text">① 恢复余数法</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%8A%A0%E5%87%8F%E4%BA%A4%E6%9B%BF%E6%B3%95"><span class="nav-number">1.3.1.3.1.2.</span> <span class="nav-text">② 加减交替法</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A1%A5%E7%A0%81%E4%B8%80%E4%BD%8D%E9%99%A4"><span class="nav-number">1.3.1.3.2.</span> <span class="nav-text">1.3.2 补码一位除</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#alu"><span class="nav-number">1.3.2.</span> <span class="nav-text">2. ALU</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%90%E7%AE%97%E5%99%A8%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">2.1 运算器的结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A0%87%E5%BF%97%E5%AF%84%E5%AD%98%E5%99%A8%E6%A0%87%E5%BF%97%E4%BD%8D"><span class="nav-number">1.3.2.1.1.</span> <span class="nav-text">2.1.1 标志寄存器、标志位</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E8%BF%90%E7%AE%97"><span class="nav-number">1.3.3.</span> <span class="nav-text">3. 浮点运算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E5%8A%A0%E5%87%8F"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">3.1 浮点加减</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E4%B9%98%E9%99%A4"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">3.2 浮点乘除</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F%E5%92%8C%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80"><span class="nav-number">1.4.</span> <span class="nav-text">（四）指令系统和汇编语言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.4.1.</span> <span class="nav-text">1. 指令格式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%A9%E5%B1%95%E7%BC%96%E7%A0%81%E6%96%B9%E5%BC%8F"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">扩展编码方式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F"><span class="nav-number">1.4.2.</span> <span class="nav-text">2. 寻址方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pc%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.4.3.</span> <span class="nav-text">3. PC指令系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B1%87%E7%BC%96"><span class="nav-number">1.4.4.</span> <span class="nav-text">4. 汇编</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cisc-rics"><span class="nav-number">1.4.5.</span> <span class="nav-text">5. CISC &amp; RICS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.5.</span> <span class="nav-text">（五）存储系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E5%A4%84%E7%90%86%E5%99%A8%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.6.</span> <span class="nav-text">（六）处理器设计</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2023 Schwertlilien All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+
+  
+<script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Schwertlilien
+          </div>
+          <div class="panel-body">
+            Copyright © 2023 Schwertlilien All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>数模日记3 | Schwertlilien</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="数学模型" />
+  
+  
+  
+  
+  <meta name="description" content="排队论模型 PS：此处的排队论，真的就是单纯的排队。 排队论研究随机服务系统的确定性规律。 等待时间、服务时间、到达时间具有随机性。 [TOC] 基本组成 输入  顾客总体的数量：有限&#x2F;无限 顾客到来的方式：个体&#x2F;批 到达的间隔时间：不确定（随机变量，遵从概率分布）  顾客的行为假定为：  在未服务之前不会离开（等待制） 当看到队列很长的时候离开（有损失） 从一个队">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数模日记3">
+<meta property="og:url" content="http://example.com/2022/07/03/%E6%95%B0%E6%A8%A1%E6%97%A5%E8%AE%B03/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="排队论模型 PS：此处的排队论，真的就是单纯的排队。 排队论研究随机服务系统的确定性规律。 等待时间、服务时间、到达时间具有随机性。 [TOC] 基本组成 输入  顾客总体的数量：有限&#x2F;无限 顾客到来的方式：个体&#x2F;批 到达的间隔时间：不确定（随机变量，遵从概率分布）  顾客的行为假定为：  在未服务之前不会离开（等待制） 当看到队列很长的时候离开（有损失） 从一个队">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2022/07/03/e5f54faf244ba774.png">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2022/07/03/3a1fb146106946da.png">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2022/07/03/e9ca13e1d6d8b509.png">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2022/07/03/93599712c29fb995.png">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2022/07/03/2e0096930e842c38.png">
+<meta property="article:published_time" content="2022-07-03T10:11:31.000Z">
+<meta property="article:modified_time" content="2022-07-03T10:12:52.851Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="数学模型">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s3.bmp.ovh/imgs/2022/07/03/e5f54faf244ba774.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Schwertlilien" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/avatar.png">
+  <link rel="apple-touch-icon" href="/css/images/avatar.png">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("/css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("/css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("/css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
+
+  </style>
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+<script src="/js/jquery-3.1.1.min.js"></script>
+
+  
+<script src="/js/bootstrap.js"></script>
+
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    
+<link rel="stylesheet" href="/css/dialog.css">
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css" >
+  
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/avatar.png">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-数模日记3" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      数模日记3
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2022/07/03/%E6%95%B0%E6%A8%A1%E6%97%A5%E8%AE%B03/" class="article-date">
+	  <time datetime="2022-07-03T10:11:31.000Z" itemprop="datePublished">2022-07-03</time>
+	</a>
+
+      
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="排队论模型">排队论模型</h1>
+<p>PS：此处的排队论，真的就是单纯的排队。</p>
+<p>排队论研究随机服务系统的确定性规律。</p>
+<p>等待时间、服务时间、到达时间具有随机性。</p>
+<p>[TOC]</p>
+<h2 id="基本组成">基本组成</h2>
+<h4 id="输入">输入</h4>
+<ul>
+<li>顾客总体的数量：有限/无限</li>
+<li>顾客到来的方式：个体/批</li>
+<li>到达的间隔时间：不确定（随机变量，遵从概率分布）</li>
+</ul>
+<p>顾客的行为<strong>假定</strong>为：</p>
+<ul>
+<li>在未服务之前不会离开（等待制）</li>
+<li>当看到队列很长的时候离开（有损失）</li>
+<li>从一个队列移到另一个队列（上两种结合）</li>
+</ul>
+<h4 id="排队规则">排队规则</h4>
+<ul>
+<li><p>队列容量：有限/无限</p>
+<p>----- 此处的队列是排队队列。</p></li>
+<li><p>排队规则：FCFS、LCFS、RSS（random）、PS（priority）、GD（一般规则）</p></li>
+</ul>
+<h4 id="服务规则">服务规则</h4>
+<ul>
+<li>服务机构（1 / 多）个</li>
+<li>服务台：并行、串行、混合排列</li>
+<li>服务方式：单个/批处理</li>
+</ul>
+<h2 id="数量指标">数量指标</h2>
+<p>每天的排队人数是随机的，所以取长期的平均值。</p>
+<ul>
+<li><p><span class="math inline">\(L_s\)</span>：(line
+system)平均队长。既在排队、又在接受服务的人。</p></li>
+<li><p><span class="math inline">\(L_q\)</span>：(line
+query)平均队<strong>列</strong>长。只包括排队的人，不包括正在接受服务的人。</p></li>
+<li><p><span class="math inline">\(W_s\)</span>：(wait
+system)平均逗留时间。顾客在这个系统中（排队+服务）停留的时间平均值。</p></li>
+<li><p><span class="math inline">\(W_q\)</span>：(wait
+query)平均等待时间。顾客在排队的时间的平均值。</p></li>
+</ul>
+<p><strong>为求解以上4个指标，引入</strong>：</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/07/03/e5f54faf244ba774.png" style="zoom: 50%;" /></p>
+<h2 id="记号方案">记号方案</h2>
+<h4 id="kendall-记号">Kendall 记号</h4>
+<ul>
+<li><code>X</code>：顾客到达的时间分布，输入过程的特征。</li>
+<li><code>Y</code>：服务时间分布。</li>
+<li><code>Z</code>：服务台的个数。取值 1/c（<span
+class="math inline">\(c \gt 1\)</span>，表示多个服务台）</li>
+<li><code>A</code>：排队系统允许的最大顾客容量。取值有限/无限。</li>
+<li><code>B</code>：顾客总体数量，指不在排队的、外部的顾客数量。（多分
+）取值有限/无限。</li>
+<li><code>C</code>：排队队则，如FCFS。</li>
+</ul>
+<p>常见：<span class="math inline">\(X/Y/Z/A/B/C = M/M/1/\infty/ \infty
+/FCFS\)</span></p>
+<p><strong>X/Y</strong>：</p>
+<ul>
+<li>M：表示泊松过程 or 负指数分布</li>
+<li>D：表示确定型分布</li>
+<li><span class="math inline">\(E_k\)</span>：表示 k
+阶埃尔朗分布（综合到一起的分布）</li>
+<li>G：表示一般服务时间分布</li>
+<li>GI：表示一般相互独立的时间间隔分布</li>
+</ul>
+<h2 id="排队论模型-1">排队论模型</h2>
+<h3 id="单服务台模型fcfs">单服务台模型(FCFS)</h3>
+<h4 id="mm1标准型"><span
+class="math inline">\(M/M/1\)</span>（标准型）</h4>
+<p>$ M/M/1// /FCFS$</p>
+<p><strong>求解要建立稳态概率方程</strong>： <span
+class="math display">\[
+\begin{cases}
+\lambda P_0=\mu P_1 \\
+\lambda P_{n-1}+\mu P_{n+1}-(\lambda +\mu)P_n=0&amp; ,n\ge 1 \\
+\end{cases}
+\]</span> 由递推公式得： <span class="math display">\[
+P_n = (\frac{\lambda}{\mu})^n P_0
+\]</span> 令<span class="math inline">\(\rho =
+\frac{\lambda}{\mu}\)</span>： <span class="math display">\[
+\sum^{\infty}_{n=0}P_n=1\\
+P_0\sum^{\infty}_{n=0}P_n= \frac{P_0}{1-\rho}=1
+\]</span> 故： <span class="math display">\[
+P_0=1-\rho\\
+P_n=(1-\rho)\rho^n
+\]</span> 这是系统状态为 <span class="math inline">\(n\)</span>
+的概率，然后接下来计算上述的4个指标。</p>
+<p><strong>平均队长</strong><span
+class="math inline">\(L_s\)</span>：(serve+queue) <span
+class="math display">\[
+L_s=\sum_{n=1}^\infty nP_n=\sum_{n=1}^\infty n (1-\rho)\rho^n =
+\frac{\rho}{1-\rho}=\frac{\lambda}{\mu-\lambda}
+\]</span> <strong>平均队列长</strong><span
+class="math inline">\(L_q\)</span>：(queue) <span
+class="math display">\[
+L_q=\sum_{n=1}^\infty(n-1)P_n=\frac{\rho\lambda}{\mu-\lambda}
+\]</span> <strong>平均逗留时间</strong><span
+class="math inline">\(W_s\)</span>：(serve+queue) <span
+class="math display">\[
+W_S=\frac 1{\mu-\lambda}=\frac{\rho}{\lambda(1-\rho)}
+\]</span> <strong>平均等待时间</strong><span
+class="math inline">\(W_q\)</span>：(queue) <span
+class="math display">\[
+W_q=W_s-\frac 1{\mu}=\frac{\rho}{\mu-\lambda}=\rho\times W_S
+\]</span>
+<img src="https://s3.bmp.ovh/imgs/2022/07/03/3a1fb146106946da.png" style="zoom:50%;" /></p>
+<h4 id="mm1n">$ M/M/1/N/ $</h4>
+<p><strong>其稳态概率方程</strong>： <span class="math display">\[
+\left\{
+\begin{aligned}
+\lambda P_1&amp;=\mu P_1 \\
+\lambda P_{n-1}+\mu P_{n+1}&amp;=(\lambda +\mu)P_n&amp; ,1\le n\le N-1
+\\
+\mu P_N&amp;=\lambda P_{N-1}
+\end{aligned}
+\right.
+\]</span></p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/07/03/e9ca13e1d6d8b509.png" style="zoom:50%;" /></p>
+<p>它的计算结果已知，自己去Google。</p>
+<h4 id="mm1m">$ M/M/1//m$</h4>
+<p>顾客的总体数量是有限的，该模型等价于<span
+class="math inline">\(M/M/1/m/m\)</span></p>
+<p>假设每个顾客到达率相同且为 <span
+class="math inline">\(\lambda\)</span>，在系统外的平均顾客数为 <span
+class="math inline">\(m-L_S\)</span>。</p>
+<p>系统的有效到达率<span class="math inline">\(\lambda
+_e=\lambda(m-L_s)\)</span></p>
+<p><em>(有效到达率与顾客总容量以及当前剩余的容量有关)</em></p>
+<p><strong>其稳态方程</strong>： <span class="math display">\[
+\left\{
+\begin{aligned}
+m\lambda_e P_1&amp;=\mu P_1 \\
+(m-n+1)\lambda_e P_{n-1}+\mu P_{n+1}&amp;=[(m-n)\lambda_e +\mu]P_n&amp;
+,1\le n\le m-1 \\
+\mu P_m&amp;=\lambda_e P_{m-1}
+\end{aligned}
+\right.
+\]</span>
+<img src="https://s3.bmp.ovh/imgs/2022/07/03/93599712c29fb995.png" style="zoom:50%;" /></p>
+<h3 id="多服务台模型fcfs">多服务台模型（FCFS）</h3>
+<h4 id="mmc标准型"><span
+class="math inline">\(M/M/c\)</span>（标准型）</h4>
+<p>顾客流为泊松流，平均到达率为 <span
+class="math inline">\(\lambda\)</span>，各个服务台的平均服务率是 <span
+class="math inline">\(\mu\)</span>，则：</p>
+<p><strong>整个服务机构的平均服务率是</strong>：<span
+class="math inline">\(n\mu\ (n \lt c)\)</span> or <span
+class="math inline">\(c\mu\ (n\ge c)\)</span>，令<span
+class="math inline">\(\rho =
+\frac{\lambda}{c\mu}\)</span>(系统服务强度)</p>
+<p>当 <span class="math inline">\(\rho &gt;1\)</span>
+时，会出现排队现象。</p>
+<p><strong>稳态方程如下。</strong> <span class="math display">\[
+\begin{cases}
+\lambda P_0=\mu P_1 \\
+\lambda P_{n-1}+(n-1)\mu P_{n+1}=(\lambda +n\mu)P_n&amp; ,1\le n\le c \\
+c\mu P_{n+1}+\lambda P_{n-1}=(\lambda+c\mu)P_n&amp;,n\gt c
+\end{cases}
+\]</span>
+<img src="https://s3.bmp.ovh/imgs/2022/07/03/2e0096930e842c38.png" style="zoom:45%;" /></p>
+<h4 id="mmcninfty系统容量有限型"><span
+class="math inline">\(M/M/c/N/\infty\)</span>（系统容量有限型）</h4>
+<h4 id="mmcinftym顾客源有限型"><span
+class="math inline">\(M/M/c/\infty/m\)</span>（顾客源有限型）</h4>
+<p>略，Google。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+
+<script src="/js/vdonate.js"></script>
+
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/WeChanQR.png',
+  alipayImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/AliPayQR.jpg'
+});
+</script>
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>本文作者:  </strong>Schwertlilien</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>本文链接:  </strong>
+          <a href="/2022/07/03/数模日记3/" target="_blank" title="数模日记3">http://example.com/2022/07/03/数模日记3/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明:   </strong>
+            本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            许可协议。转载请注明出处
+          </li>
+         
+        </ul>
+<div>
+
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6%E6%A8%A1%E5%9E%8B/" rel="tag">数学模型</a></li></ul>
+
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/09/25/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%8A%E6%9C%BA%E5%AE%9E%E9%AA%8C1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          数据库上机实验1
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/07/03/%E6%95%B0%E6%A8%A1%E6%97%A5%E8%AE%B02/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">数模日记2</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%92%E9%98%9F%E8%AE%BA%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">排队论模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%BB%84%E6%88%90"><span class="nav-number">1.1.</span> <span class="nav-text">基本组成</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%93%E5%85%A5"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">输入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%92%E9%98%9F%E8%A7%84%E5%88%99"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">排队规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E8%A7%84%E5%88%99"><span class="nav-number">1.1.0.3.</span> <span class="nav-text">服务规则</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E9%87%8F%E6%8C%87%E6%A0%87"><span class="nav-number">1.2.</span> <span class="nav-text">数量指标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%B0%E5%8F%B7%E6%96%B9%E6%A1%88"><span class="nav-number">1.3.</span> <span class="nav-text">记号方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#kendall-%E8%AE%B0%E5%8F%B7"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">Kendall 记号</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%92%E9%98%9F%E8%AE%BA%E6%A8%A1%E5%9E%8B-1"><span class="nav-number">1.4.</span> <span class="nav-text">排队论模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E6%9C%8D%E5%8A%A1%E5%8F%B0%E6%A8%A1%E5%9E%8Bfcfs"><span class="nav-number">1.4.1.</span> <span class="nav-text">单服务台模型(FCFS)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#mm1%E6%A0%87%E5%87%86%E5%9E%8B"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">\(M&#x2F;M&#x2F;1\)（标准型）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mm1n"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">$ M&#x2F;M&#x2F;1&#x2F;N&#x2F; $</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mm1m"><span class="nav-number">1.4.1.3.</span> <span class="nav-text">$ M&#x2F;M&#x2F;1&#x2F;&#x2F;m$</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E6%9C%8D%E5%8A%A1%E5%8F%B0%E6%A8%A1%E5%9E%8Bfcfs"><span class="nav-number">1.4.2.</span> <span class="nav-text">多服务台模型（FCFS）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#mmc%E6%A0%87%E5%87%86%E5%9E%8B"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">\(M&#x2F;M&#x2F;c\)（标准型）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mmcninfty%E7%B3%BB%E7%BB%9F%E5%AE%B9%E9%87%8F%E6%9C%89%E9%99%90%E5%9E%8B"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">\(M&#x2F;M&#x2F;c&#x2F;N&#x2F;\infty\)（系统容量有限型）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mmcinftym%E9%A1%BE%E5%AE%A2%E6%BA%90%E6%9C%89%E9%99%90%E5%9E%8B"><span class="nav-number">1.4.2.3.</span> <span class="nav-text">\(M&#x2F;M&#x2F;c&#x2F;\infty&#x2F;m\)（顾客源有限型）</span></a></li></ol></li></ol></li></ol></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2023 Schwertlilien All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+
+  
+<script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Schwertlilien
+          </div>
+          <div class="panel-body">
+            Copyright © 2023 Schwertlilien All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

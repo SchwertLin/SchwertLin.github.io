@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>嵌入式上机实验1 | Schwertlilien</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="嵌入式实验" />
+  
+  
+  
+  
+  <meta name="description" content="实验一 一、实验目的  熟悉Proteus硬件仿真环境 掌握使用Keil uVision5进行STM32程序开发 掌握Proteus和Keil联调的方法  二、实验环境 OS：Windows11 软件：Keil uVision5，Proteus 三、实验内容及实验原理 根据实验原理图配置对应的GPIO口，实现下述功能： ①根据按键状态来控制LED灯亮灭状态，每个按键控制一个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="嵌入式上机实验1">
+<meta property="og:url" content="http://example.com/2022/10/13/%E5%B5%8C%E5%85%A5%E5%BC%8F%E4%B8%8A%E6%9C%BA%E5%AE%9E%E9%AA%8C1/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="实验一 一、实验目的  熟悉Proteus硬件仿真环境 掌握使用Keil uVision5进行STM32程序开发 掌握Proteus和Keil联调的方法  二、实验环境 OS：Windows11 软件：Keil uVision5，Proteus 三、实验内容及实验原理 根据实验原理图配置对应的GPIO口，实现下述功能： ①根据按键状态来控制LED灯亮灭状态，每个按键控制一个">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-10-13T11:17:32.000Z">
+<meta property="article:modified_time" content="2022-10-13T11:18:52.880Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="嵌入式">
+<meta property="article:tag" content="实验">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Schwertlilien" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/avatar.png">
+  <link rel="apple-touch-icon" href="/css/images/avatar.png">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("/css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("/css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("/css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
+
+  </style>
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+<script src="/js/jquery-3.1.1.min.js"></script>
+
+  
+<script src="/js/bootstrap.js"></script>
+
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    
+<link rel="stylesheet" href="/css/dialog.css">
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css" >
+  
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/avatar.png">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-嵌入式上机实验1" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      嵌入式上机实验1
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2022/10/13/%E5%B5%8C%E5%85%A5%E5%BC%8F%E4%B8%8A%E6%9C%BA%E5%AE%9E%E9%AA%8C1/" class="article-date">
+	  <time datetime="2022-10-13T11:17:32.000Z" itemprop="datePublished">2022-10-13</time>
+	</a>
+
+      
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="实验一">实验一</h2>
+<h4 id="一实验目的">一、实验目的</h4>
+<ul>
+<li>熟悉Proteus硬件仿真环境</li>
+<li>掌握使用Keil uVision5进行STM32程序开发</li>
+<li>掌握Proteus和Keil联调的方法</li>
+</ul>
+<h4 id="二实验环境">二、实验环境</h4>
+<p>OS：Windows11</p>
+<p>软件：Keil uVision5，Proteus</p>
+<h4 id="三实验内容及实验原理">三、实验内容及实验原理</h4>
+<p>根据实验原理图配置对应的GPIO口，实现下述功能：</p>
+<p><strong>①</strong>根据按键状态来控制LED灯<strong>亮灭状态</strong>，每个按键控制一个LED灯，LED灯初始状态为亮，按键按下时对应LED灯灭，按键抬起时对应LED灯亮。</p>
+<p><strong>②</strong>根据按键状态来控制LED灯的<strong>闪烁方式</strong>，没有按键按下时三个LED灯都亮，第一个按键按下时三个LED灯<strong>同步周期性慢速闪烁</strong>，第二个按键按下时三个LED灯<strong>同步周期性快速闪烁</strong>，第三个按键按下时三个LED灯<strong>跑马灯方式闪烁</strong>。</p>
+<h5
+id="使能apb2总线上使用引脚所属的gpio端口的时钟">(1)使能<code>APB2</code>总线上使用引脚所属的<code>GPIO</code>端口的时钟</h5>
+<p>老师已经在工程中配置好了电源电路，因此直接开始配置时钟电路。如果没有稳定的时钟信号，即使接入电源，也无法正常工作。STM32F103通常选用8MHZ的外部晶振，因此该工程也是采用的该频率的外部晶振，使能GPIOA,GPIOB,USARTA1。</p>
+<p>GPIOB使用引脚PB7~12用于连接LED的电路。GPIOA用于USART模块实现双向通信，任何USART双向通信至少需要2个引脚：接受数据输入(RX)和发送数据输出(TX)：</p>
+<ul>
+<li><p>RX: 接受数据串行输入，使用引脚PA9，连接虚拟串口输出框。</p></li>
+<li><p>TX: 发送数据输出，使用引脚PA10。</p></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Enable GPIOA&#x27;s and GPIOB&#x27;s Clock</span></span><br><span class="line">RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);	</span><br><span class="line">RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);	</span><br><span class="line"><span class="comment">//Enable USART1&#x27;s Clock</span></span><br><span class="line">RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE);</span><br></pre></td></tr></table></figure>
+<h5
+id="通过gpio_inittypedef结构体变量配置gpio引脚">(2)通过GPIO_InitTypeDef结构体变量配置GPIO引脚</h5>
+<p>设置引脚PB7-9为推挽输出，与LED灯相连，控制LED灯的亮灭；设置引脚PB10-12为上拉输入，来接受按钮的输入信号。再将PB7-9复位，设置为低电平，实施LED灯初始为未点亮状态。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置推挽输出的引脚</span></span><br><span class="line">GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;  </span><br><span class="line">GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;  </span><br><span class="line">GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7 | GPIO_Pin_8 | GPIO_Pin_9;  </span><br><span class="line">GPIO_Init(GPIOB, &amp;GPIO_InitStructure);  </span><br><span class="line"><span class="comment">//设置上拉输入的引脚</span></span><br><span class="line">GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;  </span><br><span class="line">GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;  </span><br><span class="line">GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10 | GPIO_Pin_11 | GPIO_Pin_12;</span><br><span class="line">GPIO_Init(GPIOB, &amp;GPIO_InitStructure);  </span><br><span class="line"><span class="comment">//将指定引脚复位</span></span><br><span class="line">GPIO_ResetBits(GPIOB, GPIO_Pin_7);  </span><br><span class="line">GPIO_ResetBits(GPIOB, GPIO_Pin_8);  </span><br><span class="line">GPIO_ResetBits(GPIOB, GPIO_Pin_9); </span><br></pre></td></tr></table></figure>
+<h5 id="操作该引脚完成相应的功能">(3)操作该引脚完成相应的功能</h5>
+<p>首先完成功能一：要求是按下按键时LED灯灭。因此可以将其写为非负判断：若不存在输入值，那么将对应的引脚置位，使得LED灯亮；若存在输入值(即按下了按键)，则将对应的引脚复位，使得LED灯灭。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//功能1：LED灯初始为亮，只有按下按键使得灯灭。</span></span><br><span class="line"><span class="keyword">if</span>(!GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_10)) GPIO_SetBits(GPIOB, GPIO_Pin_7); </span><br><span class="line"><span class="keyword">else</span> GPIO_ResetBits(GPIOB, GPIO_Pin_7); </span><br><span class="line">         </span><br><span class="line"><span class="keyword">if</span>(!GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_11))GPIO_SetBits(GPIOB, GPIO_Pin_8); </span><br><span class="line"><span class="keyword">else</span> GPIO_ResetBits(GPIOB, GPIO_Pin_8); </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(!GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_12)) GPIO_SetBits(GPIOB, GPIO_Pin_9); </span><br><span class="line"><span class="keyword">else</span> GPIO_ResetBits(GPIOB, GPIO_Pin_9); </span><br></pre></td></tr></table></figure>
+<p>再完成功能二：根据按键状态来控制LED灯的闪烁方式，没有按键按下时三个LED灯都亮，第一个按键按下时三个LED灯同步周期性慢速闪烁，第二个按键按下时三个LED灯同步周期性快速闪烁，第三个按键按下时三个LED灯跑马灯方式闪烁。编写代码如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i; </span><br><span class="line"><span class="comment">//第一个按键按下时三个LED灯同步周期性慢速闪烁</span></span><br><span class="line"><span class="keyword">if</span>(!GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_10))&#123;  </span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">1000000</span>; i++);  </span><br><span class="line">	GPIO_SetBits(GPIOB, GPIO_Pin_7|GPIO_Pin_8|GPIO_Pin_9);  </span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">1000000</span>; i++); </span><br><span class="line">	GPIO_ResetBits(GPIOB, GPIO_Pin_7|GPIO_Pin_8|GPIO_Pin_9);  </span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;SLOW LIGHT\r\n&quot;</span>);  </span><br><span class="line">&#125;<span class="keyword">else</span>  GPIO_ResetBits(GPIOB, GPIO_Pin_7|GPIO_Pin_8|GPIO_Pin_9); </span><br><span class="line"><span class="comment">//第二个按键按下时三个LED灯同步周期性快速闪烁</span></span><br><span class="line"><span class="keyword">if</span>(!GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_11))&#123;  </span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">300000</span>; i++);  </span><br><span class="line">	GPIO_SetBits(GPIOB, GPIO_Pin_7|GPIO_Pin_8|GPIO_Pin_9);  </span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">300000</span>; i++);  </span><br><span class="line">	GPIO_ResetBits(GPIOB, GPIO_Pin_7|GPIO_Pin_8|GPIO_Pin_9);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;FAST LIGHT\r\n&quot;</span>);  </span><br><span class="line">&#125;<span class="keyword">else</span>  GPIO_ResetBits(GPIOB, GPIO_Pin_7|GPIO_Pin_8|GPIO_Pin_9); </span><br><span class="line"><span class="comment">//第三个按键按下时三个LED灯跑马灯方式闪烁	          </span></span><br><span class="line"><span class="keyword">if</span>(!GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_12))&#123;  </span><br><span class="line">		<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">100000</span>; i++) &#123;  </span><br><span class="line">				GPIO_ResetBits(GPIOB, GPIO_Pin_7);</span><br><span class="line">				GPIO_SetBits(GPIOB, GPIO_Pin_8|GPIO_Pin_9);   </span><br><span class="line">		&#125;                </span><br><span class="line">		<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">100000</span>; i++)&#123;  </span><br><span class="line">				GPIO_ResetBits(GPIOB, GPIO_Pin_8);  </span><br><span class="line">				GPIO_SetBits(GPIOB, GPIO_Pin_7|GPIO_Pin_9);  </span><br><span class="line">		&#125;              </span><br><span class="line">		<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">100000</span>; i++)&#123;  </span><br><span class="line">				GPIO_ResetBits(GPIOB, GPIO_Pin_9);  </span><br><span class="line">				GPIO_SetBits(GPIOB, GPIO_Pin_7|GPIO_Pin_8);  </span><br><span class="line">		&#125;  </span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;CIRCULATION LIGHT\r\n&quot;</span>);  </span><br><span class="line">&#125;<span class="keyword">else</span>  GPIO_ResetBits(GPIOB, GPIO_Pin_7 | GPIO_Pin_8 | GPIO_Pin_9);</span><br></pre></td></tr></table></figure>
+<h4 id="四实验结果及其分析">四、实验结果及其分析</h4>
+<p>使用C语言中的#if与#endif完成分支编译。对于功能二的实现，需要长按某按钮实现。此处选择的快速约是慢速的三倍左右。</p>
+<p><strong>具体结果见视频。</strong></p>
+<h4 id="五心得体会与建议">五、心得体会与建议</h4>
+<p>通过本次实验，我在PC上安装了嵌入式学习的软件：Keil和Proteus，并对其基本操作进行了了解。针对老师给出的实验内容，对要求实现的功能进行了C语言代码的编写。并通过Keil进行编译运行，再在Proteus的硬件仿真环境下进行结果验证。</p>
+<p>在调试的过程中，会遇到一定的问题：比如写出的<code>printf</code>函数中使用了换行的转义字符，但是在显示上并没有换行。在Keil上未成功编译就急忙打开Proteus想要验证，但是导致Proteus未响应最后只能退出。</p>
+<p>但是经过这次实验，我对这两个软件的联调也有了一定的认识，操作上熟练了一些。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+
+<script src="/js/vdonate.js"></script>
+
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/WeChanQR.png',
+  alipayImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/AliPayQR.jpg'
+});
+</script>
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>本文作者:  </strong>Schwertlilien</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>本文链接:  </strong>
+          <a href="/2022/10/13/嵌入式上机实验1/" target="_blank" title="嵌入式上机实验1">http://example.com/2022/10/13/嵌入式上机实验1/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明:   </strong>
+            本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            许可协议。转载请注明出处
+          </li>
+         
+        </ul>
+<div>
+
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%9E%E9%AA%8C/" rel="tag">实验</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag">嵌入式</a></li></ul>
+
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/10/13/%E6%B5%81%E6%B0%B4%E7%BA%BF/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          流水线
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/09/25/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%8A%E6%9C%BA%E5%AE%9E%E9%AA%8C1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">数据库上机实验1</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E4%B8%80"><span class="nav-number">1.</span> <span class="nav-text">实验一</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E5%AE%9E%E9%AA%8C%E7%9B%AE%E7%9A%84"><span class="nav-number">1.0.1.</span> <span class="nav-text">一、实验目的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83"><span class="nav-number">1.0.2.</span> <span class="nav-text">二、实验环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E5%AE%9E%E9%AA%8C%E5%86%85%E5%AE%B9%E5%8F%8A%E5%AE%9E%E9%AA%8C%E5%8E%9F%E7%90%86"><span class="nav-number">1.0.3.</span> <span class="nav-text">三、实验内容及实验原理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%BF%E8%83%BDapb2%E6%80%BB%E7%BA%BF%E4%B8%8A%E4%BD%BF%E7%94%A8%E5%BC%95%E8%84%9A%E6%89%80%E5%B1%9E%E7%9A%84gpio%E7%AB%AF%E5%8F%A3%E7%9A%84%E6%97%B6%E9%92%9F"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">(1)使能APB2总线上使用引脚所属的GPIO端口的时钟</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%80%9A%E8%BF%87gpio_inittypedef%E7%BB%93%E6%9E%84%E4%BD%93%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AEgpio%E5%BC%95%E8%84%9A"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">(2)通过GPIO_InitTypeDef结构体变量配置GPIO引脚</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E8%AF%A5%E5%BC%95%E8%84%9A%E5%AE%8C%E6%88%90%E7%9B%B8%E5%BA%94%E7%9A%84%E5%8A%9F%E8%83%BD"><span class="nav-number">1.0.3.3.</span> <span class="nav-text">(3)操作该引脚完成相应的功能</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9B%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C%E5%8F%8A%E5%85%B6%E5%88%86%E6%9E%90"><span class="nav-number">1.0.4.</span> <span class="nav-text">四、实验结果及其分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%94%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A%E4%B8%8E%E5%BB%BA%E8%AE%AE"><span class="nav-number">1.0.5.</span> <span class="nav-text">五、心得体会与建议</span></a></li></ol></li></ol></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2023 Schwertlilien All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+
+  
+<script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Schwertlilien
+          </div>
+          <div class="panel-body">
+            Copyright © 2023 Schwertlilien All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

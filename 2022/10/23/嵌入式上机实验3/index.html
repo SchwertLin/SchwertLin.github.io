@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>嵌入式上机实验3 | Schwertlilien</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="嵌入式实验" />
+  
+  
+  
+  
+  <meta name="description" content="一、实验目的  掌握Proteus和Keil联调的方法。 掌握STM32中NVIC的特点、内部结构、工作原理和主要特性。 熟悉STM32上NVIC和EXTI相关的常用库函数的使用。  二、实验环境 OS：Windows11 软件：Keil uVision5，Proteus 三、实验内容 根据实验原理图配置对应的GPIO口和定时器，实现下述功能：  配置三个KEY、四个LED">
+<meta property="og:type" content="article">
+<meta property="og:title" content="嵌入式上机实验3">
+<meta property="og:url" content="http://example.com/2022/10/23/%E5%B5%8C%E5%85%A5%E5%BC%8F%E4%B8%8A%E6%9C%BA%E5%AE%9E%E9%AA%8C3/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="一、实验目的  掌握Proteus和Keil联调的方法。 掌握STM32中NVIC的特点、内部结构、工作原理和主要特性。 熟悉STM32上NVIC和EXTI相关的常用库函数的使用。  二、实验环境 OS：Windows11 软件：Keil uVision5，Proteus 三、实验内容 根据实验原理图配置对应的GPIO口和定时器，实现下述功能：  配置三个KEY、四个LED">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s1.ax1x.com/2022/10/21/xc8o8g.png">
+<meta property="article:published_time" content="2022-10-23T14:12:36.000Z">
+<meta property="article:modified_time" content="2022-10-23T14:13:26.297Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="嵌入式">
+<meta property="article:tag" content="实验">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2022/10/21/xc8o8g.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Schwertlilien" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/avatar.png">
+  <link rel="apple-touch-icon" href="/css/images/avatar.png">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("/css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("/css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("/css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
+
+  </style>
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+<script src="/js/jquery-3.1.1.min.js"></script>
+
+  
+<script src="/js/bootstrap.js"></script>
+
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    
+<link rel="stylesheet" href="/css/dialog.css">
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css" >
+  
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/avatar.png">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-嵌入式上机实验3" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      嵌入式上机实验3
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2022/10/23/%E5%B5%8C%E5%85%A5%E5%BC%8F%E4%B8%8A%E6%9C%BA%E5%AE%9E%E9%AA%8C3/" class="article-date">
+	  <time datetime="2022-10-23T14:12:36.000Z" itemprop="datePublished">2022-10-23</time>
+	</a>
+
+      
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="一实验目的">一、实验目的</h4>
+<ul>
+<li>掌握Proteus和Keil联调的方法。</li>
+<li>掌握STM32中NVIC的特点、内部结构、工作原理和主要特性。</li>
+<li>熟悉STM32上NVIC和EXTI相关的常用库函数的使用。</li>
+</ul>
+<h4 id="二实验环境">二、实验环境</h4>
+<p>OS：Windows11</p>
+<p>软件：Keil uVision5，Proteus</p>
+<h4 id="三实验内容">三、实验内容</h4>
+<p>根据实验原理图配置对应的<code>GPIO</code>口和定时器，实现下述功能：</p>
+<ol type="1">
+<li>配置三个<code>KEY</code>、四个<code>LED</code>和串口相关的<code>IO</code>功能；</li>
+<li>配置<code>TIM3</code>，根据系统<code>8MHz</code>时钟，配置定时周期为<code>0.5</code>秒，向上计数模式；</li>
+<li>配置<code>TIM3</code>的中断，在中断响应函数中翻转<code>PA8</code>的输出状态，实现<code>LED1</code>的闪烁；</li>
+<li>配置<code>PB4</code>、<code>PB5</code>、<code>PB6</code>为上拉输入，使能<code>AFIO</code>；</li>
+<li>配置<code>EXTI4</code>和<code>EXTI9_5</code>的中断优先级；</li>
+<li>配置<code>PB4</code>、<code>PB5</code>、<code>PB6</code>的中断模式为下降沿中断；</li>
+<li>在<code>PB4</code>、<code>PB5</code>、<code>PB6</code>的中断响应函数中分别翻转<code>LED2</code>、<code>LED3</code>、<code>LED4</code>的状态，实现按一下灯亮，再按一下灯灭。</li>
+</ol>
+<h4 id="四实验原理">四、实验原理</h4>
+<p>在<code>Proteus</code>中的电路图中，可见<code>PA8~11</code>与LED灯相连。对于内容①要求配置三个<code>KEY</code>、四个<code>LED</code>和串口相关的<code>IO</code>功能：首先配置四个LED灯和串口相关的IO功能，此处使用的是实验一中介绍的片内外设GPIO来配置。使能APB1总线上的引脚PA8~11所属端口GPIOA的时钟，设置需要使用的GPIOA端口，将PA8~11配置为普通推挽输出。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 		</span><br><span class="line">GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;	 	</span><br><span class="line">GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_8 | GPIO_Pin_9 | GPIO_Pin_10 | GPIO_Pin_11;	<span class="comment">//PA.8-11</span></span><br><span class="line">GPIO_Init(GPIOA, &amp;GPIO_InitStructure);	</span><br></pre></td></tr></table></figure>
+<p>对于串口相关的功能：GPIOA用于USART模块实现双向通信，任何USART双向通信至少需要2个引脚：接受数据输入(RX)和发送数据输出(TX)：</p>
+<ul>
+<li><p>RX: 接受数据串行输入，使用引脚PA2，连接虚拟串口输出框。</p></li>
+<li><p>TX: 发送数据输出，使用引脚PA3。</p></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//USART2_TX   GPIOA.2</span></span><br><span class="line">GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2; <span class="comment">//PA.2</span></span><br><span class="line">GPIO_InitStructure.GPIO_Speed = GPIO_Speed_10MHz;</span><br><span class="line">GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;	</span><br><span class="line">GPIO_Init(GPIOA, &amp;GPIO_InitStructure);<span class="comment">//GPIOA.2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Set USART2&#x27;s Config</span></span><br><span class="line">USART_InitStructure.USART_BaudRate = <span class="number">9600</span>;</span><br><span class="line">USART_InitStructure.USART_WordLength = USART_WordLength_8b;</span><br><span class="line">USART_InitStructure.USART_StopBits = USART_StopBits_1;</span><br><span class="line">USART_InitStructure.USART_Parity = USART_Parity_No;</span><br><span class="line">USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;</span><br><span class="line">USART_InitStructure.USART_Mode = USART_Mode_Tx;	</span><br><span class="line">USART_Init(USART2, &amp;USART_InitStructure); </span><br><span class="line"></span><br><span class="line"><span class="comment">//Enable USART2</span></span><br><span class="line">USART_Cmd(USART2, ENABLE); </span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;USART2 Init Completely\r\n&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>接下来将完成内容②配置TIM3：由于要求配置的定时周期为0.5s，根据如下的公式：
+<span class="math display">\[
+T=\frac{(TIM_{Prescaler}+1)(TIM_{Period}+1)}{TIMxCLK}
+\]</span>
+<code>TIMxCLK</code>在软件仿真中取值8MHZ，因此为使T=0.5s，则<span
+class="math inline">\((TIM_{Prescaler}+1)(TIM_{Period}+1)\)</span>要取值为4M。此处取<code>Prescaler</code>预分频为4k，那么<code>Period</code>持续时间选择1k。</p>
+<p>对于<code>TIM3</code>计数模式的选择，此处选择的是边沿对齐的向上计数。然后通过<code>TIM_TimeBaseInit</code>函数对<code>TIM3</code>进行初始化设置；通过<code>TIM_ITConfig</code>，使能<code>TIM3</code>的指定中断。此处选择的是<code>TIM_IT_Update</code>TIM更新中断。最后开启<code>TIM3</code>的时钟计数。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//config TIM3</span></span><br><span class="line">TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;</span><br><span class="line">RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);</span><br><span class="line">TIM_TimeBaseStructure.TIM_Prescaler = <span class="number">4000</span><span class="number">-1</span>;</span><br><span class="line">TIM_TimeBaseStructure.TIM_Period = <span class="number">1000</span><span class="number">-1</span>;</span><br><span class="line">TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;<span class="comment">//向上计数</span></span><br><span class="line">TIM_TimeBaseInit(TIM3, &amp;TIM_TimeBaseStructure);<span class="comment">//Init</span></span><br><span class="line">TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE);<span class="comment">//定时器中断使能，定时到即产生中断</span></span><br><span class="line">TIM_Cmd(TIM3, ENABLE);<span class="comment">//开启TIM3的时钟计数</span></span><br></pre></td></tr></table></figure>
+<h5 id="内部中断">1.内部中断</h5>
+<p><strong>对于内部中断来说，根据定时器每到一次时间，产生一次中断</strong>。内容③要求在中断响应函数中翻转<code>PA8</code>的输出状态，实现<code>LED1</code>的闪烁。在写中断响应函数之前，首先应该进行<code>NVIC</code>的配置来关联<code>TIM3</code>的时钟中断：</p>
+<p>对于优先级的设置，此处选择的是<code>NVIC_PriorityGroup_1</code>，对应抢占优先级1位，子优先级3位。然后使能<code>IRQ</code>通道为<code>TIM3_IRQn</code>，即<code>TIM3</code>的全局中断，从而使NVIC与TIM3的中断相关联。设置<code>IRQ</code>通道的抢占优先级为1，子优先级为0。最后使能指定<code>NVIC_IRQChannel</code>中定义的IRQ通道，即<code>TIM3_IRQn</code>。并通过<code>NVIC_Init</code>来将配置信息写入<code>NVIC</code>中。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">NVIC_InitTypeDef NVIC_InitStructure;</span><br><span class="line"><span class="comment">//优先级设置</span></span><br><span class="line">NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1);<span class="comment">//抢占优先级1位，子优先级3位。</span></span><br><span class="line">NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;</span><br><span class="line">NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = <span class="number">1</span>;</span><br><span class="line">NVIC_InitStructure.NVIC_IRQChannelSubPriority = <span class="number">0</span>;</span><br><span class="line">NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;<span class="comment">//使能指定NVIC_IRQChannel中定义的IRQ通道，即TIM3_IRQn。</span></span><br><span class="line">NVIC_Init(&amp;NVIC_InitStructure);</span><br></pre></td></tr></table></figure>
+<p>完成TIM3的计时器和NVIC中断向量控制器相关联后，在TIM3的发生中断响应时，就可以触发TIM3的中断响应函数。而在TIM3的中断相应函数中就可以反转PA8的状态，实现LED1的闪烁。<strong>若要实现循环闪烁，则在每次反转后都需要清除TIM的中断标志。</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">TIM3_IRQHandler</span><span class="params">(<span class="type">void</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(GPIO_ReadOutputDataBit(GPIOA, GPIO_Pin_8) == Bit_SET)GPIO_ResetBits(GPIOA, GPIO_Pin_8);</span><br><span class="line">	<span class="keyword">else</span> GPIO_SetBits(GPIOA, GPIO_Pin_8);</span><br><span class="line">	TIM_ClearITPendingBit(TIM3, TIM_IT_Update);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="外部中断">2.外部中断</h5>
+<p>若使用STM32F103引脚的外部中断功能，需打开APB2总线上该引脚对应的端口时钟和AFTO功能时钟。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB|RCC_APB2Periph_AFIO, ENABLE);</span><br></pre></td></tr></table></figure>
+<p>内容④要求配置PB4~6为上拉输入，并使能AFIO。则要求我们通过GPIO来进行外部中断的控制。通过上述函数已将该引脚对应的端口时钟和AFTO功能时钟使能。然后进行关于PB4~6的GPIO口的设置。由于使用KEY来控制输入，因此输入模式的配置为上拉输入。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;</span><br><span class="line">GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;</span><br><span class="line">GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_6;</span><br><span class="line">GPIO_Init(GPIOB, &amp;GPIO_InitStructure);</span><br></pre></td></tr></table></figure>
+<p>内容⑤要求配置<code>EXTI4</code>和<code>EXTI9_5</code>的中断优先级；对于EXTI0~4的中断是独立的，自己拥有独占的中断；而对于EXTI9~5，则需要共享一个<code>EXTI9_5_IRQn</code>通道以及中断响应函数<code>EXTI9_5_IRQHandler</code>。设置二者的抢占优先级均为1，子优先级为1；然后使能IRQ通道。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">NVIC_InitStructure.NVIC_IRQChannel = EXTI4_IRQn;</span><br><span class="line">NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = <span class="number">1</span>;</span><br><span class="line">NVIC_InitStructure.NVIC_IRQChannelSubPriority = <span class="number">1</span>;</span><br><span class="line">NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;</span><br><span class="line">NVIC_Init(&amp;NVIC_InitStructure);</span><br><span class="line"></span><br><span class="line">NVIC_InitStructure.NVIC_IRQChannel = EXTI9_5_IRQn;</span><br><span class="line">NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = <span class="number">1</span>;</span><br><span class="line">NVIC_InitStructure.NVIC_IRQChannelSubPriority = <span class="number">1</span>;</span><br><span class="line">NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;</span><br><span class="line">NVIC_Init(&amp;NVIC_InitStructure);</span><br></pre></td></tr></table></figure>
+<p>内容⑥要求配置<code>PB4</code>、<code>PB5</code>、<code>PB6</code>的中断模式为下降沿中断；首先要先配置PB4~6为EXTI_Line4~6的引脚，只需要将外部中断线和GPIO对应的引脚相关联即可。通过<code>EXTI_InitStructure.EXTI_Trigger</code>设置PB4~66`的中断模式为下降沿中断，即按下按键时会产生中断；最后对外部中断进行使能即可。当GPIO引脚相关的KEY被按下，就会触发相应的中断，并执行相应的中断响应函数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">EXTI_InitTypeDef EXTI_InitStructure;</span><br><span class="line"></span><br><span class="line">GPIO_EXTILineConfig(GPIO_PortSourceGPIOB, GPIO_PinSource4);</span><br><span class="line">EXTI_InitStructure.EXTI_Line = EXTI_Line4;</span><br><span class="line">EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;</span><br><span class="line">EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;	</span><br><span class="line">EXTI_InitStructure.EXTI_LineCmd = ENABLE;</span><br><span class="line">EXTI_Init(&amp;EXTI_InitStructure);</span><br><span class="line"></span><br><span class="line">GPIO_EXTILineConfig(GPIO_PortSourceGPIOB, GPIO_PinSource5);</span><br><span class="line">EXTI_InitStructure.EXTI_Line = EXTI_Line5;</span><br><span class="line">EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;</span><br><span class="line">EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;</span><br><span class="line">EXTI_InitStructure.EXTI_LineCmd = ENABLE;</span><br><span class="line">EXTI_Init(&amp;EXTI_InitStructure);</span><br><span class="line"></span><br><span class="line">GPIO_EXTILineConfig(GPIO_PortSourceGPIOB, GPIO_PinSource6);</span><br><span class="line">EXTI_InitStructure.EXTI_Line = EXTI_Line6;</span><br><span class="line">EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;</span><br><span class="line">EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;</span><br><span class="line">EXTI_InitStructure.EXTI_LineCmd = ENABLE;</span><br><span class="line">EXTI_Init(&amp;EXTI_InitStructure);</span><br></pre></td></tr></table></figure>
+<p>内容⑦要求在<code>PB4</code>、<code>PB5</code>、<code>PB6</code>的中断响应函数中分别翻转<code>LED2</code>、<code>LED3</code>、<code>LED4</code>的状态，实现按一下灯亮，再按一下灯灭。</p>
+<p>对于EXTI4外部中断，其中断响应函数是独立的，因此只要<code>PB4</code>触发<code>EXTI4</code>的中断，就只需要判断与<code>PB4</code>相关联的<code>PA9</code>的状态即可，这样就能实现<code>PB4</code>对<code>PA9</code>所连的LED灯的控制。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">EXTI4_IRQHandler</span><span class="params">(<span class="type">void</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(GPIO_ReadOutputDataBit(GPIOA, GPIO_Pin_9) == Bit_SET)GPIO_ResetBits(GPIOA, GPIO_Pin_9);</span><br><span class="line">	<span class="keyword">else</span> GPIO_SetBits(GPIOA, GPIO_Pin_9);</span><br><span class="line">	EXTI_ClearITPendingBit(EXTI_Line4);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而对于<code>PB5</code>和<code>PB6</code>，它们所绑定的中断事件则是共用一个中断响应函数的。因此在<code>EXTI9_5_IRQHandler</code>中，我们需要检测是哪个外部中断被触发：</p>
+<ul>
+<li><code>PB5</code>控制<code>PA10</code>，因此如果外部中断5发生，则检测<code>PA10</code>的状态；</li>
+<li><code>PB6</code>控制<code>PA11</code>，因此如果外部中断6发生，则检测<code>PA11</code>的状态。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">EXTI9_5_IRQHandler</span><span class="params">(<span class="type">void</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(EXTI_GetITStatus(EXTI_Line5) == SET)&#123;</span><br><span class="line">		<span class="keyword">if</span>(GPIO_ReadOutputDataBit(GPIOA, GPIO_Pin_10) == Bit_SET)GPIO_ResetBits(GPIOA, GPIO_Pin_10);</span><br><span class="line">		<span class="keyword">else</span> GPIO_SetBits(GPIOA, GPIO_Pin_10);</span><br><span class="line">		EXTI_ClearITPendingBit(EXTI_Line5);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>(EXTI_GetITStatus(EXTI_Line6) == SET)&#123;</span><br><span class="line">		<span class="keyword">if</span>(GPIO_ReadOutputDataBit(GPIOA, GPIO_Pin_11) == Bit_SET)GPIO_ResetBits(GPIOA, GPIO_Pin_11);</span><br><span class="line">		<span class="keyword">else</span> GPIO_SetBits(GPIOA, GPIO_Pin_11);</span><br><span class="line">		EXTI_ClearITPendingBit(EXTI_Line6);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="五实验结果及其分析">五、实验结果及其分析</h4>
+<p><img src="https://s1.ax1x.com/2022/10/21/xc8o8g.png" /></p>
+<p><strong>具体结果见视频</strong>。</p>
+<h4 id="六心得体会与建议">六、心得体会与建议</h4>
+<p>通过本次实验，深入学习掌握了TIM定时器系统和NVIC的中断控制原理。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+
+<script src="/js/vdonate.js"></script>
+
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/WeChanQR.png',
+  alipayImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/AliPayQR.jpg'
+});
+</script>
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>本文作者:  </strong>Schwertlilien</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>本文链接:  </strong>
+          <a href="/2022/10/23/嵌入式上机实验3/" target="_blank" title="嵌入式上机实验3">http://example.com/2022/10/23/嵌入式上机实验3/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明:   </strong>
+            本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            许可协议。转载请注明出处
+          </li>
+         
+        </ul>
+<div>
+
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%9E%E9%AA%8C/" rel="tag">实验</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" rel="tag">嵌入式</a></li></ul>
+
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/11/23/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%8A%E6%9C%BA%E5%AE%9E%E9%AA%8C2-3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          数据库上机实验2~3
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/10/19/%E5%B5%8C%E5%85%A5%E5%BC%8F%E4%B8%8A%E6%9C%BA%E5%AE%9E%E9%AA%8C2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">嵌入式上机实验2</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E5%AE%9E%E9%AA%8C%E7%9B%AE%E7%9A%84"><span class="nav-number">1.</span> <span class="nav-text">一、实验目的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83"><span class="nav-number">2.</span> <span class="nav-text">二、实验环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E5%AE%9E%E9%AA%8C%E5%86%85%E5%AE%B9"><span class="nav-number">3.</span> <span class="nav-text">三、实验内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9B%E5%AE%9E%E9%AA%8C%E5%8E%9F%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">四、实验原理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E4%B8%AD%E6%96%AD"><span class="nav-number">4.1.</span> <span class="nav-text">1.内部中断</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%96%E9%83%A8%E4%B8%AD%E6%96%AD"><span class="nav-number">4.2.</span> <span class="nav-text">2.外部中断</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%94%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C%E5%8F%8A%E5%85%B6%E5%88%86%E6%9E%90"><span class="nav-number">5.</span> <span class="nav-text">五、实验结果及其分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%AD%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A%E4%B8%8E%E5%BB%BA%E8%AE%AE"><span class="nav-number">6.</span> <span class="nav-text">六、心得体会与建议</span></a></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2023 Schwertlilien All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+
+  
+<script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Schwertlilien
+          </div>
+          <div class="panel-body">
+            Copyright © 2023 Schwertlilien All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

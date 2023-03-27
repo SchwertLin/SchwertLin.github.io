@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>数模日记1 | Schwertlilien</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="数学模型" />
+  
+  
+  
+  
+  <meta name="description" content="差分方程和虫口模型 [TOC] Fibonacci数列 \(a_0&#x3D;0,a_1&#x3D;1,a_{n}&#x3D;a_{n-1}+a_{n-2}\) 兔子问题 假设一开始有一万只兔子，兔子有两个月的成熟期，每一个月一对兔子可以生一对兔子，且&#x3D;&#x3D;假设出生的兔子都存活&#x3D;&#x3D;，兔子的寿命为6个月。那么求解一年后有多少只兔子？                   月份 1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数模日记1">
+<meta property="og:url" content="http://example.com/2022/07/03/%E6%95%B0%E6%A8%A1%E6%97%A5%E8%AE%B01/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="差分方程和虫口模型 [TOC] Fibonacci数列 \(a_0&#x3D;0,a_1&#x3D;1,a_{n}&#x3D;a_{n-1}+a_{n-2}\) 兔子问题 假设一开始有一万只兔子，兔子有两个月的成熟期，每一个月一对兔子可以生一对兔子，且&#x3D;&#x3D;假设出生的兔子都存活&#x3D;&#x3D;，兔子的寿命为6个月。那么求解一年后有多少只兔子？                   月份 1">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s3.bmp.ovh/imgs/2022/06/27/e56ed6889a7b1383.png">
+<meta property="article:published_time" content="2022-07-03T10:09:12.000Z">
+<meta property="article:modified_time" content="2022-07-03T10:13:33.434Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="数学模型">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s3.bmp.ovh/imgs/2022/06/27/e56ed6889a7b1383.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Schwertlilien" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/avatar.png">
+  <link rel="apple-touch-icon" href="/css/images/avatar.png">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("/css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("/css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("/css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
+
+  </style>
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+<script src="/js/jquery-3.1.1.min.js"></script>
+
+  
+<script src="/js/bootstrap.js"></script>
+
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    
+<link rel="stylesheet" href="/css/dialog.css">
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css" >
+  
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/avatar.png">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-数模日记1" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      数模日记1
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2022/07/03/%E6%95%B0%E6%A8%A1%E6%97%A5%E8%AE%B01/" class="article-date">
+	  <time datetime="2022-07-03T10:09:12.000Z" itemprop="datePublished">2022-07-03</time>
+	</a>
+
+      
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="差分方程和虫口模型">差分方程和虫口模型</h1>
+<p>[TOC]</p>
+<h2 id="fibonacci数列">Fibonacci数列</h2>
+<p><span
+class="math inline">\(a_0=0,a_1=1,a_{n}=a_{n-1}+a_{n-2}\)</span></p>
+<h3 id="兔子问题">兔子问题</h3>
+<p>假设一开始有一万只兔子，兔子有两个月的成熟期，每一个月一对兔子可以生一对兔子，且==假设出生的兔子都存活==，兔子的寿命为6个月。那么求解一年后有多少只兔子？</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>月份</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1</strong></td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td><strong>2</strong></td>
+<td></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td><strong>3</strong></td>
+<td></td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td><strong>4</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td><strong>5</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td><strong>6</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>3</td>
+<td>3</td>
+<td>3</td>
+<td>3</td>
+<td>3</td>
+<td>3</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td><strong>7</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td><strong>8</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>7</td>
+<td>7</td>
+<td>7</td>
+<td>7</td>
+<td>7</td>
+</tr>
+<tr class="odd">
+<td><strong>9</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>11</td>
+<td>11</td>
+<td>11</td>
+<td>11</td>
+</tr>
+<tr class="even">
+<td><strong>10</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>18</td>
+<td>18</td>
+<td>18</td>
+</tr>
+<tr class="odd">
+<td><strong>11</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>29</td>
+<td>29</td>
+</tr>
+<tr class="even">
+<td><strong>12</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>47</td>
+</tr>
+<tr class="odd">
+<td><strong>总数</strong></td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>5</td>
+<td>8</td>
+<td>12</td>
+<td>19</td>
+<td>30</td>
+<td>48</td>
+<td>77</td>
+<td>124</td>
+</tr>
+<tr class="even">
+<td><strong>原总数</strong></td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>5</td>
+<td>8</td>
+<td>13</td>
+<td>21</td>
+<td>34</td>
+<td>55</td>
+<td>89</td>
+<td>144</td>
+</tr>
+<tr class="odd">
+<td><strong>每月死去的兔子</strong></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>4</td>
+<td>7</td>
+<td>12</td>
+<td>20</td>
+</tr>
+</tbody>
+</table>
+<p>行是每个月新出生的兔子数、列是在该月还存活的兔子数。</p>
+<h2 id="差分方程">差分方程</h2>
+<p><span class="math display">\[
+\Delta f(x)=f(x+1)-f(x)
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\Delta f(x)\)</span>是<span
+class="math inline">\(f(x)\)</span>的差分。<span
+class="math inline">\(\Delta\)</span>称为差分算子。</li>
+<li><span class="math inline">\(E\ f(x)=f(x+1)\)</span>称为<span
+class="math inline">\(f(x)\)</span>在x的位移，<span
+class="math inline">\(E\)</span>为位移算子。</li>
+<li><span class="math inline">\(I\ f(x)=f(x)\)</span>，<span
+class="math inline">\(I\)</span>称为恒等算子。</li>
+</ul>
+<p>求解差分方程不现实，因此引入对差分方程的定性分析，如找到解的性质等。</p>
+<h3 id="平衡解及其稳定性">平衡解及其稳定性</h3>
+<p><strong>平衡解</strong>：若有<span
+class="math inline">\(x^*\)</span>，使得<span
+class="math inline">\(x^*=f(x^*)\)</span>，则称<span
+class="math inline">\(x^*\)</span>为方程<span
+class="math inline">\(x(t+1)=f(x(t))\)</span>的平衡解。</p>
+<blockquote>
+<p>就是虽然不知道后面的方程是什么，但是解释一下平衡解的意思：</p>
+<p>​ 指<span class="math inline">\(x^{*}\)</span>在 f 的作用（or
+映射）下还是保持原<span
+class="math inline">\(x^*\)</span>点不发生变动。</p>
+</blockquote>
+<p><strong>最终平衡解</strong>：存在如下的<span
+class="math inline">\(x^*\)</span>， <span class="math display">\[
+x_r=x^*\\
+x_{r-1}\ne x^*
+\]</span></p>
+<blockquote>
+<p>此处的最终平衡解指的是：所有的<span
+class="math inline">\(x_n\)</span>都可以通过迭代得到<span
+class="math inline">\(x^*\)</span>。</p>
+</blockquote>
+<p><strong>周期解</strong>：存在正整数T，使得<span
+class="math inline">\(x(t+T)=x(t)\)</span>。</p>
+<blockquote>
+<p>不是迭代一次，而是迭代了T次。</p>
+</blockquote>
+<p><strong>平衡解的稳定性</strong>：</p>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/27/0ea762d342346733.png" /></p>
+<p>当<span class="math inline">\(x^*\)</span>附近的解都在<span
+class="math inline">\(x^*\)</span>的附近，则是稳定的；否则不稳定。</p>
+<p><strong>一些概念</strong>：</p>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/27/091e6336ff9f08b3.png" /></p>
+<p>一个栗子：</p>
+<p><img src="https://s3.bmp.ovh/imgs/2022/06/27/e56ed6889a7b1383.png" style="zoom:40%;" /></p>
+<p><strong>如何不通过相图法来得到这个点是否吸引？</strong></p>
+<p>设<span class="math inline">\(f(x)\)</span>有三阶连续导数，<span
+class="math inline">\(x^{*}\)</span>是平衡点。</p>
+<p>当<span class="math inline">\(|f&#39;(x^*)|\lt 1\)</span>：<span
+class="math inline">\(x^{*}\)</span> 渐近稳定。</p>
+<p>当<span class="math inline">\(|f&#39;(x^*)|\gt 1\)</span>：<span
+class="math inline">\(x^{*}\)</span> 不稳定。</p>
+<p><strong>周期解</strong>：</p>
+<p><span class="math inline">\(f(x)\)</span>的 <span
+class="math inline">\(n\)</span> 周期点 <span
+class="math inline">\(x^*\)</span> 是指 <span
+class="math inline">\(f^n(x)=x\)</span> 的解，满足 <span
+class="math inline">\(f^n(x)=x\)</span> 的最小正整数 <span
+class="math inline">\(n\)</span> 称为 <span
+class="math inline">\(x\)</span> 的真周期。</p>
+<h2 id="虫口模型与倍周期分支">虫口模型与倍周期分支</h2>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/06/28/60dbb4b74c9cd76e.png" /></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+
+<script src="/js/vdonate.js"></script>
+
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/WeChanQR.png',
+  alipayImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/AliPayQR.jpg'
+});
+</script>
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>本文作者:  </strong>Schwertlilien</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>本文链接:  </strong>
+          <a href="/2022/07/03/数模日记1/" target="_blank" title="数模日记1">http://example.com/2022/07/03/数模日记1/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明:   </strong>
+            本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            许可协议。转载请注明出处
+          </li>
+         
+        </ul>
+<div>
+
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E5%AD%A6%E6%A8%A1%E5%9E%8B/" rel="tag">数学模型</a></li></ul>
+
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/07/03/%E6%95%B0%E6%A8%A1%E6%97%A5%E8%AE%B02/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          数模日记2
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/06/17/review/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">review</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B7%AE%E5%88%86%E6%96%B9%E7%A8%8B%E5%92%8C%E8%99%AB%E5%8F%A3%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">差分方程和虫口模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#fibonacci%E6%95%B0%E5%88%97"><span class="nav-number">1.1.</span> <span class="nav-text">Fibonacci数列</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%94%E5%AD%90%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.1.</span> <span class="nav-text">兔子问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%AE%E5%88%86%E6%96%B9%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">差分方程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B3%E8%A1%A1%E8%A7%A3%E5%8F%8A%E5%85%B6%E7%A8%B3%E5%AE%9A%E6%80%A7"><span class="nav-number">1.2.1.</span> <span class="nav-text">平衡解及其稳定性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%99%AB%E5%8F%A3%E6%A8%A1%E5%9E%8B%E4%B8%8E%E5%80%8D%E5%91%A8%E6%9C%9F%E5%88%86%E6%94%AF"><span class="nav-number">1.3.</span> <span class="nav-text">虫口模型与倍周期分支</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2023 Schwertlilien All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+
+  
+<script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Schwertlilien
+          </div>
+          <div class="panel-body">
+            Copyright © 2023 Schwertlilien All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

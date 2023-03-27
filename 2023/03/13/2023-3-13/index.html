@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>2023.3.13 | Schwertlilien</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="每天の学习日记" />
+  
+  
+  
+  
+  <meta name="description" content="我在考虑要不要去找份实习。问一下吧。 问问有些已经有这个意向的同学。不，已经问了袁权了。他说明天去找他。 先去试一把呗，搞不好可以呢。 找日常实习。 目前最为要紧的是CCFCSP一定要过，然后再是张亮的代码讲解。还有三天的时间。 [TOC] Z字扫描(Zigzag Scan) 将二维矩阵压缩成行输出： 1234567891011121314151617181920212223242">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2023.3.13">
+<meta property="og:url" content="http://example.com/2023/03/13/2023-3-13/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="我在考虑要不要去找份实习。问一下吧。 问问有些已经有这个意向的同学。不，已经问了袁权了。他说明天去找他。 先去试一把呗，搞不好可以呢。 找日常实习。 目前最为要紧的是CCFCSP一定要过，然后再是张亮的代码讲解。还有三天的时间。 [TOC] Z字扫描(Zigzag Scan) 将二维矩阵压缩成行输出： 1234567891011121314151617181920212223242">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-03-13T02:54:09.000Z">
+<meta property="article:modified_time" content="2023-03-27T02:59:16.816Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="每天の学习日记">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Schwertlilien" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/avatar.png">
+  <link rel="apple-touch-icon" href="/css/images/avatar.png">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("/css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("/css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("/css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
+
+  </style>
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+<script src="/js/jquery-3.1.1.min.js"></script>
+
+  
+<script src="/js/bootstrap.js"></script>
+
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    
+<link rel="stylesheet" href="/css/dialog.css">
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css" >
+  
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/avatar.png">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-2023-3-13" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      2023.3.13
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2023/03/13/2023-3-13/" class="article-date">
+	  <time datetime="2023-03-13T02:54:09.000Z" itemprop="datePublished">2023-03-13</time>
+	</a>
+
+      
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我在考虑要不要去找份实习。问一下吧。</p>
+<p>问问有些已经有这个意向的同学。<strong>不，已经问了袁权了。他说明天去找他。</strong></p>
+<p>先去试一把呗，搞不好可以呢。</p>
+<p>找日常实习。</p>
+<p>目前最为要紧的是CCFCSP一定要过，然后再是张亮的代码讲解。还有三天的时间。</p>
+<p>[TOC]</p>
+<h4 id="z字扫描zigzag-scan">Z字扫描(Zigzag Scan)</h4>
+<p>将二维矩阵压缩成行输出：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> index=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;rows+cols<span class="number">-1</span>;i++)&#123;<span class="comment">//i是第几条对角线</span></span><br><span class="line">    <span class="keyword">if</span>(i&amp;<span class="number">1</span>)&#123;<span class="comment">//odd,向下扫描</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="built_in">max</span>(<span class="number">0</span>,i-cols+<span class="number">1</span>);j&lt;=<span class="built_in">min</span>(i,row<span class="number">-1</span>);j++)&#123;</span><br><span class="line">            res[index++]=mtx[j][i-j];</span><br><span class="line">        &#125;<span class="comment">//</span></span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;<span class="comment">//偶数，向上扫描</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="built_in">min</span>(i,rows<span class="number">-1</span>);j&gt;=<span class="built_in">max</span>(<span class="number">0</span>,i-cols+<span class="number">1</span>);j--)&#123;</span><br><span class="line">            res[index++]=mtx[j][i-j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//假如是正方形：</span></span><br><span class="line"><span class="type">int</span> n,index;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">2</span>*n<span class="number">-1</span>;i++)&#123;</span><br><span class="line">    <span class="keyword">if</span>(i&amp;<span class="number">1</span>)&#123;<span class="comment">//odd</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="built_in">max</span>(i,i-n+<span class="number">1</span>);j&lt;=<span class="built_in">min</span>(i,n<span class="number">-1</span>);j--)&#123;</span><br><span class="line">            res[index++]=mtx[j][i-j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;<span class="comment">//偶数</span></span><br><span class="line">    	<span class="keyword">for</span>(<span class="type">int</span> j=<span class="built_in">min</span>(i,n<span class="number">-1</span>);j&gt;=<span class="built_in">max</span>(i,i-n+<span class="number">1</span>);j++)&#123;</span><br><span class="line">            res[index++]=mtx[j][i-j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>那么反过来，输入一串数字，变成Z型矩阵：</p>
+<blockquote>
+<p>只需要更改中间赋值代码：</p>
+<p><code>res[index++]=mtx[j][i-j]</code>-&gt;<code>mtx[j][i-j]=res[index++]</code></p>
+</blockquote>
+<p>根据CCF例题中读入扫描数据，将扫描数据按照这样的顺序写入矩阵
+M：从左上角<span
+class="math inline">\(M_{0,0}\)</span>开始，接下来填充它的右侧相邻的元素<span
+class="math inline">\(M_{0,1}\)</span>，然后依次向左下方填充直至<span
+class="math inline">\(M_{1,0}\)</span>，接下来从它下侧相邻的元素<span
+class="math inline">\(M_{2,0}\)</span>开始，依次向右上方填充直至 <span
+class="math inline">\(M_{0,2}\)</span>，依次类推，循环往复，直至填充满整个矩阵或用尽所有扫描数据。</p>
+<blockquote>
+<p>由于 Z 字形扫描的路径是从左上角到右下角，数组结尾处可能存在着连续的
+0，为了节省空间，可以不存储这些连续的 0。得到的数据被称为扫描数据。</p>
+</blockquote>
+<p>输入的数组元素可能是只有部分，针对它的实现是：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> index=<span class="number">1</span>,n;<span class="comment">//n是数组的元素个数=8</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">15</span>;i++)&#123;<span class="comment">//2*8-1=15</span></span><br><span class="line">	<span class="keyword">if</span>(i&amp;<span class="number">1</span>)&#123;<span class="comment">//odd</span></span><br><span class="line">    	<span class="keyword">for</span>(<span class="type">int</span> j=<span class="built_in">max</span>(<span class="number">0</span>,i<span class="number">-7</span>);j&lt;=<span class="built_in">min</span>(i,<span class="number">7</span>);j++)&#123;</span><br><span class="line">       		<span class="type">int</span> num=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span>(index&lt;=n)&#123;</span><br><span class="line">                cin&gt;&gt;num;</span><br><span class="line">                index++;</span><br><span class="line">            &#125;</span><br><span class="line">            mtx[j][i-j]=num;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="built_in">min</span>(i,<span class="number">7</span>);j&gt;=<span class="built_in">max</span>(<span class="number">0</span>,i<span class="number">-7</span>);j--)&#123;</span><br><span class="line">            <span class="type">int</span> num=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span>(index&lt;=n)&#123;</span><br><span class="line">                cin&gt;&gt;num;</span><br><span class="line">                index++;</span><br><span class="line">            &#125;</span><br><span class="line">            mtx[j][i-j]=num;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面又有可以进行优化的地方。在初始化的时候我们把每个矩阵元素都置为0.所以可以在满足条件之后跳出。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> n;<span class="comment">//输入数组元素的个数</span></span><br><span class="line"><span class="type">int</span> index=<span class="number">1</span>;</span><br><span class="line"><span class="type">bool</span> flag=<span class="literal">false</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">15</span>;i++)&#123;</span><br><span class="line">	<span class="keyword">if</span>(i&amp;<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="built_in">max</span>(<span class="number">0</span>,i<span class="number">-7</span>);j&lt;=<span class="built_in">min</span>(i,<span class="number">7</span>);j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(index==n)&#123;</span><br><span class="line">                flag=<span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            index++;</span><br><span class="line">            cin&gt;&gt;mtx[j][i-j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="built_in">min</span>(i,<span class="number">7</span>);j&gt;=<span class="built_in">max</span>(<span class="number">0</span>,i<span class="number">-7</span>);j--)&#123;</span><br><span class="line">            <span class="keyword">if</span>(index==n)&#123;</span><br><span class="line">                flag=<span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            index++;</span><br><span class="line">            cin&gt;&gt;mtx[j][i-j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(flag)<span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="并查集union-find-set">并查集(Union Find Set)</h4>
+<p>并查集支持：</p>
+<ul>
+<li>查询：两个点u，v是否属于同一个集合。(==查询根节点是否一样,递归==)</li>
+<li>合并：把u，v所在的集合合并成一个。(==把A的根节点更换为B树上的节点==)</li>
+</ul>
+<p>使用数组来模拟树结构，数组index=i位置上存的树，表示i节点父节点的编号。</p>
+<table>
+<thead>
+<tr class="header">
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>4</td>
+<td>4</td>
+<td>6</td>
+<td>6</td>
+<td>7</td>
+</tr>
+</tbody>
+</table>
+<p>存储直接父亲是谁。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> father[<span class="number">1e5</span>];</span><br><span class="line"><span class="comment">//Init初始化</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">    father[i]=i;<span class="comment">//自己是自己的父亲，每个节点都是一个独立的集合。</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> a)</span></span>&#123;<span class="comment">//查找节点a的父亲</span></span><br><span class="line">    <span class="keyword">if</span>(father[a]==a)<span class="keyword">return</span> a;</span><br><span class="line">    <span class="keyword">return</span> father[a]=<span class="built_in">find</span>(father[a]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">merge</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span></span>&#123;</span><br><span class="line">     father[<span class="built_in">find</span>(x)]=father[y];</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="路径压缩">路径压缩</h5>
+<p>当树的深度比较深，将其</p>
+<h4 id="动态规划dynamic-plan">动态规划(Dynamic Plan)</h4>
+<p>是我觉得很麻烦且一直没掌握好的dp。</p>
+<p>给出一个数组，找出最长的递增的子序列。</p>
+<blockquote>
+<p>[1,5,2,4,3]-&gt;3 [1,2,4]or[1,2,3]</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//dfs</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">L</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;nums,<span class="type">int</span> i)</span></span>&#123;<span class="comment">//nums是array，i标记此时的深度</span></span><br><span class="line">    <span class="type">int</span> max_len=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(i==nums.<span class="built_in">size</span>()<span class="number">-1</span>)&#123;<span class="comment">//最后一个number</span></span><br><span class="line">    	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j=i+<span class="number">1</span>,j&lt;=nums.<span class="built_in">size</span>();j++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums[j]&gt;nums[i])max_len=<span class="built_in">max</span>(max_len,<span class="built_in">L</span>(nums,j)+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max_len;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用递归去深搜比较慢。因此选择对算法进行优化：</p>
+<p>动态规划避免重复节点的计算，利用Hash表来保存计算的中间结果。</p>
+<p>好吧这个还没有学会，明天继续。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+
+<script src="/js/vdonate.js"></script>
+
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/WeChanQR.png',
+  alipayImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/AliPayQR.jpg'
+});
+</script>
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>本文作者:  </strong>Schwertlilien</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>本文链接:  </strong>
+          <a href="/2023/03/13/2023-3-13/" target="_blank" title="2023.3.13">http://example.com/2023/03/13/2023-3-13/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明:   </strong>
+            本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            许可协议。转载请注明出处
+          </li>
+         
+        </ul>
+<div>
+
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%AF%8F%E5%A4%A9%E3%81%AE%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/" rel="tag">每天の学习日记</a></li></ul>
+
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/03/14/2023-3-14/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          2023.3.14
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/03/10/2023-3-10/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">2023.3.10</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#z%E5%AD%97%E6%89%AB%E6%8F%8Fzigzag-scan"><span class="nav-number">1.</span> <span class="nav-text">Z字扫描(Zigzag Scan)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B9%B6%E6%9F%A5%E9%9B%86union-find-set"><span class="nav-number">2.</span> <span class="nav-text">并查集(Union Find Set)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B7%AF%E5%BE%84%E5%8E%8B%E7%BC%A9"><span class="nav-number">2.1.</span> <span class="nav-text">路径压缩</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92dynamic-plan"><span class="nav-number">3.</span> <span class="nav-text">动态规划(Dynamic Plan)</span></a></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2023 Schwertlilien All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+
+  
+<script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Schwertlilien
+          </div>
+          <div class="panel-body">
+            Copyright © 2023 Schwertlilien All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>数据库上机实验1 | Schwertlilien</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="数据库实验" />
+  
+  
+  
+  
+  <meta name="description" content="实验1 [TOC] 1-6 一、 安装MYSQL 在安装MYSQL的同时，也安装了DataGrip可视化界面，本次实验使用DataGrip与MYSQL命令行界面交叉使用来练习SQL语言。对于DataGrip来说，其显示的代码更完整，以及展示的更规整。 二、 建立并使用BANK 我的学号是20069100175，因此选取后三位175作为bank的后缀。  三、建表并输入数据 12">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库上机实验1">
+<meta property="og:url" content="http://example.com/2022/09/25/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%8A%E6%9C%BA%E5%AE%9E%E9%AA%8C1/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="实验1 [TOC] 1-6 一、 安装MYSQL 在安装MYSQL的同时，也安装了DataGrip可视化界面，本次实验使用DataGrip与MYSQL命令行界面交叉使用来练习SQL语言。对于DataGrip来说，其显示的代码更完整，以及展示的更规整。 二、 建立并使用BANK 我的学号是20069100175，因此选取后三位175作为bank的后缀。  三、建表并输入数据 12">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s1.ax1x.com/2022/09/22/xFjbPx.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/09/22/xFxY1f.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/09/24/xAuBRK.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/09/24/xAugZd.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/09/24/xAuRII.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/09/24/xAuhJP.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/09/24/xAuTsg.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/09/24/xAu7LQ.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/09/24/xA2Qx0.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/09/24/xA2cIH.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/09/24/xARL7D.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/09/24/xA4OKI.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/09/24/xA4xVf.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/09/24/xA59Pg.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/09/24/xAWNg1.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/09/24/xA5P2j.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/09/24/xA5Eq0.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/09/24/xA5eaT.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/09/24/xA5ZZV.png">
+<meta property="article:published_time" content="2022-09-25T07:28:17.000Z">
+<meta property="article:modified_time" content="2022-10-13T14:26:39.359Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="实验">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2022/09/22/xFjbPx.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Schwertlilien" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/avatar.png">
+  <link rel="apple-touch-icon" href="/css/images/avatar.png">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("/css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("/css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("/css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
+
+  </style>
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+<script src="/js/jquery-3.1.1.min.js"></script>
+
+  
+<script src="/js/bootstrap.js"></script>
+
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    
+<link rel="stylesheet" href="/css/dialog.css">
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css" >
+  
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/avatar.png">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-数据库上机实验1" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      数据库上机实验1
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2022/09/25/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%8A%E6%9C%BA%E5%AE%9E%E9%AA%8C1/" class="article-date">
+	  <time datetime="2022-09-25T07:28:17.000Z" itemprop="datePublished">2022-09-25</time>
+	</a>
+
+      
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="实验1">实验1</h1>
+<p>[TOC]</p>
+<h3 id="section">1-6</h3>
+<h4 id="一-安装mysql">一<strong>、</strong>
+<strong>安装MYSQL</strong></h4>
+<p>在安装MYSQL的同时，也安装了DataGrip可视化界面，本次实验使用DataGrip与MYSQL命令行界面交叉使用来练习SQL语言。对于DataGrip来说，其显示的代码更完整，以及展示的更规整。</p>
+<h4 id="二-建立并使用bank">二、 <strong>建立并使用BANK</strong></h4>
+<p>我的学号是20069100175，因此选取后三位175作为bank的后缀。</p>
+<p><img src="https://s1.ax1x.com/2022/09/22/xFjbPx.png" /></p>
+<h4 id="三建表并输入数据">三、建表并输入数据</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line"># 建表：BRANCHxxx, CUSTOMERxxx, LOANxxx, BORROWERxxx, ACCOUNTxxx, DEPOSITORxxx；</span><br><span class="line">CREATE TABLE account_175 (</span><br><span class="line">    account_number char(10),</span><br><span class="line">    branch_name char(30),</span><br><span class="line">    balance  numeric(12,2),</span><br><span class="line">    PRIMARY KEY (account_number),</span><br><span class="line">    FOREIGN KEY (branch_name)</span><br><span class="line">	REFERENCES branch_175(branch_name),</span><br><span class="line">    CONSTRAINT chk_balance CHECK (balance &gt;= 0 )</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">create table  branch_175(</span><br><span class="line">    branch_name char(30),</span><br><span class="line">    branch_city char(10),</span><br><span class="line">    assets int,</span><br><span class="line">    primary key(branch_name)</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">create table customer_175(</span><br><span class="line">    customer_name char(10),</span><br><span class="line">    customer_street char(10),</span><br><span class="line">    customer_city char(20)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">create table depositor_175(</span><br><span class="line">    customer_name char(10),</span><br><span class="line">    customer_number char(10)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">create table loan_175(</span><br><span class="line">  loan_number char(10),</span><br><span class="line">  branch_name char(30),</span><br><span class="line">  amount int,</span><br><span class="line">  FOREIGN KEY (branch_name) REFERENCES branch_175(branch_name)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">create table borrower_175(</span><br><span class="line">  customer_name char(10),</span><br><span class="line">  loan_number char(10)</span><br><span class="line">);</span><br><span class="line"># 查询建表情况</span><br><span class="line">desc account_175;</span><br><span class="line"></span><br><span class="line"># 插入数据</span><br><span class="line">insert into account_175 values</span><br><span class="line">(&#x27;A_101&#x27;,&#x27;Downtown&#x27;,500),</span><br><span class="line">(&#x27;A_102&#x27;,&#x27;Perryridge&#x27;,400),</span><br><span class="line">(&#x27;A_201&#x27;,&#x27;Brighton&#x27;,900),</span><br><span class="line">(&#x27;A_215&#x27;,&#x27;Mianus&#x27;,700),</span><br><span class="line">(&#x27;A_217&#x27;,&#x27;Brighton&#x27;,750),</span><br><span class="line">(&#x27;A_222&#x27;,&#x27;Redwood&#x27;,700),</span><br><span class="line">(&#x27;A_305&#x27;,&#x27;Round Hill&#x27;,350);</span><br><span class="line"></span><br><span class="line">insert into branch_175 values</span><br><span class="line">(&#x27;Brighton&#x27;,&#x27;Brooklyn&#x27;,7100000),</span><br><span class="line">(&#x27;Downtown&#x27;,&#x27;Brooklyn&#x27;,9000000),</span><br><span class="line">(&#x27;Mianus&#x27;,&#x27;Horseneck&#x27;,400000),</span><br><span class="line">(&#x27;North Town&#x27;,&#x27;Rye&#x27;,3700000),</span><br><span class="line">(&#x27;Perryridge&#x27;,&#x27;Horseneck&#x27;,1700000),</span><br><span class="line">(&#x27;Pownal&#x27;,&#x27;Bennington&#x27;,300000),</span><br><span class="line">(&#x27;Redwood&#x27;,&#x27;Palo Alto&#x27;,2100000),</span><br><span class="line">(&#x27;Round Hill&#x27;,&#x27;Horseneck&#x27;,8000000);</span><br><span class="line"></span><br><span class="line">insert into customer_175 values</span><br><span class="line">(&#x27;Adams&#x27;,&#x27;Spring&#x27;,&#x27;Pittsfield&#x27;),</span><br><span class="line">(&#x27;Brooks&#x27;,&#x27;Senator&#x27;,&#x27;Brooklyn&#x27;),</span><br><span class="line">(&#x27;Curry&#x27;,&#x27;North&#x27;,&#x27;Rye&#x27;),</span><br><span class="line">(&#x27;Glenn&#x27;,&#x27;Sand Hill&#x27;,&#x27;Woodside&#x27;),</span><br><span class="line">(&#x27;Green&#x27;,&#x27;Walnut&#x27;,&#x27;Stamford&#x27;),</span><br><span class="line">(&#x27;Hayes&#x27;,&#x27;Main&#x27;,&#x27;Harrison&#x27;),</span><br><span class="line">(&#x27;Johnson&#x27;,&#x27;Alma&#x27;,&#x27;Palo Alto&#x27;),</span><br><span class="line">(&#x27;Jones&#x27;,&#x27;Main&#x27;,&#x27;Harrison&#x27;),</span><br><span class="line">(&#x27;Lindsay&#x27;,&#x27;Park&#x27;,&#x27;Pittsfield&#x27;),</span><br><span class="line">(&#x27;Smith&#x27;,&#x27;North&#x27;,&#x27;Rye&#x27;),</span><br><span class="line">(&#x27;Turner&#x27;,&#x27;Putnam&#x27;,&#x27;Stamford&#x27;),</span><br><span class="line">(&#x27;Williams&#x27;,&#x27;Nassau&#x27;,&#x27;Princeton&#x27;);</span><br><span class="line"></span><br><span class="line">insert into depositor_175 values</span><br><span class="line">(&#x27;Hayes&#x27;,&#x27;A-102&#x27;),</span><br><span class="line">(&#x27;Johnson&#x27;,&#x27;A-101&#x27;),</span><br><span class="line">(&#x27;Johnson&#x27;,&#x27;A-201&#x27;),</span><br><span class="line">(&#x27;Jones&#x27;,&#x27;A-217&#x27;),</span><br><span class="line">(&#x27;Lindsay&#x27;,&#x27;A-222&#x27;),</span><br><span class="line">(&#x27;Smith&#x27;,&#x27;A-215&#x27;),</span><br><span class="line">(&#x27;Turner&#x27;,&#x27;A-305&#x27;);</span><br><span class="line"></span><br><span class="line">insert into loan_175 values</span><br><span class="line">(&#x27;L-11&#x27;,&#x27;Round Hill&#x27;,900),</span><br><span class="line">(&#x27;L-14&#x27;,&#x27;Downtown&#x27;,1500),</span><br><span class="line">(&#x27;L-15&#x27;,&#x27;Perryridge&#x27;,1500),</span><br><span class="line">(&#x27;L-16&#x27;,&#x27;Perryridge&#x27;,1300),</span><br><span class="line">(&#x27;L-17&#x27;,&#x27;Downtown&#x27;,1000),</span><br><span class="line">(&#x27;L-23&#x27;,&#x27;Redwood&#x27;,2000),</span><br><span class="line">(&#x27;L-93&#x27;,&#x27;Mianus&#x27;,500);</span><br><span class="line"></span><br><span class="line">insert into borrower_175 values</span><br><span class="line">(&#x27;Admas&#x27;,&#x27;L-16&#x27;),</span><br><span class="line">(&#x27;Curry&#x27;,&#x27;L-93&#x27;),</span><br><span class="line">(&#x27;Hayes&#x27;,&#x27;L-15&#x27;),</span><br><span class="line">(&#x27;Jackson&#x27;,&#x27;L-14&#x27;),</span><br><span class="line">(&#x27;Jones&#x27;,&#x27;L-17&#x27;),</span><br><span class="line">(&#x27;Smith&#x27;,&#x27;L-11&#x27;),</span><br><span class="line">(&#x27;Smith&#x27;,&#x27;L-23&#x27;),</span><br><span class="line">(&#x27;Williams&#x27;,&#x27;L-17&#x27;);</span><br></pre></td></tr></table></figure>
+<p>批量建表如下:</p>
+<p><img src="https://s1.ax1x.com/2022/09/22/xFxY1f.png" /></p>
+<p>批量录入数据如下：</p>
+<p><img src="https://s1.ax1x.com/2022/09/24/xAuBRK.png" style="zoom:70%;" /><img src="https://s1.ax1x.com/2022/09/24/xAugZd.png" style="zoom:50%;" /></p>
+<p><img src="https://s1.ax1x.com/2022/09/24/xAuRII.png" style="zoom:70%;" /><img src="https://s1.ax1x.com/2022/09/24/xAuhJP.png" style="zoom:80%;" /></p>
+<p><img src="https://s1.ax1x.com/2022/09/24/xAuTsg.png" style="zoom:67%;" /><img src="https://s1.ax1x.com/2022/09/24/xAu7LQ.png" style="zoom:80%;" /></p>
+<h3 id="section-1">7</h3>
+<p>创建图3.12的四张表，输入一些数据，查询书上第三章3.2,
+3.9的作业题。</p>
+<h4 id="一创建表并输入数据">一、创建表并输入数据</h4>
+<p>在给定的<code>schema</code>中，<code>employee_name</code>是主键，说明要求每一位员工的姓名必须是不同的。<code>company_name</code>是主键，说明每一家公式的名字也是不同的。因此建立<code>schema</code>如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"># set schema</span><br><span class="line">create table employee(</span><br><span class="line">    employee_name char(10) comment &#x27;职员姓名&#x27;,</span><br><span class="line">    street char(10),</span><br><span class="line">    city char(10),</span><br><span class="line">    primary key (employee_name)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">create table works(</span><br><span class="line">    employee_name char(10),</span><br><span class="line">    company_name char(10),</span><br><span class="line">    salary int,</span><br><span class="line">    primary key (employee_name),</span><br><span class="line">    foreign key (employee_name) references employee(employee_name)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">create table company(</span><br><span class="line">    company_name char(10),</span><br><span class="line">    city char(10),</span><br><span class="line">    primary key (company_name)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">create table managers(</span><br><span class="line">    employee_name char(10),</span><br><span class="line">    manager_name char(10),</span><br><span class="line">    primary key (employee_name),</span><br><span class="line">    foreign key (employee_name) references employee</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>对于每个员工的上司，最高级的员工，他的上司是他自己；上司的姓名也在员工表内。</p>
+<p>插入数据时没有写入<code>E5</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"># insert data</span><br><span class="line"># City一共是C1-8，Street一共是S1-6，共有32名员工</span><br><span class="line">insert into employee values</span><br><span class="line">(&#x27;E1&#x27;,&#x27;S1&#x27;,&#x27;C1&#x27;),(&#x27;E2&#x27;,&#x27;S4&#x27;,&#x27;C1&#x27;),(&#x27;E3&#x27;,&#x27;S1&#x27;,&#x27;C1&#x27;),(&#x27;E4&#x27;,&#x27;S1&#x27;,&#x27;C1&#x27;),(&#x27;E6&#x27;,&#x27;S2&#x27;,&#x27;C2&#x27;),</span><br><span class="line">(&#x27;E7&#x27;,&#x27;S6&#x27;,&#x27;C2&#x27;),(&#x27;E8&#x27;,&#x27;S1&#x27;,&#x27;C2&#x27;),(&#x27;E9&#x27;,&#x27;S1&#x27;,&#x27;C2&#x27;),(&#x27;E10&#x27;,&#x27;S1&#x27;,&#x27;C3&#x27;),(&#x27;E11&#x27;,&#x27;S2&#x27;,&#x27;C3&#x27;),</span><br><span class="line">(&#x27;E12&#x27;,&#x27;S3&#x27;,&#x27;C3&#x27;),(&#x27;E13&#x27;,&#x27;S4&#x27;,&#x27;C3&#x27;),(&#x27;E14&#x27;,&#x27;S1&#x27;,&#x27;C4&#x27;),(&#x27;E15&#x27;,&#x27;S2&#x27;,&#x27;C4&#x27;),(&#x27;E16&#x27;,&#x27;S1&#x27;,&#x27;C4&#x27;),</span><br><span class="line">(&#x27;E17&#x27;,&#x27;S3&#x27;,&#x27;C5&#x27;),(&#x27;E18&#x27;,&#x27;S4&#x27;,&#x27;C4&#x27;),(&#x27;E19&#x27;,&#x27;S5&#x27;,&#x27;C5&#x27;),(&#x27;E20&#x27;,&#x27;S6&#x27;,&#x27;C1&#x27;),(&#x27;E21&#x27;,&#x27;S2&#x27;,&#x27;C8&#x27;),(&#x27;E22&#x27;,&#x27;S5&#x27;,&#x27;C8&#x27;),(&#x27;E23&#x27;,&#x27;S6&#x27;,&#x27;C8&#x27;),(&#x27;E24&#x27;,&#x27;S4&#x27;,&#x27;C8&#x27;),(&#x27;E25&#x27;,&#x27;S3&#x27;,&#x27;C8&#x27;),(&#x27;E26&#x27;,&#x27;S5&#x27;,&#x27;C1&#x27;),(&#x27;E27&#x27;,&#x27;S2&#x27;,&#x27;C9&#x27;),(&#x27;E28&#x27;,&#x27;S1&#x27;,&#x27;C9&#x27;),(&#x27;E29&#x27;,&#x27;S4&#x27;,&#x27;C9&#x27;),(&#x27;E30&#x27;,&#x27;S2&#x27;,&#x27;C9&#x27;),(&#x27;E31&#x27;,&#x27;S1&#x27;,&#x27;C7&#x27;),</span><br><span class="line">(&#x27;E32&#x27;,&#x27;S6&#x27;,&#x27;C6&#x27;);</span><br><span class="line">#这些员工在哪家公司工作？薪水是多少</span><br><span class="line">insert into works (employee_name, company_name, salary) values</span><br><span class="line">(&#x27;E1&#x27;,&#x27;COM1&#x27;,5100),(&#x27;E2&#x27;,&#x27;COM2&#x27;,6100),(&#x27;E3&#x27;,&#x27;COM1&#x27;,7100),(&#x27;E4&#x27;,&#x27;COM3&#x27;,9100),</span><br><span class="line">(&#x27;E6&#x27;,&#x27;COM6&#x27;,15600),(&#x27;E7&#x27;,&#x27;COM4&#x27;,1600),(&#x27;E8&#x27;,&#x27;COM5&#x27;,8600),(&#x27;E9&#x27;,&#x27;COM1&#x27;,6600),</span><br><span class="line">(&#x27;E10&#x27;,&#x27;COM2&#x27;,5000),(&#x27;E11&#x27;,&#x27;COM3&#x27;,2300),(&#x27;E12&#x27;,&#x27;COM4&#x27;,10200),(&#x27;E13&#x27;,&#x27;COM5&#x27;,8000),</span><br><span class="line">(&#x27;E14&#x27;,&#x27;COM6&#x27;,7000),(&#x27;E15&#x27;,&#x27;COM1&#x27;,8900),(&#x27;E16&#x27;,&#x27;COM1&#x27;,2300),(&#x27;E17&#x27;,&#x27;COM1&#x27;,1200),</span><br><span class="line">(&#x27;E18&#x27;,&#x27;COM1&#x27;,4500),(&#x27;E19&#x27;,&#x27;COM2&#x27;,6300),(&#x27;E20&#x27;,&#x27;COM2&#x27;,7400),(&#x27;E21&#x27;,&#x27;COM2&#x27;,13000),</span><br><span class="line">(&#x27;E22&#x27;,&#x27;COM3&#x27;,5000),(&#x27;E23&#x27;,&#x27;COM3&#x27;,6000),(&#x27;E24&#x27;,&#x27;COM3&#x27;,7000),(&#x27;E25&#x27;,&#x27;COM4&#x27;,8000),</span><br><span class="line">(&#x27;E26&#x27;,&#x27;COM4&#x27;,9000),(&#x27;E27&#x27;,&#x27;COM4&#x27;,1000),(&#x27;E28&#x27;,&#x27;COM5&#x27;,3000),(&#x27;E29&#x27;,&#x27;COM5&#x27;,800),</span><br><span class="line">(&#x27;E30&#x27;,&#x27;COM6&#x27;,4000),(&#x27;E31&#x27;,&#x27;COM6&#x27;,2000),(&#x27;E32&#x27;,&#x27;COM6&#x27;,1000);</span><br><span class="line"></span><br><span class="line">insert into company values</span><br><span class="line">(&#x27;COM1&#x27;,&#x27;C5&#x27;),(&#x27;COM2&#x27;,&#x27;C2&#x27;),(&#x27;COM3&#x27;,&#x27;C1&#x27;),</span><br><span class="line">(&#x27;COM4&#x27;,&#x27;C1&#x27;),(&#x27;COM5&#x27;,&#x27;C3&#x27;),(&#x27;COM6&#x27;,&#x27;C4&#x27;);</span><br><span class="line"></span><br><span class="line">insert into managers (employee_name, manager_name)values</span><br><span class="line">(&#x27;E1&#x27;,&#x27;E1&#x27;),(&#x27;E2&#x27;,&#x27;E10&#x27;),(&#x27;E3&#x27;,&#x27;E1&#x27;),(&#x27;E4&#x27;,&#x27;E11&#x27;),(&#x27;E6&#x27;,&#x27;E14&#x27;),(&#x27;E7&#x27;,&#x27;E12&#x27;),</span><br><span class="line">(&#x27;E8&#x27;,&#x27;E8&#x27;),(&#x27;E9&#x27;,&#x27;E1&#x27;),(&#x27;E10&#x27;,&#x27;E10&#x27;),(&#x27;E11&#x27;,&#x27;E11&#x27;),(&#x27;E12&#x27;,&#x27;E12&#x27;),(&#x27;E13&#x27;,&#x27;E8&#x27;),</span><br><span class="line">(&#x27;E14&#x27;,&#x27;E14&#x27;),(&#x27;E15&#x27;,&#x27;E3&#x27;),(&#x27;E16&#x27;,&#x27;E9&#x27;),(&#x27;E17&#x27;,&#x27;E3&#x27;),(&#x27;E18&#x27;,&#x27;E9&#x27;),(&#x27;E19&#x27;,&#x27;E10&#x27;),</span><br><span class="line">(&#x27;E20&#x27;,&#x27;E2&#x27;),(&#x27;E21&#x27;,&#x27;E2&#x27;),(&#x27;E22&#x27;,&#x27;E11&#x27;),(&#x27;E23&#x27;,&#x27;E22&#x27;),(&#x27;E24&#x27;,&#x27;E4&#x27;),(&#x27;E25&#x27;,&#x27;E7&#x27;),</span><br><span class="line">(&#x27;E26&#x27;,&#x27;E27&#x27;),(&#x27;E27&#x27;,&#x27;E12&#x27;),(&#x27;E28&#x27;,&#x27;E8&#x27;),(&#x27;E29&#x27;,&#x27;E8&#x27;),(&#x27;E30&#x27;,&#x27;E14&#x27;),(&#x27;E31&#x27;,&#x27;E30&#x27;),(&#x27;E32&#x27;,&#x27;E14&#x27;);</span><br></pre></td></tr></table></figure>
+<h4 id="二查询3.2">二、查询3.2</h4>
+<p><strong>1.
+找出<code>fisrt bank</code>公司所有员工的姓名以及居住城市</strong></p>
+<p>设<code>first bank</code>为<code>COM1</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select works.employee_name as name,city from employee,works where works.employee_name=employee.employee_name and company_name=&#x27;COM1&#x27;;</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<p><img src="https://s1.ax1x.com/2022/09/24/xA2Qx0.png" /></p>
+<p><strong>2.找出<code>fisrt bank</code>公司所有收入超1w美元的员工的姓名、街道地址、居住城市</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select works.employee_name as name,street,city,salary from works,employee where salary&gt;10000 and works.employee_name=employee.employee_name;</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<p><img
+src="https://s3.bmp.ovh/imgs/2022/09/24/1ee5d949ec956b7d.png" /></p>
+<p><strong>3.找出DB范围内所有不为<code>fisrt bank</code>工作的员工</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select works.employee_name as name,company_name from employee,works where works.employee_name=employee.employee_name and company_name!=&#x27;COM1&#x27;;</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<p><img src="https://s1.ax1x.com/2022/09/24/xA2cIH.png" /></p>
+<p><strong>4.找出DB范围内所有收入高于<code>small bank</code>公司每一个员工的员工</strong></p>
+<p>假设<code>small bank</code>为<code>COM4</code>。在<code>COM4</code>中，工资最高的是<code>E12</code>，其工资为10200。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select * from works;# 首先查看全部员工的工资情况</span><br><span class="line">select employee_name,salary from works where company_name=&#x27;COM4&#x27;;# 再查看COM4的员工中的最高工资</span><br><span class="line">select * from works where salary&gt;( select max(salary) from works where company_name=&#x27;COM4&#x27;);#以此为筛选条件</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<p><img src="https://s1.ax1x.com/2022/09/24/xARL7D.png" /></p>
+<p><strong>5.假设公司位于多个城市。找到位于每个城市所有公司，在这些城市，<code>small Bank</code>也在</strong></p>
+<p>公司位于多个城市，可能是类似总公司与子公司的情况。但是由于题干中将<code>company_name</code>设置为了主键，因此是唯一的、不可重复的。由于其对应的<code>city</code>可以是多个，但是对于唯一的公司只能有一条数据，因此没有办法设置为多个城市？</p>
+<blockquote>
+<p>相当于暂时忽略掉主键的设定。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># (1)首先先取消掉设置的主键。并添加一些子公司的地址数据。</span><br><span class="line">insert into company values (&#x27;COM4&#x27;,&#x27;C2&#x27;),(&#x27;COM1&#x27;,&#x27;C2&#x27;),(&#x27;COM1&#x27;,&#x27;C1&#x27;);</span><br><span class="line"># (2)找到city where COM4 land</span><br><span class="line">create temporary table land_city(select city from company where company_name=&#x27;COM4&#x27;);# C1,C2</span><br><span class="line">select company_name,city from company natural join land_city where company_name!=&#x27;COM4&#x27;;</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<p><img src="https://s1.ax1x.com/2022/09/24/xA4OKI.png" /></p>
+<p>然后要删除添加的数据：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 把company修改为原来样子</span><br><span class="line">delete from company where company_name=&#x27;COM4&#x27; and city=&#x27;C2&#x27;;</span><br><span class="line">delete from company where city=&#x27;C2&#x27; and company_name=&#x27;COM1&#x27;;</span><br><span class="line">delete from company where company_name=&#x27;COM1&#x27; and city=&#x27;C1&#x27;;</span><br></pre></td></tr></table></figure>
+<p><strong>6.找到拥有最多的员工的公司</strong></p>
+<p>count解决问题！使用order对人数排序，排在第一的是人数最多的公司。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select company_name,count(employee_name)as cnt_employee from works group by company_name order by cnt_employee desc ;</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<p><img src="https://s1.ax1x.com/2022/09/24/xA4xVf.png" /></p>
+<p><strong>7.找出一些公司，这些公司员工的平均工资高于<code>fisrt bank</code>的平均工资</strong></p>
+<p><code>having</code>后的条件是进行分组后的数据再次进行筛选。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select company_name,avg(salary) as avg_salary from works group by company_name order by avg_salary desc;</span><br><span class="line">select company_name,avg(salary) as avg_salary from works group by company_name having avg_salary&gt;(select avg(salary) from works where company_name=&#x27;COM1&#x27;);</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<p><img src="https://s1.ax1x.com/2022/09/24/xA59Pg.png" /></p>
+<h5 id="查询代码">查询代码</h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"># 查询操作</span><br><span class="line">#1. 找出`fisrt bank`公司所有员工的姓名以及居住城市</span><br><span class="line">select works.employee_name as name,city from employee,works where works.employee_name=employee.employee_name and company_name=&#x27;COM1&#x27;;</span><br><span class="line">#2.找出`fisrt bank`公司所有收入超1w美元的员工的姓名、街道地址、居住城市</span><br><span class="line">select works.employee_name as name,street,city,salary from works,employee where salary&gt;10000 and works.employee_name=employee.employee_name;</span><br><span class="line">#3.找出DB范围内所有不为`fisrt bank`工作的员工</span><br><span class="line">select works.employee_name as name,company_name from employee,works where works.employee_name=employee.employee_name and company_name!=&#x27;COM1&#x27;;</span><br><span class="line">#4.找出DB范围内所有收入高于`small bank`公司每一个员工的员工</span><br><span class="line">select * from works;# 首先查看全部员工的工资情况</span><br><span class="line">select employee_name,salary from works where company_name=&#x27;COM4&#x27;;# 再查看COM4的员工中的最高工资</span><br><span class="line">select * from works where salary&gt;( select max(salary) from works where company_name=&#x27;COM4&#x27;);#以此为筛选条件</span><br><span class="line">#5.假设公司位于多个城市。找到位于每个城市所有公司，在这些城市，`small Bank`也在</span><br><span class="line"># (1)首先先取消掉设置的主键。并添加一些子公司的地址数据。</span><br><span class="line">insert into company values (&#x27;COM4&#x27;,&#x27;C2&#x27;),(&#x27;COM1&#x27;,&#x27;C2&#x27;),(&#x27;COM1&#x27;,&#x27;C1&#x27;);</span><br><span class="line"># (2)找到city where COM4 land</span><br><span class="line">create temporary table land_city(select city from company where company_name=&#x27;COM4&#x27;);# C1,C2</span><br><span class="line">select company_name,city from company natural join land_city where company_name!=&#x27;COM4&#x27;;</span><br><span class="line">#6.找到拥有最多的员工的公司</span><br><span class="line">select company_name,count(employee_name)as cnt_employee from works group by company_name order by cnt_employee desc ;</span><br><span class="line">#7.找出一些公司，这些公司员工的平均工资高于`fisrt bank`的平均工资</span><br><span class="line">select company_name,avg(salary) as avg_salary from works group by company_name order by avg_salary desc;</span><br><span class="line">select company_name,avg(salary) as avg_salary from works group by company_name having avg_salary&gt;(select avg(salary) from works where company_name=&#x27;COM1&#x27;);</span><br></pre></td></tr></table></figure>
+<h4 id="三查询3.9">三、查询3.9</h4>
+<p><strong>1.找出为<code>first bank</code>工作的所有员工的姓名</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select employee_name from employee natural join works where company_name=&#x27;COM1&#x27;;</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<p><img src="https://s1.ax1x.com/2022/09/24/xAWNg1.png" /></p>
+<p><strong>2.在DB范围中找出，居住地与所在公司的<code>city</code>相同的员工</strong></p>
+<p>这里给出了两种代码，所得到的结果是相同的；但是自然连接的代码会比较简洁。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select * from employee,company,works where works.employee_name=employee.employee_name and works.company_name=company.company_name and company.city=employee.city;</span><br><span class="line">select * from employee natural join works natural join company;</span><br></pre></td></tr></table></figure>
+<p><img src="https://s1.ax1x.com/2022/09/24/xA5P2j.png" /></p>
+<p><strong>3.在DB范围中找出，居住地与其经理的<code>city</code>相同、<code>street</code>相同的员工</strong></p>
+<p>由于我设计了多级的经理，最高级的经理的<code>manager</code>是他自己。因此这里的思路是：先从<code>managers</code>中找到所有的经理，由于所有的经理也在<code>employee</code>中，该表中也有他们的住址信息。因此对两表进行如下操作：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">create temporary table mana(select distinct manager_name from managers natural join employee);</span><br><span class="line">#找到一些经理。</span><br><span class="line">create temporary table mana_info(select manager_name as mana_name,street,city from employee,mana where employee_name=manager_name);</span><br><span class="line">create temporary table emp(select * from managers natural join employee);</span><br><span class="line">select * from mana_info,emp where emp.street=mana_info.street and emp.city=mana_info.city and emp.manager_name=mana_name;</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<p><img src="https://s1.ax1x.com/2022/09/24/xA5Eq0.png" /></p>
+<p><strong>4.找出每家公司中，所有收入高于该公司平均工资的员工</strong></p>
+<p>这里也是使用了建立临时表。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">create temporary table sub(select company_name,avg(salary) as avg_salary from works group by company_name);</span><br><span class="line">select * from sub;</span><br><span class="line">select * from works natural join sub where salary&gt;avg_salary;</span><br></pre></td></tr></table></figure>
+<p><img src="https://s1.ax1x.com/2022/09/24/xA5eaT.png" /></p>
+<p><strong>5.找到拥有最少的<code>payroll</code>的公司</strong></p>
+<p><code>payroll</code>指的是公司发放的工资总额。该处使用升序排序，因此排在第一个的公司即为目标公司。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select company_name,sum(salary)as payroll from works group by company_name order by payroll asc ;</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<p><img src="https://s1.ax1x.com/2022/09/24/xA5ZZV.png" /></p>
+<h5 id="查询代码-1">查询代码</h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># 3.9</span><br><span class="line">#1.找出为`first bank`工作的所有员工的姓名</span><br><span class="line">select employee_name from employee natural join works where company_name=&#x27;COM1&#x27;;</span><br><span class="line">#2.在DB范围中找出，居住地与所在公司的`city`相同的员工</span><br><span class="line">select * from employee,company,works where works.employee_name=employee.employee_name and works.company_name=company.company_name and company.city=employee.city;</span><br><span class="line">select * from employee natural join works natural join company;</span><br><span class="line">#3.在DB范围中找出，居住地与其经理的`city`相同、`street`相同的员工</span><br><span class="line">create temporary table mana(select distinct manager_name from managers natural join employee);#找到一些经理。</span><br><span class="line">create temporary table mana_info(select manager_name as mana_name,street,city from employee,mana where employee_name=manager_name);</span><br><span class="line">create temporary table emp(select * from managers natural join employee);</span><br><span class="line">select * from mana_info,emp where emp.street=mana_info.street and emp.city=mana_info.city and emp.manager_name=mana_name;</span><br><span class="line">#4.找出每家公司中，所有收入高于该公司平均工资的员工</span><br><span class="line">create temporary table sub(select company_name,avg(salary) as avg_salary from works group by company_name);</span><br><span class="line">select * from sub;</span><br><span class="line">select * from works natural join sub where salary&gt;avg_salary;</span><br><span class="line">#5.找到拥有最少的`payroll`的公司</span><br><span class="line">select company_name,sum(salary)as payroll from works group by company_name order by payroll asc ;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+
+<script src="/js/vdonate.js"></script>
+
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/WeChanQR.png',
+  alipayImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/AliPayQR.jpg'
+});
+</script>
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>本文作者:  </strong>Schwertlilien</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>本文链接:  </strong>
+          <a href="/2022/09/25/数据库上机实验1/" target="_blank" title="数据库上机实验1">http://example.com/2022/09/25/数据库上机实验1/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明:   </strong>
+            本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            许可协议。转载请注明出处
+          </li>
+         
+        </ul>
+<div>
+
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%9E%E9%AA%8C/" rel="tag">实验</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/10/13/%E5%B5%8C%E5%85%A5%E5%BC%8F%E4%B8%8A%E6%9C%BA%E5%AE%9E%E9%AA%8C1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          嵌入式上机实验1
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/07/03/%E6%95%B0%E6%A8%A1%E6%97%A5%E8%AE%B03/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">数模日记3</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C1"><span class="nav-number">1.</span> <span class="nav-text">实验1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#section"><span class="nav-number">1.0.1.</span> <span class="nav-text">1-6</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80-%E5%AE%89%E8%A3%85mysql"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">一、
+安装MYSQL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C-%E5%BB%BA%E7%AB%8B%E5%B9%B6%E4%BD%BF%E7%94%A8bank"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">二、 建立并使用BANK</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E5%BB%BA%E8%A1%A8%E5%B9%B6%E8%BE%93%E5%85%A5%E6%95%B0%E6%8D%AE"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">三、建表并输入数据</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#section-1"><span class="nav-number">1.0.2.</span> <span class="nav-text">7</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E5%88%9B%E5%BB%BA%E8%A1%A8%E5%B9%B6%E8%BE%93%E5%85%A5%E6%95%B0%E6%8D%AE"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">一、创建表并输入数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E6%9F%A5%E8%AF%A23.2"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">二、查询3.2</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E4%BB%A3%E7%A0%81"><span class="nav-number">1.0.2.2.1.</span> <span class="nav-text">查询代码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E6%9F%A5%E8%AF%A23.9"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">三、查询3.9</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E4%BB%A3%E7%A0%81-1"><span class="nav-number">1.0.2.3.1.</span> <span class="nav-text">查询代码</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2023 Schwertlilien All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+
+  
+<script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Schwertlilien
+          </div>
+          <div class="panel-body">
+            Copyright © 2023 Schwertlilien All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
