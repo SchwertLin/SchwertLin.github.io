@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>2023.3.28 | Schwertlilien</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="每天の学习日记论文阅读" />
+  
+  
+  
+  
+  <meta name="description" content="2023.3.28 U-GAT-IT  Unsupervised Generative Attentional networks with adaptive layer-instance normalization(AdaLIN) for Image-to-Image Translation   The attention module:模型关注区分source domains">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2023.3.28">
+<meta property="og:url" content="http://example.com/2023/03/28/2023-3-28/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="2023.3.28 U-GAT-IT  Unsupervised Generative Attentional networks with adaptive layer-instance normalization(AdaLIN) for Image-to-Image Translation   The attention module:模型关注区分source domains">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img1.imgtp.com/2023/03/28/QtPsQOrV.png">
+<meta property="article:published_time" content="2023-03-28T15:18:32.000Z">
+<meta property="article:modified_time" content="2023-03-29T03:31:27.112Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="每天の学习日记">
+<meta property="article:tag" content="论文阅读">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img1.imgtp.com/2023/03/28/QtPsQOrV.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Schwertlilien" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/avatar.png">
+  <link rel="apple-touch-icon" href="/css/images/avatar.png">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("/css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("/css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("/css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
+
+  </style>
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+<script src="/js/jquery-3.1.1.min.js"></script>
+
+  
+<script src="/js/bootstrap.js"></script>
+
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    
+<link rel="stylesheet" href="/css/dialog.css">
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css" >
+  
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/avatar.png">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-2023-3-28" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      2023.3.28
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2023/03/28/2023-3-28/" class="article-date">
+	  <time datetime="2023-03-28T15:18:32.000Z" itemprop="datePublished">2023-03-28</time>
+	</a>
+
+      
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="section">2023.3.28</h1>
+<h2 id="u-gat-it">U-GAT-IT</h2>
+<blockquote>
+<p><strong>U</strong>nsupervised <strong>G</strong>enerative
+<strong>A</strong>ttentional networks</p>
+<p>with adaptive layer-instance normalization(AdaLIN) for
+<strong>I</strong>mage-to-<strong>I</strong>mage
+<strong>T</strong>ranslation</p>
+</blockquote>
+<ul>
+<li><p>The attention module:模型关注区分source domains and target
+domain(attention map)</p></li>
+<li><p>New AdaLIN：自适应 层实例 归一化函数——control the amount of
+change in shape and texture(依据不同的数据集 改变函数的超参)</p></li>
+<li><p><code>G</code>:attention map--将注意力集中在两个领域(source
+domain&amp;target domain)之间的特殊区别上。</p></li>
+<li><p><code>D</code>:attention map--helps fine-tuning(微调) BY 关注
+target domain内fake图像和real图像之间的区别。</p></li>
+</ul>
+<p>==归一化函数(normalization function)的选取影响the quality of the
+transformed results for various
+datasets(很多数据集的转换结果质量，这些数据集有着不同数量的在shape和texture上的改变)==</p>
+<p><受BIN批处理实例归一化的启发>，提出AdaLIN(自适应层实例归一化)</p>
+<p><img src="https://img1.imgtp.com/2023/03/28/QtPsQOrV.png" /></p>
+<h3 id="无监督生成网络">无监督生成网络</h3>
+<p>Goal：训练函数<span class="math inline">\(G_{s\rightarrow t
+}\)</span>：from source domain <span class="math inline">\(X_s\)</span>
+to target domain <span class="math inline">\(X_t\)</span> (==unpaired
+sample==)</p>
+<p>Frameworks：</p>
+<ul>
+<li>Generators：<span class="math inline">\(G_{s\rightarrow
+t}\)</span>，<span class="math inline">\(G_{t\rightarrow
+s}\)</span></li>
+<li>Discriminators：<span class="math inline">\(D_s\)</span>，<span
+class="math inline">\(D_t\)</span></li>
+</ul>
+<h4 id="modelg_srightarrow-t">Model(<span
+class="math inline">\(G_{s\rightarrow t}\)</span>)</h4>
+<p><span class="math inline">\(x\in
+\{X_s,X_t\}\)</span>：表示一个来自source &amp; target
+domain的sample。</p>
+<p><span class="math inline">\(G_{s\rightarrow
+t}=E_s+G_t+\eta_s\)</span>：encoder、decoder、auxiliary
+classifier(辅助分类器)。</p>
+<p><span class="math inline">\(\eta_s(x)\)</span>：<span
+class="math inline">\(x\)</span>来自<span
+class="math inline">\(X_s\)</span>(source domain)的可能性。</p>
+<p><span
+class="math inline">\(E_s^k(x)\)</span>：encoder的第k个activation
+map(激活映射)。</p>
+<p><span class="math inline">\(E_s^{K_{ij}}(x)\)</span>：点<span
+class="math inline">\((i,j)\)</span>的值--承接上面<span
+class="math inline">\(E_s^k(x)\)</span>，所以是encoder的第k个激活映射中点<span
+class="math inline">\((i,j)\)</span>的值。</p>
+<p><span class="math inline">\(w_s^k\)</span>：第k个feature
+map(特征映射)的权值。==使用全局平均池化&amp;全局最大池化（BY CAM）==
+<span class="math display">\[
+\color{red}i.e.\color{black}\ \eta_s(x)=\sigma(\sum_k
+w_s^k\sum_{ij}E_s^{k_{ij}}(x))
+\]</span> <span class="math inline">\(a_s(x)\)</span>：domain specific
+attention feature map( <span class="math inline">\(n\)</span>是encoder
+feature maps的数量 ) <span class="math display">\[
+a_s(x)=w_s*E_s(x)=\{w_s^k*E_s^k|1\le k\le n\}
+\]</span></p>
+<p>==Translation Model：<span class="math inline">\(G_{s\rightarrow
+t}=G_t(a_s(x))\)</span>==</p>
+<h4 id="adalin">AdaLIN</h4>
+<p>其参数<span class="math inline">\(\gamma\)</span>和<span
+class="math inline">\(\beta\)</span>将在一个来自attention
+map的全连接层进行动态计算。 <span class="math display">\[
+AdaLIN(\alpha,\gamma,\beta)=\gamma\ \cdot \ (\rho\ \cdot
+\hat{a_I}+(1-\rho)\ \cdot\ \hat{a_L})+\beta\\
+\hat{a_I}=\frac{a-\mu_I}{\sqrt{\sigma_I^2+\epsilon}}\\
+\hat{a_L}=\frac{a-\mu_L}{\sqrt{\sigma_L^2+\epsilon}}\\
+\rho\leftarrow clip_{[0,1]}(\rho-\tau \Delta \rho),\rho\in[0,1]
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\mu_I,\mu_L\)</span>：channel-wise
+mean(通道), layer-wise mean(层)</li>
+<li><span class="math inline">\(\sigma_I,\sigma_L\)</span>：channel-wise
+&amp; layer-wise 标准差(standard deviation)</li>
+<li><span class="math inline">\(\tau\)</span>：learning
+rate(学习速率)</li>
+<li><span class="math inline">\(\Delta \rho\)</span>：更新向量的参数(BY
+优化器optimizer)</li>
+</ul>
+<blockquote>
+<p><span class="math inline">\(\rho\)</span>的值是在imposing bounds
+(Step:更新param)时被限制在[0,1]</p>
+</blockquote>
+<p>G调整<span class="math inline">\(\rho\)</span>值，<span
+class="math inline">\(\rho\)</span>接近1时instance
+normalization很重要；<span
+class="math inline">\(\rho\)</span>接近0时LN很重要。</p>
+<p><span class="math inline">\(\rho\)</span>值在解码器的剩余块(redidual
+blocks)中初始化为1，在解码器的上采样块(up-sampling
+blocks)中初始化为0。</p>
+<h4 id="discriminator">Discriminator</h4>
+<p><span class="math inline">\(x\in \{X_t,G_{s\rightarrow
+t}(X_s)\}\)</span>：来自目标域和翻译后的源域的示例。</p>
+<p><span
+class="math inline">\(D_t=E_{D_t}+C_{D_t}+\eta_{D_t}\)</span>：<span
+class="math inline">\(\eta_{D_t}(x)\)</span> 和<span
+class="math inline">\(D_t(x)\)</span>都被训练to分辨<span
+class="math inline">\(x\)</span>来自<span
+class="math inline">\(X_t\)</span>(target domain)还是<span
+class="math inline">\(G_{s\rightarrow t}(X_s)\)</span>(从source
+domain生成的由source到target的映射，即fake images)</p>
+<p><span
+class="math inline">\(\alpha_{D_t}(x)=w_{D_t}*E_{D_t}(x)\)</span></p>
+<p>==discriminator model：<span
+class="math inline">\(D_t(x)=C_{D_t}(\alpha_{D_t}(x))\)</span>==</p>
+<h4 id="loss-function">Loss function</h4>
+<p>包含以下四个损失函数：</p>
+<ul>
+<li>Adversarial
+loss(对抗损失)：将转换后图像的分布与目标图像的分布进行匹配。</li>
+<li>Cycle loss(返回原样损失)：to alleviate the mode collapse
+problem，因此施加周期约束——使得<span
+class="math inline">\(x\)</span>从<span
+class="math inline">\(X_s\rightarrow X_t\)</span>然后再<span
+class="math inline">\(X_t\rightarrow X_S\)</span>能够恢复原样(original
+domain)。</li>
+<li>Identify
+loss(标志一致约束)：保证输入图像与输出图像的颜色分布式是相似的。Given an
+image <span class="math inline">\(x ∈ X_t\)</span>, after the
+translation of <span class="math inline">\(x\)</span> using <span
+class="math inline">\(G_{s→t}\)</span>, the image should not
+change.</li>
+<li>CAM loss(可提升损失)：给定一个来自<span
+class="math inline">\(\{X_s,X_t\}\)</span>的sample，<span
+class="math inline">\(G_{s→t}\)</span> and <span
+class="math inline">\(D_t\)</span> get to know where they need to
+improve or what makes the most difference between two domains in the
+current state.</li>
+</ul>
+<p><span class="math display">\[
+L_{lsgan}^{s\to t}=(E_{x\sim X_t}[(D_t(x))^2]+E_{x\sim
+X_s}[(1-D_t(G_{s\to t}(x)))^2])\\
+L_{cycle}^{s\to t}=E_{x\sim X_s}[|x-G_{t\to s}(G_{s\to t}(x))|_1]\\
+L_{identity}^{s\to t}=E_{x\sim X_t}[|x-G_{s\to t}(x)|_1]\\
+L_{cam}^{s\to t}=-(E_{x\sim X_s}[log(\eta_s(x))]+E_{x\sim
+X_t}[log(1-\eta_s(x))])\\
+L_{cam}^{D_t}=E_{x\sim X_t}[(\eta_{D_t}(x))^2]+E_{x\sim
+X_s}[1-\eta_{D_t}(G_{s\to t}(x))^2]\\
+\]</span></p>
+<p>然后对它们联合起来一起训练： <span class="math display">\[
+\min_{G_{s\to t},G_{t\to s},\eta_s,\eta_t}\ \max_{D_s,D_t,\eta D_s,\eta
+D_t}\lambda_1 L_{lsgan}+\lambda_2 L_{cycle}+\lambda_3
+L_{identity}+\lambda_4 L_{cam}\\
+L_{lsgan}=L_{lsgan}^{s\to t}+L_{lsgan}^{t\to s}\ \ (same\ as\
+L{cycle},L_{identity},L_{cam})\\
+\lambda_1=1,\lambda_2=10,\lambda_3=100,\lambda_4=1000\\
+\]</span></p>
+<h2 id="luogugu">luogugu</h2>
+<h3 id="p4017">P4017</h3>
+<p>给你一个食物网，你要求出这个食物网中最大食物链的数量。</p>
+<p>（这里的“最大食物链”，指的是<strong>生物学意义上的食物链</strong>，即<strong>最左端是不会捕食其他生物的生产者，最右端是不会被其他生物捕食的消费者</strong>。）</p>
+<p>Delia 非常急，所以你只有 <span class="math inline">\(1\)</span>
+秒的时间。</p>
+<p>由于这个结果可能过大，你只需要输出总数模上 <span
+class="math inline">\(80112002\)</span> 的结果。</p>
+<h2 id="p1177-快排">P1177-快排</h2>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n, num;</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; vec;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">Partition</span><span class="params">(<span class="type">int</span> l, <span class="type">int</span> h)</span> </span>&#123;</span><br><span class="line">	<span class="type">int</span> pviot = vec[l];</span><br><span class="line">	<span class="keyword">while</span> (l &lt; h) &#123;</span><br><span class="line">		<span class="keyword">while</span> (l &lt; h &amp;&amp; pviot &lt;= vec[h]) h--;</span><br><span class="line">		<span class="built_in">swap</span>(vec[l], vec[h]);</span><br><span class="line">		<span class="keyword">while</span> (l &lt; h &amp;&amp; pviot &gt;= vec[l]) l++;</span><br><span class="line">		<span class="built_in">swap</span>(vec[l], vec[h]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> l;<span class="comment">//返回中间：l=h,两边有序，确实不稳定</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">QuickSort</span><span class="params">(<span class="type">int</span> l, <span class="type">int</span> h)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (l &lt; h) &#123;</span><br><span class="line">		<span class="type">int</span> pviot = <span class="built_in">Partition</span>(l, h);</span><br><span class="line">		<span class="built_in">QuickSort</span>(l, pviot - <span class="number">1</span>);</span><br><span class="line">		<span class="built_in">QuickSort</span>(pviot + <span class="number">1</span>, h);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	cin &gt;&gt; n;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">		cin &gt;&gt; num;</span><br><span class="line">		vec.<span class="built_in">push_back</span>(num);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">QuickSort</span>(<span class="number">0</span>, n - <span class="number">1</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">		cout &lt;&lt; vec[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>乐，本来由三个点T了。结果开完O2就A了，6.</p>
+<p>真実に：いろいろのways。所以换一种板子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> n,a[<span class="number">1000001</span>];</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">qsort</span><span class="params">(<span class="type">int</span> l,<span class="type">int</span> r)</span></span>&#123;<span class="comment">//应用二分思想</span></span><br><span class="line">    <span class="type">int</span> mid=a[(l+r)/<span class="number">2</span>];<span class="comment">//中间数</span></span><br><span class="line">    <span class="type">int</span> i=l,j=r;</span><br><span class="line">    <span class="keyword">do</span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(a[i]&lt;mid) i++;<span class="comment">//查找左半部分比中间数大的数</span></span><br><span class="line">        <span class="keyword">while</span>(a[j]&gt;mid) j--;<span class="comment">//查找右半部分比中间数小的数</span></span><br><span class="line">        <span class="keyword">if</span>(i&lt;=j)&#123;<span class="comment">//如果有一组不满足排序条件（左小右大）的数</span></span><br><span class="line">            <span class="built_in">swap</span>(a[i],a[j]);<span class="comment">//交换</span></span><br><span class="line">            i++;<span class="comment">//--|感觉可以不要</span></span><br><span class="line">            j--;<span class="comment">//--|</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">while</span>(i&lt;=j);<span class="comment">//这里注意要有=</span></span><br><span class="line">    <span class="keyword">if</span>(l&lt;j) <span class="built_in">qsort</span>(l,j);<span class="comment">//递归搜索左半部分</span></span><br><span class="line">    <span class="keyword">if</span>(i&lt;r) <span class="built_in">qsort</span>(i,r);<span class="comment">//递归搜索右半部分</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    cin&gt;&gt;n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) cin&gt;&gt;a[i];</span><br><span class="line">    <span class="built_in">qsort</span>(<span class="number">1</span>,n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) cout&lt;&lt;a[i]&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>话说Bucket这种排序我是没有接触过么？</p>
+<blockquote>
+<p>那倒不是，只是又忘记了：类似Hash表做vector，然后每个vec[i]都是一个bucket.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+
+<script src="/js/vdonate.js"></script>
+
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/WeChanQR.png',
+  alipayImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/AliPayQR.jpg'
+});
+</script>
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>本文作者:  </strong>Schwertlilien</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>本文链接:  </strong>
+          <a href="/2023/03/28/2023-3-28/" target="_blank" title="2023.3.28">http://example.com/2023/03/28/2023-3-28/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明:   </strong>
+            本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            许可协议。转载请注明出处
+          </li>
+         
+        </ul>
+<div>
+
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%AF%8F%E5%A4%A9%E3%81%AE%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/" rel="tag">每天の学习日记</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" rel="tag">论文阅读</a></li></ul>
+
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2023/03/27/2023-3-27/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">2023.3.27</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#section"><span class="nav-number">1.</span> <span class="nav-text">2023.3.28</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#u-gat-it"><span class="nav-number">1.1.</span> <span class="nav-text">U-GAT-IT</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E7%9B%91%E7%9D%A3%E7%94%9F%E6%88%90%E7%BD%91%E7%BB%9C"><span class="nav-number">1.1.1.</span> <span class="nav-text">无监督生成网络</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#modelg_srightarrow-t"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">Model(\(G_{s\rightarrow t}\))</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#adalin"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">AdaLIN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#discriminator"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">Discriminator</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#loss-function"><span class="nav-number">1.1.1.4.</span> <span class="nav-text">Loss function</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#luogugu"><span class="nav-number">1.2.</span> <span class="nav-text">luogugu</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#p4017"><span class="nav-number">1.2.1.</span> <span class="nav-text">P4017</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#p1177-%E5%BF%AB%E6%8E%92"><span class="nav-number">1.3.</span> <span class="nav-text">P1177-快排</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2023 Schwertlilien All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+
+  
+<script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Schwertlilien
+          </div>
+          <div class="panel-body">
+            Copyright © 2023 Schwertlilien All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
