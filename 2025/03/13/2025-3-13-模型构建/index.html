@@ -1,0 +1,333 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="关键要点  研究表明，DeepSeek-R1 的组件（如强化学习 RL 和监督微调 SFT）可以迁移到目标检测任务，但需要解决输入和任务差异。 结合 DETR（检测 Transformer）可能面临输入从文本到图像的挑战，以及 RL 在检测任务中的适用性问题。 证据倾向于认为，通过修改模型架构和训练方法，可以克服这些困难，但需要大量实验验证。   直接回答 概述 你想将 De">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-3-13-模型构建">
+<meta property="og:url" content="http://example.com/2025/03/13/2025-3-13-%E6%A8%A1%E5%9E%8B%E6%9E%84%E5%BB%BA/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="关键要点  研究表明，DeepSeek-R1 的组件（如强化学习 RL 和监督微调 SFT）可以迁移到目标检测任务，但需要解决输入和任务差异。 结合 DETR（检测 Transformer）可能面临输入从文本到图像的挑战，以及 RL 在检测任务中的适用性问题。 证据倾向于认为，通过修改模型架构和训练方法，可以克服这些困难，但需要大量实验验证。   直接回答 概述 你想将 De">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-03-13T11:43:22.000Z">
+<meta property="article:modified_time" content="2025-03-13T11:46:07.992Z">
+<meta property="article:author" content="Schwertlilien">
+<meta name="twitter:card" content="summary"><title>2025-3-13-模型构建 - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-3-13-模型构建</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-03-13</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-03-13</time></div>
+
+</div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约2.8K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><h3 id="关键要点">关键要点</h3>
+<ul>
+<li>研究表明，DeepSeek-R1 的组件（如强化学习 RL 和监督微调
+SFT）可以迁移到目标检测任务，但需要解决输入和任务差异。</li>
+<li>结合 DETR（检测 Transformer）可能面临输入从文本到图像的挑战，以及 RL
+在检测任务中的适用性问题。</li>
+<li>证据倾向于认为，通过修改模型架构和训练方法，可以克服这些困难，但需要大量实验验证。</li>
+</ul>
+<hr />
+<h3 id="直接回答">直接回答</h3>
+<h4 id="概述">概述</h4>
+<p>你想将 DeepSeek-R1 模型的组件（如 RL、SFT 和 DeepSeek-MoE + MLE
+改造的 Transformer）迁移到目标检测任务，并结合 DETR（检测
+Transformer）来完成。这是一个很有创意的想法，但由于输入和任务的差异，迁移会遇到一些挑战。以下是关键问题和可能的解决方案，语言尽量简单易懂。</p>
+<h4 id="主要挑战">主要挑战</h4>
+<ol type="1">
+<li><strong>输入不同</strong>：DeepSeek-R1
+处理的是文本（Token），而目标检测处理的是图像（像素）。
+<ul>
+<li>例如，DETR 先用 CNN 提取图像特征，再用 Transformer 处理，但
+DeepSeek-R1 的 Transformer 可能不直接适应图像数据。</li>
+</ul></li>
+<li><strong>任务目标不同</strong>：DeepSeek-R1
+生成文本，而目标检测需要输出边界框和类别标签。
+<ul>
+<li>RL
+在语言模型中优化推理步骤，但在检测任务中，定义奖励函数（如检测准确度）会更复杂。</li>
+</ul></li>
+<li><strong>RL 和 SFT 的适用性</strong>：RL 在 DeepSeek-R1
+中用于提升推理能力，但在检测任务中，如何逐步生成检测结果并给予奖励是个难题。
+<ul>
+<li>SFT 相对简单，可以直接用目标检测数据集训练，但 RL
+需要创新性地定义奖励。</li>
+</ul></li>
+<li><strong>模型架构适配</strong>：DeepSeek-R1 的 MoE（专家混合）和
+MLE（可能指最大似然估计或其他改造）需要调整以适应图像特征和 DETR
+的结构。</li>
+</ol>
+<h4 id="可能的解决方案">可能的解决方案</h4>
+<ul>
+<li><strong>输入适配</strong>：用 CNN 提取图像特征后，输入到修改后的
+Transformer 中，类似于 DETR 的做法。</li>
+<li><strong>输出调整</strong>：让 Transformer
+输出边界框和类别，而不是文本。</li>
+<li><strong>RL 应用</strong>：可以将 DETR 的解码器每层视为 RL
+的一步，基于中间预测的准确度定义奖励；或者用 RL 优化整体检测性能。</li>
+<li><strong>架构整合</strong>：尝试将 DeepSeek-R1 的 MoE
+和其他优化应用到 DETR 的 Transformer 层，实验验证效果。</li>
+</ul>
+<h4 id="一个意外的细节">一个意外的细节</h4>
+<p>你可能没想到，RL 在目标检测中已有一些研究，比如用 RL
+决定图像的分辨率或选择感兴趣区域，但直接迁移 DeepSeek-R1 的 RL 方法到
+DETR 仍需创新。</p>
+<hr />
+<hr />
+<h3 id="详细报告">详细报告</h3>
+<h4 id="引言">引言</h4>
+<p>DeepSeek-R1 是一种由 DeepSeek 公司开发的开源语言模型，2025 年 1
+月发布，旨在提升推理能力，性能可与 OpenAI 的 o1
+模型媲美。它采用强化学习（RL）和监督微调（SFT）训练，结合 Mixture of
+Experts（MoE）和可能的 Multi-Head Latent Attention（MLE）改造的
+Transformer 架构，表现出色。你希望将这些组件迁移到目标检测任务，并结合
+DETR（Detection
+Transformer）完成目标检测。目标检测是计算机视觉任务，需要从图像中定位和分类对象（如边界框和类别标签），与语言模型的文本生成任务有显著差异。由于输入从
+Token
+变为图像，迁移会面临多方面挑战。本报告将详细分析问题和解决方案，供你参考。</p>
+<h4 id="背景与相关研究">背景与相关研究</h4>
+<p>DeepSeek-R1 的核心是语言模型，处理文本输入，输出生成序列。它使用 RL
+直接优化推理能力，无需 SFT 作为初步步骤（如 DeepSeek-R1-Zero），或结合
+SFT 和 RL（如 DeepSeek-R1），在数学、代码和推理任务上表现优异。DETR
+是一种基于 Transformer 的目标检测模型，采用 CNN 提取图像特征后，通过
+Transformer
+编码器和解码器输出一组边界框和类别标签，解决了传统检测方法的多阶段问题。</p>
+<p>迁移到目标检测需要解决输入模态（文本 vs 图像）、任务目标（生成 vs
+检测）和训练方法的适配性。已有研究表明，RL
+可用于目标检测，如决定图像分辨率或选择感兴趣区域，但直接将 DeepSeek-R1
+的 RL 方法应用于 DETR 尚无明确案例。</p>
+<h4 id="迁移存在的难点">迁移存在的难点</h4>
+<p>以下是详细分析的挑战，分为五个方面：</p>
+<ol type="1">
+<li><strong>输入模态差异</strong>：
+<ul>
+<li><strong>问题</strong>：DeepSeek-R1 的 Transformer 设计为处理 Token
+序列，依赖自注意力机制和位置编码。而目标检测的输入是图像（像素矩阵），无天然
+Token 结构。即使结合 DETR，DETR 使用 CNN 提取特征后输入
+Transformer，特征表示与 NLP 的 Token 嵌入不完全兼容。</li>
+<li><strong>影响</strong>：直接迁移 DeepSeek 的 Transformer
+可能无法有效处理图像特征，尤其是其注意力机制和位置编码可能不适合二维空间数据。</li>
+</ul></li>
+<li><strong>任务目标差异</strong>：
+<ul>
+<li><strong>问题</strong>：DeepSeek-R1 核心是生成推理过程（如
+Chain-of-Thought,
+CoT）或文本输出，而目标检测需要输出边界框坐标和类别标签。RL 和 SFT 在
+DeepSeek
+中优化推理能力，但在目标检测中需要重新定义奖励函数和监督信号。</li>
+<li><strong>影响</strong>：RL 需要适配检测任务的损失函数（如 DETR
+的二分匹配损失），与语言模型的交叉熵损失差异较大。SFT
+虽可直接用检测数据集训练，但效果需验证。</li>
+</ul></li>
+<li><strong>RL 应用的复杂性</strong>：
+<ul>
+<li><strong>问题</strong>：在 DeepSeek-R1 中，RL
+用于优化推理步骤，模型生成序列并基于最终答案正确性给予奖励。在目标检测中，输出是一组检测结果，无明显“推理步骤”。如何定义
+RL 的状态、动作和奖励是个难题。</li>
+<li><strong>影响</strong>：现有研究（如 <a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2208.04511">Reinforcement Learning for
+Object Detection</a>）多用于引导区域选择或分辨率调整，难以直接映射到
+DETR 的整体训练。</li>
+</ul></li>
+<li><strong>模型架构适配性</strong>：
+<ul>
+<li><strong>问题</strong>：DeepSeek-R1 使用
+DeepSeek-MoE（专家混合）和可能的 MLE（可能指 Multi-Head Latent Attention
+或最大似然估计）改造 Transformer。MoE
+通过专家选择动态分配计算资源，但其在视觉任务中的效果未广泛验证。MLE
+优化注意力机制，可能不适合 DETR 的编码器-解码器结构。</li>
+<li><strong>影响</strong>：需要重新设计专家选择策略和注意力计算，以适应图像特征的二维空间特性。</li>
+</ul></li>
+<li><strong>训练数据与效率</strong>：
+<ul>
+<li><strong>问题</strong>：目标检测需要大量标注数据（如 COCO
+数据集），而 DeepSeek-R1
+的训练数据是文本，数据格式和规模差异可能影响迁移效果。</li>
+<li><strong>影响</strong>：SFT 训练可能需要更多计算资源，RL
+训练可能因奖励函数设计不佳而收敛困难。</li>
+</ul></li>
+</ol>
+<h4 id="可能的解决方案-1">可能的解决方案</h4>
+<p>针对上述挑战，以下是详细的解决方案建议：</p>
+<ol type="1">
+<li><strong>输入适配</strong>：
+<ul>
+<li>使用 CNN（如 ResNet）提取图像特征，生成特征图后输入
+Transformer，类似于 DETR 的做法。确保位置编码适应图像的二维空间，可参考
+DETR 的绝对或相对位置编码方法。</li>
+<li>例如，DETR 使用固定数量的对象查询（object
+queries）初始化解码器，可尝试将 DeepSeek-R1
+的嵌入层替换为图像特征嵌入。</li>
+</ul></li>
+<li><strong>输出调整</strong>：
+<ul>
+<li>修改 Transformer
+的输出层，使其预测边界框坐标（通常用回归损失）和类别概率（用分类损失），而不是生成
+Token。DETR 使用匈牙利算法匹配预测和真实框，可沿用此方法。</li>
+<li>确保输出格式与 DETR 兼容，输出为一组固定大小的预测结果。</li>
+</ul></li>
+<li><strong>RL 应用的创新</strong>：
+<ul>
+<li>将 DETR 的解码器每层视为 RL
+的一步，定义状态为当前层的对象查询，动作为更新查询，奖励为当前预测与真实框的
+IoU（交并比）或分类准确度。</li>
+<li>或者，RL 优化整体模型，奖励函数基于最终检测性能（如
+mAP），使用策略梯度方法（如 PPO）训练。</li>
+<li>参考现有研究（如 <a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/1912.03966">Efficient Object Detection in
+Large Images using Deep RL</a>），探索 RL
+在区域选择或检测精度的辅助作用。</li>
+</ul></li>
+<li><strong>架构整合</strong>：
+<ul>
+<li>将 DeepSeek-MoE 应用到 DETR 的 Transformer
+层，动态分配计算资源给不同对象查询，潜在提升效率。</li>
+<li>如果 MLE 指最大似然估计，可在 SFT
+阶段优化模型参数；若指注意力改造，则需实验验证其在图像特征上的效果。</li>
+<li>确保 MoE 和 MLE 的设计适应 DETR
+的编码器-解码器结构，可能需要调整专家选择策略。</li>
+</ul></li>
+<li><strong>训练与验证</strong>：
+<ul>
+<li>使用目标检测数据集（如 <a target="_blank" rel="noopener" href="https://cocodataset.org/">COCO
+Dataset</a>）进行 SFT，训练模型预测边界框和类别。</li>
+<li>RL 训练可结合 SFT 后进行，初始模型从 SFT
+结果开始，逐步优化奖励函数。</li>
+<li>进行消融实验，比较标准 DETR、加入 MoE 的 DETR 和加入 RL 的 DETR
+性能，评估迁移效果。</li>
+</ul></li>
+</ol>
+<h4 id="实验建议与未来方向">实验建议与未来方向</h4>
+<ul>
+<li><strong>实验设计</strong>：首先在小规模数据集（如 PASCAL
+VOC）验证迁移效果，再扩展到大型数据集（如 COCO）。比较不同 RL
+奖励函数（如 IoU vs mAP）对性能的影响。</li>
+<li><strong>未来研究</strong>：探索 RL 在 DETR
+解码器中的逐层优化，是否能模拟 DeepSeek-R1 的推理步骤；研究 MoE
+在多对象检测中的扩展性。</li>
+<li><strong>工具与资源</strong>：利用 Hugging Face 的 DETR 实现（如 <a
+target="_blank" rel="noopener" href="https://huggingface.co/docs/transformers/model_doc/detr">Hugging
+Face DETR</a>）和 DeepSeek-R1 的开源代码，加速开发。</li>
+</ul>
+<h4 id="对比表挑战与解决方案">对比表：挑战与解决方案</h4>
+<table>
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 39%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>挑战</strong></th>
+<th><strong>问题描述</strong></th>
+<th><strong>解决方案</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>输入模态差异</td>
+<td>文本 vs 图像，Transformer 不适应图像特征</td>
+<td>用 CNN 提取特征，输入 Transformer，调整位置编码</td>
+</tr>
+<tr class="even">
+<td>任务目标差异</td>
+<td>生成文本 vs 预测框和类别</td>
+<td>修改输出层，适配 DETR 的二分匹配损失</td>
+</tr>
+<tr class="odd">
+<td>RL 应用复杂性</td>
+<td>难以定义状态、动作和奖励</td>
+<td>将解码器层视为 RL 步骤，基于 IoU 或 mAP 定义奖励</td>
+</tr>
+<tr class="even">
+<td>模型架构适配性</td>
+<td>MoE 和 MLE 不一定适合图像任务</td>
+<td>实验整合 MoE 到 DETR，验证 MLE 效果</td>
+</tr>
+<tr class="odd">
+<td>训练数据与效率</td>
+<td>数据格式差异，RL 可能收敛困难</td>
+<td>用目标检测数据集 SFT，RL 结合 SFT 逐步优化</td>
+</tr>
+</tbody>
+</table>
+<h4 id="结论">结论</h4>
+<p>迁移 DeepSeek-R1
+的组件到目标检测任务是可行的，但需要解决输入、任务和训练方法的适配问题。通过
+CNN 特征提取、输出层修改和创新的 RL 应用，可以克服这些挑战。建议你从 SFT
+开始，逐步引入 RL 和
+MoE，结合实验验证效果。这将是一个探索性强的工作，可能为目标检测领域带来新视角。</p>
+<hr />
+<h4 id="关键引用">关键引用</h4>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://huggingface.co/deepseek-ai/DeepSeek-R1">DeepSeek-R1
+详细介绍</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://huggingface.co/docs/transformers/model_doc/detr">DETR
+模型文档</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/2208.04511">强化学习在目标检测中的应用</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/1912.03966">高效目标检测中使用深度强化学习</a></li>
+<li><a target="_blank" rel="noopener" href="https://cocodataset.org/">COCO 数据集官网</a></li>
+</ul>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/03/13/2025-3-13-%E5%AE%9E%E9%AA%8C%E8%BF%9B%E5%B1%95/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/03/13/2025-3-10-%E4%B8%8D%E6%89%93%E7%AE%97%E4%BD%BF%E7%94%A8KD/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%85%B3%E9%94%AE%E8%A6%81%E7%82%B9"><span class="toc-content-number">1.</span> <span class="toc-content-text">关键要点</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E7%9B%B4%E6%8E%A5%E5%9B%9E%E7%AD%94"><span class="toc-content-number">2.</span> <span class="toc-content-text">直接回答</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-content-number">2.1.</span> <span class="toc-content-text">概述</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E4%B8%BB%E8%A6%81%E6%8C%91%E6%88%98"><span class="toc-content-number">2.2.</span> <span class="toc-content-text">主要挑战</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E5%8F%AF%E8%83%BD%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-content-number">2.3.</span> <span class="toc-content-text">可能的解决方案</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E4%B8%80%E4%B8%AA%E6%84%8F%E5%A4%96%E7%9A%84%E7%BB%86%E8%8A%82"><span class="toc-content-number">2.4.</span> <span class="toc-content-text">一个意外的细节</span></a></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E8%AF%A6%E7%BB%86%E6%8A%A5%E5%91%8A"><span class="toc-content-number">3.</span> <span class="toc-content-text">详细报告</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E5%BC%95%E8%A8%80"><span class="toc-content-number">3.1.</span> <span class="toc-content-text">引言</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E8%83%8C%E6%99%AF%E4%B8%8E%E7%9B%B8%E5%85%B3%E7%A0%94%E7%A9%B6"><span class="toc-content-number">3.2.</span> <span class="toc-content-text">背景与相关研究</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E8%BF%81%E7%A7%BB%E5%AD%98%E5%9C%A8%E7%9A%84%E9%9A%BE%E7%82%B9"><span class="toc-content-number">3.3.</span> <span class="toc-content-text">迁移存在的难点</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E5%8F%AF%E8%83%BD%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88-1"><span class="toc-content-number">3.4.</span> <span class="toc-content-text">可能的解决方案</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E5%AE%9E%E9%AA%8C%E5%BB%BA%E8%AE%AE%E4%B8%8E%E6%9C%AA%E6%9D%A5%E6%96%B9%E5%90%91"><span class="toc-content-number">3.5.</span> <span class="toc-content-text">实验建议与未来方向</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E5%AF%B9%E6%AF%94%E8%A1%A8%E6%8C%91%E6%88%98%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-content-number">3.6.</span> <span class="toc-content-text">对比表：挑战与解决方案</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E7%BB%93%E8%AE%BA"><span class="toc-content-number">3.7.</span> <span class="toc-content-text">结论</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E5%85%B3%E9%94%AE%E5%BC%95%E7%94%A8"><span class="toc-content-number">3.8.</span> <span class="toc-content-text">关键引用</span></a></li></ol></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>
