@@ -1,14 +1,15 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="这几天一直在看Reinforcement Learning。是的，我的框架还没搭好，原因是看的太浅了，不了解RL的一些执行细节，虽然之前有看过Markov Process，但是又是一段时间过去了，忘的都差不多了。  难绷，一直在补坑。。。 这个补完了：AI Agent介绍">
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="3.28： 难绷，一直在补坑。。。 这个补完了：AI Agent介绍 3.29： 这几天一直在看Reinforcement Learning。是的，我的框架还没搭好，原因是看的太浅了，不了解RL的一些执行细节，虽然之前有看过Markov Process，但是又是一段时间过去了，忘的都差不多了。 于是来写RL的一些东西。参考来自于李宏毅的RL介绍。  Reinforcemen">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2025-3-28&#x2F;29-RL简介">
 <meta property="og:url" content="http://example.com/2025/03/28/2025-3-28-RL%E7%AE%80%E4%BB%8B/index.html">
 <meta property="og:site_name" content="Schwertlilien">
-<meta property="og:description" content="这几天一直在看Reinforcement Learning。是的，我的框架还没搭好，原因是看的太浅了，不了解RL的一些执行细节，虽然之前有看过Markov Process，但是又是一段时间过去了，忘的都差不多了。  难绷，一直在补坑。。。 这个补完了：AI Agent介绍">
+<meta property="og:description" content="3.28： 难绷，一直在补坑。。。 这个补完了：AI Agent介绍 3.29： 这几天一直在看Reinforcement Learning。是的，我的框架还没搭好，原因是看的太浅了，不了解RL的一些执行细节，虽然之前有看过Markov Process，但是又是一段时间过去了，忘的都差不多了。 于是来写RL的一些东西。参考来自于李宏毅的RL介绍。  Reinforcemen">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-03-28T14:15:53.000Z">
-<meta property="article:modified_time" content="2025-03-29T16:25:56.753Z">
+<meta property="article:modified_time" content="2025-03-31T16:03:31.505Z">
 <meta property="article:author" content="Schwertlilien">
 <meta property="article:tag" content="每天の学习日记">
+<meta property="article:tag" content="强化学习">
 <meta name="twitter:card" content="summary"><title>2025-3-28/29-RL简介 - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
 <link rel="stylesheet" href="/css/style.css" id="dm-light">
 
@@ -21,19 +22,129 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
 <!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
-<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-3-28/29-RL简介</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-03-28</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-03-30</time></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-3-28/29-RL简介</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-03-28</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-04-01</time></div>
 
-<div class="post-tags"><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E6%AF%8F%E5%A4%A9%E3%81%AE%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/">每天の学习日记</a></div></div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
-<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约81字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><blockquote>
-<p>这几天一直在看Reinforcement
-Learning。是的，我的框架还没搭好，原因是看的太浅了，不了解RL的一些执行细节，虽然之前有看过Markov
-Process，但是又是一段时间过去了，忘的都差不多了。</p>
-</blockquote>
+<div class="post-tags"><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E6%AF%8F%E5%A4%A9%E3%81%AE%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/">每天の学习日记</a><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/">强化学习</a></div></div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约1.2K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><blockquote>
+<p>3.28：</p>
 <p>难绷，一直在补坑。。。</p>
 <p>这个补完了：<a
 target="_blank" rel="noopener" href="http://localhost:4000/2025/03/21/2025-3-21-AI-Agent/">AI
 Agent介绍</a></p>
-</div><div class="post-end"><div class="post-prev"></div><div class="post-next"><a href="/2025/03/27/2025-3-27-%E5%AE%9E%E9%AA%8C/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+<p>3.29：</p>
+<p>这几天一直在看Reinforcement
+Learning。是的，我的框架还没搭好，原因是看的太浅了，不了解RL的一些执行细节，虽然之前有看过Markov
+Process，但是又是一段时间过去了，忘的都差不多了。</p>
+<p>于是来写RL的一些东西。参考来自于李宏毅的RL介绍。</p>
+</blockquote>
+<h1 id="reinforcement-learning">Reinforcement Learning</h1>
+<p><strong>一句话介绍：不知道正确的答案，借由与环境互动、根据得到的奖励知道：什么是好的、什么是不好的。</strong></p>
+<blockquote>
+<p>区分ML/RL:</p>
+<ul>
+<li>ML：找一个function(映射输入/输出)--&gt;定义loss函数--&gt;最优化</li>
+<li>RL：代理或是叫智能体(Agent)与环境(Env)互动(Observation/Action)，相互影响(Reward)</li>
+</ul>
+</blockquote>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250331201956789.png"
+alt="RL最初用于做游戏比较多" />
+<figcaption aria-hidden="true">RL最初用于做游戏比较多</figcaption>
+</figure>
+<h2 id="介绍一些术语">介绍一些术语</h2>
+<p>Actor/Agent：执行动作的主体，叫做代理或是智能体(下文都称之为智能体)。</p>
+<p>Environment：外部的环境。既会影响智能体的行为、又会被智能体执行的行为所影响。</p>
+<p>Observation/State：智能体通过环境得到现在的外部的状态、或许还包括了过去对外部状态的观测。</p>
+<p>Action：智能体决定执行的动作、会影响到外部的环境。</p>
+<p>Policy：智能体A不同于其他智能体B，对于智能体如何决定执行的动作、以及动作又会怎么影响环境(Reward)的整体。可以说是整个模型。通过Reward的optimization可以更新。</p>
+<p>Episode：一个episode指的是一句游戏从开始到结束、其中经过的所有的状态以及动作的时间。可以得到一系列<span
+class="math inline">\(\{s,a\}\)</span>(状态-动作)的集合。</p>
+<p>Trajectory：指一个智能体在环境中进行了一系列动作是所经历的状态、动作、奖励的序列。一般是一个episode可以得到的一系列<span
+class="math inline">\(\{s,a\}\)</span>的集合是一个Trajectory。用于训练智能体、学习从状态到动作、最终最大化总体奖励。</p>
+<p>Reward：抽象的程度比较高，总的来说就是批判智能体执行当前动作的评价标准。与此相关的概念有：</p>
+<ol type="1">
+<li>discount cumculated function: 在状态<span
+class="math inline">\(s\)</span>下采取动作<span
+class="math inline">\(a\)</span>后，期望获得多少的奖励。</li>
+<li>value function：在状态<span
+class="math inline">\(s\)</span>下，无论采取什么动作，期望的奖励是多少（对于当前状态的评估，一般是平均期望奖励）。</li>
+<li>Advantage function：<span
+class="math inline">\(A(s,a)\)</span>表示某个特定动作<span
+class="math inline">\(a\)</span>相对于其他动作的优劣程度。</li>
+</ol>
+<h2 id="rl与ml之间的联系">RL与ML之间的联系</h2>
+<p>对于强化学习来说，实际上比较类似于分类任务，对于给定的输入in:Env--&gt;Observation/State，预测out:Action。并给出不同Action的置信度(然后Agent按照不同Action得到的置信度sample、从Action的distribution中sample)。</p>
+<blockquote>
+<p>要是输入是img，那么和ML也没什么不同。</p>
+</blockquote>
+<p><span class="math display">\[
+\text{Action}=f(\text{Observation})
+\]</span></p>
+<p><strong>目标</strong>: 找到最佳policy(model),<span
+class="math inline">\(\max\text{Reward}\)</span>。</p>
+<blockquote>
+<p>对于<span
+class="math inline">\(f\)</span>，假如输入是图片、那么需要使用CNN/ViT提取特征；</p>
+<p>假如我们想更进一步看到历史的图片，那么可能会选取RNN提取特征。</p>
+</blockquote>
+<p><strong>定义loss</strong></p>
+<p>对于RL：经过observation: <span
+class="math inline">\(s_1,s_2,\dots,s_T\)</span>(<span
+class="math inline">\(T\)</span>时间游戏结束)，在时间<span
+class="math inline">\(t\)</span>下施加动作<span
+class="math inline">\(a_t\)</span>,得到奖励<span
+class="math inline">\(r_t\)</span></p>
+<p>计算总奖励: <span class="math inline">\(R=\sum^T_{t=1}r_t\)</span>,
+目标(loss func): <span class="math inline">\(\max R\)</span></p>
+<p><strong>最优化</strong>：根据R的值，例如梯度下降更新policy。</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250331233352045.png"
+alt="image-20250331233352045" />
+<figcaption aria-hidden="true">image-20250331233352045</figcaption>
+</figure>
+<p><strong>此过程中存在的问题？为什么RL那么难训看人品？</strong></p>
+<ol type="1">
+<li>sample具有随机性：动作必须要随机sample，要保证会有没出现过的动作，</li>
+<li>Env，Reward，是黑盒(里面是什么不知道)：Env给出对应回应，Reward给出分数，不知道依据什么给出回应。</li>
+<li>Env/Reward也具有随机性(随着Action的随机)</li>
+<li><strong>重点：如何求解最优化问题？</strong></li>
+</ol>
+<blockquote>
+<p>RL的过程会有点像GAN：</p>
+<ul>
+<li>Env: Discriminator</li>
+<li>Agent: Generator</li>
+</ul>
+</blockquote>
+<h2 id="如何操控agent输出">如何操控Agent输出</h2>
+<p>在给定的State下，有两种可能行为：</p>
+<ul>
+<li>一定采取行动<span class="math inline">\(a\)</span></li>
+<li>一定不要采取行动<span class="math inline">\(a\)</span></li>
+</ul>
+<blockquote>
+<p>注意：是会采取行动<span
+class="math inline">\(a\)</span>，也会采取行动<span
+class="math inline">\(b\)</span>；明晰此处的不要采取行动<span
+class="math inline">\(a\)</span>,说明会采取<span
+class="math inline">\(a\)</span>以外动作的可能性。</p>
+</blockquote>
+<p>这是我们能够得到的训练数据（收敛了在不同<span
+class="math inline">\(s\)</span>下采取了动作<span
+class="math inline">\(a\)</span>/以及不想采取某动作）</p>
+<figure>
+<img
+src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250401000256422.png"
+alt="image-20250401000256422" />
+<figcaption aria-hidden="true">image-20250401000256422</figcaption>
+</figure>
+<p>对于Agent，输入State <span
+class="math inline">\(s\)</span>，输出Action <span
+class="math inline">\(a\)</span>。输出动作与Ground
+truth之间可以计算交叉熵，这样就有loss，再对loss求梯度下降。</p>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/04/01/2025-4-1-%E7%BB%A7%E7%BB%AD%E5%AE%9E%E9%AA%8C/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/03/27/2025-3-27-%E5%AE%9E%E9%AA%8C/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#reinforcement-learning"><span class="toc-content-number">1.</span> <span class="toc-content-text">Reinforcement Learning</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%BA%9B%E6%9C%AF%E8%AF%AD"><span class="toc-content-number">1.1.</span> <span class="toc-content-text">介绍一些术语</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#rl%E4%B8%8Eml%E4%B9%8B%E9%97%B4%E7%9A%84%E8%81%94%E7%B3%BB"><span class="toc-content-number">1.2.</span> <span class="toc-content-text">RL与ML之间的联系</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E5%A6%82%E4%BD%95%E6%93%8D%E6%8E%A7agent%E8%BE%93%E5%87%BA"><span class="toc-content-number">1.3.</span> <span class="toc-content-text">如何操控Agent输出</span></a></li></ol></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
   tex2jax: {
     inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
     displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
