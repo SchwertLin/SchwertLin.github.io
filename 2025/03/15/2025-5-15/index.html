@@ -6,7 +6,7 @@
 <meta property="og:description" content="背景   现有目标检测方法在理想场景下表现优异 复杂菜品混合场景是“真实世界”的挑战（遮挡、混合、模糊） 提出 RL-DETR，增强 query 演化能力，泛化到复杂场景   目前与食品有关的目标检测数据集都是不同的菜品之间本身分割的比较开，因此预测bbox并不困难，而且因为不同的菜品放在不同的碗里，导致识别bbox的准确度非常高，导致对一张图片中的菜品进行检测就近似于图像分类任务">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-03-15T02:07:53.000Z">
-<meta property="article:modified_time" content="2025-05-15T12:05:59.135Z">
+<meta property="article:modified_time" content="2025-05-26T12:34:07.291Z">
 <meta property="article:author" content="Schwertlilien">
 <meta property="article:tag" content="目标检测">
 <meta name="twitter:card" content="summary"><title>2025-5-15 - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
@@ -21,7 +21,7 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
 <!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
-<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-5-15</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-03-15</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-05-15</time></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-5-15</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-03-15</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-05-26</time></div>
 <div class="post-categories"><i class="icon fa-regular fa-folder-open" title="分类"></i><a class="post-category" href="/categories/%E5%B7%A5%E4%BD%9C/">工作</a></div>
 <div class="post-tags"><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/">目标检测</a></div></div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
 <div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约4.1K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><h2 id="背景">背景</h2>
@@ -49,16 +49,17 @@
 <p><em>此处就带一下DETR，类似于：我们将目标检测方法划分为了单阶段、双阶段、以及端到端的方法。单阶段目前有……，双阶段目前有……，针对于端到端，主要来源于2020提出的DETR，近五年也有不少对其的改进工作。[1,2,3,4,5,6]</em></p>
 </blockquote></li>
 <li><p>DETR方法：对端到端的方法进行详细的介绍，<em>但是所有这些方法都不涉及到基于强化学习进行目标检测。这是一个全新的方法，具有一些优点……</em></p></li>
+<li><p>利用强化学习进行目标检测</p></li>
 </ol>
 <h2 id="方法">方法</h2>
-<p>为针对一个餐盘中不同菜品之间存在混合、覆盖的情况中对不同菜品进行目标检测，本工作针对复杂场景下的菜品检测任务，提出一种基于Reinforcement
+<p>针对一个餐盘中不同菜品之间存在混合、覆盖的情况，对不同菜品进行目标检测。本工作针对复杂场景下的菜品检测任务，提出一种基于Reinforcement
 Learning的Transformer目标检测方法。该方法将DETR结构中的查询更新过程建模为序列决策问题，引入高斯策略与奖励函数，通过RL框架优化解码器更新策略，提升模型在菜品混合、遮挡、边界模糊等复杂场景中的检测能力。</p>
 <blockquote>
 <p>目标：借助大量“清晰边界”数据与少量“混合遮挡”数据，提升在<strong>复杂遮挡场景下的目标检测性能</strong>。<strong>小样本复杂场景泛化</strong>是<strong>从“理想检测分布”泛化到“复杂检测分布”的问题</strong>:
 首先找到中菜的粗略数据分布的地方、然后依靠复杂的混合菜品图片，对数据分布进行更细致地定位。
 1. <strong>不改变整体类别空间</strong>（例如仍然是中餐、常见菜品） 2.
 <strong>但显著增加目标检测任务的感知难度</strong>：如遮挡、密集、小目标、模糊边界
-3. <strong>而你的混合菜图片少，构成小样本</strong> 4.
+3. <strong>而混合菜图片少，构成小样本</strong> 4.
 <strong>目标检测模型需具备一定跨场景适应能力</strong>：<a
 target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/662460314">跨域vs跨场景</a></p>
 </blockquote>
@@ -89,7 +90,7 @@ dim，通常为 256 / 512 / 768）</li>
 <li><span class="math inline">\(B\)</span>：batch size</li>
 <li><span class="math inline">\(L\)</span>：解码器层数（如 6）</li>
 </ul>
-<h4 id="模型各模块输入输出维度">模型各模块输入输出维度</h4>
+<h4 id="模型各模块输入输出维度hybr">模型各模块输入输出维度hybr</h4>
 <table>
 <colgroup>
 <col style="width: 15%" />
@@ -272,15 +273,17 @@ object query；</li>
 <li><span class="math inline">\(W_{\text{cls}}\)</span>
 是线性分类头参数。</li>
 </ul>
-<p>接着你使用 <strong>Hungarian Matching</strong> 算法将每个预测与 GT
+<p>使用 <strong>Hungarian Matching</strong> 算法将每个预测与 GT
 匹配，得到匹配对 <span class="math inline">\((j, t_j)\)</span>，其中
-<span class="math inline">\(t_j\)</span> 是对应的真实类别。</p>
-<p>然后分类损失为：</p>
+<span class="math inline">\(t_j\)</span>
+是对应的真实类别。然后分类损失为：</p>
 <p><span class="math display">\[
 \mathcal{L}^{\text{cls}}_i = \frac{1}{N} \sum_{j=1}^{N}
 \text{CE}(p_i^{(j)}, t_j)
 \]</span></p>
-<p>也可引入 no-object 类别（background 类别），以处理未匹配查询。</p>
+<blockquote>
+<p>可引入 no-object 类别（background 类别），以处理未匹配查询。</p>
+</blockquote>
 <p>同样地，每个查询 <span class="math inline">\(q_i^{(j)}\)</span>
 会预测一个边界框：</p>
 <p><span class="math display">\[
@@ -349,7 +352,7 @@ A_k^i,\,
 \]</span></p>
 <h5 id="当前策略-pi_thetao_kq_k">当前策略 <span
 class="math inline">\(\pi_\theta(o_k|q_k)\)</span></h5>
-<p>你每一层 decoder 输出：</p>
+<p>每一层 decoder 输出：</p>
 <ul>
 <li><span class="math inline">\(\mu_k = W_\mu h_k\)</span>，</li>
 <li><span class="math inline">\(\log \sigma_k^2 = W_\sigma
@@ -364,13 +367,13 @@ o_k = q_{k+1} = \mu_k + \epsilon \cdot \sigma_k, \quad \epsilon \sim
 <p><span class="math display">\[
 \pi_\theta(o_k|q_k) = \mathcal{N}(o_k;\, \mu_k, \sigma_k^2)
 \]</span></p>
-<p>这是一个多维高斯分布（注意是独立维度），其对数概率为：</p>
+<p>这是多维高斯分布（注意是独立维度），其对数概率为：</p>
 <p><span class="math display">\[
 \log \pi_\theta(o_k|q_k) = -\frac{1}{2} \sum_j \left[ \frac{(o_k^j -
 \mu_k^j)^2}{\sigma_k^{j\,2}} + \log \sigma_k^{j\,2} \right] +
 \text{const}
 \]</span></p>
-<p>你用这个公式就可以计算当前策略和旧策略的比值：</p>
+<p>用这个公式计算当前策略和旧策略的比值：</p>
 <p><span class="math display">\[
 r_k^i = \exp\left( \log \pi_\theta(o_k^i|q_k^i) - \log
 \pi_{\theta_{\text{old}}}(o_k^i|q_k^i) \right)
@@ -394,7 +397,7 @@ KL」，等价于：</p>
 \mathbb{D}_{\text{KL}}(\pi_\theta(\cdot|q_k^i) \|
 \delta(q_{k+1}^{\text{ref}})) = -H(\pi_\theta) \text{（最大似然形式）}
 \]</span></p>
-<p>但更常见做法是用 <span
+<p>更常见做法是用 <span
 class="math inline">\(\pi_{\theta_{\text{old}}}\)</span> 作为参考，即
 PPO 中标准做法。</p>
 <h3 id="模型训练">模型训练</h3>
@@ -437,8 +440,7 @@ q_{k+1}^i\)</span>，其分布为多维独立高斯：</p>
 <p><span class="math display">\[
 \pi_\theta(o_i|q_k) = \mathcal{N}(o_i; \mu_k, \sigma_k^2)
 \]</span></p>
-<p>你可以用标准高斯公式，逐维计算 log
-概率，然后指数差值得到策略比值：</p>
+<p>使用标准高斯公式，逐维计算 log 概率，然后指数差值得到策略比值：</p>
 <p><span class="math display">\[
 r_i = \frac{\pi_\theta(o_i|q_k)}{\pi_{\theta_{\text{old}}}(o_i|q_k)} =
 \exp\left( \log \pi_\theta(o_i|q_k) - \log
@@ -446,7 +448,7 @@ r_i = \frac{\pi_\theta(o_i|q_k)}{\pi_{\theta_{\text{old}}}(o_i|q_k)} =
 \]</span></p>
 <blockquote>
 <p>注意：<span class="math inline">\(\pi_{\theta_{\text{old}}}\)</span>
-表示动作采样时使用的旧参数，因此你在训练中需要缓存在 buffer 中。</p>
+表示动作采样时使用的旧参数，因此在训练中需要缓存在 buffer 中。</p>
 </blockquote>
 <p><strong>计算奖励</strong> <span
 class="math inline">\(r_k^i\)</span></p>
@@ -486,7 +488,7 @@ L_{\text{GPRO}} = \frac{1}{G} \sum_{i=1}^G
 \right]
 \]</span></p>
 <h5 id="第-3-步反向传播与更新">第 3 步：反向传播与更新</h5>
-<p>你可以使用 PyTorch 的标准反向传播机制：</p>
+<p>使用 PyTorch 的标准反向传播机制：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">optimizer.zero_grad()</span><br><span class="line">loss.backward()</span><br><span class="line">optimizer.step()</span><br></pre></td></tr></table></figure>
 <h4 id="需要优化的参数">需要优化的参数：</h4>
 <ul>
@@ -546,7 +548,7 @@ class="math inline">\(\mathbb{D}_{KL}\)</span>，后期加入以稳定训练</td
 <li>使用复杂目标加权 vs 未加权</li>
 <li>GPRO vs PPO / REINFORCE</li>
 </ul>
-</div><div class="post-end"><div class="post-prev"><a href="/2025/03/15/2025-3-15-%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/03/14/2025-3-14/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-content-number">1.</span> <span class="toc-content-text">背景</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C"><span class="toc-content-number">2.</span> <span class="toc-content-text">相关工作</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E6%96%B9%E6%B3%95"><span class="toc-content-number">3.</span> <span class="toc-content-text">方法</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E6%95%B4%E4%BD%93%E6%A1%86%E6%9E%B6"><span class="toc-content-number">3.1.</span> <span class="toc-content-text">整体框架</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E6%A8%A1%E5%9E%8B%E5%90%84%E6%A8%A1%E5%9D%97%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E7%BB%B4%E5%BA%A6"><span class="toc-content-number">3.1.1.</span> <span class="toc-content-text">模型各模块输入输出维度</span></a></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%9F%BA%E4%BA%8Erl%E7%9A%84loss%E5%87%BD%E6%95%B0%E8%AE%BE%E8%AE%A1"><span class="toc-content-number">3.2.</span> <span class="toc-content-text">基于RL的Loss函数设计</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E7%8A%B6%E6%80%81%E5%AE%9A%E4%B9%89"><span class="toc-content-number">3.2.1.</span> <span class="toc-content-text">状态定义</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E5%8A%A8%E4%BD%9C%E5%AE%9A%E4%B9%89"><span class="toc-content-number">3.2.2.</span> <span class="toc-content-text">动作定义</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E5%A5%96%E5%8A%B1%E8%AE%BE%E8%AE%A1"><span class="toc-content-number">3.2.3.</span> <span class="toc-content-text">奖励设计</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-5"><a class="toc-content-link" href="#%E4%BB%B7%E5%80%BC%E5%87%BD%E6%95%B0-vq_ki"><span class="toc-content-number">3.2.3.1.</span> <span class="toc-content-text">价值函数 \(V(q_k^i)\)</span></a></li></ol></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E4%BC%98%E5%8A%BF%E5%87%BD%E6%95%B0-a_ki"><span class="toc-content-number">3.2.4.</span> <span class="toc-content-text">优势函数 \(A_k^i\)</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%BC%98%E5%8C%96%E7%9B%AE%E6%A0%87"><span class="toc-content-number">3.2.5.</span> <span class="toc-content-text">强化学习优化目标</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-5"><a class="toc-content-link" href="#%E5%BD%93%E5%89%8D%E7%AD%96%E7%95%A5-pi_thetao_kq_k"><span class="toc-content-number">3.2.5.1.</span> <span class="toc-content-text">当前策略 \(\pi_\theta(o_k|q_k)\)</span></a></li><li class="toc-content-item toc-content-level-5"><a class="toc-content-link" href="#kl-%E6%95%A3%E5%BA%A6%E9%A1%B9-mathbbd_textklpi_theta-pi_textref"><span class="toc-content-number">3.2.5.2.</span> <span class="toc-content-text">KL 散度项 \(\mathbb{D}_{\text{KL}}(\pi_\theta \|
+</div><div class="post-end"><div class="post-prev"><a href="/2025/03/15/2025-3-15-%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/03/14/2025-3-14/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-content-number">1.</span> <span class="toc-content-text">背景</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C"><span class="toc-content-number">2.</span> <span class="toc-content-text">相关工作</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E6%96%B9%E6%B3%95"><span class="toc-content-number">3.</span> <span class="toc-content-text">方法</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E6%95%B4%E4%BD%93%E6%A1%86%E6%9E%B6"><span class="toc-content-number">3.1.</span> <span class="toc-content-text">整体框架</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E6%A8%A1%E5%9E%8B%E5%90%84%E6%A8%A1%E5%9D%97%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E7%BB%B4%E5%BA%A6hybr"><span class="toc-content-number">3.1.1.</span> <span class="toc-content-text">模型各模块输入输出维度hybr</span></a></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%9F%BA%E4%BA%8Erl%E7%9A%84loss%E5%87%BD%E6%95%B0%E8%AE%BE%E8%AE%A1"><span class="toc-content-number">3.2.</span> <span class="toc-content-text">基于RL的Loss函数设计</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E7%8A%B6%E6%80%81%E5%AE%9A%E4%B9%89"><span class="toc-content-number">3.2.1.</span> <span class="toc-content-text">状态定义</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E5%8A%A8%E4%BD%9C%E5%AE%9A%E4%B9%89"><span class="toc-content-number">3.2.2.</span> <span class="toc-content-text">动作定义</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E5%A5%96%E5%8A%B1%E8%AE%BE%E8%AE%A1"><span class="toc-content-number">3.2.3.</span> <span class="toc-content-text">奖励设计</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-5"><a class="toc-content-link" href="#%E4%BB%B7%E5%80%BC%E5%87%BD%E6%95%B0-vq_ki"><span class="toc-content-number">3.2.3.1.</span> <span class="toc-content-text">价值函数 \(V(q_k^i)\)</span></a></li></ol></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E4%BC%98%E5%8A%BF%E5%87%BD%E6%95%B0-a_ki"><span class="toc-content-number">3.2.4.</span> <span class="toc-content-text">优势函数 \(A_k^i\)</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%BC%98%E5%8C%96%E7%9B%AE%E6%A0%87"><span class="toc-content-number">3.2.5.</span> <span class="toc-content-text">强化学习优化目标</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-5"><a class="toc-content-link" href="#%E5%BD%93%E5%89%8D%E7%AD%96%E7%95%A5-pi_thetao_kq_k"><span class="toc-content-number">3.2.5.1.</span> <span class="toc-content-text">当前策略 \(\pi_\theta(o_k|q_k)\)</span></a></li><li class="toc-content-item toc-content-level-5"><a class="toc-content-link" href="#kl-%E6%95%A3%E5%BA%A6%E9%A1%B9-mathbbd_textklpi_theta-pi_textref"><span class="toc-content-number">3.2.5.2.</span> <span class="toc-content-text">KL 散度项 \(\mathbb{D}_{\text{KL}}(\pi_\theta \|
 \pi_{\text{ref}})\)</span></a></li></ol></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83"><span class="toc-content-number">3.3.</span> <span class="toc-content-text">模型训练</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E6%A8%A1%E5%9E%8B%E6%9B%B4%E6%96%B0"><span class="toc-content-number">3.3.1.</span> <span class="toc-content-text">模型更新</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-5"><a class="toc-content-link" href="#%E7%AC%AC-1-%E6%AD%A5%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD%E9%87%87%E6%A0%B7%E5%8A%A8%E4%BD%9C"><span class="toc-content-number">3.3.1.1.</span> <span class="toc-content-text">第 1 步：前向传播（采样动作）</span></a></li><li class="toc-content-item toc-content-level-5"><a class="toc-content-link" href="#%E7%AC%AC-2-%E6%AD%A5%E6%9E%84%E5%BB%BA%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%9B%AE%E6%A0%87gpro"><span class="toc-content-number">3.3.1.2.</span> <span class="toc-content-text">第 2
 步：构建强化学习目标（GPRO）</span></a></li><li class="toc-content-item toc-content-level-5"><a class="toc-content-link" href="#%E7%AC%AC-3-%E6%AD%A5%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E4%B8%8E%E6%9B%B4%E6%96%B0"><span class="toc-content-number">3.3.1.3.</span> <span class="toc-content-text">第 3 步：反向传播与更新</span></a></li></ol></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E9%9C%80%E8%A6%81%E4%BC%98%E5%8C%96%E7%9A%84%E5%8F%82%E6%95%B0"><span class="toc-content-number">3.3.2.</span> <span class="toc-content-text">需要优化的参数：</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E5%AE%9E%E9%AA%8Cexperiments"><span class="toc-content-number">3.3.3.</span> <span class="toc-content-text">4. 实验（Experiments）</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E6%B6%88%E8%9E%8D%E5%AE%9E%E9%AA%8C"><span class="toc-content-number">3.3.4.</span> <span class="toc-content-text">5. 消融实验</span></a></li></ol></li></ol></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
   tex2jax: {
