@@ -1,0 +1,109 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="CPEA 话说，感觉《一兆游戏》第一集25.50-30.00这一段配三个人非常easy。  还是先看论文吧Backbone基本上是ResNet12，Dataset：miniImageNet , tieredImageNet, CIFAR-FS, and FC100。   Expr实验细节main.py:python main.py --gpu 0 --way 5 --test_way 5 --sh">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-4-1-继续实验">
+<meta property="og:url" content="http://example.com/2025/04/01/2025-4-1-%E7%BB%A7%E7%BB%AD%E5%AE%9E%E9%AA%8C/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="CPEA 话说，感觉《一兆游戏》第一集25.50-30.00这一段配三个人非常easy。  还是先看论文吧Backbone基本上是ResNet12，Dataset：miniImageNet , tieredImageNet, CIFAR-FS, and FC100。   Expr实验细节main.py:python main.py --gpu 0 --way 5 --test_way 5 --sh">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250401204745641.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250401204953567.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250402101530915.png">
+<meta property="article:published_time" content="2025-04-01T12:15:37.000Z">
+<meta property="article:modified_time" content="2025-04-04T11:05:11.000Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="实验">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250401204745641.png"><title>2025-4-1-继续实验 - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-4-1-继续实验</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-04-01</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-04-04</time></div>
+
+<div class="post-tags"><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E5%AE%9E%E9%AA%8C/">实验</a></div></div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约0.6K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><h1 id="CPEA"><a href="#CPEA" class="headerlink" title="CPEA"></a>CPEA</h1><blockquote>
+<p>话说，感觉《一兆游戏》第一集25.50-30.00这一段配三个人非常easy。</p>
+</blockquote>
+<h2 id="还是先看论文吧"><a href="#还是先看论文吧" class="headerlink" title="还是先看论文吧"></a>还是先看论文吧</h2><p>Backbone基本上是ResNet12，Dataset：miniImageNet , tieredImageNet, CIFAR-FS, and FC100。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250401204745641.png" alt="image-20250401204745641"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250401204953567.png" alt="image-20250401204953567"></p>
+<h2 id="Expr实验细节"><a href="#Expr实验细节" class="headerlink" title="Expr实验细节"></a>Expr实验细节</h2><p>main.py:<code>python main.py --gpu 0 --way 5 --test_way 5 --shot 5 --exp cpea-main-5way-5shot &gt; cpea-main-5way-5shot.txt &amp;</code></p>
+<p>在 GPU0上运行 5-way 5-shot 训练，日志存入 cpea-main-5way-5shot.txt。</p>
+<p><strong>&amp; 放在命令末尾，表示 让 Python 进程在后台运行，这样终端不会被锁定，还可以执行其他命令。</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">parser = argparse.ArgumentParser()</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--max_epoch&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">100</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--way&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">5</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--test_way&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">5</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--shot&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">1</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--query&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">15</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--lr&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">float</span>, default=<span class="number">0.00001</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--lr_mul&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">float</span>, default=<span class="number">100</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--step_size&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, default=<span class="number">5</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--gamma&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">float</span>, default=<span class="number">0.5</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--model_type&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">str</span>, default=<span class="string">&#x27;small&#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--dataset&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">str</span>, default=<span class="string">&#x27;MiniImageNet&#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--init_weights&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">str</span>, default=<span class="string">&#x27;./initialization/miniimagenet/checkpoint1600.pth&#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--gpu&#x27;</span>, default=<span class="string">&#x27;2&#x27;</span>)</span><br><span class="line">parser.add_argument(<span class="string">&#x27;--exp&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">str</span>, default=<span class="string">&#x27;CPEA&#x27;</span>) <span class="comment"># 保存log</span></span><br><span class="line">args = parser.parse_args()</span><br><span class="line">pprint(<span class="built_in">vars</span>(args))</span><br></pre></td></tr></table></figure>
+<p><strong>way (N-way)</strong>：每个 episode 任务包含的类别数（默认 5-way）。</p>
+<p><strong>shot (K-shot)</strong>：每个类别的支持样本数（默认 1-shot）。</p>
+<p><strong>query</strong>：每个类别的查询样本数（默认 15）。</p>
+<p><strong>learning rate (lr)</strong>：默认 <code>1e-5</code>，可能过低，建议调试 <code>1e-4</code> 或 <code>5e-5</code>。</p>
+<p><strong>lr_mul</strong>：用于 <code>CPEA</code> 模型的学习率调整（比 <code>Backbone</code> 大 <code>100</code> 倍）。</p>
+<p><strong>step_size/gamma</strong>：用于 <code>StepLR</code> 调度器，每 <code>5</code> 轮 <code>lr</code> 乘 <code>0.5</code>。</p>
+<p><strong>预训练模型 (<code>init_weights</code>)</strong>：用于 ResNet 预训练特征提取。</p>
+<h2 id="进展"><a href="#进展" class="headerlink" title="进展"></a>进展</h2><blockquote>
+<p>话说电脑已经被西安腌入味了，输入xian的首选是西安了。</p>
+</blockquote>
+<p>结果写好了food101.py之后，然后发现需要预训练权重）</p>
+<p>于是可悲地先下载FewTURE，然后先跑这个ViT的pretrain model。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250402101530915.png" alt="image-20250402101530915"></p>
+<p>快十个小时跑了80个epoch不到，这得跑100h了，悲。</p>
+<blockquote>
+<p>4.4更新：已跑66h，500 epoch</p>
+</blockquote>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/04/04/2025-4-4/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/03/28/2025-3-28-RL%E7%AE%80%E4%BB%8B/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#CPEA"><span class="toc-content-number">1.</span> <span class="toc-content-text">CPEA</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E8%BF%98%E6%98%AF%E5%85%88%E7%9C%8B%E8%AE%BA%E6%96%87%E5%90%A7"><span class="toc-content-number">1.1.</span> <span class="toc-content-text">还是先看论文吧</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#Expr%E5%AE%9E%E9%AA%8C%E7%BB%86%E8%8A%82"><span class="toc-content-number">1.2.</span> <span class="toc-content-text">Expr实验细节</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E8%BF%9B%E5%B1%95"><span class="toc-content-number">1.3.</span> <span class="toc-content-text">进展</span></a></li></ol></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>

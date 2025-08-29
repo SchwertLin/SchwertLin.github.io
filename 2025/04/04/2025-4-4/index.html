@@ -1,0 +1,191 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="训练数据收集初版：  一开始Agent是完全随机、乱给的$\{s,a\}$,记录下来；然后做很多的episodes，得到相当多的数据。  评价每个Action是好还是不好  以评价的结果训练Agent: $\{r_1,r_2,\dots,r_N\}$from$\{s_1,a_1\},\{s_2,a_2\},\dots,\{s_N,a_N\}$  r&#x3D;\begin{cases} &gt;0,&amp;好\\">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-4-4-训练数据的收集、与策略梯度操作">
+<meta property="og:url" content="http://example.com/2025/04/04/2025-4-4/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="训练数据收集初版：  一开始Agent是完全随机、乱给的$\{s,a\}$,记录下来；然后做很多的episodes，得到相当多的数据。  评价每个Action是好还是不好  以评价的结果训练Agent: $\{r_1,r_2,\dots,r_N\}$from$\{s_1,a_1\},\{s_2,a_2\},\dots,\{s_N,a_N\}$  r&#x3D;\begin{cases} &gt;0,&amp;好\\">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-04-04T11:05:25.000Z">
+<meta property="article:modified_time" content="2025-04-10T06:54:30.000Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="每天の学习日记">
+<meta property="article:tag" content="强化学习">
+<meta name="twitter:card" content="summary"><title>2025-4-4-训练数据的收集、与策略梯度操作 - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-4-4-训练数据的收集、与策略梯度操作</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-04-04</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-04-10</time></div>
+<div class="post-categories"><i class="icon fa-regular fa-folder-open" title="分类"></i><a class="post-category" href="/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/">强化学习</a></div>
+<div class="post-tags"><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E6%AF%8F%E5%A4%A9%E3%81%AE%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/">每天の学习日记</a><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/">强化学习</a></div></div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约87字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><h1 id="训练数据收集"><a href="#训练数据收集" class="headerlink" title="训练数据收集"></a>训练数据收集</h1><p>初版：</p>
+<ol>
+<li><p>一开始Agent是完全随机、乱给的$\{s,a\}$,记录下来；然后做很多的episodes，得到相当多的数据。</p>
+</li>
+<li><p>评价每个Action是好还是不好</p>
+</li>
+<li><p>以评价的结果训练Agent: $\{r_1,r_2,\dots,r_N\}$from$\{s_1,a_1\},\{s_2,a_2\},\dots,\{s_N,a_N\}$</p>
+<script type="math/tex; mode=display">
+r=\begin{cases}
+>0,&好\\
+<0,&不好
+\end{cases}</script></li>
+</ol>
+<blockquote>
+<p>缺点：</p>
+<ol>
+<li><strong>短视</strong>：你只奖励了当下表现，而忽略了某些“短期亏损但长期获利”的动作</li>
+<li><strong>断裂式因果链</strong>：$r_1$仅来自于$\{s_1,a_1\}$,$r_2$仅来自于$\{s_2,a_2\}$。在环境是有“状态转移”的情况下，动作 $a_t$ 会影响 $s_{t+1}$，从而影响后续的一系列 $r_{t+1}, r_{t+2}, \dots$，但初版完全忽略了这个“连锁反应”.</li>
+</ol>
+</blockquote>
+<p>进化版：</p>
+<ol>
+<li>$a_1$不仅得到$r_1$，也会影响下次$r_2$（以及后续的rewards）</li>
+<li>延迟奖励：牺牲短期利益、考虑长期利益</li>
+</ol>
+<p>对于当前动作不仅影响当下的reward、也会影响后续的reward。因此提出了Cumulative Reward：</p>
+<p><strong>Cumulative Reward：</strong>$G_t=\sum^N_{n=t}r_n$</p>
+<p>但这存在问题：这个“影响”会存续多久？$r_N$的功劳究竟有多少与$a_1$有关？</p>
+<p><strong>Discounted Cumulative Reward：</strong>在Cumulative Reward基础上添加了decay：</p>
+<script type="math/tex; mode=display">
+G_1'=r_1+\gamma r_2+\gamma^2 r_3+\dots(\gamma<1)\\
+G_t'=\sum^N_{n=t}\gamma^{n-t} r_n</script><blockquote>
+<p>缺点：</p>
+<ol>
+<li><strong>好坏不分“相对”</strong>：$r = 10$ 看起来不错，但如果平均大家都拿 20，那你其实表现很差。</li>
+</ol>
+<p>这就说明：<strong>只看 $G_t’$ 绝对值，不足以说明动作是否好。</strong></p>
+<ol>
+<li><strong>高方差问题</strong>：有时 $G_t’$ 波动非常大（比如因为环境随机性），训练不稳定。</li>
+</ol>
+<p>举个例子：两次相同状态 $s_t$，采取相同动作 $a_t$，但由于环境差异得到的 $G_t’$ 不一样。那我们到底该信谁？怎么训练才稳？</p>
+</blockquote>
+<p>再次进化版：好坏是相对的。</p>
+<p>提出优势函数，建立baseline：</p>
+<script type="math/tex; mode=display">
+A_t=G_t'-b</script><blockquote>
+<p>Q: baseline如何确定？</p>
+<p>value function的确定，见下集。</p>
+</blockquote>
+<h1 id="Policy-Gradient操作"><a href="#Policy-Gradient操作" class="headerlink" title="Policy Gradient操作"></a>Policy Gradient操作</h1><ol>
+<li>随机初始化Agent，得到$\pi_{\theta}^0$</li>
+<li>进入训练迭代epoch: (i=1:T)<ol>
+<li>用$\pi_{\theta}^{i-1}$(Agent)与环境互动</li>
+<li>得到序列数据$\{s_1,a_1\},\{s_2,a_2\},\dots,\{s_N,a_N\}$</li>
+<li>计算$A_1,A_2,\dots,A_N$</li>
+<li>计算loss $\mathcal{L}$</li>
+<li>梯度下降：$\pi_{\theta}^{t}\leftarrow \pi_{\theta}^{t-1}-\eta\mathcal{L}$</li>
+</ol>
+</li>
+</ol>
+<h3 id="注意：数据采集和训练是绑定的"><a href="#注意：数据采集和训练是绑定的" class="headerlink" title="注意：数据采集和训练是绑定的"></a>注意：数据采集和训练是<strong>绑定</strong>的</h3><p>与传统监督学习不同，强化学习中：</p>
+<ul>
+<li>每一轮 epoch 都必须重新从环境中采集新数据（步骤 2.1–2.3 是<strong>无法跳过</strong>的）</li>
+<li>没有现成的 “训练集”，Agent 必须自己探索环境、生成样本</li>
+<li>因此训练开销很大，尤其在复杂环境中（如游戏、机器人等）</li>
+</ul>
+<p>其中2.1、2.2、2.3步骤，每步的计算无法省略：在ML中此步骤在epoch外进行、RL在epoch内进行。也就是说每个epoch都要充头来过，重新收集训练数据。<strong>因此非常耗费时间。</strong></p>
+<h3 id="Policy分类"><a href="#Policy分类" class="headerlink" title="Policy分类"></a>Policy分类</h3><ol>
+<li>On-policy：训练的Agent与环境互动的Agent是同一个。训练使用的数据是由当前策略 $\pi_\theta$ 自己生成的。<ul>
+<li>优点：数据和策略高度匹配</li>
+<li>缺点：每次训练都必须重新采样，<strong>样本浪费大</strong></li>
+</ul>
+</li>
+<li>Off-Policy：两者Agent分开，这样不用每步重新收集训练数据$\{s,a\}$，允许用其他策略生成的数据来训练当前策略。<ul>
+<li>PPO(Proximal Policy Optimization): 训练的Agent<strong>知道</strong>自己与环境交互的Agent不同$\rightarrow$”有些经验可以采纳、而有些不行”</li>
+<li>优点：可以重复利用旧数据，<strong>效率高</strong></li>
+<li>缺点：训练会偏差，需要校正（如使用重要性采样）</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<h3 id="PPO-Proximal-Policy-Optimization"><a href="#PPO-Proximal-Policy-Optimization" class="headerlink" title="PPO (Proximal Policy Optimization)"></a>PPO (Proximal Policy Optimization)</h3><p>介于 on-policy 和 off-policy 之间的“近端优化”方法：</p>
+<ul>
+<li>PPO 训练时，使用的是<strong>过去某个策略 $\pi_{\text{old}}$ 与环境交互的经验</strong></li>
+<li>当前策略 $\pi_\theta$ 在更新时必须满足：<strong>“与旧策略不要差太多”</strong></li>
+<li>用一个 <strong>信任区域或裁剪机制</strong> 控制每次更新步长，防止策略剧烈跳动</li>
+</ul>
+<p>这样就能部分复用旧经验，又保持训练的可靠性。</p>
+</blockquote>
+<h2 id="如何处理只有结尾有-reward-的场景？"><a href="#如何处理只有结尾有-reward-的场景？" class="headerlink" title="如何处理只有结尾有 reward 的场景？"></a>如何处理只有结尾有 reward 的场景？</h2><p>像围棋、象棋这类任务中：</p>
+<ul>
+<li><strong>只有最终胜负</strong>才给出一个明确的 reward（如 +1 / -1）</li>
+<li>中间过程 $r_t = 0$，训练信号极度稀疏，极难学习</li>
+</ul>
+<p>✅ 答案是：<strong>可以处理，但训练难度高</strong>。方法包括：</p>
+<ol>
+<li><strong>自定义中间 reward</strong>：<ul>
+<li>自己构造评估函数（例如局势估值）</li>
+<li>提前给予“启发式奖励”</li>
+</ul>
+</li>
+<li><strong>使用 Value Network（Critic）来辅助</strong>：<ul>
+<li>借助值函数 $V(s)$ 估计未来期望回报</li>
+<li>使得中间状态也能“感知”后续可能发生的奖励</li>
+</ul>
+</li>
+<li><strong>强化学习特化方法（如 AlphaGo）</strong>：<ul>
+<li>使用 Monte Carlo Tree Search 进行 rollout</li>
+<li>引入策略网络 + 值网络，进行监督学习 + 自我博弈训练</li>
+</ul>
+</li>
+</ol>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/04/06/2025-4-6-%E5%AE%9E%E9%AA%8C/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/04/01/2025-4-1-%E7%BB%A7%E7%BB%AD%E5%AE%9E%E9%AA%8C/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#%E8%AE%AD%E7%BB%83%E6%95%B0%E6%8D%AE%E6%94%B6%E9%9B%86"><span class="toc-content-number">1.</span> <span class="toc-content-text">训练数据收集</span></a></li><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#Policy-Gradient%E6%93%8D%E4%BD%9C"><span class="toc-content-number">2.</span> <span class="toc-content-text">Policy Gradient操作</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E6%B3%A8%E6%84%8F%EF%BC%9A%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%92%8C%E8%AE%AD%E7%BB%83%E6%98%AF%E7%BB%91%E5%AE%9A%E7%9A%84"><span class="toc-content-number">2.0.1.</span> <span class="toc-content-text">注意：数据采集和训练是绑定的</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#Policy%E5%88%86%E7%B1%BB"><span class="toc-content-number">2.0.2.</span> <span class="toc-content-text">Policy分类</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#PPO-Proximal-Policy-Optimization"><span class="toc-content-number">2.0.3.</span> <span class="toc-content-text">PPO (Proximal Policy Optimization)</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E5%8F%AA%E6%9C%89%E7%BB%93%E5%B0%BE%E6%9C%89-reward-%E7%9A%84%E5%9C%BA%E6%99%AF%EF%BC%9F"><span class="toc-content-number">2.1.</span> <span class="toc-content-text">如何处理只有结尾有 reward 的场景？</span></a></li></ol></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>

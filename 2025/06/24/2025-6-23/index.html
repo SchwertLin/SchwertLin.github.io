@@ -1,0 +1,106 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="实例分割模型可以转化成目标检测模型？ 1234567891011121314151617181920212223242526from ultralytics import YOLOEimport torch# 步骤 1: 初始化目标检测模型# 根据配置文件 &quot;yoloe-v8l.yaml&quot; 初始化一个新的目标检测模型det_model &#x3D; YOLOE(&quot;yoloe-v">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-6-23-实例分割模型可以转化成目标检测模型？">
+<meta property="og:url" content="http://example.com/2025/06/24/2025-6-23/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="实例分割模型可以转化成目标检测模型？ 1234567891011121314151617181920212223242526from ultralytics import YOLOEimport torch# 步骤 1: 初始化目标检测模型# 根据配置文件 &quot;yoloe-v8l.yaml&quot; 初始化一个新的目标检测模型det_model &#x3D; YOLOE(&quot;yoloe-v">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="c:/Users/%E6%9E%97%E9%A2%90/AppData/Roaming/Typora/typora-user-images/image-20250626214045078.png">
+<meta property="article:published_time" content="2025-06-24T02:32:23.000Z">
+<meta property="article:modified_time" content="2025-06-26T13:40:45.000Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="目标检测">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:/Users/%E6%9E%97%E9%A2%90/AppData/Roaming/Typora/typora-user-images/image-20250626214045078.png"><title>2025-6-23-实例分割模型可以转化成目标检测模型？ - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-6-23-实例分割模型可以转化成目标检测模型？</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-06-24</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-06-26</time></div>
+
+<div class="post-tags"><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/">目标检测</a></div></div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约1.4K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><h1 id="实例分割模型可以转化成目标检测模型？"><a href="#实例分割模型可以转化成目标检测模型？" class="headerlink" title="实例分割模型可以转化成目标检测模型？"></a>实例分割模型可以转化成目标检测模型？</h1><p><img src="C:/Users/%E6%9E%97%E9%A2%90/AppData/Roaming/Typora/typora-user-images/image-20250626214045078.png" alt="image-20250626214045078"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> ultralytics <span class="keyword">import</span> YOLOE</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 步骤 1: 初始化目标检测模型</span></span><br><span class="line"><span class="comment"># 根据配置文件 &quot;yoloe-v8l.yaml&quot; 初始化一个新的目标检测模型</span></span><br><span class="line">det_model = YOLOE(<span class="string">&quot;yoloe-v8l.yaml&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 步骤 2: 加载预训练的实例分割模型的权重</span></span><br><span class="line"><span class="comment"># 使用 torch.load 函数加载预训练的实例分割模型的权重</span></span><br><span class="line">state = torch.load(<span class="string">&quot;yoloe-v8l-seg.pt&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 步骤 3: 将实例分割模型的权重加载到目标检测模型中</span></span><br><span class="line"><span class="comment"># 将实例分割模型的权重加载到目标检测模型中，由于模型结构相似，大部分权重可以共享</span></span><br><span class="line">det_model.load(state[<span class="string">&quot;model&quot;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 步骤 4: 保存转换后的目标检测模型</span></span><br><span class="line"><span class="comment"># 将转换后的目标检测模型保存为 &quot;yoloe-v8l-seg-det.pt&quot; 文件</span></span><br><span class="line">det_model.save(<span class="string">&quot;yoloe-v8l-seg-det.pt&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 步骤 5: 重新加载转换后的目标检测模型</span></span><br><span class="line"><span class="comment"># 重新加载转换后的目标检测模型</span></span><br><span class="line">model = YOLOE(<span class="string">&quot;yoloe-v8l-seg-det.pt&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 步骤 6: 打印模型的参数信息</span></span><br><span class="line"><span class="comment"># 打印模型的参数信息，方便查看模型的配置</span></span><br><span class="line"><span class="built_in">print</span>(model.args)</span><br></pre></td></tr></table></figure>
+<h3 id="1-为什么是实例分割模型、而不是语义分割模型？"><a href="#1-为什么是实例分割模型、而不是语义分割模型？" class="headerlink" title="1. 为什么是实例分割模型、而不是语义分割模型？"></a>1. 为什么是实例分割模型、而不是语义分割模型？</h3><h4 id="模型用途与代码库聚焦"><a href="#模型用途与代码库聚焦" class="headerlink" title="模型用途与代码库聚焦"></a>模型用途与代码库聚焦</h4><p>在这个代码库中使用实例分割模型而非语义分割模型，主要与代码库的目标和应用场景相关。</p>
+<ul>
+<li><strong>实例分割</strong>是指在图像中识别并分割出<strong>每个单独的物体实例</strong>，为每个物体实例生成独立的分割掩码，同时给出其类别标签；</li>
+<li><strong>语义分割</strong>则是为图像中的每个像素分配一个类别标签，<strong>不区分同一类别的不同实例。</strong></li>
+</ul>
+<p>从代码库的文档和相关代码来看，它侧重于处理具体物体实例的检测和分割任务，如车辆部件识别、包裹识别等，这些场景更需要区分不同的物体实例，因此实例分割模型更符合需求。例如在汽车零部件检测中，需要准确识别每个具体的零部件实例，而不是简单地将所有零部件归为同一类别进行分割。</p>
+<h4 id="数据集支持"><a href="#数据集支持" class="headerlink" title="数据集支持"></a>数据集支持</h4><p>代码库中提供的数据集，如 COCO、COCO8 - seg、COCO128 - seg 等，都是为实例分割任务设计的，这些数据集包含了每个物体实例的详细标注信息，便于训练和评估实例分割模型。而语义分割通常需要专门的数据集，其标注方式和数据结构与实例分割有所不同。</p>
+<h3 id="2-为什么分割模型可以转化成目标检测模型？"><a href="#2-为什么分割模型可以转化成目标检测模型？" class="headerlink" title="2. 为什么分割模型可以转化成目标检测模型？"></a>2. 为什么分割模型可以转化成目标检测模型？</h3><h4 id="模型结构相似性"><a href="#模型结构相似性" class="headerlink" title="模型结构相似性"></a>模型结构相似性</h4><p>实例分割模型和目标检测模型在结构上有一定的相似性。通常，它们都包含一个特征提取网络（如骨干网络）用于提取图像的特征，并且在后续的处理中都需要对物体的位置和类别进行预测。</p>
+<ul>
+<li><strong>目标检测</strong>模型主要输出物体的边界框和类别信息，</li>
+<li>而<strong>实例分割</strong>模型在目标检测的基础上，还需要为每个物体生成精确的分割掩码。</li>
+</ul>
+<p>因此，实例分割模型已经具备了目标检测所需的大部分能力，通过适当的调整和转换，可以将其用于目标检测任务。</p>
+<h4 id="2-1-那么具体上如何进行转换呢？"><a href="#2-1-那么具体上如何进行转换呢？" class="headerlink" title="2.1 那么具体上如何进行转换呢？"></a>2.1 那么具体上如何进行转换呢？</h4><ol>
+<li><p><strong>权重共享</strong>：在代码中，<code>det_model.load(state[&quot;model&quot;])</code> 在加载权重时，<code>torch.nn.Module.load_state_dict</code> 方法会根据键名来匹配权重。<strong>如果目标检测模型的头部网络中不存在实例分割模型头部网络中的某些键，这些键对应的权重将被忽略；</strong>如果目标检测模型的头部网络中有一些键在实例分割模型的权重中不存在，这些键对应的权重将保持初始化状态。</p>
+</li>
+<li><p><strong>任务的关联性</strong>目标检测和实例分割是紧密相关的计算机视觉任务，<strong>目标检测是实例分割的基础</strong>。在进行实例分割时，首先需要确定物体的位置和类别，这正是目标检测的任务。因此，一个训练好的实例分割模型可以很自然地转化为目标检测模型，只需要忽略分割掩码的生成部分，只关注物体的边界框和类别信息即可。</p>
+</li>
+</ol>
+<h3 id="3-为何现有代码库只有实例分割转目标检测，而无反向转换？"><a href="#3-为何现有代码库只有实例分割转目标检测，而无反向转换？" class="headerlink" title="3. 为何现有代码库只有实例分割转目标检测，而无反向转换？"></a>3. 为何现有代码库只有实例分割转目标检测，而无反向转换？</h3><p>从目标检测模型转换为实例分割模型则困难得多，因为目标检测模型本身没有学习到关于目标像素级分割的信息，需要添加额外的网络层和训练来学习这些信息。</p>
+<p>在实际应用中，将实例分割模型转换为目标检测模型的需求更为常见。而将目标检测模型转换为实例分割模型的需求相对较少，除非有新的应用场景需要更精细的目标信息。</p>
+<blockquote>
+<p>例如，在一些对实时性要求较高但对目标形状信息需求不大的场景中，如安防监控中的人员计数，只需要知道目标的位置和类别，此时可以将已有的实例分割模型转换为目标检测模型以提高效率。</p>
+</blockquote>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/06/24/2025-6-24/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/06/22/2025-6-22-Docker-requirements-txt/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2%E6%A8%A1%E5%9E%8B%E5%8F%AF%E4%BB%A5%E8%BD%AC%E5%8C%96%E6%88%90%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%9E%8B%EF%BC%9F"><span class="toc-content-number">1.</span> <span class="toc-content-text">实例分割模型可以转化成目标检测模型？</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#1-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2%E6%A8%A1%E5%9E%8B%E3%80%81%E8%80%8C%E4%B8%8D%E6%98%AF%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E6%A8%A1%E5%9E%8B%EF%BC%9F"><span class="toc-content-number">1.0.1.</span> <span class="toc-content-text">1. 为什么是实例分割模型、而不是语义分割模型？</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E6%A8%A1%E5%9E%8B%E7%94%A8%E9%80%94%E4%B8%8E%E4%BB%A3%E7%A0%81%E5%BA%93%E8%81%9A%E7%84%A6"><span class="toc-content-number">1.0.1.1.</span> <span class="toc-content-text">模型用途与代码库聚焦</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86%E6%94%AF%E6%8C%81"><span class="toc-content-number">1.0.1.2.</span> <span class="toc-content-text">数据集支持</span></a></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#2-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%88%86%E5%89%B2%E6%A8%A1%E5%9E%8B%E5%8F%AF%E4%BB%A5%E8%BD%AC%E5%8C%96%E6%88%90%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%9E%8B%EF%BC%9F"><span class="toc-content-number">1.0.2.</span> <span class="toc-content-text">2. 为什么分割模型可以转化成目标检测模型？</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84%E7%9B%B8%E4%BC%BC%E6%80%A7"><span class="toc-content-number">1.0.2.1.</span> <span class="toc-content-text">模型结构相似性</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#2-1-%E9%82%A3%E4%B9%88%E5%85%B7%E4%BD%93%E4%B8%8A%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E8%BD%AC%E6%8D%A2%E5%91%A2%EF%BC%9F"><span class="toc-content-number">1.0.2.2.</span> <span class="toc-content-text">2.1 那么具体上如何进行转换呢？</span></a></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#3-%E4%B8%BA%E4%BD%95%E7%8E%B0%E6%9C%89%E4%BB%A3%E7%A0%81%E5%BA%93%E5%8F%AA%E6%9C%89%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2%E8%BD%AC%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%EF%BC%8C%E8%80%8C%E6%97%A0%E5%8F%8D%E5%90%91%E8%BD%AC%E6%8D%A2%EF%BC%9F"><span class="toc-content-number">1.0.3.</span> <span class="toc-content-text">3. 为何现有代码库只有实例分割转目标检测，而无反向转换？</span></a></li></ol></li></ol></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>

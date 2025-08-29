@@ -1,0 +1,138 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="Liu, Ziyu, et al. “Visual-rft: Visual reinforcement fine-tuning.” arXiv preprint arXiv:2503.01785 (2025).  这个标题倒是很fit我的想法；但是他们根本就没写什么很突出的东西； 说是视觉上的RFL，实际上应该算是有关AI智能体的扩展。 因为使用的Agent是LLM；而且实际上也是自己设计了re">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-4-11-Liu-arxiv-2025">
+<meta property="og:url" content="http://example.com/2025/04/10/2025-4-11/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="Liu, Ziyu, et al. “Visual-rft: Visual reinforcement fine-tuning.” arXiv preprint arXiv:2503.01785 (2025).  这个标题倒是很fit我的想法；但是他们根本就没写什么很突出的东西； 说是视觉上的RFL，实际上应该算是有关AI智能体的扩展。 因为使用的Agent是LLM；而且实际上也是自己设计了re">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250411090337105.png">
+<meta property="article:published_time" content="2025-04-10T15:52:40.000Z">
+<meta property="article:modified_time" content="2025-04-11T01:20:59.000Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="论文阅读">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250411090337105.png"><title>2025-4-11-Liu-arxiv-2025 - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-4-11-Liu-arxiv-2025</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-04-10</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-04-11</time></div>
+
+<div class="post-tags"><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></div></div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约0.8K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><blockquote>
+<p>Liu, Ziyu, et al. “Visual-rft: Visual reinforcement fine-tuning.” arXiv preprint arXiv:2503.01785 (2025).</p>
+</blockquote>
+<p>这个标题倒是很fit我的想法；但是他们根本就没写什么很突出的东西；</p>
+<p>说是视觉上的RFL，实际上应该算是有关AI智能体的扩展。</p>
+<p>因为使用的Agent是LLM；而且实际上也是自己设计了reward function，替换了原有DS-R1中未曾提及的r。</p>
+<p>下面是一些我觉得可能有用的东西：</p>
+<h3 id="公式推导"><a href="#公式推导" class="headerlink" title="公式推导"></a>公式推导</h3><p>在视觉感知中，为了将 RLVR（Reinforcement Learning with Verifiable Rewards）方法应用于多种视觉任务，设计了<strong>不同的规则奖励函数</strong>。<strong>根据任务不同，奖励函数被分为检测任务奖励和分类任务奖励。</strong></p>
+<h2 id="RLVR-总体优化目标（Verifiable-RL-Objective）"><a href="#RLVR-总体优化目标（Verifiable-RL-Objective）" class="headerlink" title="RLVR 总体优化目标（Verifiable RL Objective）"></a>RLVR 总体优化目标（Verifiable RL Objective）</h2><p>优化目标为最大化期望奖励，同时控制与参考策略 $\pi_{\text{ref}}$ 的 KL 散度：</p>
+<script type="math/tex; mode=display">
+\max_\pi \mathbb{E}_{o \sim \pi(q)}[R_{\text{VLR}}(q, o)]=\left[R(q,o)
+- \beta  \mathbb{KL}[\pi(q) || \pi_{\text{ref}}(q)] \right] \tag{1}</script><p>在 RLVR 中，通过验证函数 $R(q, o)$ 判断模型输出 $o$ 与参考输出 $q$ 是否一致：</p>
+<script type="math/tex; mode=display">
+R(q, o) = 
+\begin{cases}
+1, & \text{if } o = \text{ground truth} \\
+0, & \text{otherwise}
+\end{cases} \tag{3}</script><p>GRPO 中，为候选回答集 $\{r_1, r_2, …, r_G\}$ 进行标准化：</p>
+<script type="math/tex; mode=display">
+A_i = \frac{r_i - \text{mean}(\{r_1, ..., r_G\})}{\text{std}(\{r_1, ..., r_G\})} \tag{4}</script><blockquote>
+<p>是否有点…?</p>
+<p>前面的一串化为了非常简单的0-1 loss。然后又莫名其妙提到了GPRO里面的优势函数、</p>
+<p>下面的是DeepSeek参考版。</p>
+<script type="math/tex; mode=display">
+\mathcal{J}_{GPRO}(\theta)=\mathbb{E}_{[q\sim P(Q),\{o_i\}_{i=1}^G\sim \pi_{\theta_{old}}(o|q)]}
+\\
+\left\{\frac 1 G\sum^{G}_{i=1}\left(\min(\frac{\pi_{\theta}(o_i|q)}{\pi_{\theta_{old}}(o_i|q)}A_i,\text{clip}(\frac{\pi_{\theta}(o_i|q)}{\pi_{\theta_{old}}(o_i|q)},1+\epsilon,1-\epsilon)A_i)-\beta\mathbb{D}_{KL}(\pi_{\theta}|\pi_{ref})\right)\right\}</script></blockquote>
+<h2 id="🔶目标检测任务"><a href="#🔶目标检测任务" class="headerlink" title="🔶目标检测任务"></a>🔶目标检测任务</h2><p>目标检测任务中，模型输出为边界框集合 $\{b_1, b_2, …, b_n\}$，根据 IoU（Intersection-over-Union）与置信度计算奖励。</p>
+<h4 id="🎯-总体奖励函数"><a href="#🎯-总体奖励函数" class="headerlink" title="🎯 总体奖励函数"></a>🎯 总体奖励函数</h4><script type="math/tex; mode=display">
+R_d = R_{IoU} + R_{conf} + R_{format} \tag{5}</script><ol>
+<li><strong>IoU 奖励（$R_{IoU}$）</strong>：</li>
+</ol>
+<p>计算模型输出中所有 bounding box 的平均 IoU：</p>
+<script type="math/tex; mode=display">
+R_{IoU} = \frac{iou_1 + iou_2 + \cdots + iou_n}{n} \tag{6}</script><ol>
+<li><strong>置信度奖励（$R_{conf}$）</strong>：</li>
+</ol>
+<p>每个 bounding box 的单独置信度奖励 $r_{ci}$ 计算如下：</p>
+<script type="math/tex; mode=display">
+r_{ci} = 
+\begin{cases}
+c_i, & \text{if } iou_i \neq 0 \\
+1 - c_i, & \text{if } iou_i = 0
+\end{cases} \tag{7}</script><p>整体置信度奖励为所有 box 的平均值：</p>
+<script type="math/tex; mode=display">
+R_{conf} = \frac{\sum_{i=1}^{n} r_{ci}}{n} \tag{8}</script><ol>
+<li><strong>格式奖励（$R_{format}$）</strong>：</li>
+</ol>
+<p>确保输出遵循 <code>&lt;think&gt;</code> 和 <code>&lt;answer&gt;</code> 的 HTML 标记格式（参考 Sec. 3.2.2），计算方式未明确写出，通常为格式匹配奖励（布尔或软匹配）。</p>
+<h2 id="🔶-分类任务"><a href="#🔶-分类任务" class="headerlink" title="🔶 分类任务"></a>🔶 分类任务</h2><p>分类任务中的奖励由两部分组成：准确率奖励 + 格式奖励。</p>
+<script type="math/tex; mode=display">
+R_{cls} = R_{acc} + R_{format} \tag{9}</script><p>其中：</p>
+<ul>
+<li>$R_{acc} = 1$ 表示分类正确；</li>
+<li>$R_{acc} = 0$ 表示分类错误；</li>
+<li>$R_{format}$ 为输出格式正确与否的奖励。</li>
+</ul>
+<h2 id="目标检测上实验结果"><a href="#目标检测上实验结果" class="headerlink" title="目标检测上实验结果"></a>目标检测上实验结果</h2><p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250411090337105.png" alt=""></p>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/04/11/2025-4-11-Yang-arxiv-2025/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/04/10/2025-4-10/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC"><span class="toc-content-number">1.</span> <span class="toc-content-text">公式推导</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#RLVR-%E6%80%BB%E4%BD%93%E4%BC%98%E5%8C%96%E7%9B%AE%E6%A0%87%EF%BC%88Verifiable-RL-Objective%EF%BC%89"><span class="toc-content-number"></span> <span class="toc-content-text">RLVR 总体优化目标（Verifiable RL Objective）</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%F0%9F%94%B6%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E4%BB%BB%E5%8A%A1"><span class="toc-content-number"></span> <span class="toc-content-text">🔶目标检测任务</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%F0%9F%8E%AF-%E6%80%BB%E4%BD%93%E5%A5%96%E5%8A%B1%E5%87%BD%E6%95%B0"><span class="toc-content-number">0.1.</span> <span class="toc-content-text">🎯 总体奖励函数</span></a></li></ol></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%F0%9F%94%B6-%E5%88%86%E7%B1%BB%E4%BB%BB%E5%8A%A1"><span class="toc-content-number"></span> <span class="toc-content-text">🔶 分类任务</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E4%B8%8A%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="toc-content-number"></span> <span class="toc-content-text">目标检测上实验结果</span></a></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>

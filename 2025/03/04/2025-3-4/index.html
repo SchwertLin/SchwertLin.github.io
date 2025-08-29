@@ -1,0 +1,174 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="匈牙利算法：Kuhn, H. W. “The Hungarian Method for the Assignment Problem.” Naval Research Logistics Quarterly, pp. 83–97, https:&#x2F;&#x2F;doi.org&#x2F;10.1002&#x2F;nav.3800020109. DETR：Carion, Nicolas, et al. “End-to-End Ob">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-3-4-为什么DETR中要使用匈牙利算法???">
+<meta property="og:url" content="http://example.com/2025/03/04/2025-3-4/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="匈牙利算法：Kuhn, H. W. “The Hungarian Method for the Assignment Problem.” Naval Research Logistics Quarterly, pp. 83–97, https:&#x2F;&#x2F;doi.org&#x2F;10.1002&#x2F;nav.3800020109. DETR：Carion, Nicolas, et al. “End-to-End Ob">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250303165553232.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250303165539904.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305105008791.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305115722074.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305115827149.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305115917639.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305120045487.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305120111338.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305120553647.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305120215016.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305120237240.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305120434315.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305120652922.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305120706190.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305120721068.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305120755820.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305120809804.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305120840052.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305120912456.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305120934596.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305120953395.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305121021574.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250308153352813.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305121109667.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305121122707.png">
+<meta property="article:published_time" content="2025-03-04T02:05:03.000Z">
+<meta property="article:modified_time" content="2025-03-08T07:35:37.000Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="每天の学习日记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250303165553232.png"><title>2025-3-4-为什么DETR中要使用匈牙利算法??? - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-3-4-为什么DETR中要使用匈牙利算法???</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-03-04</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-03-08</time></div>
+
+<div class="post-tags"><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E6%AF%8F%E5%A4%A9%E3%81%AE%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/">每天の学习日记</a></div></div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约1.9K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><blockquote>
+<p>匈牙利算法：Kuhn, H. W. “The Hungarian Method for the Assignment Problem.” <em>Naval Research Logistics Quarterly</em>, pp. 83–97, <a target="_blank" rel="noopener" href="https://doi.org/10.1002/nav.3800020109">https://doi.org/10.1002/nav.3800020109</a>.</p>
+<p>DETR：Carion, Nicolas, et al. “End-to-End Object Detection with Transformers.” Computer Vision – ECCV 2020,Lecture Notes in Computer Science, 2020, pp. 213–29, <a target="_blank" rel="noopener" href="https://doi.org/10.1007/978-3-030-58452-8_13">https://doi.org/10.1007/978-3-030-58452-8_13</a>.</p>
+</blockquote>
+<p>记录下今天讨论的问题。感想是，交流有助于理解，一些可能需要很久能想通的问题(=-=)</p>
+<h1 id="DETR"><a href="#DETR" class="headerlink" title="DETR"></a>DETR</h1><p>目标检测=集合预测</p>
+<ul>
+<li>新目标函数：理想情况下每个物体只生成一个框（二分图匹配）</li>
+<li>使用了Transformer，额外有learned pbject query(类似anchor)</li>
+<li>并行（无法自回归），实效性高</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250303165553232.png" alt="image-20250303165553232"></p>
+<p>DETR流程：先使用CNN提取特征，拉直特征，进入Transformer</p>
+<p>Transformer作用：进一步学习全局的信息。</p>
+<ul>
+<li>encoder：每一个点/特征与图片中其他特征进行交互。这样就能大概知道哪块是哪个物体，全局的特征有利于移除冗余的框。</li>
+<li>decoder：额外输入object query限定出多少个框(有点像anchor)</li>
+</ul>
+<blockquote>
+<p>e.g.比如object query=100,那么就会固定输出100个框，然后使用二分图匹配的方法，找到对应(合适)的框，比如上图中，就只找到了两个框是对应的；那么剩下的98个框都被标记为”No object”。</p>
+</blockquote>
+<p><strong>推理</strong>：前面步骤一致，得到100个框。但是没有匹配的过程，直接在输出的100个框这里用阈值卡输出的置信度。比如置信度&gt;0.7的作为前景物体。</p>
+<p><strong>缺陷：</strong>大物体结果好(归因于使用了Transformer)；小物体结果不行。Deformable DETR解决了。</p>
+<p><strong>相关工作</strong>：集合预测+Transformer-Parallel+目标检测</p>
+<p>Learnable NMS等等使用人工干预。基于集合的目标函数。DETR不想用过多的先验知识。</p>
+<h2 id="模型架构"><a href="#模型架构" class="headerlink" title="模型架构"></a>模型架构</h2><p>DETR的模型的输出，是一个固定的集合。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250303165539904.png" alt="image-20250303165539904"></p>
+<p>假如输入图片是<code>3x800x1066</code>—CNN—&gt;<code>2048x25x34</code>—1x1降维—&gt;<code>256x25x34</code>+位置编码<code>256x25x34</code></p>
+<p>—$\bigoplus$—&gt;<code>850x256</code>—Transformer Encoder—&gt;<code>850x256</code>(作为KV)</p>
+<p>Q:<code>100x256</code>+KV:<code>800x256</code>—Transformer Decoder—&gt;<code>100x256</code>—FFN(100个)</p>
+<p>全连接层FFN进行两种预测：出框<code>1x4</code>+类别预测<code>COCO:1x91</code></p>
+<p>出框+分类后，使用匈牙利算法计算loss，梯度反向回传，进行更新模型。</p>
+<ul>
+<li>object query自注意力操作：不能省、移除冗余框。</li>
+<li>计算loss：为了计算更稳定，在每个decoder后面加了auxiliary loss。</li>
+</ul>
+<h3 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h3><script type="math/tex; mode=display">
+\hat{\sigma}=\underset{\sigma\in\mathfrak{S}_N}{\arg\min}\sum_{i}^{N}\mathcal{L}_{\text{match}}(y_i,\hat{y}_{\sigma(i)})</script><p>其中，$\hat{\sigma}$是要优化求解的一个排列，$\mathfrak{S}_N$表示$N$个元素的所有排列的集合。$\arg\min$表示取使得后面求和式最小的$\sigma$值。$\mathcal{L}_{\text{match}}(y_i,\hat{y}_{\sigma(i)})$是一个匹配损失函数，用于衡量真实值 $y_i$ 和经过排列$\sigma$后的预测值$\hat{y}_{\sigma(i)}$之间的差异，$i$从$1$到$N$进行求和。</p>
+<script type="math/tex; mode=display">
+\mathcal{L}_{\text{match}}(y_i,\hat{y}_{\sigma(i)})=-\mathbb{1}_{\{c_i\neq\varnothing\}}\hat{p}_{\sigma(i)}(c_i)+\mathbb{1}_{\{c_i\neq\varnothing\}}\mathcal{L}_{\text{box}}(b_i,\hat{b}_{\sigma(i)})</script><p>其中，$\mathbb{1}_{\{c_i\neq\varnothing\}}$是指示函数，当条件$c_i\neq\varnothing$成立时，函数值为$1$，否则为$0$。$\hat{p}_{\sigma(i)}(c_i)$ 是与类别相关的预测概率，$\mathcal{L}_{\text{box}}(b_i,\hat{b}_{\sigma(i)})$是用于衡量边界框 $b_i$（真实边界框）和$\hat{b}_{\sigma(i)}$（预测边界框）之间差异的损失函数。 </p>
+<script type="math/tex; mode=display">
+\mathcal{L}_{\text{Hungarian}}(y,\hat{y})=\sum_{i = 1}^{N}\left[-\log\hat{p}_{\hat{\sigma}(i)}(c_i)+\mathbb{1}_{\{c_i\neq\varnothing\}}\mathcal{L}_{\text{box}}(b_i,\hat{b}_{\hat{\sigma}(i)})\right]</script><p><strong>这是我们的真·目标函数。</strong>$\mathcal{L}_{\text{Hungarian}}(y,\hat{y})$表示匈牙利匹配损失函数，$y$和$\hat{y}$分别代表真实值和预测值集合。对$i$从$1$到$N$进行求和，每一项中$-\log\hat{p}_{\hat{\sigma}(i)}(c_i)$ 可能是对类别预测概率取负对数，$\mathbb{1}_{\{c_i\neq\varnothing\}}\mathcal{L}_{\text{box}}(b_i,\hat{b}_{\hat{\sigma}(i)})$含义同第二个公式中对应部分，即根据条件决定是否计算边界框损失 。 </p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305105008791.png" alt="image-20250305105008791"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"><span class="keyword">from</span> torchvision.models <span class="keyword">import</span> resnet50</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">DETR</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, num_classes, hidden_dim, nheads,</span></span><br><span class="line"><span class="params">                 num_encoder_layers, num_decoder_layers</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        <span class="comment"># 使用预训练的ResNet50作为主干网络backbone，取其前若干层</span></span><br><span class="line">        <span class="variable language_">self</span>.backbone = nn.Sequential(*<span class="built_in">list</span>(resnet50(pretrained=<span class="literal">True</span>).children())[:-<span class="number">2</span>])</span><br><span class="line">        <span class="comment"># 调整特征维度的卷积层--投射层--1x1降维</span></span><br><span class="line">        <span class="variable language_">self</span>.conv = nn.Conv2d(<span class="number">2048</span>, hidden_dim, <span class="number">1</span>)</span><br><span class="line">        <span class="comment"># Transformer模块</span></span><br><span class="line">        <span class="variable language_">self</span>.transformer = nn.Transformer(hidden_dim, nheads,</span><br><span class="line">                                          num_encoder_layers, num_decoder_layers)</span><br><span class="line">        <span class="comment"># FFN1：类别预测，输出类别数 + 1（包含背景类）</span></span><br><span class="line">        <span class="variable language_">self</span>.linear_class = nn.Linear(hidden_dim, num_classes + <span class="number">1</span>)</span><br><span class="line">        <span class="comment"># FFN2：边界框预测，输出4个坐标值(x,y,w,h)</span></span><br><span class="line">        <span class="variable language_">self</span>.linear_bbox = nn.Linear(hidden_dim, <span class="number">4</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 用于查询的位置编码参数</span></span><br><span class="line">        <span class="variable language_">self</span>.query_pos = nn.Parameter(torch.rand(<span class="number">100</span>, hidden_dim))</span><br><span class="line">        <span class="comment"># 列方向的位置编码参数</span></span><br><span class="line">        <span class="variable language_">self</span>.col_embed = nn.Parameter(torch.rand(<span class="number">50</span>, hidden_dim // <span class="number">2</span>))</span><br><span class="line">        <span class="comment"># 行方向的位置编码参数</span></span><br><span class="line">        <span class="variable language_">self</span>.row_embed = nn.Parameter(torch.rand(<span class="number">50</span>, hidden_dim // <span class="number">2</span>))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, inputs</span>):</span><br><span class="line">        <span class="comment"># 通过主干网络提取特征</span></span><br><span class="line">        x = <span class="variable language_">self</span>.backbone(inputs)</span><br><span class="line">        <span class="comment"># 调整特征维度</span></span><br><span class="line">        h = <span class="variable language_">self</span>.conv(x)</span><br><span class="line">        H, W = h.shape[-<span class="number">2</span>:]</span><br><span class="line">        <span class="comment"># 计算位置编码</span></span><br><span class="line">        pos = torch.cat([</span><br><span class="line">            <span class="variable language_">self</span>.col_embed[:W].unsqueeze(<span class="number">0</span>).repeat(H, <span class="number">1</span>, <span class="number">1</span>),</span><br><span class="line">            <span class="variable language_">self</span>.row_embed[:H].unsqueeze(<span class="number">1</span>).repeat(<span class="number">1</span>, W, <span class="number">1</span>),</span><br><span class="line">        ], dim=-<span class="number">1</span>).flatten(<span class="number">0</span>, <span class="number">1</span>).unsqueeze(<span class="number">1</span>)</span><br><span class="line">        <span class="comment"># 将特征输入Transformer模块处理--100x256</span></span><br><span class="line">        h = <span class="variable language_">self</span>.transformer(h.flatten(<span class="number">2</span>).permute(<span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>), <span class="variable language_">self</span>.query_pos.unsqueeze(<span class="number">1</span>))</span><br><span class="line">        <span class="comment"># 预测类别得分和边界框坐标</span></span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.linear_class(h), <span class="variable language_">self</span>.linear_bbox(h).sigmoid()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建模型实例--COCO:91类，隐含层:256,多头自注意力:8个，Encoder/Decoder=6层</span></span><br><span class="line">detr = DETR(num_classes=<span class="number">91</span>, hidden_dim=<span class="number">256</span>, nheads=<span class="number">8</span>, num_encoder_layers=<span class="number">6</span>, num_decoder_layers=<span class="number">6</span>)</span><br><span class="line"><span class="comment"># 设置模型为评估模式</span></span><br><span class="line">detr.<span class="built_in">eval</span>()</span><br><span class="line"><span class="comment"># 创建随机输入数据</span></span><br><span class="line">inputs = torch.randn(<span class="number">1</span>, <span class="number">3</span>, <span class="number">800</span>, <span class="number">1200</span>)</span><br><span class="line"><span class="comment"># 前向传播得到预测结果</span></span><br><span class="line">logits, bboxes = detr(inputs)</span><br></pre></td></tr></table></figure>
+<h2 id="探讨：为什么DETR中要使用匈牙利算法"><a href="#探讨：为什么DETR中要使用匈牙利算法" class="headerlink" title="探讨：为什么DETR中要使用匈牙利算法???"></a>探讨：为什么DETR中要使用匈牙利算法???</h2><ul>
+<li>这个问题背景下如何与图论挂钩、匹配上匈牙利算法？</li>
+<li>还能使用其他的算法完成吗？</li>
+</ul>
+<p>仅给出个人意见：</p>
+<p>DETR论文中做目标检测时，将神经网络输出的预测框与实际真实框的匹配视为二分图匹配问题。比如，预测框固定100个，一张图中真实框数量不定且远少于100个（$\ll 100$）。将预测图和真实图各作为一类，以此构建二分图。</p>
+<p><strong>二分图最大匹配</strong>：在二分图中，行列代表两个类别的结点，将计算出的loss值作为边的权重填入，边表示两个图（框）之间的匹配度（相似度）。该问题转化为二分图最大权匹配问题，即要在二分图中找到一组匹配，使得这组匹配中所有边的权值之和最大，且匹配的边不共顶点。</p>
+<p>一开始我以为可以用贪心算法（排序后从大到小挑边且不共顶点）或sort解决，但发现这样会落入局部最优、可能找不到全局最优。</p>
+<p>然后又想，这是不是能用动态规划做？但是经过思考，这个不具有最优子结构的问题，所以不能动态规划做。</p>
+<p>这就是一个单纯的图论的问题+有一定的限制条件（loss作为边权、每个任务匹配一个员工），所以是最大流问题/二分图最大匹配。所以除了匈牙利算法之外，能够解决最大流问题的算法都能使用，只是作者选择了匈牙利算法。</p>
+<p>一些原纪录：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305115722074.png" alt="image-20250305115722074" style="zoom: 67%;" /><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305115827149.png" alt="image-20250305115827149" style="zoom: 67%;" /><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305115917639.png" alt="image-20250305115917639" style="zoom: 67%;" /></p>
+<hr>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305120045487.png" alt="image-20250305120045487" style="zoom:67%;" /><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305120111338.png" alt="image-20250305120111338" style="zoom:67%;" /><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305120553647.png" alt="image-20250305120553647" style="zoom:67%;" /></p>
+<hr>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305120215016.png" alt="image-20250305120215016" style="zoom:67%;" /><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305120237240.png" alt="image-20250305120237240" style="zoom:67%;" /><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305120434315.png" alt="image-20250305120434315" style="zoom:67%;" /></p>
+<hr>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305120652922.png" alt="image-20250305120652922" style="zoom:67%;" /><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305120706190.png" alt="image-20250305120706190" style="zoom:67%;" /><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305120721068.png" alt="image-20250305120721068" style="zoom:67%;" /></p>
+<hr>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305120755820.png" alt="image-20250305120755820" style="zoom:67%;" /><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305120809804.png" alt="image-20250305120809804" style="zoom:67%;" /><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305120840052.png" alt="image-20250305120840052" style="zoom:67%;" /></p>
+<hr>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305120912456.png" alt="image-20250305120912456" style="zoom:67%;" /><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305120934596.png" alt="image-20250305120934596" style="zoom:67%;" /><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305120953395.png" alt="image-20250305120953395" style="zoom:67%;" /></p>
+<hr>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305121021574.png" alt="image-20250305121021574" style="zoom:67%;" /><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250308153352813.png" alt="image-20250308153352813" style="zoom:90%;" /><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305121109667.png" alt="image-20250305121109667" style="zoom:67%;" /></p>
+<hr>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250305121122707.png" alt="image-20250305121122707" style="zoom:67%;" /></p>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/03/08/2025-3-8/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/03/03/2025-3-3/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#DETR"><span class="toc-content-number">1.</span> <span class="toc-content-text">DETR</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84"><span class="toc-content-number">1.1.</span> <span class="toc-content-text">模型架构</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E7%9B%AE%E6%A0%87%E5%87%BD%E6%95%B0"><span class="toc-content-number">1.1.1.</span> <span class="toc-content-text">目标函数</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-content-number">1.1.2.</span> <span class="toc-content-text">代码</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E6%8E%A2%E8%AE%A8%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88DETR%E4%B8%AD%E8%A6%81%E4%BD%BF%E7%94%A8%E5%8C%88%E7%89%99%E5%88%A9%E7%AE%97%E6%B3%95"><span class="toc-content-number">1.2.</span> <span class="toc-content-text">探讨：为什么DETR中要使用匈牙利算法???</span></a></li></ol></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>

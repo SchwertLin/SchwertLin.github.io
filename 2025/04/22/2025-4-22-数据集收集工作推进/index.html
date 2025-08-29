@@ -1,0 +1,388 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="wow! A good question is How to collect data to build a dataset. 现在要完成下面的一些问题：  分割数据集-标注工具，怎么标注 上界做到？？最好的分割方法 方法构建-当前的最新的方法 如何评估 分期推进数据 数据集的标注进展   数据收集：每天拍照三餐收集 数据标注：  数据标注工具：MakeSense，LabelMe，  Label">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-4-22-数据集收集工作推进">
+<meta property="og:url" content="http://example.com/2025/04/22/2025-4-22-%E6%95%B0%E6%8D%AE%E9%9B%86%E6%94%B6%E9%9B%86%E5%B7%A5%E4%BD%9C%E6%8E%A8%E8%BF%9B/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="wow! A good question is How to collect data to build a dataset. 现在要完成下面的一些问题：  分割数据集-标注工具，怎么标注 上界做到？？最好的分割方法 方法构建-当前的最新的方法 如何评估 分期推进数据 数据集的标注进展   数据收集：每天拍照三餐收集 数据标注：  数据标注工具：MakeSense，LabelMe，  Label">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/Image-Annotation-and-Data-Labeling_9-1024x516.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250423091640188.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250423091744846.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250423091835074.png">
+<meta property="article:published_time" content="2025-04-22T08:07:07.000Z">
+<meta property="article:modified_time" content="2025-04-23T03:49:35.000Z">
+<meta property="article:author" content="Schwertlilien">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/Image-Annotation-and-Data-Labeling_9-1024x516.png"><title>2025-4-22-数据集收集工作推进 - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-4-22-数据集收集工作推进</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-04-22</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-04-23</time></div>
+
+</div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约3.4K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><blockquote>
+<p>wow! A good question is How to collect data to build a dataset.</p>
+<p>现在要完成下面的一些问题：</p>
+<ol>
+<li>分割数据集-标注工具，怎么标注</li>
+<li>上界做到？？最好的分割方法</li>
+<li>方法构建-当前的最新的方法</li>
+<li>如何评估</li>
+<li>分期推进数据 数据集的标注进展</li>
+</ol>
+</blockquote>
+<p>数据收集：每天拍照三餐收集</p>
+<p>数据标注：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/Image-Annotation-and-Data-Labeling_9-1024x516.png" alt="img"></p>
+<p>数据标注工具：MakeSense，LabelMe，</p>
+<blockquote>
+<p>LabelMe 最早是由麻省理工学院 (MIT) 的计算机科学与人工智能实验室 (CSAIL) 于 2008 年发布的，类型覆盖了实例分割、语义分割、bbox标注、图片分类等，是标注领域中不得不提的元老。<a target="_blank" rel="noopener" href="https://github.com/wkentaro/labelme">github链接</a></p>
+<p>工具特性：</p>
+<ul>
+<li>支持 Windows、macOS 和 Linux 系统本地安装</li>
+<li>入门版支持多边形、矩形、圆形、直线、点、线带等不同标注类型</li>
+<li>Pro 版本提供 Python API ，可通过编程的方式自动化标注流程、批量处理标注数据、或将标注结果转换为其他格式</li>
+</ul>
+<p>价格：基础功能免费，Pro 版（包含AI标注、数据管理等功能）<strong>27美元</strong></p>
+<p>网址：<a target="_blank" rel="noopener" href="https://www.labelme.io/">https://www.labelme.io/</a></p>
+<p>使用教程：</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1xT4y1j7A9/?spm_id_from=333.337.search-card.all.click&amp;vd_source=2e5345e8e428aea83f84b2be6751cc25">13分钟教会你使用labelme的超详细教程</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/DanielMacieJay/article/details/146340819">Labelme安装教程详细版！</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/371756150">深度学习图像标签标注软件labelme超详细教程</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/wkentaro/labelme/tree/main/examples/instance_segmentation">官方实例分割的说明</a></p>
+<p>MakeSense工具特性：</p>
+<ul>
+<li>无需部署或进行环境配置，浏览器打开即可标注</li>
+<li>支持矩形、线条、点和多边形等标签类型</li>
+<li>输出文件格式包括YOLO、VOCXML、VGG、JSON、CSV</li>
+<li>接入 AI 模型（内置了 YOLOv5、COCO SSD 和 Pose-Net ）可进行自动标注</li>
+</ul>
+<p>价格：免费</p>
+<p>网址：<a target="_blank" rel="noopener" href="https://www.makesense.ai/">https://www.makesense.ai/</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250423091640188.png" alt="image-20250423091640188"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250423091744846.png" alt="image-20250423091744846"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250423091835074.png" alt="image-20250423091835074"></p>
+</blockquote>
+<h3 id="数据收集安排"><a href="#数据收集安排" class="headerlink" title="数据收集安排"></a>数据收集安排</h3><blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhiqingAI/article/details/124230743">YOLO系列目标检测数据集大全</a></p>
+<p>实际上每个类别有2000张图片差不多。目前针对于目标检测的数据集多以单类别、2k-10k左右.</p>
+</blockquote>
+<p>那就是100个类别，每个类别1000张左右的照片。数据收集中易存在如下的问题：</p>
+<ol>
+<li>采集的数据集尽量保证你要做的目标检测不同类之间样本平衡，就是各个目标检测的类在你的数据中出现的次数差不多；</li>
+<li>保证采集数据的质量，过于模糊、遮挡严重或者目标太小、太大的话你肯定不想要吧？其实采集目标的大小还是根据你使用的场景，尽量接近应用场景的尺寸最佳；</li>
+<li>以及场景下采集数据的多样性，尽量采集场景自然状态下的各种各样的照片，而不是人为地制造变化不大、容易过拟合的图像数据。</li>
+<li>注意避免正负样本不平衡：图片少但物体多的数据集/图片多但物体少的数据集</li>
+</ol>
+<h4 id="分阶段推进数据收集"><a href="#分阶段推进数据收集" class="headerlink" title="分阶段推进数据收集"></a>分阶段推进数据收集</h4><p>每人每天采集 30 张（如每餐拍摄 10 张），则每日 300 张，100 万张需 333 天（约 11 个月）。或总人数为 100 人，每日 300 张，333 天完成。<br>| 分期   | 目标          | 持续时间 | 累计采集量 | 标注跟进安排                  |<br>|————|———————-|—————|——————|———————————————-|<br>| 第1期  | 采集20k张 | 67天     | 20k     | 同步启动标注，完成5k张标注 |<br>| 第2期  | 采集30k张 | 100天    | 50k     | 累计标注20k张，开始验证集标注 |<br>| 第3期  | 采集30k张 | 100天    | 80k     | 累计标注50k张，模型训练1次 |<br>| 第4期  | 采集20k张 | 67天     | 100k    | 完成全部标注，最终测试        |</p>
+<h4 id="执行要点"><a href="#执行要点" class="headerlink" title="执行要点"></a>执行要点</h4><ul>
+<li><strong>并行流程</strong>：采集与标注同步进行，避免数据积压。例如第1期采集到5k张时，立即安排标注人员开始工作。  </li>
+<li><strong>质量控制</strong>：  <ul>
+<li>每日抽检10%图片，检查清晰度、角度、标注准确性（如标签是否正确、框选是否完整）。  </li>
+<li>定期培训标注人员，统一标注标准（如目标边缘是否包含背景）。  </li>
+</ul>
+</li>
+<li><strong>工具辅助</strong>：  <ul>
+<li>用Labelme批量标注时，可复用相似图片的标注结果（如同一类食物的不同角度），通过「Edit」→「Copy/Paste」快速复制标注。  </li>
+<li>引入半自动标注工具（如Supervisely、CVAT），利用预训练模型生成初始标注，再人工修正，提升效率。  </li>
+</ul>
+</li>
+</ul>
+<h3 id="手动标注数据"><a href="#手动标注数据" class="headerlink" title="手动标注数据"></a>手动标注数据</h3><p>标注一张图片的时间在5分钟左右。100k=8333h</p>
+<p>1.假设每个人每天标注5小时（60张图片），5个人需要333天。<br>2.假设每个人每天标注8小时（96张图片），5个人需要208天。<br>3.假设每个人每天标注10小时（120张图片），5个人需要166天。</p>
+<p><strong>但是引入AI辅助标注/半自动工具标注之后，速度应加快不少。</strong>假设半自动工具将单张标注时间从5分钟缩短至<strong>1.5-2分钟</strong>，效率提升2.5-3倍：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>手动标注效率</th>
+<th>AI辅助后效率</th>
+<th>5人团队日标注量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单张时间</td>
+<td>5分钟/张</td>
+<td>2分钟/张（提升60%）</td>
+<td>300张/天（5人×8小时）</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>1.5分钟/张（提升70%）</td>
+<td>400张/天（5人×8小时）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>1.分期标注计划</strong></p>
+<h4 id="第1期：数据采集20k张（同步启动标注）"><a href="#第1期：数据采集20k张（同步启动标注）" class="headerlink" title="第1期：数据采集20k张（同步启动标注）"></a>第1期：数据采集20k张（同步启动标注）</h4><ul>
+<li><strong>采集时间</strong>：67天（假设每日采集300张）  </li>
+<li><strong>标注任务</strong>：  <ul>
+<li><strong>目标</strong>：完成20k张标注（含训练集16k张+验证集4k张）。  </li>
+<li><strong>时间安排</strong>：  <ul>
+<li>第1-10天：采集到3k张后，启动标注（每日标注300张，10天完成3k张）。  </li>
+<li>第11-67天：每日同步采集300张、标注300张，累计完成20k张标注。  </li>
+</ul>
+</li>
+<li><strong>工具应用</strong>：  <ul>
+<li>对常见类别（如高频食物）使用预训练模型自动生成初始标注，人工修正（约节省50%时间）。  </li>
+<li>利用Labelme的「复制标注」功能，对相似角度图片复用标注结果。  </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="第2期：数据采集30k张（累计50k张）"><a href="#第2期：数据采集30k张（累计50k张）" class="headerlink" title="第2期：数据采集30k张（累计50k张）"></a>第2期：数据采集30k张（累计50k张）</h4><ul>
+<li><strong>采集时间</strong>：100天（累计采集至50k张）  </li>
+<li><strong>标注任务</strong>：  <ul>
+<li><strong>目标</strong>：累计标注至50k张（新增30k张）。  </li>
+<li><strong>时间安排</strong>：  <ul>
+<li>每日采集300张，标注300张，100天完成30k张标注。  </li>
+</ul>
+</li>
+<li><strong>工具升级</strong>：  <ul>
+<li>引入CVAT或Supervisely等专业工具，支持批量导入AI生成的预标注结果（如YOLO检测框），人工仅需调整边缘。  </li>
+<li>对复杂类别（如多物体重叠）采用「多边形+画笔」组合标注，优先保证训练集精度。  </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="第3期：数据采集30k张（累计80k张）"><a href="#第3期：数据采集30k张（累计80k张）" class="headerlink" title="第3期：数据采集30k张（累计80k张）"></a>第3期：数据采集30k张（累计80k张）</h4><ul>
+<li><strong>采集时间</strong>：100天（累计采集至80k张）  </li>
+<li><strong>标注任务</strong>：  <ul>
+<li><strong>目标</strong>：累计标注至80k张（新增30k张），并完成首次模型训练。  </li>
+<li><strong>时间安排</strong>：  <ul>
+<li>前50天：每日标注300张，完成15k张，预留50天用于模型训练数据校验（如修正误标样本）。  </li>
+<li>后50天：根据模型训练反馈，优化标注规则（如调整类别阈值），补标或修正2k-5k张易错样本。  </li>
+</ul>
+</li>
+<li><strong>质量控制</strong>：  <ul>
+<li>随机抽检10%标注结果，重点检查小目标（如调料）和边缘模糊区域。  </li>
+<li>建立标注错误台账，每周组织标注人员复盘典型问题。  </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="第4期：数据采集20k张（累计100k张）"><a href="#第4期：数据采集20k张（累计100k张）" class="headerlink" title="第4期：数据采集20k张（累计100k张）"></a>第4期：数据采集20k张（累计100k张）</h4><ul>
+<li><strong>采集时间</strong>：67天（累计采集至100k张）  </li>
+<li><strong>标注任务</strong>：  <ul>
+<li><strong>目标</strong>：完成剩余20k张标注，划分测试集并完成全量校验。  </li>
+<li><strong>时间安排</strong>：  <ul>
+<li>前30天：标注10k张测试集，采用「双人交叉校验」模式（两人分别标注同一张图片，差异超过10%则重新标注）。  </li>
+<li>后37天：标注剩余10k张训练集，同步完成所有数据集的格式转换（如转为COCO/YOLO格式）。  </li>
+</ul>
+</li>
+<li><strong>最终验证</strong>：  <ul>
+<li>使用训练好的模型对测试集进行推理，统计标注漏检率（如未标注的小物体比例），要求漏检率＜5%。  </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id=""><a href="#" class="headerlink" title=" "></a> </h3><blockquote>
+<p>关键执行策略</p>
+<ol>
+<li><p><strong>工具链组合</strong>：  </p>
+<ul>
+<li><strong>预标注</strong>：用YOLOv8或Segment Anything Model（SAM）生成检测框/分割掩码，作为AI初始输出。  </li>
+<li><strong>人工修正</strong>：在Labelme中快速调整顶点，或使用「自动填充」功能优化多边形边缘。  </li>
+<li><strong>批量处理</strong>：对同一类别的100张相似图片，可先标注1张，其余99张通过「复制-粘贴标注」快速完成，仅修正位置差异。  </li>
+</ul>
+</li>
+<li><p><strong>人员分工</strong>：  </p>
+<ul>
+<li>2人负责「复杂类别精标」（如多食材混合菜品），3人负责「简单类别批量修正」（如单一水果）。  </li>
+<li>每周安排1人专门处理标注冲突和历史数据校验。  </li>
+</ul>
+</li>
+<li><p><strong>进度监控</strong>：  </p>
+<ul>
+<li>用Google Sheets或飞书多维表格实时更新每日标注量、质检通过率、工具使用效率（如AI预标注占比）。  </li>
+<li>设置预警线：若某周标注完成率＜80%，立即启动临时增员或延长每日工作时长（如从8小时增至10小时）。  </li>
+</ul>
+</li>
+</ol>
+<p>风险应对</p>
+<ul>
+<li><strong>工具适配延迟</strong>：提前1周在小批量数据（如1k张）上测试AI模型预标注效果，调整模型参数（如置信度阈值）。  </li>
+<li><strong>标注质量波动</strong>：每两周开展标注标准考试，不合格者重新培训；对连续3次质检优秀的人员给予奖励。  </li>
+</ul>
+<p>通过「采集-标注-校验-迭代」的闭环流程，结合AI工具减少重复劳动，可将10万张图片的标注周期压缩至<strong>6个月内</strong>，同时保证标注精度满足模型训练需求。</p>
+</blockquote>
+<h3 id="数据采集与标注分期计划表（总目标：10万张）"><a href="#数据采集与标注分期计划表（总目标：10万张）" class="headerlink" title="数据采集与标注分期计划表（总目标：10万张）"></a><strong>数据采集与标注分期计划表（总目标：10万张）</strong></h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th><strong>分期</strong></th>
+<th><strong>时间范围</strong></th>
+<th><strong>采集目标</strong></th>
+<th><strong>标注时间安排</strong></th>
+<th><strong>工具与效率优化</strong></th>
+<th><strong>质量控制措施</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>第1-67天</td>
+<td>采集20k张</td>
+<td>- 第1-10天：采集3k张后启动标注，每日标注300张，10天完成3k张<br>- 第11-67天：每日同步采集/标注300张，完成剩余17k张</td>
+<td>Labelme「复制标注」复用相似图片结果</td>
+<td>每日抽检5%标注结果，重点检查高频类别边缘精度</td>
+</tr>
+<tr>
+<td>2</td>
+<td>第68-167天</td>
+<td>累计采集至50k张（新增30k张）</td>
+<td>每日采集/标注300张，100天完成30k张标注</td>
+<td>引入CVAT/Supervisely批量导入AI预标注（如YOLO检测框）</td>
+<td>每周组织标注规则培训，统一多物体重叠标注标准</td>
+</tr>
+<tr>
+<td>3</td>
+<td>第168-267天</td>
+<td>累计采集至80k张（新增30k张）</td>
+<td>- 前50天：每日标注300张，完成15k张<br>- 后50天：校验数据并修正2k-5k张易错样本</td>
+<td>用Labelme插件自动检测重叠标注</td>
+<td>建立错误台账，每周复盘典型问题（如小目标漏标）<br>抽检10%样本，重点检查调料等小目标</td>
+</tr>
+<tr>
+<td>4</td>
+<td>第268-334天</td>
+<td>累计采集至100k张（完成剩余20k张标注）</td>
+<td>- 前30天：标注10k张测试集，双人交叉校验（差异＞10%重标）<br>- 后37天：标注剩余10k张训练集，转换数据格式</td>
+<td>批量转换为COCO/YOLO格式，校验文件完整性</td>
+<td>用训练模型推理测试集，统计漏检率（要求＜5%）<br>全量检查标注文件与图片路径对应关系</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="4-23会议纪要"><a href="#4-23会议纪要" class="headerlink" title="4.23会议纪要"></a>4.23会议纪要</h1><h3 id="数据收集与标注"><a href="#数据收集与标注" class="headerlink" title="数据收集与标注"></a>数据收集与标注</h3><ol>
+<li><p><strong>数据收集</strong></p>
+<ul>
+<li>数据集收集：讨论了如何收集100K的数据，初步计划是每天每餐拍摄五张照片，预计需要十个月完成。</li>
+<li>数据来源：除了保安外，还可以利用学生和其他人员在餐厅用餐时拍摄照片。</li>
+<li>数据增强：建议在不同角度和光照条件下拍摄，以提高数据的多样性。</li>
+</ul>
+</li>
+<li><p><strong>数据标注</strong></p>
+<ul>
+<li>标注工具：介绍了两种标注工具，Label Me（需要下载）和Make Sense（在线使用），并说明了它们的使用方法和优缺点。</li>
+<li>标注标准：讨论了标注的具体标准，例如是否需要单独标注每个食材，如何处理复杂的菜品组合。</li>
+<li>标注人员：可以考虑发动合作院校的学生进行标注，以提高效率。</li>
+</ul>
+</li>
+</ol>
+<h3 id="数据采集与标注的具体安排"><a href="#数据采集与标注的具体安排" class="headerlink" title="数据采集与标注的具体安排"></a>数据采集与标注的具体安排</h3><ol>
+<li><p><strong>拍摄安排</strong></p>
+<ul>
+<li>每人每天拍摄五张照片，预计每天总共拍摄50张照片。</li>
+<li>拍摄角度和光照：建议在不同角度和光照条件下拍摄，以提高数据的多样性。</li>
+</ul>
+</li>
+<li><p><strong>标注安排</strong></p>
+<ul>
+<li>标注工具：详细介绍了Label Me和Make Sense的使用方法。</li>
+<li>标注标准：讨论了如何标注复杂的菜品组合，是否需要单独标注每个食材。</li>
+</ul>
+</li>
+</ol>
+<h3 id="语义分割与实例分割"><a href="#语义分割与实例分割" class="headerlink" title="语义分割与实例分割"></a>语义分割与实例分割</h3><ol>
+<li><p><strong>语义分割</strong></p>
+<ul>
+<li>定义：语义分割是将图像中的每个像素分类到预定义的类别中。</li>
+<li>应用场景：讨论了在菜品识别中的应用，如何处理同一菜品在不同位置的情况。</li>
+</ul>
+</li>
+<li><p><strong>实例分割</strong></p>
+<ul>
+<li>定义：实例分割不仅将图像中的每个像素分类，还能区分不同的实例。</li>
+<li>应用场景：讨论了在菜品识别中的应用，是否需要对每个实例进行单独标注。</li>
+</ul>
+</li>
+</ol>
+<h3 id="会议后续安排"><a href="#会议后续安排" class="headerlink" title="会议后续安排"></a>会议后续安排</h3><ol>
+<li><p><strong>PPT准备</strong></p>
+<ul>
+<li>数据采集：详细说明数据采集的步骤和最终要求。</li>
+<li>标注工具：介绍现有的标注工具及其优缺点。</li>
+<li>语义分割现状：展示当前语义分割的效果和应用案例。</li>
+</ul>
+</li>
+<li><p><strong>人员安排</strong></p>
+<ul>
+<li>考虑增加人手：如果一个人不够，可以考虑增加几个人。</li>
+<li>实习生协助：安排实习生协助数据收集和标注工作。</li>
+</ul>
+</li>
+<li><p><strong>会议时间</strong></p>
+<ul>
+<li>下周再约综合处的处长，具体时间待定。</li>
+</ul>
+</li>
+</ol>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/04/22/2025-4-22-%E5%AD%97%E8%8A%82%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/04/20/2025-4-20/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E6%95%B0%E6%8D%AE%E6%94%B6%E9%9B%86%E5%AE%89%E6%8E%92"><span class="toc-content-number">1.</span> <span class="toc-content-text">数据收集安排</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E5%88%86%E9%98%B6%E6%AE%B5%E6%8E%A8%E8%BF%9B%E6%95%B0%E6%8D%AE%E6%94%B6%E9%9B%86"><span class="toc-content-number">1.1.</span> <span class="toc-content-text">分阶段推进数据收集</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E6%89%A7%E8%A1%8C%E8%A6%81%E7%82%B9"><span class="toc-content-number">1.2.</span> <span class="toc-content-text">执行要点</span></a></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E6%89%8B%E5%8A%A8%E6%A0%87%E6%B3%A8%E6%95%B0%E6%8D%AE"><span class="toc-content-number">2.</span> <span class="toc-content-text">手动标注数据</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E7%AC%AC1%E6%9C%9F%EF%BC%9A%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%8620k%E5%BC%A0%EF%BC%88%E5%90%8C%E6%AD%A5%E5%90%AF%E5%8A%A8%E6%A0%87%E6%B3%A8%EF%BC%89"><span class="toc-content-number">2.1.</span> <span class="toc-content-text">第1期：数据采集20k张（同步启动标注）</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E7%AC%AC2%E6%9C%9F%EF%BC%9A%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%8630k%E5%BC%A0%EF%BC%88%E7%B4%AF%E8%AE%A150k%E5%BC%A0%EF%BC%89"><span class="toc-content-number">2.2.</span> <span class="toc-content-text">第2期：数据采集30k张（累计50k张）</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E7%AC%AC3%E6%9C%9F%EF%BC%9A%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%8630k%E5%BC%A0%EF%BC%88%E7%B4%AF%E8%AE%A180k%E5%BC%A0%EF%BC%89"><span class="toc-content-number">2.3.</span> <span class="toc-content-text">第3期：数据采集30k张（累计80k张）</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E7%AC%AC4%E6%9C%9F%EF%BC%9A%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%8620k%E5%BC%A0%EF%BC%88%E7%B4%AF%E8%AE%A1100k%E5%BC%A0%EF%BC%89"><span class="toc-content-number">2.4.</span> <span class="toc-content-text">第4期：数据采集20k张（累计100k张）</span></a></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link"><span class="toc-content-number">3.</span> <span class="toc-content-text"> </span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E4%B8%8E%E6%A0%87%E6%B3%A8%E5%88%86%E6%9C%9F%E8%AE%A1%E5%88%92%E8%A1%A8%EF%BC%88%E6%80%BB%E7%9B%AE%E6%A0%87%EF%BC%9A10%E4%B8%87%E5%BC%A0%EF%BC%89"><span class="toc-content-number">4.</span> <span class="toc-content-text">数据采集与标注分期计划表（总目标：10万张）</span></a></li></ol></li></ol></li><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#4-23%E4%BC%9A%E8%AE%AE%E7%BA%AA%E8%A6%81"><span class="toc-content-number"></span> <span class="toc-content-text">4.23会议纪要</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E6%95%B0%E6%8D%AE%E6%94%B6%E9%9B%86%E4%B8%8E%E6%A0%87%E6%B3%A8"><span class="toc-content-number">1.</span> <span class="toc-content-text">数据收集与标注</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E4%B8%8E%E6%A0%87%E6%B3%A8%E7%9A%84%E5%85%B7%E4%BD%93%E5%AE%89%E6%8E%92"><span class="toc-content-number">2.</span> <span class="toc-content-text">数据采集与标注的具体安排</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%E4%B8%8E%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2"><span class="toc-content-number">3.</span> <span class="toc-content-text">语义分割与实例分割</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E4%BC%9A%E8%AE%AE%E5%90%8E%E7%BB%AD%E5%AE%89%E6%8E%92"><span class="toc-content-number">4.</span> <span class="toc-content-text">会议后续安排</span></a></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>

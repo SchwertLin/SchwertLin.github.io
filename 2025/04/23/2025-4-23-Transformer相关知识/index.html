@@ -1,0 +1,226 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="有关于Transformer的一些知识盘点。  Transformer     CNN RNN Transformer     长距离依赖 感受野有限 梯度消失 自注意力直接建模任意位置交互   并行化能力 逐层卷积 顺序计算 全序列并行计算（自注意力 + FFN）   梯度稳定性 BN 等技巧 门控缓解 缩放点积（Scaled Dot-Product）+ 层归一化     Attention时">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-4-23-Transformer相关知识">
+<meta property="og:url" content="http://example.com/2025/04/23/2025-4-23-Transformer%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="有关于Transformer的一些知识盘点。  Transformer     CNN RNN Transformer     长距离依赖 感受野有限 梯度消失 自注意力直接建模任意位置交互   并行化能力 逐层卷积 顺序计算 全序列并行计算（自注意力 + FFN）   梯度稳定性 BN 等技巧 门控缓解 缩放点积（Scaled Dot-Product）+ 层归一化     Attention时">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-04-23T07:13:35.000Z">
+<meta property="article:modified_time" content="2025-05-15T13:02:31.000Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="transformer">
+<meta name="twitter:card" content="summary"><title>2025-4-23-Transformer相关知识 - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-4-23-Transformer相关知识</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-04-23</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-05-15</time></div>
+<div class="post-categories"><i class="icon fa-regular fa-folder-open" title="分类"></i><a class="post-category" href="/categories/%E9%9D%A2%E7%BB%8F/">面经</a></div>
+<div class="post-tags"><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/transformer/">transformer</a></div></div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约1.4K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><blockquote>
+<p>有关于Transformer的一些知识盘点。</p>
+</blockquote>
+<h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>CNN</th>
+<th>RNN</th>
+<th>Transformer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>长距离依赖</td>
+<td>感受野有限</td>
+<td>梯度消失</td>
+<td>自注意力直接建模任意位置交互</td>
+</tr>
+<tr>
+<td>并行化能力</td>
+<td>逐层卷积</td>
+<td>顺序计算</td>
+<td>全序列并行计算（自注意力 + FFN）</td>
+</tr>
+<tr>
+<td>梯度稳定性</td>
+<td>BN 等技巧</td>
+<td>门控缓解</td>
+<td>缩放点积（Scaled Dot-Product）+ 层归一化</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Attention时间复杂度：$O(n^2d)$</p>
+<p>Attention空间复杂度：$O(n^2)$，权重矩阵</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Q</th>
+<th>K</th>
+<th>V</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>交叉注意力层</td>
+<td>解码器中因果注意力层的输出向量</td>
+<td>编码器输出的注意力向量</td>
+<td>编码器输出的注意力向量</td>
+</tr>
+<tr>
+<td>因果注意力层</td>
+<td>输出序列中的<strong>当前位置词向量</strong></td>
+<td>输出序列中的所有位置词向量</td>
+<td>输出序列中的所有位置词向量</td>
+</tr>
+<tr>
+<td>全局自注意力层</td>
+<td>输入序列中的当前位置词向量</td>
+<td>输入序列中的当前位置词向量</td>
+<td>输入序列中的当前位置词向量</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="KV-cache"><a href="#KV-cache" class="headerlink" title="KV cache"></a>KV cache</h2><p>Transformer 在<strong>推理阶段（Inference）\</strong>是*<em>逐个 token 生成的*</em>（叫做自回归生成）。</p>
+<p>如果每生成一个 token 都重新对前面所有的 token 做 attention，会造成大量<strong>重复计算</strong>！</p>
+<p>Transformer 的每一层都有注意力机制。在 <strong>Decoder 的每一层</strong>，都会有这样的结构：</p>
+<ol>
+<li><strong>Masked Multi-Head Self-Attention</strong>（遮住未来 token） ← <strong>就是这里用 KV Cache！</strong></li>
+<li>Encoder-Decoder Attention（使用 Encoder 输出）</li>
+<li>Feed-Forward Layer</li>
+</ol>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>比如你在生成文本 <code>&quot;The cat sat on&quot;</code>，模型每次只输出一个新词：</p>
+<p>第一步：输入第一个词 <code>&quot;The&quot;</code></p>
+<ol>
+<li>假设 token 1 的 embedding 是$x_1$</li>
+<li>计算：<script type="math/tex; mode=display">
+Q_1 = x_1 W^Q,\quad K_1 = x_1 W^K,\quad V_1 = x_1 W^V\\
+\text{softmax}(Q_1 K_1^T) V_1 \rightarrow 输出 token 2</script></li>
+<li>把 $K_1, V_1$ <strong>缓存起来</strong>（KV Cache）</li>
+</ol>
+<p>第二步：输入第二个词 <code>&quot;cat&quot;</code></p>
+<ol>
+<li>新的输入是 token 2 的 embedding$x_2$</li>
+<li>现在我们只需要计算：<script type="math/tex; mode=display">
+Q_2 = x_2 W^Q\\
+K_{\text{all}} = [K_1, K_2],\quad V_{\text{all}} = [V_1, V_2]\\
+\text{softmax}(Q_2 [K_1, K_2]^T) [V_1, V_2]</script>其中 $K_2 = x_2 W^K,\ V_2 = x_2 W^V$，也会加入缓存。</li>
+</ol>
+<p>第三步：输入第三个词 <code>&quot;sat&quot;</code>，流程完全一样：</p>
+<ol>
+<li><p>只计算$Q_3 = x_3 W^Q$</p>
+</li>
+<li><p>直接使用之前缓存的 $K_1, K_2, K_3$ 和 $V_1, V_2, V_3$ 做 Attention：</p>
+<script type="math/tex; mode=display">
+\text{softmax}(Q_3 [K_1, K_2, K_3]^T) [V_1, V_2, V_3]</script></li>
+</ol>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h3 id="MHA"><a href="#MHA" class="headerlink" title="MHA"></a>MHA</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MLA</span>(nn.Module)&#123;</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,d_model,num_heads</span>):</span><br><span class="line">    <span class="built_in">super</span>.__init__()</span><br><span class="line">    <span class="keyword">assert</span> d_model % num_heads ==<span class="number">0</span>,<span class="string">&quot;d_model 必须被 num_heads 整除&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="variable language_">self</span>.d_model=d_model</span><br><span class="line">    <span class="variable language_">self</span>.num_heads=num_heads</span><br><span class="line">    <span class="variable language_">self</span>.d_k=d_model//num_heads <span class="comment"># 每个head的维度</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># QKV的线性变换</span></span><br><span class="line">    <span class="variable language_">self</span>.W_q=nn.Linear(d_model,d_model)</span><br><span class="line">    <span class="variable language_">self</span>.W_k=nn.Linear(d_model,d_model)</span><br><span class="line">    <span class="variable language_">self</span>.W_v=nn.Linear(d_model,d_model)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 输出线性层</span></span><br><span class="line">    <span class="variable language_">self</span>.W_0=nn.Linear(d_model,d_model)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self,q,k,v,mask=<span class="literal">None</span></span>)&#123;</span><br><span class="line">        <span class="comment"># query, key, value: (batch, seq_len, d_model)</span></span><br><span class="line">        B,L_q,_=q.shape</span><br><span class="line">        L_k=k.shape[<span class="number">1</span>]</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 线性变换+reshape分头: (B, H, L_q, d_k)</span></span><br><span class="line">        Q=<span class="variable language_">self</span>.W_q(q).view</span><br><span class="line">        K=</span><br><span class="line">        V=</span><br><span class="line">        <span class="comment"># 注意力得分:(B, H, L_q, L_k)</span></span><br><span class="line">        scores=torch.matmul(Q,K.transpose(-<span class="number">2</span>,-<span class="number">1</span>))/(<span class="variable language_">self</span>.d_k**<span class="number">0.5</span>)</span><br><span class="line">        <span class="keyword">if</span> Mask <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        	scores=scores.masked_filled(mask==<span class="number">0</span>,<span class="built_in">float</span>(<span class="string">&#x27;-inf&#x27;</span>))</span><br><span class="line">        <span class="comment"># mask = torch.triu(torch.ones(L_q, L_k), diagonal=1).bool()  # upper triangular mask</span></span><br><span class="line"></span><br><span class="line">        </span><br><span class="line">        attn=F.softmax(scores,dim=-<span class="number">1</span>) <span class="comment">#自注意力权重</span></span><br><span class="line">        context=torch.matmul(attn,V) </span><br><span class="line">        </span><br><span class="line">        context=context.transpose(<span class="number">1</span>,<span class="number">2</span>).contigous().view(B,L_q,<span class="variable language_">self</span>.d_model)</span><br><span class="line">		<span class="keyword">return</span> <span class="variable language_">self</span>.W_o(context)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Q from decoder, K/V from encoder</span></span><br><span class="line">output = mha(decoder_input, encoder_output, encoder_output)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<ol>
+<li><p>为什么d_model 必须被 num_heads 整除？</p>
+<p><em>把总的维度 dmodeld_{\text{model}}dmodel 平均 <strong>分给每个头（head）</strong>。</em></p>
+</li>
+<li><p>Q = self.W_q(query).view(B, L_q, self.num_heads, self.d_k).transpose(1, 2)  # (B, H, L_q, d_k)这是在干什么？，K.transpose(-2, -1)中的参数是什么 意思？</p>
+<ul>
+<li><em><code>transpose(1, 2)</code>：把 <code>L_q</code> 和 <code>H</code> 互换位置，得到 <code>(B, H, L_q, d_k)</code>，这个是注意力标准格式</em></li>
+<li>是对张量的 <strong>最后两个维度做转置</strong>:假设 <code>K.shape = (B, H, L_k, d_k)</code>,那 <code>K.transpose(-2, -1)</code> 变成 <code>(B, H, d_k, L_k)</code></li>
+</ul>
+</li>
+<li><p>scores.masked_fill此函数是？</p>
+<p><em>把 <code>mask==0</code> 的位置变成 <code>-inf</code></em></p>
+</li>
+<li><p>attn = F.softmax(scores, dim=-1)  ，dim=-1是?</p>
+<p><em><code>dim=-1</code> 表示在<strong>最后一个维度</strong>上做 softmax。即：在每个 query 上，对所有的 key 做归一化</em></p>
+</li>
+<li><p>合并 heads         context = context.transpose(1, 2).contiguous().view(B, L_q, self.d_model)  # (B, L_q, d_model)这个是在？num_heads似乎没有使用。</p>
+<ul>
+<li>context.shape = (B, H, L_q, d_k)</li>
+<li>context.transpose(1, 2)：(B, L_q, H, d_k)</li>
+<li>contiguous().view(B, L_q, d_model):合并 H 和 d_k，拼回去</li>
+<li>输出是<code>(batch_size, seq_len, d_model)</code>，保持与原始输入形状一致</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<h3 id="Scaled-Dot-Product-Attention"><a href="#Scaled-Dot-Product-Attention" class="headerlink" title="Scaled Dot-Product Attention"></a>Scaled Dot-Product Attention</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">scaled_dot_product_attention</span>(<span class="params">Q,K,V,mask=<span class="literal">None</span></span>):</span><br><span class="line">    <span class="comment"># QKV Shape:(batch_size, nums_heads, seq_len, d_k)</span></span><br><span class="line">    scores=torch.matmul(Q,K.transpose(-<span class="number">2</span>,-<span class="number">1</span>))/Q.size(-<span class="number">1</span>)**<span class="number">0.5</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> mask <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        scores=scores.maskfill(mask==<span class="number">0</span>,<span class="built_in">float</span>=<span class="string">&quot;-inf&quot;</span>)</span><br><span class="line">    </span><br><span class="line">    attn=F.softmax(scores,dim=-<span class="number">1</span>)</span><br><span class="line">    output = torch.matmul(attn, V)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span>  output,attn</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ol>
+<li>为什么Scaled Dot-Product Attention要返回output, attn？</li>
+</ol>
+<ul>
+<li><code>output</code> 是最终注意力后的值（输入后续 FFN）</li>
+<li><code>attn</code> 是注意力权重（可视化分析、或者做 attention dropout）</li>
+</ul>
+</blockquote>
+<h3 id="交叉熵损失"><a href="#交叉熵损失" class="headerlink" title="交叉熵损失"></a>交叉熵损失</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">cross_entropy</span>(<span class="params">pred,target</span>):</span><br><span class="line">    <span class="comment"># pred:(batch_size,num_class)</span></span><br><span class="line">    <span class="comment"># target:(batch_size,)int类型正确索引</span></span><br><span class="line">    log_probs=pred-torch.logsumexp(pred,dim=<span class="number">1</span>,keepdim=<span class="literal">True</span>)</span><br><span class="line">    loss=-log_probs[torch.arrange(pred.size(<span class="number">0</span>)),target]</span><br><span class="line">    <span class="keyword">return</span> loss.mean()</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ol>
+<li>交叉熵损失的代码</li>
+</ol>
+<p>（log-probabilities）:<code>torch.logsumexp</code>: log softmax $\sum_i e^{\text{logits}\ {s_i}}$</p>
+<script type="math/tex; mode=display">
+\log{p_i}=\text{logits}\ {s_i}-\log \sum_j e^{\text{logits}\ {s_j}}\\</script></blockquote>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/04/23/2025-4-23-LSTM/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/04/23/2025-4-23-%E6%A2%AF%E5%BA%A6%E6%B6%88%E5%A4%B1-%E7%88%86%E7%82%B8/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#Transformer"><span class="toc-content-number">1.</span> <span class="toc-content-text">Transformer</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#KV-cache"><span class="toc-content-number">1.1.</span> <span class="toc-content-text">KV cache</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E4%BE%8B%E5%AD%90"><span class="toc-content-number">1.1.1.</span> <span class="toc-content-text">例子</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-content-number">1.2.</span> <span class="toc-content-text">代码实现</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#MHA"><span class="toc-content-number">1.2.1.</span> <span class="toc-content-text">MHA</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#Scaled-Dot-Product-Attention"><span class="toc-content-number">1.2.2.</span> <span class="toc-content-text">Scaled Dot-Product Attention</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E4%BA%A4%E5%8F%89%E7%86%B5%E6%8D%9F%E5%A4%B1"><span class="toc-content-number">1.2.3.</span> <span class="toc-content-text">交叉熵损失</span></a></li></ol></li></ol></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>

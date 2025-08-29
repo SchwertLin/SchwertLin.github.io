@@ -1,0 +1,192 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="不考虑使用知识蒸馏了。因为想用的话存在以下的问题：  没有现有的开源的有关于食品目标检测任务的大型模型 教师模型和学生模型一般都要在同一数据集下训练 我无法保证在教师模型与学生模型架构完全不一样的情况下，做到模型压缩、也没法保证知识蒸馏就一定有效率    教师模型可以选取检测其他任务的大模型吗、还是说，就根据我的数据集、教师模型和学生模型先后在此数据集上训练？  一般来说，教师模型需要在目标任务的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-3-10-不打算使用KD">
+<meta property="og:url" content="http://example.com/2025/03/13/2025-3-10-%E4%B8%8D%E6%89%93%E7%AE%97%E4%BD%BF%E7%94%A8KD/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="不考虑使用知识蒸馏了。因为想用的话存在以下的问题：  没有现有的开源的有关于食品目标检测任务的大型模型 教师模型和学生模型一般都要在同一数据集下训练 我无法保证在教师模型与学生模型架构完全不一样的情况下，做到模型压缩、也没法保证知识蒸馏就一定有效率    教师模型可以选取检测其他任务的大模型吗、还是说，就根据我的数据集、教师模型和学生模型先后在此数据集上训练？  一般来说，教师模型需要在目标任务的">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-03-13T11:38:06.000Z">
+<meta property="article:modified_time" content="2025-03-13T15:48:10.000Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="每天の学习日记">
+<meta name="twitter:card" content="summary"><title>2025-3-10-不打算使用KD - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-3-10-不打算使用KD</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-03-13</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-03-13</time></div>
+
+<div class="post-tags"><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E6%AF%8F%E5%A4%A9%E3%81%AE%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/">每天の学习日记</a></div></div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约1.8K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><p>不考虑使用知识蒸馏了。因为想用的话存在以下的问题：</p>
+<ol>
+<li>没有现有的开源的有关于食品目标检测任务的大型模型</li>
+<li>教师模型和学生模型一般都要在同一数据集下训练</li>
+<li>我无法保证在教师模型与学生模型架构完全不一样的情况下，做到模型压缩、也没法保证知识蒸馏就一定有效率</li>
+</ol>
+<blockquote>
+<ul>
+<li><strong>教师模型可以选取检测其他任务的大模型吗、还是说，就根据我的数据集、教师模型和学生模型先后在此数据集上训练？</strong></li>
+</ul>
+<p><u>一般来说，教师模型需要在目标任务的数据集上进行训练，或者至少在相关领域有良好的表现。如果使用其他任务的预训练模型（比如在ImageNet上预训练的分类模型用于目标检测），可能需要调整模型结构或进行微调，以确保其输出对学生模型有帮助。不过，如果教师模型和目标任务差异太大，可能效果不佳。所以最好是在同一数据集上训练教师和学生模型，或者至少是相似任务。</u></p>
+<ul>
+<li><strong>教师模型是不是只要先准备好模型的框架、然后在现在要检测的任务上重新训练？</strong></li>
+</ul>
+<p><u>教师模型通常需要先在目标任务上训练好，然后固定参数，指导学生模型。模型压缩是通过让学生模型（结构更简单）模仿教师模型（复杂但准确）来实现的，学生模型可能在参数和计算量上更小，从而在保持较高准确率的同时减少资源消耗。如果学生模型结构完全不同，比如从CNN转为Transformer，可能需要设计合适的适配层（如全连接层）来对齐特征，确保知识能够有效迁移。</u></p>
+<ul>
+<li><strong>那为什么可以做到模型压缩？是不是对学生模型的模型结构有要求、比如必须要比教师模型更简单？假如学生模型采取的完全不一样的模型架构要怎么办？</strong></li>
+</ul>
+<p><u>传统上，知识蒸馏确实用于模型压缩，所以学生模型通常更小更简单。但如果学生模型结构完全不同但参数量相近，蒸馏仍然可能有效，因为可能捕捉到不同的特征表示。不过主要优势还是在压缩场景。</u></p>
+</blockquote>
+<p>1.DeepSeek-MoE的专家网络与目标检测的FPN（特征金字塔）怎么结合？可以结合数学公式进行阐述吗？</p>
+<blockquote>
+<p>将MoE的专家网络与FPN结合的核心思想是：<strong>不同专家负责不同尺度的特征增强</strong>。假设FPN输出多尺度特征图 $\{P_2, P_3, P_4, P_5\}$（对应stride=4,8,16,32），对每个尺度特征 $P_i$，通过门控网络动态选择专家：</p>
+<p><strong>公式推导</strong>：</p>
+<ol>
+<li><p><strong>专家定义</strong>：每个专家 $E_k$ 是一个轻量卷积模块（如Ghost模块）</p>
+<script type="math/tex; mode=display">
+E_k(P_i) = \text{GhostConv}(P_i), \quad k=1,2,\dots,K</script></li>
+<li><p><strong>门控权重计算</strong>：通过轻量级网络生成注意力权重</p>
+<script type="math/tex; mode=display">
+g_i = \text{Gate}(P_i) = \text{Softmax}\left(W_g \cdot \text{GAP}(P_i)\right)</script><p>其中 $W_g \in \mathbb{R}^{K \times C}$，GAP为全局平均池化。</p>
+</li>
+<li><p><strong>特征融合</strong>：加权聚合专家输出</p>
+<script type="math/tex; mode=display">
+\hat{P}_i = \sum_{k=1}^K g_{i,k} \cdot E_k(P_i)</script></li>
+</ol>
+<p><strong>结构示意图</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入特征图 P_i</span><br><span class="line">    │</span><br><span class="line">    ├─ Expert1 → GhostConv → 输出特征1</span><br><span class="line">    ├─ Expert2 → DySnakeConv → 输出特征2</span><br><span class="line">    ├─ ...</span><br><span class="line">    └─ Gate网络 → 权重g_i</span><br><span class="line">           ↓</span><br><span class="line">加权求和 → 融合特征P&#x27;_i</span><br></pre></td></tr></table></figure>
+<p><strong>2. 与FPN的协同工作</strong></p>
+<ul>
+<li><p><strong>自底向上路径</strong>：原始FPN通过上采样融合多尺度特征。</p>
+</li>
+<li><p><strong>专家增强路径</strong>：每个尺度的特征经过MoE专家网络增强后再进行跨尺度融合：</p>
+<script type="math/tex; mode=display">
+P_i^{\text{out}} = \text{Conv}(\hat{P}_i + \text{Upsample}(P_{i+1}^\text{out}))</script><p>此设计可同时保留FPN的多尺度特性，并通过专家网络增强各尺度的表征能力。</p>
+</li>
+</ul>
+</blockquote>
+<p>2.“GhostNet+ShuffleNet混合设计：参考DeepSeek-R1的分层设计，在浅层使用GhostNet减少计算量，深层采用ShuffleNet增强特征表达能力”这两个网络介绍一下.</p>
+<blockquote>
+<p>GhostNet通过廉价操作生成冗余特征图，减少计算量；ShuffleNet使用通道洗牌来增强信息流动。</p>
+<p><strong>1. GhostNet：廉价特征生成</strong></p>
+<p><strong>核心思想</strong>：通过<strong>廉价线性操作</strong>生成“幻影”特征图，减少卷积计算量。</p>
+<p><strong>数学表达</strong>：</p>
+<ol>
+<li><p>原始卷积输出：</p>
+<script type="math/tex; mode=display">
+Y = X \ast W, \quad W \in \mathbb{R}^{C_{\text{out}} \times C_{\text{in}} \times k \times k}</script></li>
+<li><p>Ghost生成：</p>
+<ul>
+<li><p>主分支：普通卷积生成 $m$ 个特征图</p>
+<script type="math/tex; mode=display">
+Y_{\text{main}} = X \ast W_{\text{main}}, \quad W_{\text{main}} \in \mathbb{R}^{m \times C_{\text{in}} \times k \times k}</script></li>
+<li><p>幻影分支：逐点卷积（Depthwise Conv）生成 $n$ 个特征图</p>
+<script type="math/tex; mode=display">
+Y_{\text{ghost}} = \phi(Y_{\text{main}}) \ast W_{\text{ghost}}, \quad W_{\text{ghost}} \in \mathbb{R}^{n \times m \times 1 \times 1}</script></li>
+</ul>
+</li>
+<li><p>最终输出：</p>
+<script type="math/tex; mode=display">
+Y = \text{Concat}(Y_{\text{main}}, Y_{\text{ghost}})</script><p><strong>计算量对比</strong>：假设原卷积输出通道为 $s = m + n$，则计算量减少比例约为：</p>
+<script type="math/tex; mode=display">
+\text{压缩比} = \frac{m \cdot k^2 + n \cdot 1^2}{s \cdot k^2} \approx \frac{m}{s}</script></li>
+</ol>
+<p><strong>2. ShuffleNet：通道洗牌增强信息流</strong></p>
+<p><strong>核心操作</strong>：</p>
+<ol>
+<li><p><strong>分组卷积</strong>：将输入通道分为 $g$ 组，每组独立卷积：</p>
+<script type="math/tex; mode=display">
+Y_g = X_g \ast W_g, \quad g=1,2,\dots,G</script></li>
+<li><p><strong>通道洗牌</strong>：将各组输出通道重新排列，促进跨组信息交互：</p>
+<script type="math/tex; mode=display">
+Y_{\text{shuffle}} = \text{Shuffle}(Y_1, Y_2, \dots, Y_G)</script><p><strong>结构优势</strong>：通过分组减少计算量，通过洗牌保持全局信息流动。</p>
+</li>
+</ol>
+<p><strong>混合设计示例</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">HybridBlock</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, in_ch, out_ch</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        <span class="comment"># 浅层：GhostNet（高效）</span></span><br><span class="line">        <span class="variable language_">self</span>.ghost = GhostModule(in_ch, out_ch//<span class="number">2</span>)</span><br><span class="line">        <span class="comment"># 深层：ShuffleNet（高表现力）</span></span><br><span class="line">        <span class="variable language_">self</span>.shuffle = nn.Sequential(</span><br><span class="line">            nn.Conv2d(out_ch//<span class="number">2</span>, out_ch, <span class="number">3</span>, padding=<span class="number">1</span>, groups=<span class="number">4</span>),</span><br><span class="line">            nn.ReLU(),</span><br><span class="line">            ChannelShuffle(groups=<span class="number">4</span>)</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        x = <span class="variable language_">self</span>.ghost(x)</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.shuffle(x)</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>4.GPRO怎么结合DETR的loss function？</p>
+<blockquote>
+<p><strong>1. DETR原始损失</strong></p>
+<p>DETR使用<strong>二分匹配损失</strong>：</p>
+<script type="math/tex; mode=display">
+\mathcal{L}_{\text{Hungarian}} = \sum_{i=1}^N \left[ \lambda_{\text{cls}} \mathcal{L}_{\text{cls}} + \lambda_{\text{box}} \mathcal{L}_{\text{box}} \right]</script><p>其中 $\mathcal{L}_{\text{box}}$ 包含GIoU和L1损失。</p>
+<p><strong>2. GPRO集成策略</strong></p>
+<p><strong>Group Relative Policy Optimization (GRPO)</strong> 通过多组策略比较优化，步骤：</p>
+<ol>
+<li><p><strong>策略分组</strong>：将检测头的预测分为 $M$ 组（如4组），每组生成独立预测。</p>
+</li>
+<li><p><strong>奖励计算</strong>：对每组预测计算奖励 $R_m = \text{IoU}_{\text{3D}} + \text{cls_acc}$。</p>
+</li>
+<li><p><strong>优势函数</strong>：</p>
+<script type="math/tex; mode=display">
+A_m = R_m - \frac{1}{M} \sum_{m=1}^M R_m</script></li>
+<li><p><strong>策略梯度更新</strong>：</p>
+<script type="math/tex; mode=display">
+\nabla_\theta \mathcal{L}_{\text{GRPO}} = \mathbb{E} \left[ A_m \cdot \nabla_\theta \log \pi_\theta(a_m | s) \right]</script></li>
+</ol>
+<p><strong>3. 与DETR损失联合训练</strong></p>
+<p>总损失函数：</p>
+<script type="math/tex; mode=display">
+\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{Hungarian}} + \beta \cdot \mathcal{L}_{\text{GRPO}}</script><p><strong>训练流程</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> batch <span class="keyword">in</span> dataloader:</span><br><span class="line">    <span class="comment"># DETR前向</span></span><br><span class="line">    outputs = model(batch)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算匈牙利损失</span></span><br><span class="line">    loss_detr = compute_hungarian_loss(outputs, targets)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># GPRO策略优化</span></span><br><span class="line">    group_outputs = split_into_groups(outputs)  <span class="comment"># 分为M组预测</span></span><br><span class="line">    rewards = [compute_reward(group) <span class="keyword">for</span> group <span class="keyword">in</span> group_outputs]</span><br><span class="line">    loss_grpo = compute_grpo_loss(rewards, group_outputs)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 联合优化</span></span><br><span class="line">    total_loss = loss_detr + <span class="number">0.2</span> * loss_grpo</span><br><span class="line">    total_loss.backward()</span><br><span class="line">    optimizer.step()</span><br></pre></td></tr></table></figure>
+</blockquote>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/03/13/2025-3-13-%E6%A8%A1%E5%9E%8B%E6%9E%84%E5%BB%BA/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/03/12/2025-5-12/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>

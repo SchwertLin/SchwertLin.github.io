@@ -1,0 +1,223 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="3.28： 难绷，一直在补坑。。。 这个补完了：AI Agent介绍 3.29： 这几天一直在看Reinforcement Learning。是的，我的框架还没搭好，原因是看的太浅了，不了解RL的一些执行细节，虽然之前有看过Markov Process，但是又是一段时间过去了，忘的都差不多了。 于是来写RL的一些东西。参考来自于李宏毅的RL介绍。  Reinforcement Learning一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-3-28&#x2F;29-RL简介">
+<meta property="og:url" content="http://example.com/2025/03/28/2025-3-28-RL%E7%AE%80%E4%BB%8B/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="3.28： 难绷，一直在补坑。。。 这个补完了：AI Agent介绍 3.29： 这几天一直在看Reinforcement Learning。是的，我的框架还没搭好，原因是看的太浅了，不了解RL的一些执行细节，虽然之前有看过Markov Process，但是又是一段时间过去了，忘的都差不多了。 于是来写RL的一些东西。参考来自于李宏毅的RL介绍。  Reinforcement Learning一">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250331201956789.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250331233352045.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250401000256422.png">
+<meta property="article:published_time" content="2025-03-28T14:15:53.000Z">
+<meta property="article:modified_time" content="2025-04-10T05:18:42.000Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="每天の学习日记">
+<meta property="article:tag" content="强化学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250331201956789.png"><title>2025-3-28/29-RL简介 - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-3-28/29-RL简介</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-03-28</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-04-10</time></div>
+<div class="post-categories"><i class="icon fa-regular fa-folder-open" title="分类"></i><a class="post-category" href="/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/">强化学习</a></div>
+<div class="post-tags"><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E6%AF%8F%E5%A4%A9%E3%81%AE%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/">每天の学习日记</a><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/">强化学习</a></div></div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约1.9K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><blockquote>
+<p>3.28：</p>
+<p>难绷，一直在补坑。。。</p>
+<p>这个补完了：<a target="_blank" rel="noopener" href="http://localhost:4000/2025/03/21/2025-3-21-AI-Agent/">AI Agent介绍</a></p>
+<p>3.29：</p>
+<p>这几天一直在看Reinforcement Learning。是的，我的框架还没搭好，原因是看的太浅了，不了解RL的一些执行细节，虽然之前有看过Markov Process，但是又是一段时间过去了，忘的都差不多了。</p>
+<p>于是来写RL的一些东西。参考来自于李宏毅的RL介绍。</p>
+</blockquote>
+<h1 id="Reinforcement-Learning"><a href="#Reinforcement-Learning" class="headerlink" title="Reinforcement Learning"></a>Reinforcement Learning</h1><p><strong>一句话介绍：不知道正确的答案，借由与环境互动、根据得到的奖励知道：什么是好的、什么是不好的。</strong></p>
+<blockquote>
+<p>区分ML/RL:</p>
+<ul>
+<li>ML：找一个function(映射输入/输出)—&gt;定义loss函数—&gt;最优化</li>
+<li>RL：代理或是叫智能体(Agent)与环境(Env)互动(Observation/Action)，相互影响(Reward)</li>
+</ul>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250331201956789.png" alt="RL最初用于做游戏比较多"></p>
+<h2 id="介绍一些术语"><a href="#介绍一些术语" class="headerlink" title="介绍一些术语"></a>介绍一些术语</h2><p>Actor/Agent：执行动作的主体，叫做代理或是智能体(下文都称之为智能体)。</p>
+<p>Environment：外部的环境。既会影响智能体的行为、又会被智能体执行的行为所影响。</p>
+<p>Observation/State：智能体通过环境得到现在的外部的状态、或许还包括了过去对外部状态的观测。</p>
+<p>Action：智能体决定执行的动作、会影响到外部的环境。</p>
+<p>Policy：智能体A不同于其他智能体B，对于智能体如何决定执行的动作、以及动作又会怎么影响环境(Reward)的整体。可以说是整个模型。通过Reward的optimization可以更新。</p>
+<p>Episode：一个episode指的是一句游戏从开始到结束、其中经过的所有的状态以及动作的时间。可以得到一系列$\{s,a\}$(状态-动作)的集合。</p>
+<p>Trajectory：指一个智能体在环境中进行了一系列动作是所经历的状态、动作、奖励的序列。一般是一个episode可以得到的一系列$\{s,a\}$的集合是一个Trajectory。用于训练智能体、学习从状态到动作、最终最大化总体奖励。</p>
+<p>Reward：抽象的程度比较高，总的来说就是批判智能体执行当前动作的评价标准。与此相关的概念有：</p>
+<ol>
+<li>discount cumculated function: 在状态$s$下采取动作$a$后，期望获得多少的奖励。</li>
+<li>value function：在状态$s$下，无论采取什么动作，期望的奖励是多少（对于当前状态的评估，一般是平均期望奖励）。</li>
+<li>Advantage function：$A(s,a)$表示某个特定动作$a$相对于其他动作的优劣程度。</li>
+</ol>
+<h2 id="RL与ML之间的联系"><a href="#RL与ML之间的联系" class="headerlink" title="RL与ML之间的联系"></a>RL与ML之间的联系</h2><p>对于强化学习来说，实际上比较类似于分类任务，对于给定的输入in:Env—&gt;Observation/State，预测out:Action。并给出不同Action的置信度(然后Agent按照不同Action得到的置信度sample、从Action的distribution中sample)。</p>
+<blockquote>
+<p>要是输入是img，那么和ML也没什么不同。</p>
+</blockquote>
+<script type="math/tex; mode=display">
+\text{Action}=f(\text{Observation})</script><p><strong>目标</strong>: 找到最佳policy(model),$\max\text{Reward}$。</p>
+<blockquote>
+<p>对于$f$，假如输入是图片、那么需要使用CNN/ViT提取特征；</p>
+<p>假如我们想更进一步看到历史的图片，那么可能会选取RNN提取特征。</p>
+</blockquote>
+<p><strong>定义loss</strong></p>
+<p>对于RL：经过observation: $s_1,s_2,\dots,s_T$($T$时间游戏结束)，在时间$t$下施加动作$a_t$,得到奖励$r_t$</p>
+<p>计算总奖励: $R=\sum^T_{t=1}r_t$, 目标(loss func): $\max R$</p>
+<p><strong>最优化</strong>：根据R的值，例如梯度下降更新policy。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250331233352045.png" alt="image-20250331233352045"></p>
+<p><strong>此过程中存在的问题？为什么RL那么难训看人品？</strong></p>
+<ol>
+<li>sample具有随机性：动作必须要随机sample，要保证会有没出现过的动作，</li>
+<li>Env，Reward，是黑盒(里面是什么不知道)：Env给出对应回应，Reward给出分数，不知道依据什么给出回应。</li>
+<li>Env/Reward也具有随机性(随着Action的随机)</li>
+<li><strong>重点：如何求解最优化问题？</strong></li>
+</ol>
+<blockquote>
+<p>RL的过程会有点像GAN：</p>
+<ul>
+<li>Env: Discriminator</li>
+<li>Agent: Generator</li>
+</ul>
+</blockquote>
+<h2 id="如何操控Agent输出"><a href="#如何操控Agent输出" class="headerlink" title="如何操控Agent输出"></a>如何操控Agent输出</h2><p>在给定的State下，有两种可能行为：</p>
+<ul>
+<li>一定采取行动$a$</li>
+<li>一定不要采取行动$a$</li>
+</ul>
+<blockquote>
+<p>注意：是会采取行动$a$，也会采取行动$b$；明晰此处的不要采取行动$a$,说明会采取$a$以外动作的可能性。</p>
+</blockquote>
+<p>这是我们能够得到的训练数据（收敛了在不同$s$下采取了动作$a$/以及不想采取某动作）</p>
+<blockquote>
+<p><strong>Q: 如何收集训练数据？</strong></p>
+<p>A: 无论开始状态是什么，我们都跑很多个episodes，记录下对应的、多组$\{s_1,a_1\},\{s_2,a_2\},\dots,\{s_t,a_t\},\dots$。</p>
+</blockquote>
+<h3 id="第一阶段：行为克隆（Behavior-Cloning）——像监督学习一样训练"><a href="#第一阶段：行为克隆（Behavior-Cloning）——像监督学习一样训练" class="headerlink" title="第一阶段：行为克隆（Behavior Cloning）——像监督学习一样训练"></a>第一阶段：行为克隆（Behavior Cloning）——像监督学习一样训练</h3><p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250401000256422.png" alt="image-20250401000256422"></p>
+<p>对于Agent，输入State $s$，输出Action $a$。以此可以收集大量的训练数据: $\{s_1,\hat a_1\},\{s_2,\hat a_2\},\ldots,\{s_N,\hat a_N\}$，输出动作与Ground truth之间可以计算交叉熵，这样就有loss，再对loss求梯度下降。</p>
+<p>这个过程，我们其实在做的是 <strong>模仿学习（Imitation Learning）</strong>，尤其是其中的 <strong>行为克隆（Behavior Cloning）</strong>。这时我们有 expert 给的 “正确动作” $\hat{a}$，可以直接用交叉熵 loss：</p>
+<script type="math/tex; mode=display">
+\mathcal{L}_{\text{BC}} = -\log \pi_{\theta}(\hat{a} | s)</script><p>✅ 这是纯监督学习：用 expert 数据模仿他该怎么做，不涉及任何 reward、Q value、优势函数之类的强化学习概念。</p>
+<h3 id="第二阶段：从模仿走向强化学习"><a href="#第二阶段：从模仿走向强化学习" class="headerlink" title="第二阶段：从模仿走向强化学习"></a>第二阶段：从模仿走向强化学习</h3><blockquote>
+<p>但问题是 —— <strong>行为克隆有局限性</strong>：</p>
+<ul>
+<li>如果 expert 数据少、分布不够全，Agent 在训练中可能从没见过某些 state，就不知道该如何决策。</li>
+<li>没法根据环境反馈进一步“变得更强”，只能学 expert 的行为，无法超越。</li>
+</ul>
+</blockquote>
+<p>于是，我们从“模仿”走向“试错 + 奖励驱动”的强化学习。这时：</p>
+<ul>
+<li>没有 ground truth 动作了（只有 Agent 自己选择的 a）</li>
+<li>我们只知道这个动作带来了多少 reward</li>
+<li>所以，我们要优化的，不是“像 expert 一样”，而是“动作好就多选它，动作差就少选它”</li>
+</ul>
+<p>这时候就引入了策略梯度：</p>
+<script type="math/tex; mode=display">
+\mathcal{L}_{\text{PG}} = - \log \pi_{\theta}(a | s) \cdot R</script><p>进一步为了减小方差，引入了优势函数：</p>
+<script type="math/tex; mode=display">
+\mathcal{L}_{\text{PG}} = - \log \pi_{\theta}(a | s) \cdot A(s,a)</script><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>方式</th>
+<th>数据来源</th>
+<th>优化目标</th>
+<th>是否需要 Advantage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>模仿学习</td>
+<td>行为克隆（交叉熵）</td>
+<td>expert 提供的 $\hat{a}$</td>
+<td>拟合 expert 的行为</td>
+<td>❌ 不需要</td>
+</tr>
+<tr>
+<td>强化学习</td>
+<td>策略梯度（REINFORCE）</td>
+<td>Agent 自己采样的 $a$</td>
+<td>最大化 reward</td>
+<td>✅ 需要</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>这种从行为克隆（交叉熵）到策略梯度（交叉熵 + Advantage 权重）的<strong>逻辑演化</strong>，是许多强化学习算法的实际路径。例如：</p>
+<ul>
+<li>初期 warm-up 用行为克隆</li>
+<li>后期切到策略梯度微调，用 Advantage 来权衡每个动作的好坏</li>
+</ul>
+<h2 id="优势函数的提出"><a href="#优势函数的提出" class="headerlink" title="优势函数的提出"></a>优势函数的提出</h2><p>Agent对于不同的动作会有不同程度的偏向，我们要显化这种偏向，使用优势函数。</p>
+<p>优势函数：<strong>期望</strong>在$s_1$下做动作$\hat a_1$，在$s_2$下不做动作$\hat a_2$，<strong>期望的程度是不同的。</strong></p>
+<script type="math/tex; mode=display">
+A(s,a)=Q(s,a)-V(s)</script><ul>
+<li>$A(s,a)$: Advantage Function。表示某个特定动作$a$相对于其他动作的优劣程度。</li>
+<li>$Q(s,a)$: Discounted Cumulative Reward。在状态$s$下采取动作$a$后，期望获得多少奖励。</li>
+<li>$V(s)$: Value Function。在状态$s$下，无论采取什么动作，期望的奖励是多少。（当前状态的期望reward）</li>
+</ul>
+<script type="math/tex; mode=display">
+A(s,a)=\begin{cases}
+>0,&动作a在状态s下比平均水平好\\
+<0,&动作a在状态s下比平均水平差
+\end{cases}</script></div><div class="post-end"><div class="post-prev"><a href="/2025/04/01/2025-4-1-%E7%BB%A7%E7%BB%AD%E5%AE%9E%E9%AA%8C/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/03/27/2025-3-27-%E5%AE%9E%E9%AA%8C/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#Reinforcement-Learning"><span class="toc-content-number">1.</span> <span class="toc-content-text">Reinforcement Learning</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%BA%9B%E6%9C%AF%E8%AF%AD"><span class="toc-content-number">1.1.</span> <span class="toc-content-text">介绍一些术语</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#RL%E4%B8%8EML%E4%B9%8B%E9%97%B4%E7%9A%84%E8%81%94%E7%B3%BB"><span class="toc-content-number">1.2.</span> <span class="toc-content-text">RL与ML之间的联系</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E5%A6%82%E4%BD%95%E6%93%8D%E6%8E%A7Agent%E8%BE%93%E5%87%BA"><span class="toc-content-number">1.3.</span> <span class="toc-content-text">如何操控Agent输出</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5%EF%BC%9A%E8%A1%8C%E4%B8%BA%E5%85%8B%E9%9A%86%EF%BC%88Behavior-Cloning%EF%BC%89%E2%80%94%E2%80%94%E5%83%8F%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E4%B8%80%E6%A0%B7%E8%AE%AD%E7%BB%83"><span class="toc-content-number">1.3.1.</span> <span class="toc-content-text">第一阶段：行为克隆（Behavior Cloning）——像监督学习一样训练</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5%EF%BC%9A%E4%BB%8E%E6%A8%A1%E4%BB%BF%E8%B5%B0%E5%90%91%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0"><span class="toc-content-number">1.3.2.</span> <span class="toc-content-text">第二阶段：从模仿走向强化学习</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E4%BC%98%E5%8A%BF%E5%87%BD%E6%95%B0%E7%9A%84%E6%8F%90%E5%87%BA"><span class="toc-content-number">1.4.</span> <span class="toc-content-text">优势函数的提出</span></a></li></ol></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>

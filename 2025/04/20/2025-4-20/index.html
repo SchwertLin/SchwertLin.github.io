@@ -1,0 +1,116 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="Q: 开放词汇vs开放集vs开放世界？？ A: 开放词汇的解释。 Open-Set Object Detection：模型不仅需要识别图像中的已知目标对象（即已知类别），还需要能够识别出图像中不属于已知类别的未知目标对象，并拒绝将它们错误地检测为已知目标对象（reject unknown）。 Open-World Object Detection：识别未知对象并标记为“unknown”(Open">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-4-20-论文评审">
+<meta property="og:url" content="http://example.com/2025/04/20/2025-4-20/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="Q: 开放词汇vs开放集vs开放世界？？ A: 开放词汇的解释。 Open-Set Object Detection：模型不仅需要识别图像中的已知目标对象（即已知类别），还需要能够识别出图像中不属于已知类别的未知目标对象，并拒绝将它们错误地检测为已知目标对象（reject unknown）。 Open-World Object Detection：识别未知对象并标记为“unknown”(Open">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/v2-9a35e869a833ad23c02b9b1468f7b73f_1440w.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250420192520111.png">
+<meta property="article:published_time" content="2025-04-20T10:33:32.000Z">
+<meta property="article:modified_time" content="2025-04-22T00:58:03.000Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="目标检测">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/v2-9a35e869a833ad23c02b9b1468f7b73f_1440w.jpg"><title>2025-4-20-论文评审 - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-4-20-论文评审</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-04-20</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-04-22</time></div>
+
+<div class="post-tags"><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/">目标检测</a></div></div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约2.4K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><blockquote>
+<p><strong>Q: 开放词汇vs开放集vs开放世界？？</strong></p>
+<p>A: <a target="_blank" rel="noopener" href="https://blog.csdn.net/jiaoyangwm/article/details/132157056">开放词汇的解释</a>。</p>
+<p>Open-Set Object Detection：模型不仅需要识别图像中的已知目标对象（即已知类别），还需要能够识别出图像中不属于已知类别的未知目标对象，<strong>并拒绝将它们错误地检测为已知目标</strong>对象（reject unknown）。</p>
+<p>Open-World Object Detection：识别未知对象并标记为“unknown”(Open-Set)；<strong>增量学习未知类别</strong>（Incrementally learn identified unknown categories），同时，不会忘记之前已经学会的类别。</p>
+<p>Open-Vocabulary Object Detection：要求模型超越训练阶段有限的基类（base classes）标签，从而在推理阶段<strong>检测由无界（开放）词汇表定义的新类别</strong>。</p>
+<p><strong>Q: 开放词汇vs零样本？</strong></p>
+<p>A:   </p>
+<ul>
+<li>零样本 目标检测/图像分割(ZSD/ZSS, Zero-Shot Detection/Segmentation)</li>
+<li>开放词汇 目标检测/图像分割(OVD/OVS, Open-Vocabulary Detection/Segmentation)</li>
+<li>归纳学习（Inductive Learning）:训练时不允许出现novel类的数据。</li>
+<li>演绎学习（Transductive Learning）：训练时可以出现novel类数据。</li>
+<li>G/Non-G: G=Generalized,即是否在base+novel上同时测试。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/v2-9a35e869a833ad23c02b9b1468f7b73f_1440w.jpg" alt="img"></p>
+<p>cls: $c_B$=base cls,$c_N$=novel cls</p>
+<p>Open-Vocabulary 在 训练时 允许出现 图像-文本对（也就是image-caption、image-level label这些弱监督信号），以及 大的视觉语言模型（如CLIP）。相对zero-shot的设定来说，限制没有那么严格。</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250420192520111.png" alt="image-20250420192520111"></p>
+<p>本文将现有的开放词汇目标检测方法划分为五大类：知识蒸馏（Knowledge  Distillation）、区域文本预训练（Region Text Pre-training）、基于更均衡数据的训 练（Training with More Balanced Data）、提示建模（Prompting Modeling） 和 区 域文本对齐（Region Text Alignment）。</p>
+<h2 id="一、研究意义"><a href="#一、研究意义" class="headerlink" title="一、研究意义"></a>一、研究意义</h2><p>论文聚焦“面向开放语义的视觉目标检测”这一计算机视觉前沿领域，针对传统目标检测方法在开放场景下对未知类别检测能力不足、跨模态语义对齐困难等核心问题展开研究。</p>
+<p>作者针对目标检测下面向开放词汇的目标检测、以及面向视频的指代目标检测进行了研究。这两部分研究以 “开放语义” 为内核，分别从静态图像的词汇扩展与动态视频的时空推理两个维度展开，体现了开放语义检测从 “静态语义-视觉”单项对齐 到 “动态视频-自然语言” 的演进。开放词汇检测的语义建模能力是视频指代检测的底层支撑，而视频检测的动态建模需求反推开放语义理论向时序维度延伸。但是，作者在撰写论文时并未突出两者 “从静态到动态、从图像到视频” 的联系，未在引言开篇中明确阐述两者在 “开放语义” 框架下的互补性与演进逻辑，导致读者难以快速把握研究的整体性。</p>
+<p>此外，论文的核心贡献在于方法论创新与性能验证，在实验部分详细展示了研究结果在 LVIS、HC-STVG 等数据集上的性能提升。然而，论文对实际应用意义的论述较为有限，对应用意义的论述更多隐含于研究背景（如 “推动视觉智能系统升级”）和实验结论中，缺乏系统性阐述。</p>
+<h2 id="二、相关工作"><a href="#二、相关工作" class="headerlink" title="二、相关工作"></a>二、相关工作</h2><p>论文文献综述部分系统梳理了开放词汇目标检测和视频指代目标检测的研究现状，涵盖知识蒸馏、区域文本预训练、时间定位方法等多个技术分支，对ViLD、CLIP、TubeDETR等经典方法及最新进展进行了全面总结。参考的文献覆盖近五年核心期刊和顶级会议论文（如CVPR、NeurIPS），但部分细分方向的文献挖掘可进一步深入，且对2024,2025年最新相关研究的引用稍显不足。</p>
+<p>此外，对于现有方法的总结上，部分表述上存在英文直译痕迹明显，读感生硬的问题。如，“根据候选框生成方式的不同，基于候选框的方法可进一步分为三类：基于滑动窗口、基于候选框生成、基于锚点。 ”</p>
+<p>部分表述存在中英混杂，表述突兀：“根据是否依赖额外的proposal生成步骤，此领域的方法可分为两阶段方案和 单阶段方案。”</p>
+<h2 id="三、论文进展"><a href="#三、论文进展" class="headerlink" title="三、论文进展"></a>三、论文进展</h2><ol>
+<li><strong>开放词汇目标检测方法</strong><br>提出基于并行预训练的开放词汇检测框架，通过并行概念建模、多源概念词典构建及负类增强策略，显著提升模型对未见类别的泛化能力。首先论文对提出的模型框架的合理性使用了消融实验进行论证。在消融实验确定最优组件的基础上，与 DetCLIP、GLIP 等方法对比，此时的性能提升可明确归因于整体方法设计（如并行预训练 + 负类增强），而非单个组件的偶然效果。然后论文进行了对比实验，在LVIS数据集上，zero-shot AP达46.0，超越GLIP、DetCLIP等主流方法，尤其在长尾类别检测中表现优异。</li>
+<li><strong>视频时空定位方法</strong><br>设计双解码器级联结构和多阶段推理策略，解耦空间与时间定位任务，结合模型集成优化时空轨迹预测精度。同样，在确认最优组件的前提下，与 TubeDETR、STVGFormer 等对比，此时的性能优势（m_vIoU 40.22% vs TubeDETR 36.4%）更具说服力，证明解耦建模和多阶段推理的整体有效性。然后论文进行了对比实验，在HC-STVG 2.0数据集上，m_vIoU达40.22%，较TubeDETR提升10.5%，验证了方法在复杂视频场景中的有效性。</li>
+</ol>
+<p>总的来说，并行预训练和多阶段推理虽提升性能，但增加了模型复杂度（如双解码器结构）。论文未明确讨论推理耗时与实际部署的适配性，建议补充计算资源消耗对比（如GPU显存占用、推理帧率）。</p>
+<h2 id="老师给的参考版本"><a href="#老师给的参考版本" class="headerlink" title="老师给的参考版本"></a>老师给的参考版本</h2><blockquote>
+<p>论文聚焦“面向开放语义的视觉目标检测”这一计算机视觉前沿领域，针对传统目标检测方法在开放场景下对未知类别检测能力不足、跨模态语义对齐困难等核心问题展开研究。作者针对目标检测下，面向开放词汇的目标检测、以及面向视频的指代目标检测的两个研究方向进行了研究。这两部分研究以 “开放语义” 为内核，分别从静态图像的词汇扩展与动态视频的时空推理两个维度展开，体现了开放语义检测从 “静态语义-视觉”单项对齐 到 “动态视频-自然语言” 的演进。<br>问题如下：<br>1）开放词汇检测的语义建模能力是视频指代检测的底层支撑，而视频检测的动态建模需求反推开放语义理论向时序维度延伸。但是，作者在撰写论文时并未突出两者 “从静态到动态、从图像到视频” 的联系，未在引言开篇中明确阐述两者在 “开放语义” 框架下的互补性与演进逻辑，导致读者难以快速把握研究的整体性。<br>2）论文的核心贡献在于方法论创新与性能验证，在实验部分详细展示了研究结果在 LVIS、HC-STVG 等数据集上的性能提升。然而，论文对实际应用意义的论述较为有限，对应用意义的论述更多隐含于研究背景（如 “推动视觉智能系统升级”）和实验结论中，缺乏系统性阐述。<br>3）论文文献综述部分系统梳理了开放词汇目标检测和视频指代目标检测的研究现状，涵盖知识蒸馏、区域文本预训练、时间定位方法等多个技术分支，对ViLD、CLIP、TubeDETR等经典方法及最新进展进行了全面总结。参考的文献覆盖近五年核心期刊和顶级会议论文（如CVPR、NeurIPS），但部分细分方向的文献挖掘可进一步深入，且对2024,2025年最新相关研究的引用稍显不足。<br>4）对于现有方法的总结上，部分表述上存在英文直译痕迹明显，读感生硬迷惑的问题。如，“根据候选框生成方式的不同，基于候选框的方法可进一步分为三类：基于滑动窗口、基于候选框生成、基于锚点。 ”部分表述存在中英混杂，表述突兀的问题。如，“根据是否依赖额外的proposal生成步骤，此领域的方法可分为两阶段方案和单阶段方案。”<br>5）在实验部分，并行预训练和多阶段推理虽提升性能，但增加了模型复杂度（如双解码器结构）。论文未明确讨论推理耗时与实际部署的适配性，建议补充计算资源消耗对比（如GPU显存占用、推理帧率）。</p>
+</blockquote>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/04/22/2025-4-22-%E6%95%B0%E6%8D%AE%E9%9B%86%E6%94%B6%E9%9B%86%E5%B7%A5%E4%BD%9C%E6%8E%A8%E8%BF%9B/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/04/18/2025-4-18/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E4%B8%80%E3%80%81%E7%A0%94%E7%A9%B6%E6%84%8F%E4%B9%89"><span class="toc-content-number">1.</span> <span class="toc-content-text">一、研究意义</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E4%BA%8C%E3%80%81%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C"><span class="toc-content-number">2.</span> <span class="toc-content-text">二、相关工作</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E4%B8%89%E3%80%81%E8%AE%BA%E6%96%87%E8%BF%9B%E5%B1%95"><span class="toc-content-number">3.</span> <span class="toc-content-text">三、论文进展</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E8%80%81%E5%B8%88%E7%BB%99%E7%9A%84%E5%8F%82%E8%80%83%E7%89%88%E6%9C%AC"><span class="toc-content-number">4.</span> <span class="toc-content-text">老师给的参考版本</span></a></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>

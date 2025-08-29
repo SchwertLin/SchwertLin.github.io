@@ -1,0 +1,387 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="我勒个豆,我写了好几天,令人感叹的效率()  感觉似乎V3的内容会多一点,然后R1和R1-Zero会比较偏向于阐述(?) 或者说是因为细节的东西没给出来,所以全是大段地阐述文字,基本框架组件和v3应该一致. 具体到奖励函数的设计,$r_i$等等,就没有详细的解释了.  [TOC] Deepseek解析LLM基于Transformer有三条路线：     BERT GPT T5     encod">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-2-24-Deepseek解析">
+<meta property="og:url" content="http://example.com/2025/02/24/2025-2-24/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="我勒个豆,我写了好几天,令人感叹的效率()  感觉似乎V3的内容会多一点,然后R1和R1-Zero会比较偏向于阐述(?) 或者说是因为细节的东西没给出来,所以全是大段地阐述文字,基本框架组件和v3应该一致. 具体到奖励函数的设计,$r_i$等等,就没有详细的解释了.  [TOC] Deepseek解析LLM基于Transformer有三条路线：     BERT GPT T5     encod">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250225150843849.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250225171750817.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250225171945346.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250226154851694.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250226155055502.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250226160053903.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250226160445808.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250226162513601.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250226165840684.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250226183110463.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250226191633919.png">
+<meta property="article:published_time" content="2025-02-24T03:13:57.000Z">
+<meta property="article:modified_time" content="2025-04-13T07:53:06.000Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="每天の学习日记">
+<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="DeepSeek">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250225150843849.png"><title>2025-2-24-Deepseek解析 - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-2-24-Deepseek解析</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-02-24</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-04-13</time></div>
+
+<div class="post-tags"><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E6%AF%8F%E5%A4%A9%E3%81%AE%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/">每天の学习日记</a><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/DeepSeek/">DeepSeek</a></div></div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约4.2K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><blockquote>
+<p>我勒个豆,我写了好几天,令人感叹的效率() </p>
+<p>感觉似乎V3的内容会多一点,然后R1和R1-Zero会比较偏向于阐述(?)</p>
+<p>或者说是因为细节的东西没给出来,所以全是大段地阐述文字,基本框架组件和v3应该一致.</p>
+<p>具体到奖励函数的设计,$r_i$等等,就没有详细的解释了.</p>
+</blockquote>
+<p>[TOC]</p>
+<h1 id="Deepseek解析"><a href="#Deepseek解析" class="headerlink" title="Deepseek解析"></a>Deepseek解析</h1><p>LLM基于Transformer有三条路线：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>BERT</th>
+<th>GPT</th>
+<th>T5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>encoder</td>
+<td>decoder</td>
+<td>encoder&amp;decoder</td>
+</tr>
+<tr>
+<td>Google</td>
+<td>OpenAI</td>
+<td>Google，清华，GLM</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>早期囿于“预训练+微调”的范式(pre-training+fine-tune)</p>
+<p>pre-training缺点：在非常大的数据集上从头训练模型<strong>需要大量计算资源和时间</strong>。</p>
+<ol>
+<li>对数据集的要求高</li>
+<li>模型参数规模要求高</li>
+<li>算力要求高</li>
+</ol>
+<p>post-training机制：</p>
+<ol>
+<li>SFT(Supervised Fine-Tune) ：小修小改，对下游任务加训，<strong>受制于数据质量</strong></li>
+<li>RLHF(GPT)：引入RL，<strong>受制于打分数据</strong></li>
+<li>R1：RL方法，更强</li>
+<li>KD(Knowledge Distillation)：知识蒸馏</li>
+</ol>
+<blockquote>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Fine-tune</th>
+<th>KD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数据来源是<strong>额外标注的数据集</strong></td>
+<td>用大模型提供的知识，让小模型拟合大模型</td>
+</tr>
+</tbody>
+</table>
+</div>
+</blockquote>
+<h2 id="技术演进"><a href="#技术演进" class="headerlink" title="技术演进"></a>技术演进</h2><ol>
+<li>V2: MLA+MoE</li>
+<li>V3: DL, pre-training</li>
+<li>R1-Zero: RL,post-training</li>
+<li>R1: SFT+RL</li>
+</ol>
+<p>训练发布的路径似GPT-4O/o1。R1-Zero是纯RL自我演化模型，但是表现并不好。主要原因在于RL难以训练(训练优化不可控)。</p>
+<p>R1在R1-Zero的基础上加入SFT。二次使用SFT+RL进行训练。R1使用的预训练模型是V3，而R1的结果也反向促进了预训练V3。</p>
+<h2 id="Deepseek-V3"><a href="#Deepseek-V3" class="headerlink" title="Deepseek-V3"></a>Deepseek-V3</h2><p><code>无辅助损失的负载均衡策略</code>,<code>多token预测训练目标</code>,<code>FP8混合精度技术</code>,<code>DualPipe流水线并行</code></p>
+<h3 id="基本架构-MLA-MoE"><a href="#基本架构-MLA-MoE" class="headerlink" title="基本架构:MLA+MoE"></a>基本架构:MLA+MoE</h3><p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250225150843849.png" alt="DeepSeek-V3 基本架构示意图。基于 DeepSeek-V2，团队采用了多头潜在注意力（MLA）和 DeepSeekMoE 架构，以实现高效推理和经济的训练。"></p>
+<p>MLA和MoE都已被DeepSeek-V2验证过,相较于V2,V3的提升在于引入了无辅助损失负载均衡策略，有效降低了负载均衡过程对模型性能的影响。</p>
+<h4 id="MLA"><a href="#MLA" class="headerlink" title="MLA"></a>MLA</h4><blockquote>
+<p>Multi-head Latent Attention (MLA)(多头潜在注意力机制)</p>
+</blockquote>
+<p><strong>核心</strong>:<strong>对注意力键值进行低秩联合压缩,以降低推理过程中的键值(KV)缓存开销.</strong></p>
+<h5 id="注意力键值-低秩联合压缩"><a href="#注意力键值-低秩联合压缩" class="headerlink" title="注意力键值-低秩联合压缩"></a>注意力键值-低秩联合压缩</h5><p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250225171750817.png" alt="image-20250225171750817"></p>
+<p>设向量维度为$d$,注意力头数为$n_h$,每个头的维度为$d_h$:</p>
+<p>$c_t^{KV}\in \mathbb{R}^{d_c}$表示键值(Key-Value,KV)的压缩潜在向量, $d_c(\ll d_hn_h)$表示KV压缩维度.</p>
+<p>$W^{DKV}\in \mathbb{R}^{d_c\times d}$投影变换矩阵,$h_t\in\mathbb{R}^d$是在特定注意力层中第$t$个token的注意力输入表示.</p>
+<p>式(1)将$h_t$压缩到$\mathbb{R}^{d_c}$的维度.</p>
+<p>式(2),(5)是分别在键值的维度下变换,$W^{UK},W^{UV}\in\mathbb{R}^{d_hn_h\times d_c}$是对应的投影变换矩阵.</p>
+<p>式(3)用于生成携带<strong>旋转位置编码(Rotary Positional Embedding, RoPE)</strong>的解耦键$k^R_t$,作用是在注意力计算过程中引入位置信息.</p>
+<p>式(4)是将$k_{t,i}^C,k_t^R$连接起来.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250225171945346.png" alt="image-20250225171945346"></p>
+<h5 id="注意力查询-低秩压缩"><a href="#注意力查询-低秩压缩" class="headerlink" title="注意力查询-低秩压缩"></a>注意力查询-低秩压缩</h5><blockquote>
+<p>For the attention queries, we also perform a low-rank compression, which can reduce the activation memory during training.</p>
+</blockquote>
+<p>$c_t^Q\in \mathbb{R}^{d_c’}$表示查询(Query)的压缩潜在向量($d_c’\ll d_hn_h$,查询压缩维度),步骤与KV一致.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250226154851694.png" alt="image-20250226154851694"></p>
+<p>组合QKV,得到注意力机制的最终输出$u_t$:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250226155055502.png" alt="image-20250226155055502"></p>
+<h4 id="DeepSeekMoE-无辅助损失负载均衡机制"><a href="#DeepSeekMoE-无辅助损失负载均衡机制" class="headerlink" title="DeepSeekMoE+无辅助损失负载均衡机制"></a>DeepSeekMoE+无辅助损失负载均衡机制</h4><blockquote>
+<p>DeepSeekMoE with Auxiliary-Loss-Free Load Balancing</p>
+</blockquote>
+<p>Deepseek用DeepSeekMoE替换FFN(Feed-Forward Networks,FFN),DeepSeekMoE相较于传统的MoE架构,采用了更细粒度的专家分配机制(Router)+将部分专家设置为共享专家(Shared Expert).</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250226160053903.png" alt="image-20250226160053903"></p>
+<p>设第$t$个token的FFN输入为$u_t$,其输出为$h_t’$(这又将成为下一个的输入)</p>
+<p>式(12)中$N_s,N_r$是共享专家(Shared)和路由专家(Routed)的数量. $FFN_i^{(s)}$ 和 $FFN_i^{(r)}(\cdot)$ 分别代表第 $i$ 个共享专家和路由专家的处理函数.$g_{i,t}$代表第 $i$ 个专家的权重系数.</p>
+<p>再从式(15)开始向上看,$s_{i,t}$ 表示 token 与专家间的相关度,$e_i$ 代表第 $i$ 个路由专家的特征向量</p>
+<p>$\mathrm{Top}k(\cdot, K_r)$ 函数返回第 $t$ 个 token 与所有路由专家计算得到的相关度分数中最高的 $K_r$ 个值, $K_r$ 表示被激活的路由专家数量.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250226160445808.png" alt="image-20250226160445808"></p>
+<p><strong>无辅助损失负载均衡</strong>:MoE中不平衡的专家负载会导致路由崩溃,在专家并行场景中降低计算效率.</p>
+<script type="math/tex; mode=display">
+g_{i,t}'=
+\begin{cases}
+s_{i,t}, & s_{i,t} + b_{i} \in \mathrm{Top}k(\{s_{j,t} + b_{j}|1 \leq j \leq N_{r}\}, K_{r}) \\
+0, & \text{otherwise}
+\end{cases}</script><p>此项与式(14)的区别是引入了偏置项$b_i$,并将其添加到相应的亲和度分数$s_{i,t}$中以确定TopK路由.</p>
+<p>在这种设计中，偏置项仅用于路由选择，而门控值（用于与 FFN 输出相乘）仍基于原始相关度分数 $s_{i,t}$ 计算。不改变原本的计算逻辑，保证模型在调整负载时不会因为引入辅助损失而对原本的功能产生干扰，在不添加额外损失函数的情况下，实现专家负载均衡 。</p>
+<p>训练过程中，系统会实时监控每个训练步骤中所有批次的专家负载分布。在每个步骤结束时:</p>
+<ul>
+<li>对于负载过高的专家，其偏置项会减少$\gamma$ ;</li>
+<li>对于负载不足的专家，其偏置项会增加 $\gamma$;</li>
+</ul>
+<p>其中$\gamma$是控制偏置更新速率的超参数。</p>
+<p><strong>序列级辅助损失补充机制</strong>:虽然 DeepSeek-V3 主要采用无辅助损失策略来实现负载均衡，但为了防止单个序列中出现显著的负载不均衡现象，模型还引入了补充性的序列级平衡损失.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250226162513601.png" alt="image-20250226162513601"></p>
+<p>$\alpha$:超参,平衡因子,被设置为极小.通过对$f_i$和$P_i$的加权求和得到平衡损失.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>式</th>
+<th>目的</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(17)</td>
+<td>平衡损失$\alpha$</td>
+<td>平衡因子$\alpha$是一个超参数.</td>
+</tr>
+<tr>
+<td>(18)</td>
+<td>计算$f_i$</td>
+<td>其中$\mathbb{1}(\cdot)$是指示函数，如果括号内条件成立，函数值为1，否则为0 . $K_r$是被激活的路由专家数量。$f_i$衡量了专家$i$在序列中被选中处理token的频率。</td>
+</tr>
+<tr>
+<td>(19)</td>
+<td>计算$s_{i,t}’$</td>
+<td>$s_{i,t}$是token与专家$i$间的相关度，$s_{i,t}’$是将相关度进行归一化，计算专家$i$的相关度在所有专家相关度总和中的占比。</td>
+</tr>
+<tr>
+<td>(20)</td>
+<td>计算$P_i$</td>
+<td>对归一化后的相关度在序列的所有token上取平均值，得到专家$i$在该序列上的平均相关度占比。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>$f_i$高,表示负载重.平均相关度占比 $P_i$ 比较大有:</p>
+<ul>
+<li><strong>btoken与专家相关性持续较高</strong>：在单个序列的多个时刻 $t$ 中，若token与专家 $i$ 的相关度 $s_{i,t}$ 都相对较高 ，根据公式 $s_{i,t}’ = \frac{s_{i,t}}{\sum_{j=1}^{N_r} s_{j,t}}$ ，归一化后的 $s_{i,t}’$ 也会较大。再经过公式 $P_i = \frac{1}{T} \sum_{t=1}^{T} s_{i,t}’$ 对整个序列上的 $s_{i,t}’$ 取平均，就会使 $P_i$ 较大。这意味着该专家与序列中的多个token匹配程度高，可能被频繁选中处理token。<ul>
+<li><strong>其他专家相关度普遍较低</strong>：当其他专家与token的相关度 $s_{j,t}$（$j\neq i$ ）普遍较低时，即使专家 $i$ 与token的相关度 $s_{i,t}$ 并非极高，根据归一化公式 $s_{i,t}’ = \frac{s_{i,t}}{\sum_{j=1}^{N_r} s_{j,t}}$ ，分母变小，$s_{i,t}’$ 也会变大，最终使平均相关度占比 $P_i$ 较大 。 这种情况下，专家 $i$ 相对其他专家在处理序列中的token时更具优势，负载可能较高。 </li>
+</ul>
+</li>
+</ul>
+<p>为什么要用MoE取代FFN(为什么是MoE)</p>
+<p>解决MoE中负载不均—&gt;负载均衡</p>
+<h4 id="多Token预测机制-MTP"><a href="#多Token预测机制-MTP" class="headerlink" title="多Token预测机制(MTP)"></a>多Token预测机制(MTP)</h4><blockquote>
+<p>在语言模型里，token 可以理解成把一句话拆分成的一个个小单元，比如单词或者字。以前的模型通常一次只预测下一个 token ，而 MTP 是让模型一次能预测每个位置后面的多个 token。比如输入 “我喜欢”，普通模型可能只预测下一个词，像 “吃”，但 MTP 能预测出 “吃美食” 这样多个词。</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250226165840684.png" alt="image-20250226165840684"></p>
+<h5 id="MTP-Module"><a href="#MTP-Module" class="headerlink" title="MTP Module"></a>MTP Module</h5><p>模型采用$D$个串联模块来预测$D$个额外的token.每个MTP模块(第$k$个)包括:共享向量层$Emb(\cdot)$,共享输出头$OutHead(\cdot)$,一个Transformer模块$TRM_k(\cdot)$,一个投影矩阵$M_k\in\mathbb{R}^{d\times 2d}$.</p>
+<ul>
+<li>Embedding Layer</li>
+<li>Output Head</li>
+<li>Transformer Block</li>
+<li>Linear Projection</li>
+</ul>
+<p>对于输入序列中第$i$个token$t_i$,在第k层预测时模型先将两个向量进行组合$h_i^{k-1},t_{i+k}$,通过线性投影：</p>
+<script type="math/tex; mode=display">
+\mathbf{h}_i^{\prime k} = M_k[\mathrm{RMSNorm}(\mathbf{h}_i^{k - 1}); \mathrm{RMSNorm}(\mathrm{Emb}(t_{i + k}))]\tag{21}</script><p>其中$[\cdot; \cdot]$表示连接操作。</p>
+<p>特别地，当$k = 1$时，$\mathbf{h}_i^{k - 1}$指的是主模型给出的表示。</p>
+<p>对于每个多token预测（MTP）模块，其嵌入层与主模型共享。</p>
+<p>组合后的$\mathbf{h}_i^{\prime k}$作为第$k$层深度的Transformer模块的输入，以生成当前深度的输出表示$\mathbf{h}_i^{k}$：</p>
+<script type="math/tex; mode=display">
+\mathbf{h}_{1:T - k}^{k} = \mathrm{TRM}_k(\mathbf{h}_{1:T - k}^{\prime k})\tag{22}</script><p>其中$T$表示输入序列的长度，${i:j}$ 表示切片操作（左右边界都包含）。最后，以$\mathbf{h}_i^{k}$作为输入，共享的输出头将计算第$k$个额外预测token $P_{i + 1 + k}^{k} \in \mathbb{R}^V$的概率分布，其中(V)是词表大小：</p>
+<script type="math/tex; mode=display">
+P_{i + k + 1}^{k} = \mathrm{OutHead}(\mathbf{h}_i^{k}) \tag{23}</script><h3 id="后训练方法"><a href="#后训练方法" class="headerlink" title="后训练方法"></a>后训练方法</h3><h4 id="SFT"><a href="#SFT" class="headerlink" title="SFT"></a>SFT</h4><p>对每个训练实例，系统生成两类 SFT 样本：一类是问题与原始答案的直接配对，另一类则引入系统提示词，将其与问题和 R1 答案组合。系统提示经过优化设计，包含了引导模型生成具有自我反思和验证机制响应的指令。</p>
+<p>在RL阶段，模型通过高温采样生成响应，即使在没有明确系统提示的情况下，也能有效融合 R1 生成数据和原始数据的特征。经过数百轮RL迭代，中间模型成功整合了 R1 的响应模式，显著提升了整体性能。随后，研究采用拒绝采样方法，利用专家模型作为数据源，为最终模型筛选高质量的 SFT 数据。这种方法既保持了 DeepSeek-R1 的高准确性，又确保了输出的简洁性和有效性。</p>
+<ul>
+<li><strong>非推理数据处理：</strong> 对于创意写作、角色扮演和基础问答等非推理任务，系统利用 DeepSeek-V2.5 生成响应，并通过人工标注确保数据质量。</li>
+<li><strong>SFT 训练配置：</strong> 研究对 DeepSeek-V3-Base 进行了两轮 SFT 数据集训练，采用余弦衰减的学习率调度策略，初始学习率为 5×10−6，逐步降低至 1×10−6。训练过程中采用多样本序列打包技术，同时通过样本掩码机制确保各样本间的独立性。</li>
+</ul>
+<h3 id="RL"><a href="#RL" class="headerlink" title="RL"></a>RL</h3><p>奖励模型设计: 在强化学习过程中，系统同时采用<strong>规则型</strong>和<strong>模型型</strong>两种<strong>奖励模型(Reward Model, RM)</strong>。</p>
+<p>在强化学习里，模型会不断尝试给出各种输出。而奖励模型就是用来判断这些输出的质量，然后给模型一个分数。如果输出好，就给高分奖励，模型就知道这样做是对的；如果输出不好，就给低分，模型就会尝试调整，争取下次得到高分。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>规则型奖励模型</th>
+<th>模型型奖励模型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>适用场景</td>
+<td>适用于那些答案可以通过明确规则来判断的任务。比如数学问题，答案是确定的，还有 LeetCode 编程题，运行代码就能知道对不对。</td>
+<td>一种是有标准答案，但答案形式比较多样灵活的问题；另一种是像创意写作这种没有固定标准答案的任务。</td>
+</tr>
+<tr>
+<td>评估方式</td>
+<td>像数学题，要求模型把答案写在特定地方（方框内），这样就可以用设定好的规则自动检查答案对不对。编程题则通过编译器运行测试用例，如果代码能正确处理这些测试用例，就说明写得对，能得到好的反馈。</td>
+<td>对于有标准答案的，奖励模型会对比模型输出和标准答案，看它们匹配得怎么样；对于创意写作这类，奖励模型会从整体上看问题和回答是不是合适、质量高不高。而且这个奖励模型是在 DeepSeek-V3 的 SFT checkpoint（一种训练后的模型状态）基础上训练出来的。</td>
+</tr>
+<tr>
+<td>优点</td>
+<td>因为是按照明确规则判断，所以很可靠，模型没办法耍小聪明蒙混过关，比如不能随便写个答案来骗奖励。</td>
+<td><strong>增强可靠性的方法</strong>：为了让奖励模型更可靠，用来训练它的数据不仅有最后的评分，还详细记录了为什么给这个评分的推理过程。这样就能减少在特定任务中，奖励模型给出不合理评分（奖励扭曲）的情况 。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="GRPO"><a href="#GRPO" class="headerlink" title="GRPO"></a>GRPO</h3><p>GPRO(Group Relative Policy Optimization)：防止策略更新过大、不稳定导致崩溃；稳定策略优化过程。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250226183110463.png" alt="image-20250226183110463"></p>
+<p><strong>损失函数</strong>:</p>
+<script type="math/tex; mode=display">
+\mathcal{J}_{GPRO}(\theta)=\mathbb{E}_{[q\sim P(Q),\{o_i\}_{i=1}^G\sim \pi_{\theta_{old}}(o|q)]}
+\\
+\left\{\frac 1 G\sum^{G}_{i=1}\left(\min(\frac{\pi_{\theta}(o_i|q)}{\pi_{\theta_{old}}(o_i|q)}A_i,\text{clip}(\frac{\pi_{\theta}(o_i|q)}{\pi_{\theta_{old}}(o_i|q)},1+\epsilon,1-\epsilon)A_i)-\beta\mathbb{D}_{KL}(\pi_{\theta}|\pi_{ref})\right)\right\}</script><p>其中$\mathbb{E}$的下标表示两个随机变量，$q$是query(输入的固定查询)，$o_i$是生成的回答$i$-th，$o_i$组成的回答样本空间是$G$(换句话说，就是所有回答构成的样本空间)。$\pi_{\theta}(o_i|q)$表示在$\theta$这个策略模型下、输入$q$(潜状态)、输出$o$(某回答)的概率。$\theta_{old}$表示是之前的原策略模型(以助于更新迭代)。</p>
+<p>$A_i$相当于给$\{o_1,o_2,\dots,o_{t-1},o_t,\dots\}$生成的回答序列打分函数。</p>
+<script type="math/tex; mode=display">
+weight=\frac{\pi_{\theta}(o_i|q)}{\pi_{\theta_{old}}(o_i|q)}</script><p><em>weight</em>是重要性采样，$w&gt;1$表示倾向于选择此$A_i$</p>
+<p><strong>但此损失函数未体现出“方向感”、也未体现出在各种情景下场景。</strong></p>
+<p><strong>奖励函数</strong>:</p>
+<script type="math/tex; mode=display">
+A_i=\frac{r_i-\text{mean}\{r_1,r_2,\dots,r_G\}}{\text{std}\{r_1,r_2,\dots,r_G\}}</script><p>$A_i$完全取决于“方向”$r$，基于规则的设计，但是未披露。</p>
+<h2 id="Deepseek-R1-Zero"><a href="#Deepseek-R1-Zero" class="headerlink" title="Deepseek-R1-Zero"></a>Deepseek-R1-Zero</h2><p>GRPO同上.</p>
+<h4 id="基于推理链CoT设计奖励函数"><a href="#基于推理链CoT设计奖励函数" class="headerlink" title="基于推理链CoT设计奖励函数"></a>基于推理链CoT设计奖励函数</h4><blockquote>
+<p>区分RLHF(?)黑箱深度学习</p>
+<p>我的疑问是：这不是也是强化学习吗？怎么会也是“黑箱”？</p>
+</blockquote>
+<p>解题思路模板化：</p>
+<ol>
+<li>按步骤给分（每步的结果准确性、格式、得到的相应奖励）</li>
+<li>奖励汇总</li>
+<li>得到最终得分</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250226191633919.png" alt="image-20250226191633919"></p>
+<h3 id="存在问题"><a href="#存在问题" class="headerlink" title="存在问题"></a>存在问题</h3><blockquote>
+<p>可读性和语言混合方面存在困难$\rightarrow$为贴近人类数据,使用SFT.</p>
+<ul>
+<li>生成结果符合人类预期,但是人类看不懂</li>
+<li>中英混杂\语无伦次</li>
+</ul>
+</blockquote>
+<h2 id="Deepseek-R1"><a href="#Deepseek-R1" class="headerlink" title="Deepseek-R1"></a>Deepseek-R1</h2><p>流程:</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>一次SFT</th>
+<th>一次RL</th>
+<th>二次SFT</th>
+<th>二次RL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>冷启动</td>
+<td>面向推理的RL</td>
+<td>拒绝采样与监督微调</td>
+<td>全场景RL</td>
+</tr>
+<tr>
+<td>(可控)用SFT优化强化学习的起始点</td>
+<td>准确性奖励+语言一致性奖励</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>“人工过滤+后处理”收集一批数据,定义了输出数据格式样例;用SFT训练得到能生成清晰思维链的初始策略.</td>
+<td>针对地给出解题思维链,得到奖励函数</td>
+<td>用RL训练地策略生成数据,人工筛选,过滤,优化,SFT</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="纸笔记"><a href="#纸笔记" class="headerlink" title="纸笔记"></a>纸笔记</h2><p>现在我的想法就是：</p>
+<p>利用deepseek的思路，或者仿照其模块，迁移到目标检测中。但是迁移是重点，涉及强化学习，奖励函数的设计。</p>
+<p>中间必有很多难点呢。</p>
+
+
+	<div class="row">
+    <embed src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic/Pdf/ds_note.pdf" width="100%" height="550" type="application/pdf">
+	</div>
+
+
+
+</div><div class="post-end"><div class="post-prev"><a href="/2025/02/24/2025-2-24-%E6%83%85%E6%84%9F%E8%AE%A1%E7%AE%97/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/01/23/2025-1-23-%E9%A3%9F%E5%93%81%E6%A3%80%E6%B5%8B/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#Deepseek%E8%A7%A3%E6%9E%90"><span class="toc-content-number">1.</span> <span class="toc-content-text">Deepseek解析</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E6%8A%80%E6%9C%AF%E6%BC%94%E8%BF%9B"><span class="toc-content-number">1.1.</span> <span class="toc-content-text">技术演进</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#Deepseek-V3"><span class="toc-content-number">1.2.</span> <span class="toc-content-text">Deepseek-V3</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%9F%BA%E6%9C%AC%E6%9E%B6%E6%9E%84-MLA-MoE"><span class="toc-content-number">1.2.1.</span> <span class="toc-content-text">基本架构:MLA+MoE</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#MLA"><span class="toc-content-number">1.2.1.1.</span> <span class="toc-content-text">MLA</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-5"><a class="toc-content-link" href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E9%94%AE%E5%80%BC-%E4%BD%8E%E7%A7%A9%E8%81%94%E5%90%88%E5%8E%8B%E7%BC%A9"><span class="toc-content-number">1.2.1.1.1.</span> <span class="toc-content-text">注意力键值-低秩联合压缩</span></a></li><li class="toc-content-item toc-content-level-5"><a class="toc-content-link" href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9F%A5%E8%AF%A2-%E4%BD%8E%E7%A7%A9%E5%8E%8B%E7%BC%A9"><span class="toc-content-number">1.2.1.1.2.</span> <span class="toc-content-text">注意力查询-低秩压缩</span></a></li></ol></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#DeepSeekMoE-%E6%97%A0%E8%BE%85%E5%8A%A9%E6%8D%9F%E5%A4%B1%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E6%9C%BA%E5%88%B6"><span class="toc-content-number">1.2.1.2.</span> <span class="toc-content-text">DeepSeekMoE+无辅助损失负载均衡机制</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E5%A4%9AToken%E9%A2%84%E6%B5%8B%E6%9C%BA%E5%88%B6-MTP"><span class="toc-content-number">1.2.1.3.</span> <span class="toc-content-text">多Token预测机制(MTP)</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-5"><a class="toc-content-link" href="#MTP-Module"><span class="toc-content-number">1.2.1.3.1.</span> <span class="toc-content-text">MTP Module</span></a></li></ol></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%90%8E%E8%AE%AD%E7%BB%83%E6%96%B9%E6%B3%95"><span class="toc-content-number">1.2.2.</span> <span class="toc-content-text">后训练方法</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#SFT"><span class="toc-content-number">1.2.2.1.</span> <span class="toc-content-text">SFT</span></a></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#RL"><span class="toc-content-number">1.2.3.</span> <span class="toc-content-text">RL</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#GRPO"><span class="toc-content-number">1.2.4.</span> <span class="toc-content-text">GRPO</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#Deepseek-R1-Zero"><span class="toc-content-number">1.3.</span> <span class="toc-content-text">Deepseek-R1-Zero</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E5%9F%BA%E4%BA%8E%E6%8E%A8%E7%90%86%E9%93%BECoT%E8%AE%BE%E8%AE%A1%E5%A5%96%E5%8A%B1%E5%87%BD%E6%95%B0"><span class="toc-content-number">1.3.0.1.</span> <span class="toc-content-text">基于推理链CoT设计奖励函数</span></a></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%AD%98%E5%9C%A8%E9%97%AE%E9%A2%98"><span class="toc-content-number">1.3.1.</span> <span class="toc-content-text">存在问题</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#Deepseek-R1"><span class="toc-content-number">1.4.</span> <span class="toc-content-text">Deepseek-R1</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E7%BA%B8%E7%AC%94%E8%AE%B0"><span class="toc-content-number">1.5.</span> <span class="toc-content-text">纸笔记</span></a></li></ol></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>

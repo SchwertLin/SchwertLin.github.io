@@ -1,0 +1,698 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="4&#x2F;16： 感觉MoE此处还得修修补补。 4&#x2F;15: 写了两天了，尊嘟很长。顺便diss一下下面的三篇blog。虽然算是比较偏算法讲解部分，但是还是有错误的。比如：  感觉都存在一定的问题。我上方圈画出来的部分中，比如说：  “低秩矩阵”指代不明，若是指的是$W^{UK},W^{UV}$，但是这个又不是用来降维用的；或许只是指明这两个矩阵的秩比较低？？好奇怪，不如说是维数比较低的矩阵。 如果指的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-4-13-再探DeepSeek之MLA+MoE">
+<meta property="og:url" content="http://example.com/2025/04/13/2025-4-13-%E5%86%8D%E6%8E%A2DeepSeek/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="4&#x2F;16： 感觉MoE此处还得修修补补。 4&#x2F;15: 写了两天了，尊嘟很长。顺便diss一下下面的三篇blog。虽然算是比较偏算法讲解部分，但是还是有错误的。比如：  感觉都存在一定的问题。我上方圈画出来的部分中，比如说：  “低秩矩阵”指代不明，若是指的是$W^{UK},W^{UV}$，但是这个又不是用来降维用的；或许只是指明这两个矩阵的秩比较低？？好奇怪，不如说是维数比较低的矩阵。 如果指的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250416102247609.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250413155355971.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250413155447899.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/v2-853d72cdbf93816fdcf7a4bac4aa8eaa_1440w.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/f32aec8de50754e90feee34a80064a44.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/7e01f36a3d466c818bbf2376cd69d79a.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250414154218373.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/v2-88b57727d22ffec3daec4faae98771ac_1440w.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250414160657536.png">
+<meta property="article:published_time" content="2025-04-13T07:52:23.000Z">
+<meta property="article:modified_time" content="2025-04-22T00:58:50.000Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="每天の学习日记">
+<meta property="article:tag" content="DeepSeek">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250416102247609.png"><title>2025-4-13-再探DeepSeek之MLA+MoE - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-4-13-再探DeepSeek之MLA+MoE</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-04-13</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-04-22</time></div>
+
+<div class="post-tags"><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E6%AF%8F%E5%A4%A9%E3%81%AE%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/">每天の学习日记</a><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/DeepSeek/">DeepSeek</a></div></div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约5.2K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><blockquote>
+<p>4/16：</p>
+<p>感觉MoE此处还得修修补补。</p>
+<p>4/15:</p>
+<p>写了两天了，尊嘟很长。顺便diss一下下面的三篇blog。虽然算是比较偏算法讲解部分，但是还是有错误的。比如：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250416102247609.png" alt="image-20250416102247609"></p>
+<p>感觉都存在一定的问题。我上方圈画出来的部分中，比如说：</p>
+<ol>
+<li>“低秩矩阵”指代不明，若是指的是$W^{UK},W^{UV}$，但是这个又不是用来降维用的；或许只是指明这两个矩阵的秩比较低？？好奇怪，不如说是维数比较低的矩阵。</li>
+<li>如果指的是$W^{UK},W^{UV}$的话，二者的维度是$d\times d_c$.</li>
+<li>这个错的比较明显：就是$W^{DQ}\in\mathbb{R}^{d_c’\times d},W^{UQ}\in\mathbb{R}^{d_hn_h\times d_c’},W^{QR}\in \mathbb{R}^{d_h^Rn_h\times d_c’}$.</li>
+</ol>
+<p>4/13:</p>
+<p>推荐三篇博客，看完之后感觉自己什么都不懂（）</p>
+<p>只能说要学的东西还是太多了orz orz orz orz orz orz </p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/16730036197">deepseek技术解读(1)-彻底理解MLA（Multi-Head Latent Attention）</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/18056041194">deepseek技术解读(2)-MTP（Multi-Token Prediction）</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/18565423596">deepseek技术解读(3)-MoE的演进之路</a></p>
+<p>基本上包含上述的内容+自己理解+补充内容</p>
+</blockquote>
+<h2 id="DeepSeek-MoE"><a href="#DeepSeek-MoE" class="headerlink" title="DeepSeek-MoE"></a>DeepSeek-MoE</h2><p>DeepSeek MoE 是 <strong>Transformer</strong> 架构中的部分，其核心改进在于用 <strong>MoE 层</strong> 替代了标准的 <strong>FFN（Feed-Forward Network）</strong>。架构如下。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250413155355971.png" alt="DeepSeekMoE"></p>
+<p>相较于普通的MoE有何区别？值得注意的是，在这三种体系结构中，专家参数的数量和计算成本保持不变。</p>
+<ul>
+<li>子图(a)展示了具有传统top-2路由策略的MoE层。</li>
+<li>子图(b)说明了细粒度专家分割策略。</li>
+<li>子图(c)展示了共享专家隔离策略的集成，构成了完整的DeepSeekMoE架构。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250413155447899.png" alt="普通MoE/DeepSeekMoE"></p>
+<p><strong>输入</strong>：<strong>Token Embeddings</strong>（词嵌入向量）：经过 Self-Attention 计算后的隐藏状态（hidden states），维度通常为 <code>[batch_size, seq_len, hidden_dim]</code>。对于共享专家直接输入，而走普通专家，则需要先经过 路由（Router） 机制，决定哪些专家（Expert）参与当前 token 的计算。</p>
+<p><strong>输出</strong>：<strong>加权专家输出的组合</strong>。每个 token 会被分配给 <strong>少数几个专家（如 Top-2）</strong>，它们的输出按权重组合后，形成最终的输出，维度仍为 <code>[batch_size, seq_len, hidden_dim]</code>。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th><strong>方面</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>输入</strong></td>
+<td>Token 经过 Self-Attention 后的隐藏状态</td>
+</tr>
+<tr>
+<td><strong>输出</strong></td>
+<td>由部分专家组合计算的加权输出</td>
+</tr>
+<tr>
+<td><strong>MoE 结构</strong></td>
+<td>多个专家 + 路由机制，稀疏激活</td>
+</tr>
+<tr>
+<td><strong>优势</strong></td>
+<td>计算高效、模型容量大、任务适应性强</td>
+</tr>
+<tr>
+<td><strong>替代 FFN</strong></td>
+<td>FFN 计算密集，MoE 实现动态计算</td>
+</tr>
+<tr>
+<td><strong>专家含义</strong></td>
+<td>自动学习不同技能，可能对应不同任务模式</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="每个专家代表什么？"><a href="#每个专家代表什么？" class="headerlink" title="每个专家代表什么？"></a>每个专家代表什么？</h3><p>MoE 中的 <strong>专家（Expert）</strong> 并不是人为设定的，而是在训练过程中 <strong>自动学习不同的特征或技能</strong>。可以类比为：</p>
+<ul>
+<li><strong>隐式的专业化分工</strong>：<ul>
+<li>某些专家可能擅长 <strong>数学推理</strong>。</li>
+<li>某些专家可能擅长 <strong>代码生成</strong>。</li>
+<li>某些专家可能擅长 <strong>自然语言理解</strong>。</li>
+</ul>
+</li>
+<li><strong>自动路由机制</strong>：<ul>
+<li><strong>Router</strong> 会根据输入 token 的语义，自动选择最相关的专家组合。</li>
+<li>例如，数学问题可能激活 <strong>擅长逻辑推理的专家</strong>，而代码生成可能激活 <strong>擅长结构化输出的专家</strong>。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h3 id="专家是否真的具有可解释性？"><a href="#专家是否真的具有可解释性？" class="headerlink" title="专家是否真的具有可解释性？"></a>专家是否真的具有可解释性？</h3><ul>
+<li><strong>部分可解释</strong>：一些研究发现，MoE 模型的专家会倾向于处理特定类型的数据（如代码、数学等）。</li>
+<li><strong>但并非绝对</strong>：由于是自动学习，专家的分工可能是 <strong>隐式</strong> 的，不一定严格对应人类可理解的类别。</li>
+</ul>
+</blockquote>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>假设我们有一句话：  <strong>“猫喜欢吃鱼，但狗更喜欢啃骨头。”</strong>  模型需要处理这句话的每个词（token），并生成对应的语义表示。  </p>
+<h4 id="FFN处理"><a href="#FFN处理" class="headerlink" title="FFN处理"></a>FFN处理</h4><p>在标准 Transformer 中，<strong>每个词</strong> 都会经过 <strong>同一个 FFN</strong> 进行计算，就像所有学生（token）都必须听 <strong>同一个老师（FFN）</strong> 讲课，无论他们是否需要这个知识。  </p>
+<ul>
+<li><strong>输入序列</strong>（假设每个词已编码为向量）：<br><code>[猫, 喜欢, 吃, 鱼, 但, 狗, 更, 喜欢, 啃, 骨头]</code>  </li>
+<li><strong>FFN 的工作方式</strong>：  <ul>
+<li>每个词（如 <code>猫</code>、<code>鱼</code>、<code>狗</code>、<code>骨头</code>）都经过 <strong>完全相同的全连接层</strong>。  </li>
+<li>即使 <code>猫</code> 和 <code>鱼</code> 是动物相关词，<code>啃</code> 和 <code>吃</code> 是动作词，它们用的却是 <strong>同一套参数</strong>，缺乏 specialization（专业化）。  </li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>问题</strong>：  </p>
+<ul>
+<li><strong>计算量大</strong>：所有词都经过 FFN，即使有些计算是冗余的。  </li>
+<li><strong>模型容量受限</strong>：FFN 参数固定，难以同时学好不同领域的知识（如动物、动作、对比关系）。  </li>
+</ul>
+</blockquote>
+<h4 id="MoE（混合专家）处理"><a href="#MoE（混合专家）处理" class="headerlink" title="MoE（混合专家）处理"></a>MoE（混合专家）处理</h4><p>MoE 用 <strong>多个专家（Experts）</strong> 替代单一 FFN，并引入 <strong>路由机制（Router）</strong>，动态决定每个词由哪些专家处理。  假设我们有以下专家（实际是自动学习的，这里仅举例）：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>专家编号</th>
+<th>可能擅长的领域（模型自动学习）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Expert 1</td>
+<td><strong>动物相关词汇</strong>（猫、狗、鱼、骨头）</td>
+</tr>
+<tr>
+<td>Expert 2</td>
+<td><strong>动作相关词汇</strong>（吃、啃、喜欢）</td>
+</tr>
+<tr>
+<td>Expert 3</td>
+<td><strong>逻辑关系</strong>（但、更）</td>
+</tr>
+<tr>
+<td>Expert 4</td>
+<td><strong>通用词汇</strong>（其他）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>MoE 的工作流程：</p>
+<ol>
+<li><strong>路由（Router）决定分配</strong>：对每个词，Router 计算它属于各个专家的概率（如 <code>猫</code> → 80% Expert 1, 10% Expert 2, 5% Expert 3, 5% Expert 4）。选择 <strong>概率最高的 2 个专家</strong>（Top-2 Routing，常见设定）。  </li>
+<li><strong>专家计算</strong>：每个词仅由 <strong>被选中的专家</strong> 处理，其他专家不参与计算（稀疏激活）。  </li>
+<li><strong>加权组合输出</strong>：选中的专家输出按路由权重相加，得到最终表示。  </li>
+</ol>
+<blockquote>
+<p>DeepSeekMoE: Route Expert+Shared Expert.<strong>共享专家</strong>（Shared Expert）的作用类似于一个“全能替补队员”，它既能为特定领域提供辅助支持，又能保证通用知识的覆盖，避免某些token因路由分配不均而“无人处理”。</p>
+<p><strong>共享专家</strong>是MoE层中一个或多个<strong>被所有token共享的专家</strong>，无论路由如何分配，它都可能以一定概率参与计算。它不像其他专家那样高度专业化，而是具备<strong>通用知识</strong>，起到“兜底”作用。</p>
+</blockquote>
+<p><code>猫</code> 和 <code>鱼</code> 主要由 <strong>动物专家（Expert 1）</strong> 处理，而 <code>吃</code> 和 <code>啃</code> 主要由 <strong>动作专家（Expert 2）</strong> 处理。  </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>词（Token）</th>
+<th>可能被分配的专家（Top-2）</th>
+<th>计算方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>猫</strong></td>
+<td>Expert 1（动物） + Expert 4（通用）</td>
+<td>由动物专家主导</td>
+</tr>
+<tr>
+<td><strong>吃</strong></td>
+<td>Expert 2（动作） + Expert 1（动物）</td>
+<td>由动作专家主导</td>
+</tr>
+<tr>
+<td><strong>鱼</strong></td>
+<td>Expert 1（动物） + Expert 4（通用）</td>
+<td>由动物专家主导</td>
+</tr>
+<tr>
+<td><strong>但</strong></td>
+<td>Expert 3（逻辑） + Expert 4（通用）</td>
+<td>由逻辑专家主导</td>
+</tr>
+<tr>
+<td><strong>狗</strong></td>
+<td>Expert 1（动物） + Expert 4（通用）</td>
+<td>由动物专家主导</td>
+</tr>
+<tr>
+<td><strong>啃</strong></td>
+<td>Expert 2（动作） + Expert 1（动物）</td>
+<td>由动作专家主导</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="MoE-相比-FFN-的优势"><a href="#MoE-相比-FFN-的优势" class="headerlink" title="MoE 相比 FFN 的优势"></a><strong>MoE 相比 FFN 的优势</strong></h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th><strong>特性</strong></th>
+<th><strong>标准 FFN</strong></th>
+<th><strong>MoE</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>计算方式</strong></td>
+<td>所有 token 使用相同的 FFN</td>
+<td>每个 token 只激活部分专家</td>
+</tr>
+<tr>
+<td><strong>参数效率</strong></td>
+<td>参数固定，计算全部激活</td>
+<td>参数更多，但计算量可控（稀疏激活）</td>
+</tr>
+<tr>
+<td><strong>模型容量</strong></td>
+<td>受限于单一 FFN 的尺寸</td>
+<td>可扩展（增加专家数量不影响计算量）</td>
+</tr>
+<tr>
+<td><strong>训练/推理效率</strong></td>
+<td>计算量随模型尺寸线性增长</td>
+<td>计算量可控（仅激活部分专家）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="MLA"><a href="#MLA" class="headerlink" title="MLA"></a>MLA</h2><p>MLA主要是为了减少KV的内存消耗，那么首先想要对LLM中KV占比有一个概念。</p>
+<h3 id="LLM模型推理过程"><a href="#LLM模型推理过程" class="headerlink" title="LLM模型推理过程"></a>LLM模型推理过程</h3><ol>
+<li><strong>Prefill 阶段</strong>  <ul>
+<li>给定一段输入 prompt（共 <code>N</code> 个 token），模型一次性并行地处理这 <code>N</code> 个 token，生成第一个<strong>输出 token</strong>（第 <code>N+1</code> 个 token）的 logits。</li>
+<li>这个阶段的注意力计算是全并行的，注意力矩阵是 <code>[N x N]</code>，即每个 token 都能关注 prompt 中的所有 token。</li>
+</ul>
+</li>
+<li><strong>Decode 阶段</strong>  <ul>
+<li>从第 <code>N+1</code> 个 token 开始，每次只生成一个 token。每一步的输入是之前已经生成的所有 token。</li>
+<li>由于自回归的限制，<strong>每生成一个 token 都需要依赖前面所有 token 的上下文</strong>，导致计算无法并行，每一步必须等待上一步完成。</li>
+<li>注意力计算是 <code>[1 x (N + i - 1)]</code>，即当前 token 需要<strong>关注前面所有的 token。</strong></li>
+</ul>
+</li>
+</ol>
+<p>LLM基于Transformer，从decoder的结构我们可知：第$t$个token的输出，需要使用<code>Q</code>与前面$1\sim t-1$位置的<code>K</code>,<code>V</code>计算：</p>
+<ol>
+<li>计算前面的<code>K</code>,<code>V</code>不受后续的token的影响。（<strong>因此可以缓存</strong>）</li>
+<li>后面计算$t+1\sim N$的tokens，都需要与前面$1\sim t-1$位置的<code>K</code>,<code>V</code>计算。（<strong>K,V出现冗余</strong>）</li>
+</ol>
+<blockquote>
+<p>Q: 所有的LLM都是基于Transformer的吗？</p>
+<p>A: 几乎所有主流 LLM 都是基于 Transformer 架构的，尤其是 decoder-only Transformer。</p>
+</blockquote>
+<h4 id="KV-cache机制"><a href="#KV-cache机制" class="headerlink" title="KV-cache机制"></a>KV-cache机制</h4><p>目前主流的KV-cache机制：将前序计算好的KV缓存起来。</p>
+<p>缺点：<strong>空间换时间</strong>。GPU显存也很宝贵。</p>
+<blockquote>
+<p>换句话说:</p>
+<ul>
+<li>如果不用KV-cache模型直接计算（重复计算前序<code>K</code>,<code>V</code>），是个计算密集型任务；</li>
+<li>增加了KV-cache，现在<code>K</code>,<code>V</code>不是通过计算得到，而是从「存储介质」里读出来，GPT内核与存储介质之间要频繁读写，这样就变成了一个访存密集型任务。</li>
+</ul>
+<p>所以使用了KV-cache的机制，解决的重复计算的问题，但访存的速率也就直接影响到训练和推理的速度。</p>
+</blockquote>
+<h3 id="LLM推理阶段显存使用情况"><a href="#LLM推理阶段显存使用情况" class="headerlink" title="LLM推理阶段显存使用情况"></a>LLM推理阶段显存使用情况</h3><h4 id="访存速率分级"><a href="#访存速率分级" class="headerlink" title="访存速率分级"></a>访存速率分级</h4><p>由下图的访存带宽可知，卡内的带宽是单机卡间的带宽的3倍，是跨机带宽的20倍，所以我们对于存储的数据应该优先放到卡内，其次单机内，最后可能才考虑跨机存储。</p>
+<blockquote>
+<p>在GPU上部署模型的原则是：能一张卡部署的，就不要跨多张卡；能一台机部署的，就不要跨多台机。这是因为“卡内通信带宽 &gt; 卡间通信带宽 &gt; 机间通信带宽”，由于“木桶效应”，模型部署时跨的设备越多，受设备间通信带宽的的“拖累”就越大</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/v2-853d72cdbf93816fdcf7a4bac4aa8eaa_1440w.jpg" alt="img"></p>
+<blockquote>
+<p>【到了熟悉的计组时间(&gt;v&lt;) !】</p>
+</blockquote>
+<p>通用的GPU的存储介质除了显存，还有SRAM（Static Random Access Memory）/DRAM（Dynamic Random Access Memory），二者是一个“<strong>速度-容量-成本</strong>”之间的权衡组合。</p>
+<ul>
+<li><strong>SRAM 快但贵，用来加速</strong></li>
+<li><strong>DRAM 慢但大，用来存储</strong></li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th><strong>SRAM</strong></th>
+<th><strong>DRAM</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>类型</td>
+<td>静态随机存储</td>
+<td>动态随机存储</td>
+</tr>
+<tr>
+<td>是否需刷新</td>
+<td>否</td>
+<td>是</td>
+</tr>
+<tr>
+<td>速度</td>
+<td>快（低延迟）</td>
+<td>慢（高延迟）</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>高</td>
+<td>低</td>
+</tr>
+<tr>
+<td>密度</td>
+<td>低</td>
+<td>高</td>
+</tr>
+<tr>
+<td>容量</td>
+<td>小（KB~MB）</td>
+<td>大（GB 级）</td>
+</tr>
+<tr>
+<td>常见用途</td>
+<td>Cache、寄存器、Shared Memory</td>
+<td>显存（GDDR/HBM）、主存（DDR）</td>
+</tr>
+<tr>
+<td>GPU 中的体现</td>
+<td>L1/L2 Cache, Registers, Shared Mem</td>
+<td>Global Memory, 显存</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/f32aec8de50754e90feee34a80064a44.png" alt="CPU"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/7e01f36a3d466c818bbf2376cd69d79a.png" alt="GPU"></p>
+<blockquote>
+<p>Q: 话说回来，不同厂家的GPU的内部架构都不同，所以呢？？</p>
+<p>A: 不同厂商（比如 NVIDIA、AMD、Apple、Google TPU、华为昇腾）在 GPU 或 AI 加速器上的 架构设计差异巨大，但在存储层级的设计上，确实存在一个“通用范式”：<strong>由快而小的 SRAM（如 Registers、Shared Memory、L1/L2 Cache）构成近端缓存层，由慢而大的 DRAM（如 Global Memory 或 HBM）构成主存层。</strong></p>
+</blockquote>
+<p><strong>通用 GPU 存储层级（从快到慢）：</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>存储层级</th>
+<th>类型</th>
+<th>作用</th>
+<th>典型介质</th>
+<th>延迟/带宽</th>
+<th>容量级别</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>寄存器</strong></td>
+<td>SRAM</td>
+<td>单个线程/线程组的局部变量</td>
+<td>SRAM</td>
+<td>极低/极高</td>
+<td>KB/线程组</td>
+</tr>
+<tr>
+<td><strong>Shared Memory / Local Data Store</strong></td>
+<td>SRAM</td>
+<td>一个线程块/工作组共享</td>
+<td>SRAM</td>
+<td>极低/高</td>
+<td>64~128KB</td>
+</tr>
+<tr>
+<td><strong>L1 Cache</strong></td>
+<td>SRAM</td>
+<td>核心级缓存</td>
+<td>SRAM</td>
+<td>低</td>
+<td>~128KB</td>
+</tr>
+<tr>
+<td><strong>L2 Cache</strong></td>
+<td>SRAM</td>
+<td>多核心共享缓存</td>
+<td>SRAM</td>
+<td>中</td>
+<td>数 MB</td>
+</tr>
+<tr>
+<td><strong>Global Memory / 显存</strong></td>
+<td>DRAM</td>
+<td>所有线程可访问的数据区</td>
+<td>GDDR / HBM</td>
+<td>高</td>
+<td>GB 级</td>
+</tr>
+<tr>
+<td><strong>Host Memory</strong></td>
+<td>DRAM</td>
+<td>主机 RAM（通过 PCIe/NUMA）</td>
+<td>DDR4/5</td>
+<td>非常高</td>
+<td>多 GB</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<p><strong>不同厂商的差异主要体现在</strong>：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>厂商</th>
+<th>特点或差异化设计</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NVIDIA</strong></td>
+<td>CUDA 架构明确划分 Registers、Shared Memory、L1/L2、Global Memory。Ampere 开始用 HBM。</td>
+</tr>
+<tr>
+<td><strong>AMD</strong></td>
+<td>ROCm 架构类似，使用 LDS（Local Data Store）等概念来等价 Shared Memory。</td>
+</tr>
+<tr>
+<td><strong>Apple M 系列</strong></td>
+<td>统一内存架构（UMA），CPU/GPU 共享物理内存，省去拷贝但牺牲带宽。</td>
+</tr>
+<tr>
+<td><strong>TPU (Google)</strong></td>
+<td>大量使用 on-chip SRAM，结构非 Transformer-like，但仍保有近似层级。</td>
+</tr>
+<tr>
+<td><strong>华为 昇腾 / 寒武纪</strong></td>
+<td>加入 AI Core Buffer，模型层输出缓存有定制优化。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>尽管名称、调度方式不同，但它们都遵循<strong>“小而快的近端缓存 + 大而慢的远端主存”</strong>这一通用理念。</p>
+<h4 id="模型推理阶段显存分配"><a href="#模型推理阶段显存分配" class="headerlink" title="模型推理阶段显存分配"></a>模型推理阶段显存分配</h4><blockquote>
+<p><strong>减少KV Cache的目的</strong>: 就是要实现在<strong>更少的设备</strong>上推理<strong>更长的Context</strong>，或者在相同的Context长度下让<strong>推理的batch size更大</strong>，从而实现更快的推理速度或者更大的吞吐总量。</p>
+</blockquote>
+<p>推理阶段主要有三部分数据会放到显存里。</p>
+<ul>
+<li><strong>KV Cache</strong> ： 如上一节所述，前序token序列计算的<code>K</code>,<code>V</code>结果，会随着后面tokent推理过程逐步存到显存里。存储的量随着<code>Batch</code>，<code>Sequence_len</code>长度动态变化。</li>
+<li><strong>模型参数</strong>：包括Transformer、Embedding等模型参数会存到显存里。模型大小固定后，这个存储空间是固定的。</li>
+<li><strong>运行时中间数据</strong>： 推理过程中产出的一些中间数据会临时存到显存，即用即释放，一般占用空间比较小。</li>
+</ul>
+<p>因此，主要存储消耗是：KV cache和模型参数。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250414154218373.png" alt="以QWen72B为例MHA"></p>
+<h3 id="共享KV优化显存方法：MQA-GQA"><a href="#共享KV优化显存方法：MQA-GQA" class="headerlink" title="共享KV优化显存方法：MQA/GQA"></a>共享KV优化显存方法：MQA/GQA</h3><ul>
+<li><strong>MQA（Multi-Query Attention）</strong>：每一层的所有Head，共享同一个<code>K</code>,<code>V</code>来计算Attention。相对于MHA的单个Token需要保存的KV数（ $2∗l∗n_h$ ）减少到了（ $2*l$ ）个，即每一层共享使用一个<code>K</code>向量和一个<code>V</code>向量。</li>
+<li><strong>GQA（Group-Query Attention）</strong>：GQA是平衡了MQA和MHA的一种折中的方法。不是每个Head一个KV，也不是所有Head共享一个KV，而是对所有Head分组，比如分组数为 $g$ ，每组： $n_h/g$个Head 共享一个KV。<ul>
+<li>当 $g=1$ 时，GQA就等价于MQA;</li>
+<li>当 $g=n_h$时， GQA就等价于MHA。</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/v2-88b57727d22ffec3daec4faae98771ac_1440w.jpg" alt="MHA，MQA，GQA KVcache对比图"></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>KV cache缓存量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MHA</td>
+<td>$2<em>l</em>n_h$</td>
+</tr>
+<tr>
+<td>MQA</td>
+<td>$2*l$</td>
+</tr>
+<tr>
+<td>GQA</td>
+<td>$2<em>l</em>g,1\le g\le n_h$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="MLA优化KV-cache"><a href="#MLA优化KV-cache" class="headerlink" title="MLA优化KV-cache"></a>MLA优化KV-cache</h3><p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250414160657536.png" alt="image-20250414160657536"></p>
+<p>每个Transfomer层中，只缓存了$\mathbf{c}^{KV}_t,\mathbf{k}^R_t$:</p>
+<ul>
+<li>$\mathbf{c}^{KV}_t$: $dim=d_c=4*d_h=512$</li>
+<li>$\mathbf{k}^R_t$: $dim=d_h^R=d_h/2=64$</li>
+</ul>
+<p>对比MQA（每层KV：$2d_h=256$），MLA相当于<strong>增加了2.25倍的存储</strong>。</p>
+<blockquote>
+<p>Q: 但DeepSeek描述自己的方法不仅比MQA强，而且比非共享KV的原始MHA也要强，这是为什么？？</p>
+<p>A: MLA具有恢复全<code>K</code>,<code>V</code>的能力。特征表达能力显著比GQA、MQA要强。</p>
+<p>MLA 中 KV 的计算流程：通过低秩压缩 $\rightarrow$ 缓存一个小维度的中间变量 $\rightarrow$ 后续再恢复出完整维度的 $K$、$V$。</p>
+</blockquote>
+<p>好，回到公式来看看到底为什么。</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\mathbf{c}_t^Q &= W^{DQ}\mathbf{h}_t, \tag{1}\\
+[\mathbf{q}_{t,1}^C; \mathbf{q}_{t,2}^C; \cdots; \mathbf{q}_{t,n_h}^C] = \mathbf{q}_t^C &= W^{UQ}\mathbf{c}_t^Q, \tag{2}\\
+[\mathbf{q}_{t,1}^R; \mathbf{q}_{t,2}^R; \cdots; \mathbf{q}_{t,n_h}^R] = \mathbf{q}_t^R &= \text{RoPE}(W^{QR}\mathbf{c}_t^Q), \tag{3}\\
+\mathbf{q}_{t,i} &= [\mathbf{q}_{t,i}^C; \mathbf{q}_{t,i}^R], \tag{4}\\
+\mathbf{c}_t^{KV} &= W^{DKV}\mathbf{h}_t, \tag{5}\\
+[\mathbf{k}_{t,1}^C; \mathbf{k}_{t,2}^C; \cdots; \mathbf{k}_{t,n_h}^C] = \mathbf{k}_t^C &= W^{UK}\mathbf{c}_t^{KV}, \tag{6}\\
+\mathbf{k}_t^R &= \text{RoPE}(W^{KR}\mathbf{h}_t), \tag{7}\\
+\mathbf{k}_{t,i} &= [\mathbf{k}_{t,i}^C; \mathbf{k}_{t,i}^R], \tag{8}\\
+[\mathbf{v}_{t,1}^C; \mathbf{v}_{t,2}^C; \cdots; \mathbf{v}_{t,n_h}^C] = \mathbf{v}_t^C &= W^{UV}\mathbf{c}_t^{KV}, \tag{9}\\
+\mathbf{o}_{t,i} &= \sum_{j = 1}^{t} \text{Softmax}_j \left( \frac{\mathbf{q}_{t,i}^T \mathbf{k}_{j,i}}{\sqrt{d_h + d_h^R}} \right) \mathbf{v}_{j,i}^C, \tag{10}\\
+\mathbf{u}_t &= W^O [\mathbf{o}_{t,1}; \mathbf{o}_{t,2}; \cdots; \mathbf{o}_{t,n_h}] \tag{11}
+\end{align*}</script><p>对于输入$h_t$进行低秩压缩，将$d$维($d=d_h*n_h$, 隐含层维度)输入经过$W^{DKV}\in \mathbb{R}^{d_c\times d}$变换矩阵后得到$\mathbf{c}^{KV}_t$。</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\mathbf{c}_t^{KV} &= W^{DKV}\mathbf{h}_t, \tag{5}\\
+[\mathbf{k}_{t,1}^C; \mathbf{k}_{t,2}^C; \cdots; \mathbf{k}_{t,n_h}^C] = \mathbf{k}_t^C &= W^{UK}\mathbf{c}_t^{KV}, \tag{6}\\
+[\mathbf{v}_{t,1}^C; \mathbf{v}_{t,2}^C; \cdots; \mathbf{v}_{t,n_h}^C] = \mathbf{v}_t^C &= W^{UV}\mathbf{c}_t^{KV}, \tag{9}
+\end{align}</script><p>然后再通过两个变换矩阵$W^{UK},W^{UV}\in\mathbb{R}^{d\times d_c}$，$\mathbf{c}^{KV}_t$得到$\mathbf{k}_{t}^C,\mathbf{v}_{t}^C$，又将KV的维度扩展回$d$(相当于MHA的每个Head都有单独的<code>K</code>,<code>V</code>)。</p>
+<blockquote>
+<p>DeepSeek-V3: $d=7168,d_c=512$</p>
+<p>对比MLA/MHA的KV变换矩阵参数：</p>
+<p>两个矩阵$W^{UK},W^{UV}$参数量：$2<em>d</em>d_c=2<em>7168</em>512$</p>
+<p>正常MHA的参数量是(KV)：$2<em>d\times d =2</em>7168*7168$</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>K/V 生成方式</th>
+<th>用了什么参数？</th>
+<th>产生的激活值维度（KV Cache）</th>
+<th>对比焦点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>标准 MHA</strong></td>
+<td>每个 token 的输入 $h_t \in \mathbb{R}^d$ 乘上 $W^K, W^V \in \mathbb{R}^{d \times d}$ 得到 K, V</td>
+<td>参数量：$2d \times d$</td>
+<td>缓存每层、每 token 的 K/V（共 $2 \times L \times d$）</td>
+<td>参数量 vs MLA</td>
+</tr>
+<tr>
+<td><strong>MLA</strong></td>
+<td>先压缩为 $c^{KV}_t \in \mathbb{R}^{d_c}$，再用 $W^{UK}, W^{UV} \in \mathbb{R}^{d \times d_c}$ 展开</td>
+<td>参数量：$2d \times d_c$（更少）</td>
+<td>最终 K/V 维度仍为 $d$，缓存量并未真正减少</td>
+<td>参数量少但缓存未省</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Q: 对于MHA的维度？</strong></p>
+<p>A：解释:此处主要对比的是变换矩阵的参数量（此矩阵必然被加载进显卡，然后与input进行矩阵运算）</p>
+<p>MHA得到QKV的计算公式如下（Linear Layer）：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+Q &= XW^Q \\
+K &= XW^K \\
+V &= XW^V
+\end{align*}</script><p>在标准 MHA 中，Query、Key、Value 向量是分别由输入 $X$ 通过线性层 $W^Q, W^K, W^V$ 得到的。虽然这三个矩阵的形状通常都是 $d \times d$，但它们的参数是<strong>各自独立</strong>的，不共享。KV部分的参数总量就是 $2 \times d \times d$，构成模型参数的一部分。</p>
+</blockquote>
+<p>在看一下Q的优化：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\mathbf{c}_t^Q &= W^{DQ}\mathbf{h}_t, \tag{1}\\
+[\mathbf{q}_{t,1}^C; \mathbf{q}_{t,2}^C; \cdots; \mathbf{q}_{t,n_h}^C] = \mathbf{q}_t^C &= W^{UQ}\mathbf{c}_t^Q, \tag{2}\\
+[\mathbf{q}_{t,1}^R; \mathbf{q}_{t,2}^R; \cdots; \mathbf{q}_{t,n_h}^R] = \mathbf{q}_t^R &= \text{RoPE}(W^{QR}\mathbf{c}_t^Q), \tag{3}
+\end{align*}</script><blockquote>
+<p>对比MLA/MHA Query部分的参数量：</p>
+<p>DeepSeek-V3中$d_q=1536$，$W^{DQ}\in\mathbb{R}^{d_c’\times d},W^{UQ}\in\mathbb{R}^{d_hn_h\times d_c’},W^{QR}\in \mathbb{R}^{d_h^Rn_h\times d_c’}$</p>
+<p>MLA: 合计参数量 ≈ 27.5M</p>
+<ul>
+<li>$W^{DQ}$: $d_c’ \times d = 1536 \times 7168 \approx 11M$</li>
+<li>$W^{UQ}$: $d_h n_h \times d_c’ = 7168 \times 1536 \approx 11M$</li>
+<li>$W^{QR}$: $d_h^R n_h \times d_c’ = 3584 \times 1536 \approx 5.5M$（$d_h^R = d_h/2 = 64$, $n_h=56$）</li>
+</ul>
+<p>MHA: $d \times d = 7168 \times 7168 \approx 51M$</p>
+</blockquote>
+<p>RoPE位置编码：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+[\mathbf{q}_{t,1}^R; \mathbf{q}_{t,2}^R; \cdots; \mathbf{q}_{t,n_h}^R] = \mathbf{q}_t^R &= \text{RoPE}(W^{QR}\mathbf{c}_t^Q), \tag{3}\\
+\mathbf{k}_t^R &= \text{RoPE}(W^{KR}\mathbf{h}_t), \tag{7}\\
+
+\end{align}</script><p>$q_t^R,k_t^R\in\mathbb{R}^{d^R_h},d^R_h=\frac 12 d_h=64$</p>
+<blockquote>
+<p>这部分计算的 ktR 实际是个MQA的计算方式，同一层中，所有的Head共享同一个 k</p>
+</blockquote>
+<hr>
+<h2 id="🧠-背后推理逻辑："><a href="#🧠-背后推理逻辑：" class="headerlink" title="🧠 背后推理逻辑："></a>🧠 背后推理逻辑：</h2><h3 id="一、观察-q-t-R-和-k-t-R-的计算方式"><a href="#一、观察-q-t-R-和-k-t-R-的计算方式" class="headerlink" title="一、观察 $q_t^R$ 和 $k_t^R$ 的计算方式"></a>一、观察 $q_t^R$ 和 $k_t^R$ 的计算方式</h3><p>我们对比公式 (3) 和公式 (7)：</p>
+<h4 id="3-："><a href="#3-：" class="headerlink" title="(3)："></a>(3)：</h4><script type="math/tex; mode=display">
+\mathbf{q}_t^R = [\mathbf{q}_{t,1}^R; \cdots; \mathbf{q}_{t,n_h}^R] = \text{RoPE}(W^{QR} \mathbf{c}_t^Q)</script><ul>
+<li>输出是一个大向量 $\mathbf{q}<em>t^R$，**明确分成多个 head（$\mathbf{q}</em>{t,i}^R$）**，所以每个 head 都有自己独立的 query。</li>
+<li>暗示 $W^{QR}$ 的输出维度是 $n_h \cdot d_h^R$。</li>
+</ul>
+<h4 id="7-："><a href="#7-：" class="headerlink" title="(7)："></a>(7)：</h4><p>ktR=RoPE(WKRht)\mathbf{k}_t^R = \text{RoPE}(W^{KR} \mathbf{h}_t)</p>
+<ul>
+<li>注意这里 <strong>没有类似的分头结构</strong>：没有写成 $[\mathbf{k}<em>{t,1}^R; \cdots; \mathbf{k}</em>{t,n_h}^R]$。</li>
+<li>它只是一个单一的向量 $\mathbf{k}_t^R$，没有拆成 per-head 的形式。</li>
+</ul>
+<p>➡️ <strong>这就是关键区别：query 有多头结构，而 key 没有。</strong></p>
+<hr>
+<h3 id="二、从维度推出“共享”"><a href="#二、从维度推出“共享”" class="headerlink" title="二、从维度推出“共享”"></a>二、从维度推出“共享”</h3><p>你还给出了维度：</p>
+<blockquote>
+<p>$q_t^R, k_t^R \in \mathbb{R}^{d_h^R}$，且 $d_h^R = \frac{1}{2} d_h = 64$</p>
+</blockquote>
+<p>这表示每个 head 的维度是 64，但 $k_t^R$ 只有一个向量。</p>
+<p>如果是普通多头注意力：</p>
+<ul>
+<li>每个 head 应该有自己的 $k_{t,i}^R \in \mathbb{R}^{d_h^R}$。</li>
+<li>那么就应该有 $n_h$ 个这样的 key 向量，即：$[\mathbf{k}<em>{t,1}^R; \cdots; \mathbf{k}</em>{t,n_h}^R]$</li>
+</ul>
+<p>但现在：</p>
+<ul>
+<li>只有一个 $k_t^R \in \mathbb{R}^{d_h^R}$，那就说明 <strong>它没有为每个 head 分配一份，所有 head 共享这一份</strong>。</li>
+</ul>
+<hr>
+<h3 id="三、总结推理链："><a href="#三、总结推理链：" class="headerlink" title="三、总结推理链："></a>三、总结推理链：</h3><ol>
+<li><strong>公式 (3)</strong> 明确拆了多个 head 的 $q$。</li>
+<li><strong>公式 (7)</strong> 没有拆头，只有一个 $k$ 向量。</li>
+<li><strong>维度信息</strong> 表明 $k_t^R$ 是一个单向量，而不是 per-head 的矩阵或拼接结构。</li>
+<li>所以可以得出推论：<strong>这是 MQA 中共享 key 的结构</strong>。</li>
+</ol>
+<p>因此：</p>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/04/18/2025-4-18-%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2%E8%B0%83%E7%A0%94/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/04/12/2025-4-12-MNIST%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#DeepSeek-MoE"><span class="toc-content-number">1.</span> <span class="toc-content-text">DeepSeek-MoE</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E6%AF%8F%E4%B8%AA%E4%B8%93%E5%AE%B6%E4%BB%A3%E8%A1%A8%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-content-number">1.1.</span> <span class="toc-content-text">每个专家代表什么？</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E4%B8%93%E5%AE%B6%E6%98%AF%E5%90%A6%E7%9C%9F%E7%9A%84%E5%85%B7%E6%9C%89%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7%EF%BC%9F"><span class="toc-content-number">1.2.</span> <span class="toc-content-text">专家是否真的具有可解释性？</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E4%BE%8B%E5%AD%90"><span class="toc-content-number">1.3.</span> <span class="toc-content-text">例子</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#FFN%E5%A4%84%E7%90%86"><span class="toc-content-number">1.3.1.</span> <span class="toc-content-text">FFN处理</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#MoE%EF%BC%88%E6%B7%B7%E5%90%88%E4%B8%93%E5%AE%B6%EF%BC%89%E5%A4%84%E7%90%86"><span class="toc-content-number">1.3.2.</span> <span class="toc-content-text">MoE（混合专家）处理</span></a></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#MoE-%E7%9B%B8%E6%AF%94-FFN-%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="toc-content-number">1.4.</span> <span class="toc-content-text">MoE 相比 FFN 的优势</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#MLA"><span class="toc-content-number">2.</span> <span class="toc-content-text">MLA</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#LLM%E6%A8%A1%E5%9E%8B%E6%8E%A8%E7%90%86%E8%BF%87%E7%A8%8B"><span class="toc-content-number">2.1.</span> <span class="toc-content-text">LLM模型推理过程</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#KV-cache%E6%9C%BA%E5%88%B6"><span class="toc-content-number">2.1.1.</span> <span class="toc-content-text">KV-cache机制</span></a></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#LLM%E6%8E%A8%E7%90%86%E9%98%B6%E6%AE%B5%E6%98%BE%E5%AD%98%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5"><span class="toc-content-number">2.2.</span> <span class="toc-content-text">LLM推理阶段显存使用情况</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E8%AE%BF%E5%AD%98%E9%80%9F%E7%8E%87%E5%88%86%E7%BA%A7"><span class="toc-content-number">2.2.1.</span> <span class="toc-content-text">访存速率分级</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E6%A8%A1%E5%9E%8B%E6%8E%A8%E7%90%86%E9%98%B6%E6%AE%B5%E6%98%BE%E5%AD%98%E5%88%86%E9%85%8D"><span class="toc-content-number">2.2.2.</span> <span class="toc-content-text">模型推理阶段显存分配</span></a></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%85%B1%E4%BA%ABKV%E4%BC%98%E5%8C%96%E6%98%BE%E5%AD%98%E6%96%B9%E6%B3%95%EF%BC%9AMQA-GQA"><span class="toc-content-number">2.3.</span> <span class="toc-content-text">共享KV优化显存方法：MQA&#x2F;GQA</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#MLA%E4%BC%98%E5%8C%96KV-cache"><span class="toc-content-number">2.4.</span> <span class="toc-content-text">MLA优化KV-cache</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%F0%9F%A7%A0-%E8%83%8C%E5%90%8E%E6%8E%A8%E7%90%86%E9%80%BB%E8%BE%91%EF%BC%9A"><span class="toc-content-number">3.</span> <span class="toc-content-text">🧠 背后推理逻辑：</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E4%B8%80%E3%80%81%E8%A7%82%E5%AF%9F-q-t-R-%E5%92%8C-k-t-R-%E7%9A%84%E8%AE%A1%E7%AE%97%E6%96%B9%E5%BC%8F"><span class="toc-content-number">3.1.</span> <span class="toc-content-text">一、观察 $q_t^R$ 和 $k_t^R$ 的计算方式</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#3-%EF%BC%9A"><span class="toc-content-number">3.1.1.</span> <span class="toc-content-text">(3)：</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#7-%EF%BC%9A"><span class="toc-content-number">3.1.2.</span> <span class="toc-content-text">(7)：</span></a></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E4%BA%8C%E3%80%81%E4%BB%8E%E7%BB%B4%E5%BA%A6%E6%8E%A8%E5%87%BA%E2%80%9C%E5%85%B1%E4%BA%AB%E2%80%9D"><span class="toc-content-number">3.2.</span> <span class="toc-content-text">二、从维度推出“共享”</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E4%B8%89%E3%80%81%E6%80%BB%E7%BB%93%E6%8E%A8%E7%90%86%E9%93%BE%EF%BC%9A"><span class="toc-content-number">3.3.</span> <span class="toc-content-text">三、总结推理链：</span></a></li></ol></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>

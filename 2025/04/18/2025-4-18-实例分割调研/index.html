@@ -1,0 +1,658 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="参考资料： IBM-对实例分割的介绍 一开始面对其的疑惑：  实例分割？和语义分割、以及其他分割任务有何区别？ 为什么近年来的相关论文很少了？基本上集中在2020-2022年？目前还有在做实例分割的，多是3D开放世界实例分割。难道是因为SAM的出现导致的吗？   实例分割的定义Q: 实例分割与目标检测的区别？ A：实例分割相较于目标检测会更细致。  实例分割预测每个对象的像素级边界（每个实例的精">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-4-18-实例分割调研">
+<meta property="og:url" content="http://example.com/2025/04/18/2025-4-18-%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2%E8%B0%83%E7%A0%94/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="参考资料： IBM-对实例分割的介绍 一开始面对其的疑惑：  实例分割？和语义分割、以及其他分割任务有何区别？ 为什么近年来的相关论文很少了？基本上集中在2020-2022年？目前还有在做实例分割的，多是3D开放世界实例分割。难道是因为SAM的出现导致的吗？   实例分割的定义Q: 实例分割与目标检测的区别？ A：实例分割相较于目标检测会更细致。  实例分割预测每个对象的像素级边界（每个实例的精">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250418161510373.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250418161655767.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250422091538282.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250422110432268.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250422115029495.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250422115508957.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/f5b61a226ba567524861624dd9b9f5e2.png#pic_center">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250422161934569.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250422164217961.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250422165728651.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/b127cd7e12fd66ac59a8c1a9c82c1bdb.png#pic_center">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/250122691bcc836eff8583f0d6c155ff.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/1f4edfbcc26460f764f98c14289a0cf4.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/57a9a4662f4a93043e51ff91ca75f347.png#pic_center">
+<meta property="article:published_time" content="2025-04-18T07:34:33.000Z">
+<meta property="article:modified_time" content="2025-04-22T12:52:27.000Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="实例分割">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250418161510373.png"><title>2025-4-18-实例分割调研 - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-4-18-实例分割调研</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-04-18</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-04-22</time></div>
+
+<div class="post-tags"><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/">实例分割</a></div></div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约7.3K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><blockquote>
+<p>参考资料：</p>
+<p><a target="_blank" rel="noopener" href="https://www.ibm.com/cn-zh/think/topics/instance-segmentation">IBM-对实例分割的介绍</a></p>
+<p>一开始面对其的疑惑：</p>
+<ol>
+<li>实例分割？和语义分割、以及其他分割任务有何区别？</li>
+<li>为什么近年来的相关论文很少了？基本上集中在2020-2022年？目前还有在做实例分割的，多是3D开放世界实例分割。难道是因为SAM的出现导致的吗？</li>
+</ol>
+</blockquote>
+<h1 id="实例分割的定义"><a href="#实例分割的定义" class="headerlink" title="实例分割的定义"></a>实例分割的定义</h1><p><strong>Q: 实例分割与目标检测的区别？</strong></p>
+<p>A：实例分割相较于目标检测会更细致。</p>
+<ul>
+<li>实例分割预测每个对象的<strong>像素级边界</strong>（每个实例的精确形状和面积的逐像素“分割掩码”）</li>
+<li>目标检测预测对象的<strong>大致位置</strong>（矩形边界框）</li>
+</ul>
+<p><strong>Q: 实例分割与语义分割区别？</strong></p>
+<p>A: 语义分割相较于实例分割会更简单。</p>
+<ul>
+<li><p>语义分割不涉及不同实例的<strong>计数或区分</strong>，语义分割的<strong>目标</strong>是：<strong>维图像中的每个像素标注语义类别标签</strong>。</p>
+<blockquote>
+<p>如果同一类 thing 的多个对象实例紧密相邻或相互重叠，语义分割模型就会简单地将它们<strong>归并到一个图像片段</strong>中。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250418161510373.png" alt="image-20250418161510373"></p>
+</blockquote>
+</li>
+<li><p>实例分割模型只专注于检测和生成各个实例的分割掩码。实例分割模型必须能够描绘每个不同的对象实例，即使是<strong>同一类对象</strong>的被遮挡实例。</p>
+</li>
+</ul>
+<p><strong>Q: 实例分割是否可以被理解为语义分割+图像分类？</strong></p>
+<p>A: (此处来源于DeepSeek-V3)</p>
+<p>实例分割= 目标检测（定位实例） + 语义分割（生成掩码） + 实例区分（解决重叠/遮挡），“语义分割+分类”缺少实例分割的核心能力——<strong>区分个体</strong>，因此不能等同。两者的差异本质在于是否处理<strong>实例级别的分离与标识</strong>。</p>
+<ol>
+<li><p>任务目标不同，语义分割不区分实例  </p>
+<ul>
+<li><p>语义分割：仅对像素分类（如“人”“车”），但不区分同一类别的不同个体（所有“人”像素属于同一标签）。  </p>
+</li>
+<li><p>实例分割：必须区分同一类别中的不同实例（如“人A”“人B”独立掩码），这是语义分割无法直接实现的。  </p>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><p>语义分割的输出无法直接用于实例区分  </p>
+<ul>
+<li><p>语义分割的输出是一张<strong>类别掩码图</strong>，同类物体在掩码中会<strong>合并</strong>（例如两辆汽车的像素都是“汽车”标签）。  </p>
+</li>
+<li><p>实例分割需要为每个物体生成<strong>独立掩码</strong>，即使类别相同（如多只猫），也需明确分开。  </p>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>实例分割依赖目标检测逻辑，而非单纯分类 。实例分割通常需要先<strong>定位实例</strong>（类似目标检测的边界框），再生成掩码。</li>
+</ol>
+<p><strong>Q: 全景分割？</strong></p>
+<p>A: 对图像中的<strong>每一个像素</strong>进行语义分类，也需要对<strong>每个不同的对象</strong>实例进行划分。</p>
+<p>最初的全景分割尝试只是实例分割+语义分割，再后处理的步骤中合并它们的输出（难以解决语义模型的数据输出与实例模型的数据输出之间的差异 ）。</p>
+<p>最近的方法将语义分割“头”和实例分割“头”连接到一个共享的“骨干”，通常是一个特征金字塔网络 (FPN)，以进行特征提取：分离出相关的视觉数据。这提高了效率并消除了差异。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250418161655767.png" alt="image-20250418161655767"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>实例分割区别于目标检测和语义分割：</p>
+<ol>
+<li>对比目标检测，实例分割会使用更精细的mask进行定位，而不是bbox；</li>
+<li>对比语义分割，实例分割需要再语义分割的基础上区分出不同的实例mask。</li>
+</ol>
+<blockquote>
+<p><strong>Q: 得到物体轮廓？</strong></p>
+<p>A: 第一，我不知道得到轮廓有什么用处；第二，在进行了语义分割（逐像素点分类）之后，可以调用库函数得到轮廓。</p>
+</blockquote>
+<h1 id="实例分割方法"><a href="#实例分割方法" class="headerlink" title="实例分割方法"></a>实例分割方法</h1><p>实例分割的算法发展有如下两条路线：</p>
+<ol>
+<li>基于目标分割的自上而下的方案：首先通过目标检测定位出每个实例所在的bbox，然后对box内部进行语义分割得到每个实例的mask；</li>
+<li>基于语义分割的自下而上的方案：首先通过语义分割进行逐像素分类，进而通过聚类或是其他度量、学习手段区分开同类的不同实例。</li>
+</ol>
+<blockquote>
+<p>似乎第一种方式成为了主流：自下而上的方法，后处理的步骤比较繁琐、效果较差。</p>
+</blockquote>
+<h2 id="基于目标检测的自上而下的方法"><a href="#基于目标检测的自上而下的方法" class="headerlink" title="基于目标检测的自上而下的方法"></a>基于目标检测的自上而下的方法</h2><ol>
+<li>two-stage: 首先执行目标检测，然后生成对象分割掩模。两阶段 pipeline（区域建议→实例分割），精度高但速度较慢。e.g. Mask R-CNN</li>
+<li>one-stage: 并行执行目标检测+生成对象分割掩模。单阶段直接预测实例掩码，无需显式区域建议，速度更快。e.g. YOLO系列</li>
+<li>query-base: 引入transformer查询机制，端到端预测。 encoder+decoder. e.g. Swin Transformer<ul>
+<li>encoder: 用于从输入图像中提取相关数据</li>
+<li>decoder: 则使用提取的特征数据通过分割图重建图像。</li>
+</ul>
+</li>
+</ol>
+<h3 id="Two-Stage"><a href="#Two-Stage" class="headerlink" title="Two-Stage"></a>Two-Stage</h3><h4 id="Mask-RCNN"><a href="#Mask-RCNN" class="headerlink" title="Mask-RCNN"></a>Mask-RCNN</h4><p>扩展自Faster-RCNN，在其基础上增加了mask预测分支。</p>
+<ol>
+<li><p>Faster RCNN包含两个阶段, 第一个阶段, 是RPN结构, 用于生成RoI集合。第二个阶段利用<code>RoI pooling</code>从RoI中提出固定尺寸的特征, 然后进行class分类任务和box offset回归任务。</p>
+</li>
+<li><p>Mask RCNN使用了相同的two-stage结构, 第一阶段使用了相同的RPN网络。第二阶段, 利用<code>RoI Align</code>从RoI中提出固定尺寸的特征, 在执行class分类和box offset 回归任务的同时，<strong>MaskRCNN还会给每个RoI生成对应的二值mask</strong>；</p>
+</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250422091538282.png" alt="image-20250422091538282"></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>RoI Pooling</th>
+<th>RoI Align</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>理由</td>
+<td>RPN阶段得到的proposals box大小不一，为了后续进网络，先将不同尺寸的box的feature map归一化到相同的尺寸，以方便进行batch运算。</td>
+<td><code>RoI Pooling</code>这种粗糙的量化方式对于Mask R-CNN新增的mask分支会产生很大的量化误差，因此<code>RoI Align</code>方法取消<code>RoI Pooling</code>中涉及的两次量化操作, 使用双线性插值的方法获得坐标为浮点数的像素点上的图像数值。</td>
+</tr>
+<tr>
+<td>具体过程1</td>
+<td>将box量化为整数坐标值</td>
+<td>遍历每一个候选区域, 保持浮点数边界不做量化； 将候选区域区域分割成k×k个bins，每个bins的边界也不做量化；</td>
+</tr>
+<tr>
+<td>具体过程2</td>
+<td>将量化后的box区域分割成k×k个bins, 并对每一个bins的边界量化为整数。</td>
+<td>在每个bins中sample四个point，使用双线性插值的方法计算出这四个位置的值, 然后取最大值；</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p><strong>bins 就是特征图上的规则子区域</strong>，用于将不同尺寸的输入转换为固定尺寸的特征表示，是计算机视觉中实现特征标准化和空间特征聚合的关键操作。</p>
+</blockquote>
+<p>由于mask分支需要对目标进行精细的mask预测，因此，mask分支采用比分类和回归分支更高特征分辨率。</p>
+<p>Mask: 经 RPN 筛选的 RoI 通过<code>RoI Align</code>统一为 14×14 尺寸，再经4 层全卷积 + 1 层反卷积，最终输出 28×28 的掩码预测结果，确保分割精度优于分类 / 回归分支。</p>
+<h4 id="Cascade-Mask-R-CNN"><a href="#Cascade-Mask-R-CNN" class="headerlink" title="Cascade Mask R-CNN"></a>Cascade Mask R-CNN</h4><p><strong>动机</strong>：探讨如何在检测器Cascade R-CNN基础上设计mask分支。</p>
+<p><strong>针对Faster-RCNN中RCNN部分采用单一的IoU阈值进行政府样本选取会产生测试过程中的不匹配的问题。</strong></p>
+<ol>
+<li><strong>训练阶段</strong>：RPN网络提出了2000左右的proposals，这些proposals在送入R-CNN结构前，需要首先计算每个Proposals和GT(Ground Truth, 真实目标的bbox)之间的IoU，并通过一个IoU阈值（如0.5）把这些Proposals分为正样本和负样本，并对这些正负样本按一定比例采样，进而送入R-CNN进行class分类和box回归。</li>
+<li><strong>推理阶段</strong>：RPN网络提出了300左右的proposals，这些proposals被送直接入到R-CNN结构中，因为没有GT用于采样。</li>
+</ol>
+<blockquote>
+<p><strong>Q: 测试过程中不匹配？</strong></p>
+<p>A: 训练阶段的输入proposals质量更高（被采样过，IoU&gt;threshold）；对比推理阶段质量差（未采样，可能包括IoU&lt;threshold） 。当threshold设为0.5时，mismatch问题较轻。若为获取更精准box而提高正样本IoU阈值，会加剧mismatch问题，同时满足条件的proposals大幅减少，易引发过拟合。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250422110432268.png" alt="image-20250422110432268"></p>
+</blockquote>
+<p><strong>级联设计</strong></p>
+<p>由于采用单一的IoU阈值会产生不匹配的问题，因此，无法通过一味提升IoU阈值来获取更精准的box预测。Cascade R-CNN提出一种级联结构：并在不同层逐渐增大IoU阈值，来缓解不匹配问题并产生更精确的box预测。对小目标、重叠实例分割效果显著提升，但计算量增加。</p>
+<blockquote>
+<p>实验说明： 图中横轴为<code>RPN proposal</code>与<code>gt bbox</code>的Input IoU，纵轴为R-CNN box分支回归后的Output IoU，不同线条代表不同训练阈值的detector。</p>
+<p>可见：</p>
+<ol>
+<li>Input IoU在0.55-0.6时，阈值0.5的detector性能最佳；</li>
+<li>0.6-0.75时，阈值0.6的性能最佳；</li>
+<li>0.75以上时，阈值0.7的性能最佳。</li>
+</ol>
+<p>仅当proposal的Input IoU分布与detector训练阈值接近时，detector性能最优。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250422115029495.png" alt="image-20250422115029495"></p>
+</blockquote>
+<ol>
+<li><p><strong>差异化RCNN Head</strong>：经过每个stage的R-CNN Head后，输入到R-CNN Head的样本分布会发生变化，因此，采用共享的R-CNN Head无法有效适配变化的样本分布问题。因此，Cascade R-CNN在每个stage都采用独立参数的R-CNN Head。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250422115508957.png" alt="image-20250422115508957"></p>
+</li>
+<li><p><strong>掩码级联</strong>：为将Cascade R-CNN目标检测器推广到实例分割，提出了(b)(c)(d)三种策略来新增Mask分支：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/f5b61a226ba567524861624dd9b9f5e2.png#pic_center" alt="img"></p>
+</li>
+</ol>
+<p>其中C=class,B=bounding box, S=mask.其中又以(d)的性能为最佳</p>
+<blockquote>
+<p>但是多加东西的话，参数也会变多。所以还是要权衡。</p>
+</blockquote>
+<p><strong>总结</strong>：</p>
+<ol>
+<li><p>Cascade R-CNN通过级联box head 来进行逐阶段的box refinement；</p>
+</li>
+<li><p>Cascade Mask R-CNN在其基础上添加级联mask head并在测试阶段对3个阶段的mask预测概率进行均值集成。</p>
+</li>
+<li>然而，Cascade Mask R-CNN的3个阶段的mask head之间没有类似box head的逐阶段的refinement的过程，而是各自独立预测，最终进行集成，这也是后续HTC模型改进的关键点。</li>
+<li>此外，Cascade Mask R-CNN仍然存在类似Mask R-CNN的大目标边缘预测粗糙的问题，这也是二阶段实例分割算法的通病。</li>
+</ol>
+<blockquote>
+<p><strong>stage（阶段）</strong>:指的是模型中具有特定处理逻辑的<strong>串行层级结构</strong>，每个阶段以前一阶段的输出（如回归后的候选框、特征信息等）作为输入，通过逐步优化（如调整候选框位置、预测更精细的掩码）提升检测精度。</p>
+</blockquote>
+<h4 id="Hybrid-Task-Cascade"><a href="#Hybrid-Task-Cascade" class="headerlink" title="Hybrid Task Cascade"></a>Hybrid Task Cascade</h4><p><strong>创新点</strong>：融合语义分割监督，增强实例间区分性。</p>
+<ol>
+<li>设计Mask分支的级联，以便将前一个阶段的mask信息传递到下一个阶段。</li>
+<li>添加语义分支和语义分割监督来增强特征的上下文语义特征。</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250422161934569.png" alt="在Cascade R-CNN的基础上添加mask分支的四种依次递进的设计"></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>a. Cascade Mask R-CNN</th>
+<th>b. Interleaved execution</th>
+<th>c. Mask info flow</th>
+<th>d. Hybrid Task Cascade</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>当前阶段会接受 RPN 或者 上一个阶段归过的框作为输入，并行预测box和mask.。</td>
+<td>每个阶段将refine之后的box输入到mask分支。</td>
+<td>在(b)的基础上，添加了mask分支之间的信息流，每次将前一个阶段的mask特征输入到当前阶段进行”融合“。</td>
+<td>引入语义分割监督：增强mask分支的特征语义上下文信息。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol>
+<li><strong>mask信息流</strong>：在不同stage的mask分支间建立联系。</li>
+</ol>
+<blockquote>
+<p>Cascade系列模型通过多个阶段逐步优化检测框（box）和掩码（mask），每个阶段的输入是前一阶段优化后的结果。想让前一个阶段的mask特征（记为 $M_{i-1}$）辅助当前阶段的mask预测，具体做法是：  </p>
+<ol>
+<li>将 $M_{i-1}$ 通过一个 $1\times1$ 卷积（降维或调整通道数）。  </li>
+<li>将处理后的 $M_{i-1}$ 与当前阶段的mask特征（$M_i$，来自RoI Align）<strong>相加融合（$M_{i-1}+M_i$）</strong>，输入到当前mask分支。</li>
+</ol>
+<p><strong>这就要求$M_{i-1},M_i$的尺度要一致。如果两者对应的图像区域不一致</strong>，融合后会产生误差（比如把猫的特征和狗的区域叠加）。</p>
+<p><strong>解决方法</strong>：</p>
+<ol>
+<li>训练：当处理当前阶段的RoI时，<strong>重新运行前一个阶段的mask分支</strong>（用当前RoI替代旧RoI），生成新的 $M_{i-1}’$ 特征（基于当前RoI的位置）。  此时 $M_{i-1}’$ 和 $M_i$ 都基于同一RoI，空间位置对齐，可以直接相加融合。<ul>
+<li>Stage 1：RPN 生成初始 proposals，输入 Stage 1 处理，输出初步优化的 box 和 mask 特征。</li>
+<li>Stage 2：将 Stage 1 输出的 box 作为输入，进一步优化 box，并融合 Stage 1 的 mask 特征（需重算对齐），输出更精准的结果。</li>
+</ul>
+</li>
+<li>推理：直接使用训练好的<strong>最后一个 stage</strong>模型，输入 RPN 生成的 proposals（或前一 stage 优化后的 box，取决于部署方式），一步输出最终的 box 和 mask。</li>
+</ol>
+<p><strong>Q: 为什么推理时不存在空间不对齐的问题？</strong></p>
+<p>A: 推理时无需跨 stage 特征融合：推理阶段只运行<strong>最后一个 stage</strong>，<strong>没有前一 stage 的 mask 特征需要融合</strong>。</p>
+<p>假设模型有 3 个 stage，推理时只使用 Stage 3，其输入是 Stage 2 优化后的 box（或直接使用 RPN 的 proposals，取决于模型设计），但 Stage 3 内部<strong>不依赖 Stage 2 的 mask 特征</strong>，只需根据当前 box 预测 mask 即可。</p>
+<p>因此，不存在 “不同 stage 的特征需要对齐” 的问题，自然无需处理空间不对齐。</p>
+</blockquote>
+<ol>
+<li><strong>语义监督</strong>：语义分割能预测每个像素的类别（如 “猫”“草地”“天空”），提供场景的全局语义信息，帮助实例分割更好地区分前景（目标）和背景（非目标）。</li>
+</ol>
+<blockquote>
+<p><strong>具体操作步骤：</strong></p>
+<p><strong>输入</strong>：FPN（特征金字塔网络）输出的不同层级特征图（如 P2、P3、P4、P5，分辨率从高到低，语义信息从具体到抽象）。</p>
+<p><strong>操作</strong>：</p>
+<ol>
+<li>对每个层级的特征图先进行 <strong>(1×1) 卷积</strong>（降维，通常从 256 通道→256 通道，保持维度不变）。</li>
+<li>将所有层级的特征图通过插值（如双线性插值）调整到<strong>同一分辨率</strong>（如原图的 1/4 大小）。</li>
+<li>将调整后的特征图<strong>逐元素相加（sum 融合）</strong>，通过4层全卷积后，得到融合了多尺度语义信息的特征图，分别预测语义分割特征以及语义分割预测结果。</li>
+</ol>
+<p><strong>目的</strong>：低层级特征（高分辨率）包含细节，高层级特征（低分辨率）包含语义，融合后兼顾细节与全局语义。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250422164217961.png" alt=""></p>
+<p><strong>双任务输出</strong></p>
+<ul>
+<li><p><strong>分支 1</strong>：预测<strong>语义分割特征</strong>（用于后续与实例分割特征融合）。</p>
+<ul>
+<li><p><strong>RoI Align 提取实例特征</strong>：对于目标检测分支输出的 RoI（候选框），通过 RoI Align 从<strong>语义分割特征</strong>中提取对应区域的特征（尺寸固定，如 14×14）。</p>
+</li>
+<li><p><strong>特征融合</strong>：将提取的语义特征与实例分割的<strong>box 特征</strong>和<strong>mask 特征</strong>进行 <strong>逐元素相加（element-wise sum）</strong>。</p>
+<ul>
+<li><strong>box 特征</strong>：来自目标检测分支的分类 / 回归特征。</li>
+<li><strong>mask 特征</strong>：来自掩码预测分支的特征。</li>
+</ul>
+<p><strong>目的</strong>：将语义信息（如 “该区域属于猫类”）融入实例分割的特征中，增强模型对前景实例的判别能力。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>分支 2</strong>：预测<strong>语义分割结果</strong>（像素级类别标签，如 “猫”“狗”“背景”）。</p>
+</li>
+</ul>
+<p><strong>关键</strong>：分支 2 需要引入<strong>语义分割损失函数</strong>（如交叉熵损失），强制模型学习像素级语义分类能力。</p>
+</blockquote>
+<p><strong>总结：</strong> HTC作为二阶段实例分割的代表性算法，长期占据COCO榜单前列（直至2022年6月被Mask DINO小幅超越）。其核心通过<strong>mask信息流级联</strong>与<strong>语义监督</strong>策略实现性能提升，缺点是：二阶段算法普遍存在的RoI Align局限性。</p>
+<blockquote>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>RoI Align局限性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>空间量化误差</strong></td>
+<td>早期 <code>RoI Pooling</code> 对候选框坐标取整量化，造成与真实目标区域偏移。如 (100.2, 200.5) 被量化为 (100, 200)。这对实例分割影响大，会导致掩码边界错位，小目标或密集目标场景更严重，还会使提取的特征包含错误背景信息。</td>
+</tr>
+<tr>
+<td><strong>采样点缺乏灵活性</strong></td>
+<td>通常在 RoI 内均匀选固定数量采样点（如 4×4 网格，每格 1 个），用双线性插值计算像素值。这种方式无法适应目标结构，不能捕捉不规则形状，小目标易被背景稀释特征。</td>
+</tr>
+<tr>
+<td><strong>多尺度特征适应性差</strong></td>
+<td>实例分割需处理不同尺度目标，<code>RoI Align</code> 采样策略对此不敏感。大目标采样点稀疏，小目标易引入背景噪声，低分辨率特征图上小目标难提取特征。</td>
+</tr>
+<tr>
+<td><strong>计算效率与内存问题</strong></td>
+<td>每个采样点需双线性插值计算邻近像素加权和，RoI 或采样点多，计算量剧增。且采样点坐标为浮点数，内存地址不连续，影响 GPU 推理速度。</td>
+</tr>
+<tr>
+<td><strong>对旋转或变形目标鲁棒性差</strong></td>
+<td><code>RoI Align</code> 假设目标为轴对齐矩形，实际目标可能旋转或不规则。旋转目标的 RoI 区域易含大量背景，特征无法表征目标姿态。</td>
+</tr>
+<tr>
+<td><strong>与端到端框架兼容性受限</strong></td>
+<td>依赖人工设计的 RoI 机制，属两阶段框架，需先检测生成候选框，难以嵌入端到端模型，推理链条长，部署成本高。</td>
+</tr>
+</tbody>
+</table>
+</div>
+</blockquote>
+<h3 id="One-Stage"><a href="#One-Stage" class="headerlink" title="One-Stage"></a>One-Stage</h3><h4 id="背景：局部mask-v-s-全局mask"><a href="#背景：局部mask-v-s-全局mask" class="headerlink" title="背景：局部mask v.s. 全局mask"></a>背景：局部mask v.s. 全局mask</h4><p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250422165728651.png" alt="image-20250422165728651"></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>局部Mask</th>
+<th>全局MAsk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>说明</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>优点</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>缺点</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="Query-based"><a href="#Query-based" class="headerlink" title="Query-based"></a>Query-based</h3><p>Query-based方法均是起源于DETR：通过初始化一组（如100个）可学习的query，并采用Transformer结构对query特征进行迭代更新，进而对每个query进行回归和分类，这样就可以对每张图输出固定数目的检测结果。 再使用二分图匹配GT得到loss梯度下降优化模型。</p>
+<blockquote>
+<p>Facebook Research 本身就基于 DETR 提出了它的实例分割版本 —— [DETR + Mask Head，即：Conditional DETR、Mask2Former、DETR with Segmentation Head 等]。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>描述</th>
+<th>是否支持分割</th>
+<th>框架</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DETR (2020)</strong></td>
+<td>原始目标检测版本</td>
+<td>❌ 不支持分割</td>
+<td>PyTorch</td>
+</tr>
+<tr>
+<td><strong>DETR + Mask Head</strong></td>
+<td>原始论文中附加了 mask 分支，可用于 instance segmentation</td>
+<td>✅ 支持</td>
+<td>官方 repo 分支</td>
+</tr>
+<tr>
+<td><strong>Conditional DETR</strong></td>
+<td>改进收敛速度，适配 segmentation</td>
+<td>✅ 支持</td>
+<td>detectron2 / torch</td>
+</tr>
+<tr>
+<td><strong>Mask2Former (2022)</strong></td>
+<td>最新统一分割框架（semantic + instance + panoptic）</td>
+<td>✅ 强力推荐</td>
+<td>detectron2</td>
+</tr>
+<tr>
+<td><strong>Deformable DETR</strong></td>
+<td>引入可变形注意力，提升速度和精度</td>
+<td>✅ 搭配 segmentation head 可做分割</td>
+<td>MMDetection / 官方</td>
+</tr>
+</tbody>
+</table>
+</div>
+</blockquote>
+<h4 id="QueryInst（2021）：Sparse-RCNN-RoI-Align"><a href="#QueryInst（2021）：Sparse-RCNN-RoI-Align" class="headerlink" title="QueryInst（2021）：Sparse RCNN+RoI Align"></a>QueryInst（2021）：Sparse RCNN+RoI Align</h4><ol>
+<li><code>Backbone</code>：ResNet50+FPN输出P2-P5四个分辨率的特征；（表示下采样的次数，分别是特征图分辨率数输入图像的$\frac 1 4,\frac 18,\frac 1{32},\frac 1{64}$）</li>
+<li><code>Query Embedding Init</code>：采用<code>nn.Embedding</code>初始化N个object Proposal 的<code>queries bbox</code>和<code>queries features</code>；</li>
+<li><code>box head</code>： 更新Query 并进行 bbox和cls预测。</li>
+<li><code>mask head</code>：正样本实例mask预测</li>
+<li><code>multi-stage</code>：QueryInst采用类似Cascade Mask R-CNN 的多阶段box head和mask head 的结构，每一阶段更新后的<code>query features</code>和重新预测的<code>box</code>会作为下一个阶段的<code>Proposal feature</code>和<code>Proposal box</code>的初始化。</li>
+</ol>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/b127cd7e12fd66ac59a8c1a9c82c1bdb.png#pic_center" alt=""><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/250122691bcc836eff8583f0d6c155ff.png" alt="面向图像"><img src="https://i-blog.csdnimg.cn/blog_migrate/1f4edfbcc26460f764f98c14289a0cf4.png" alt="面向视频"></th>
+<th><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/57a9a4662f4a93043e51ff91ca75f347.png#pic_center" alt=""></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>关键点是提出了Dynconvtmask模块，将query和mask信息建立了联系，同时利用不同阶段的query中固有的一对一对应关系提升了检查精度，即每个单独的的query在每个阶段均用来预测同样的目标；</p>
+<p><strong>动态卷积头</strong>：每个查询生成专属卷积核，用于边界框与掩码预测，增强实例特异性。</p>
+<h4 id="Mask2former（2022）"><a href="#Mask2former（2022）" class="headerlink" title="Mask2former（2022）"></a>Mask2former（2022）</h4><p><strong>统一框架</strong>：兼顾语义分割、实例分割与全景分割，基于 Transformer 实现多任务兼容。</p>
+<ul>
+<li>关键模块：<ol>
+<li><strong>像素解码器</strong>：提取多尺度特征，融合全局上下文。</li>
+<li>Transformer 解码器：<ul>
+<li><strong>掩码注意力（Masked Attention）</strong>：仅关注当前查询对应的实例区域，降低计算量。</li>
+<li><strong>查询 - 特征交互</strong>：通过交叉注意力（Cross-Attention）生成实例专属掩码。</li>
+</ul>
+</li>
+<li><strong>采样点损失</strong>：在掩码关键点处计算损失，提升训练效率。</li>
+</ol>
+</li>
+<li><strong>突破</strong>：无需显式检测框，直接通过查询生成实例，推动端到端分割发展。</li>
+</ul>
+<h1 id="训练与评估"><a href="#训练与评估" class="headerlink" title="训练与评估"></a>训练与评估</h1><p>反向传播训练模型。</p>
+<p>重点在于：对训练数据的标注<strong>必须非常准确</strong>。</p>
+<blockquote>
+<p>训练数据的标注必须非常准确，这样才能最大限度地实现正确的机器学习，并作为“地面实况”基准，据此对训练模型进行评估和优化。由于人类的能力甚至大大超过了最精确的计算机视觉模型，因此标注工作需要手动完成，这是一个昂贵、劳动密集型的过程。</p>
+</blockquote>
+<h2 id="常见开源数据集"><a href="#常见开源数据集" class="headerlink" title="常见开源数据集"></a>常见开源数据集</h2><ul>
+<li><strong>COCO（上下文中的常见对象）</strong>：一个包含超过 330,000 张图像的海量数据集，其中包含 80 个 <em>thing</em> 类别和 91 个 <em>stuff</em> 类别的带标注片段</li>
+<li><strong>ADE20K</strong>：由麻省理工学院创建的场景分割数据集，包含超过 20,000 张图像和超过 150 个语义类别</li>
+<li><strong>Cityscapes</strong>：一个专注于城市街道的大型数据集，包含 50 个城市在不同白天、季节和天气条件下的图像。</li>
+</ul>
+<h2 id="评估指标"><a href="#评估指标" class="headerlink" title="评估指标"></a>评估指标</h2><p>最常用的实例分割和对象检测性能测量方法是<em>交并比</em>（Intersection over Union，<em>IoU</em>）和<em>平均精度</em>（Average Precision，<em>AP</em>）。</p>
+<h3 id="交并比-IoU"><a href="#交并比-IoU" class="headerlink" title="交并比 (IoU)"></a>交并比 (IoU)</h3><p>IoU 衡量地面实况掩码与模型预测之间的像素重叠度，以百分比或 0 至 1 之间的整数表示。对于具有多个实例的图像，使用平均 IoU (mIoU)。</p>
+<p>虽然 IoU 很直观，但也有很大的局限性：</p>
+<ul>
+<li><em>它奖励过于宽泛的预测。</em> 即使分割掩码过大，但如果其中包含了地面实况掩码，它的 IoU 也会达到完美的 1 分。</li>
+<li><em>它不能用作损失函数。</em> 对于没有重叠的糟糕预测，无论是稍有偏差还是根本不接近，IoU=0。这意味着 IoU 不可微分，因此无法帮助算法优化模型。 全局交并比修改了 IoU 以使其可微分。</li>
+</ul>
+<h3 id="平均精度-AP"><a href="#平均精度-AP" class="headerlink" title="平均精度 (AP)"></a>平均精度 (AP)</h3><p>AP 的计算方法是精确度-召回曲线下的面积。它平衡了精确度和召回率这两个指标之间的权衡，精确度和召回率使用离散结果值计算，如真阳性 (TP)、真阴性 (TN)、假阳性 (FP) 和假阴性 (FN)。</p>
+<ul>
+<li><em>精度</em>（precision） 衡量正确的正面预测次数（在这种情况下，分割实例的像素）： <em>TP/(TP+FP)</em>。它的缺点是奖励假阴性。</li>
+<li><em>召回率</em>（recall） 可衡量捕获正面预测的频率： <em>TP/(TP+FN)</em>。它的缺点是奖励假阳性。</li>
+</ul>
+<p>为了最大限度地提高相关性，通常在特定的 IoU 临界值内计算 AP。例如，“AP50”只计算 IoU 大于 50%的预测的 AP。平均精度 (mAP) 是所有计算阈值的平均 AP 值。</p>
+<blockquote>
+<p>ps:话说，感觉和目标检测还是非常像的。</p>
+<p>Q: 我想知道，我原先想在一张图片上，找出不同的物体类别。因此一开始我打算使用目标检测来做，但是物体之间的粘连比较严重，因此考虑使用实例分割来进行。那我之前有关于目标检测的相关框架是否可以迁移到实例分割上使用？此外，对于实例分割存在的数据集的数据要如何标注，与目标检测的数据标注有何区别？</p>
+<p>A: 大多数情况下可以迁移使用，特别是基于 PyTorch 或 TensorFlow 的现代检测框架。比如：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>原目标检测框架</th>
+<th>可迁移到实例分割的方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Faster R-CNN</td>
+<td>Mask R-CNN 是它的扩展，增加了 mask 分支</td>
+</tr>
+<tr>
+<td>YOLOv5/YOLOv8</td>
+<td>YOLOv8 本身支持 instance segmentation（在其模型设置中切换任务类型）</td>
+</tr>
+<tr>
+<td>Detectron2</td>
+<td>支持 detection 和 segmentation，非常适合迁移</td>
+</tr>
+<tr>
+<td>MMDetection</td>
+<td>支持多种 detection 和 segmentation 模型，配置灵活</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>所以如果你原来用的是如 <strong>Faster R-CNN、YOLO、RetinaNet 等</strong>目标检测模型，那么：</p>
+<ul>
+<li>你可以直接使用这些框架里的实例分割模型（如 Mask R-CNN）</li>
+<li>很多代码都可以复用，例如 backbone、数据加载、训练流程等，只需改动部分配置和模型头。</li>
+</ul>
+<hr>
+<h3 id="二、目标检测-vs-实例分割：数据标注格式的区别"><a href="#二、目标检测-vs-实例分割：数据标注格式的区别" class="headerlink" title="二、目标检测 vs 实例分割：数据标注格式的区别"></a>二、目标检测 vs 实例分割：数据标注格式的区别</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>目标检测（Object Detection）</th>
+<th>实例分割（Instance Segmentation）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>标注内容</td>
+<td>每个物体用一个矩形框（bounding box）包住</td>
+<td>每个物体用一个像素级别的掩码（mask）来标注</td>
+</tr>
+<tr>
+<td>存储格式</td>
+<td><code>[x_min, y_min, x_max, y_max]</code> + 类别</td>
+<td>多边形（polygon）或像素掩码 + 类别</td>
+</tr>
+<tr>
+<td>常见格式</td>
+<td>COCO bbox / VOC xml</td>
+<td>COCO Segmentation / Mask png</td>
+</tr>
+<tr>
+<td>工具支持</td>
+<td>LabelImg、VoTT、Makesense.ai 等</td>
+<td><strong>CVAT</strong>、LabelMe、Segments.ai、Roboflow 等</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="COCO-中的实例分割标注例子（json）："><a href="#COCO-中的实例分割标注例子（json）：" class="headerlink" title="COCO 中的实例分割标注例子（json）："></a>COCO 中的实例分割标注例子（json）：</h4><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;annotations&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;segmentation&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">[</span>x1<span class="punctuation">,</span> y1<span class="punctuation">,</span> x2<span class="punctuation">,</span> y2<span class="punctuation">,</span> ...<span class="punctuation">,</span> xn<span class="punctuation">,</span> yn<span class="punctuation">]</span><span class="punctuation">]</span><span class="punctuation">,</span>   <span class="comment">// 多边形</span></span><br><span class="line">      <span class="attr">&quot;area&quot;</span><span class="punctuation">:</span> <span class="number">1500</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;iscrowd&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;image_id&quot;</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;bbox&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="number">100</span><span class="punctuation">,</span> <span class="number">200</span><span class="punctuation">,</span> <span class="number">50</span><span class="punctuation">,</span> <span class="number">80</span><span class="punctuation">]</span><span class="punctuation">,</span>                       <span class="comment">// 同时也包含 bbox</span></span><br><span class="line">      <span class="attr">&quot;category_id&quot;</span><span class="punctuation">:</span> <span class="number">2</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;id&quot;</span><span class="punctuation">:</span> <span class="number">1</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<h4 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h4><ul>
+<li>segmentation 可以是 <strong>多边形点集</strong>，也可以是 <strong>rle（run-length encoding）掩码</strong>（尤其在 COCO dataset 中）</li>
+<li>如果物体粘连严重，<strong>polygon 标注更适合</strong>，比简单 bbox 精细得多</li>
+<li><strong>iscrowd = 1</strong> 表示该实例较难分割，如密集人群</li>
+</ul>
+<hr>
+<h3 id="三、标注建议"><a href="#三、标注建议" class="headerlink" title="三、标注建议"></a>三、标注建议</h3><ol>
+<li><strong>如果你用 COCO 格式数据</strong>：可以直接用于 Mask R-CNN 等模型。</li>
+<li><strong>推荐标注工具</strong>：<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/wkentaro/labelme">LabelMe</a>：轻量，生成 mask 图像或 JSON，适合自定义处理。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/openvinotoolkit/cvat">CVAT</a>：强大，支持多人协作，输出 COCO、Mask 图像等格式。</li>
+<li><a target="_blank" rel="noopener" href="https://roboflow.com/">Roboflow</a>：界面现代，云端处理方便，也能导出到多种格式（COCO Segmentation、YOLOv8 Instance 等）。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="四、总结与建议"><a href="#四、总结与建议" class="headerlink" title="四、总结与建议"></a>四、总结与建议</h3><ul>
+<li>✅ 你原有的目标检测框架 <strong>完全可以迁移</strong>，只是需要模型结构上增加 mask 分支（如用 Mask R-CNN）。</li>
+<li>✅ 实例分割的数据格式更细粒度，通常是 <strong>多边形或掩码图像</strong>，不再只是 bbox。</li>
+<li>✅ 物体粘连严重，确实实例分割比检测更合适。</li>
+<li>🛠️ 可用 COCO 格式标注，直接用 Detectron2、MMDetection、YOLOv8 等现成实现进行训练。</li>
+</ul>
+</blockquote>
+<h1 id="终结大恶魔！SAM"><a href="#终结大恶魔！SAM" class="headerlink" title="终结大恶魔！SAM"></a>终结大恶魔！SAM</h1><h2 id="SAM2-面向video进阶版"><a href="#SAM2-面向video进阶版" class="headerlink" title="SAM2-面向video进阶版"></a>SAM2-面向video进阶版</h2><h1 id="从目标检测扩展到实例分割"><a href="#从目标检测扩展到实例分割" class="headerlink" title="从目标检测扩展到实例分割"></a>从目标检测扩展到实例分割</h1><h4 id="路径-1：在你现有代码基础上添加-Mask-Head"><a href="#路径-1：在你现有代码基础上添加-Mask-Head" class="headerlink" title="路径 1：在你现有代码基础上添加 Mask Head"></a>路径 1：在你现有代码基础上添加 <strong>Mask Head</strong></h4><p>你可以仿照原始 DETR 的 segmentation 分支做法：</p>
+<ol>
+<li><strong>添加一个 mask head</strong>：输入是 backbone + transformer 输出的特征<ul>
+<li>通常是一个小型卷积解码器或多层上采样模块</li>
+<li>输出为 <code>[num_queries, H, W]</code> 的二值 mask</li>
+</ul>
+</li>
+<li><strong>使用 COCO-style segmentation loss</strong>：<ul>
+<li>常用是 BCE loss（Binary Cross Entropy），也可加入 Dice loss</li>
+</ul>
+</li>
+<li><strong>数据格式</strong>：改成 COCO segmentation 格式<ul>
+<li><code>segmentation</code> 字段提供 mask，<code>bbox</code> 仍然保留</li>
+</ul>
+</li>
+<li><strong>训练目标</strong>：<ul>
+<li>每个 query 同时输出 <code>bbox</code>、<code>class</code> 和 <code>mask</code></li>
+</ul>
+</li>
+</ol>
+<p>如果你使用的是 <a target="_blank" rel="noopener" href="https://github.com/facebookresearch/detectron2/tree/main/projects/DETR">DETR 官方 repo</a>，可以参考其 <code>mask_head.py</code> 和 <code>matcher.py</code> 代码。</p>
+<h4 id="路径-2：使用现成支持分割的-DETR-分支或-Mask2Former"><a href="#路径-2：使用现成支持分割的-DETR-分支或-Mask2Former" class="headerlink" title="路径 2：使用现成支持分割的 DETR 分支或 Mask2Former"></a>路径 2：使用现成支持分割的 DETR 分支或 Mask2Former</h4><ul>
+<li><strong>Mask2Former (推荐)</strong>：Facebook 推出的统一分割模型，支持 instance segmentation，准确率和速度都更好。<ul>
+<li>项目地址：<a target="_blank" rel="noopener" href="https://github.com/facebookresearch/Mask2Former">https://github.com/facebookresearch/Mask2Former</a></li>
+<li>你只需准备好 segmentation 的 coco-style json 标注文件（和 images）</li>
+</ul>
+</li>
+<li><strong>Deformable DETR</strong>：在原始 DETR 基础上提升了训练效率，官方 repo 也提供了 segmentation 分支。</li>
+</ul>
+<h3 id="数据标注格式（COCO-style-segmentation）"><a href="#数据标注格式（COCO-style-segmentation）" class="headerlink" title="数据标注格式（COCO-style segmentation）"></a>数据标注格式（COCO-style segmentation）</h3><p>确保你使用的是 COCO 的 instance segmentation 格式，样例如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;images&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;id&quot;</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;file_name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;image1.jpg&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;height&quot;</span><span class="punctuation">:</span> <span class="number">480</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;width&quot;</span><span class="punctuation">:</span> <span class="number">640</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;annotations&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;id&quot;</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;image_id&quot;</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;category_id&quot;</span><span class="punctuation">:</span> <span class="number">3</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;segmentation&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">[</span>x1<span class="punctuation">,</span> y1<span class="punctuation">,</span> x2<span class="punctuation">,</span> y2<span class="punctuation">,</span> ...<span class="punctuation">,</span> xn<span class="punctuation">,</span> yn<span class="punctuation">]</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;area&quot;</span><span class="punctuation">:</span> <span class="number">1745.2</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;bbox&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span>x<span class="punctuation">,</span> y<span class="punctuation">,</span> width<span class="punctuation">,</span> height<span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;iscrowd&quot;</span><span class="punctuation">:</span> <span class="number">0</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;categories&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span><span class="attr">&quot;id&quot;</span><span class="punctuation">:</span> <span class="number">3</span><span class="punctuation">,</span> <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;apple&quot;</span><span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>注意事项：</p>
+<ul>
+<li><code>segmentation</code> 是多边形格式（如用 LabelMe 导出）</li>
+<li>如果是掩码（png），则需转换为 RLE 编码（如使用 pycocotools）</li>
+<li><code>iscrowd=0</code> 表示每个实例单独可识别，不是粘连群体</li>
+</ul>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/04/18/2025-4-18/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/04/13/2025-4-13-%E5%86%8D%E6%8E%A2DeepSeek/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-content-number">1.</span> <span class="toc-content-text">实例分割的定义</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-content-number">1.1.</span> <span class="toc-content-text">总结</span></a></li></ol></li><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2%E6%96%B9%E6%B3%95"><span class="toc-content-number">2.</span> <span class="toc-content-text">实例分割方法</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E5%9F%BA%E4%BA%8E%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%9A%84%E8%87%AA%E4%B8%8A%E8%80%8C%E4%B8%8B%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-content-number">2.1.</span> <span class="toc-content-text">基于目标检测的自上而下的方法</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#Two-Stage"><span class="toc-content-number">2.1.1.</span> <span class="toc-content-text">Two-Stage</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#Mask-RCNN"><span class="toc-content-number">2.1.1.1.</span> <span class="toc-content-text">Mask-RCNN</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#Cascade-Mask-R-CNN"><span class="toc-content-number">2.1.1.2.</span> <span class="toc-content-text">Cascade Mask R-CNN</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#Hybrid-Task-Cascade"><span class="toc-content-number">2.1.1.3.</span> <span class="toc-content-text">Hybrid Task Cascade</span></a></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#One-Stage"><span class="toc-content-number">2.1.2.</span> <span class="toc-content-text">One-Stage</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E8%83%8C%E6%99%AF%EF%BC%9A%E5%B1%80%E9%83%A8mask-v-s-%E5%85%A8%E5%B1%80mask"><span class="toc-content-number">2.1.2.1.</span> <span class="toc-content-text">背景：局部mask v.s. 全局mask</span></a></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#Query-based"><span class="toc-content-number">2.1.3.</span> <span class="toc-content-text">Query-based</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#QueryInst%EF%BC%882021%EF%BC%89%EF%BC%9ASparse-RCNN-RoI-Align"><span class="toc-content-number">2.1.3.1.</span> <span class="toc-content-text">QueryInst（2021）：Sparse RCNN+RoI Align</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#Mask2former%EF%BC%882022%EF%BC%89"><span class="toc-content-number">2.1.3.2.</span> <span class="toc-content-text">Mask2former（2022）</span></a></li></ol></li></ol></li></ol></li><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#%E8%AE%AD%E7%BB%83%E4%B8%8E%E8%AF%84%E4%BC%B0"><span class="toc-content-number">3.</span> <span class="toc-content-text">训练与评估</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E5%B8%B8%E8%A7%81%E5%BC%80%E6%BA%90%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-content-number">3.1.</span> <span class="toc-content-text">常见开源数据集</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E8%AF%84%E4%BC%B0%E6%8C%87%E6%A0%87"><span class="toc-content-number">3.2.</span> <span class="toc-content-text">评估指标</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E4%BA%A4%E5%B9%B6%E6%AF%94-IoU"><span class="toc-content-number">3.2.1.</span> <span class="toc-content-text">交并比 (IoU)</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%B9%B3%E5%9D%87%E7%B2%BE%E5%BA%A6-AP"><span class="toc-content-number">3.2.2.</span> <span class="toc-content-text">平均精度 (AP)</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E4%BA%8C%E3%80%81%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B-vs-%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2%EF%BC%9A%E6%95%B0%E6%8D%AE%E6%A0%87%E6%B3%A8%E6%A0%BC%E5%BC%8F%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-content-number">3.2.3.</span> <span class="toc-content-text">二、目标检测 vs 实例分割：数据标注格式的区别</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#COCO-%E4%B8%AD%E7%9A%84%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2%E6%A0%87%E6%B3%A8%E4%BE%8B%E5%AD%90%EF%BC%88json%EF%BC%89%EF%BC%9A"><span class="toc-content-number">3.2.3.1.</span> <span class="toc-content-text">COCO 中的实例分割标注例子（json）：</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%EF%BC%9A"><span class="toc-content-number">3.2.3.2.</span> <span class="toc-content-text">注意事项：</span></a></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E4%B8%89%E3%80%81%E6%A0%87%E6%B3%A8%E5%BB%BA%E8%AE%AE"><span class="toc-content-number">3.2.4.</span> <span class="toc-content-text">三、标注建议</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%9B%9B%E3%80%81%E6%80%BB%E7%BB%93%E4%B8%8E%E5%BB%BA%E8%AE%AE"><span class="toc-content-number">3.2.5.</span> <span class="toc-content-text">四、总结与建议</span></a></li></ol></li></ol></li><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#%E7%BB%88%E7%BB%93%E5%A4%A7%E6%81%B6%E9%AD%94%EF%BC%81SAM"><span class="toc-content-number">4.</span> <span class="toc-content-text">终结大恶魔！SAM</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#SAM2-%E9%9D%A2%E5%90%91video%E8%BF%9B%E9%98%B6%E7%89%88"><span class="toc-content-number">4.1.</span> <span class="toc-content-text">SAM2-面向video进阶版</span></a></li></ol></li><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#%E4%BB%8E%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%89%A9%E5%B1%95%E5%88%B0%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2"><span class="toc-content-number">5.</span> <span class="toc-content-text">从目标检测扩展到实例分割</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E8%B7%AF%E5%BE%84-1%EF%BC%9A%E5%9C%A8%E4%BD%A0%E7%8E%B0%E6%9C%89%E4%BB%A3%E7%A0%81%E5%9F%BA%E7%A1%80%E4%B8%8A%E6%B7%BB%E5%8A%A0-Mask-Head"><span class="toc-content-number">5.0.0.1.</span> <span class="toc-content-text">路径 1：在你现有代码基础上添加 Mask Head</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E8%B7%AF%E5%BE%84-2%EF%BC%9A%E4%BD%BF%E7%94%A8%E7%8E%B0%E6%88%90%E6%94%AF%E6%8C%81%E5%88%86%E5%89%B2%E7%9A%84-DETR-%E5%88%86%E6%94%AF%E6%88%96-Mask2Former"><span class="toc-content-number">5.0.0.2.</span> <span class="toc-content-text">路径 2：使用现成支持分割的 DETR 分支或 Mask2Former</span></a></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E6%95%B0%E6%8D%AE%E6%A0%87%E6%B3%A8%E6%A0%BC%E5%BC%8F%EF%BC%88COCO-style-segmentation%EF%BC%89"><span class="toc-content-number">5.0.1.</span> <span class="toc-content-text">数据标注格式（COCO-style segmentation）</span></a></li></ol></li></ol></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>

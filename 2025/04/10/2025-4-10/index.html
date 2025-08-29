@@ -1,0 +1,210 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="Zhu, Jiachen, et al. Transformers without Normalization.  一句话概括：我们使用tanh函数取缔了Transformer中的Normalization Layer。      Normalization Layer Tanh函数     缩放输入激活值 $\text{DyT}(\alpha x)$,$\alpha$是可学习参数、用于调整尺度">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-4-10-Transformers without Normalization">
+<meta property="og:url" content="http://example.com/2025/04/10/2025-4-10/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="Zhu, Jiachen, et al. Transformers without Normalization.  一句话概括：我们使用tanh函数取缔了Transformer中的Normalization Layer。      Normalization Layer Tanh函数     缩放输入激活值 $\text{DyT}(\alpha x)$,$\alpha$是可学习参数、用于调整尺度">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410150011602.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410155835785.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410160045586.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410160717541.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410161634227.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410161926221.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410163238851.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410163431536.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410163534309.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410163606996.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410171128597.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410173013594.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410173021943.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410173050434.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410232300835.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410232248939.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410232341407.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410232351568.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410232430752.png">
+<meta property="article:published_time" content="2025-04-10T06:55:11.000Z">
+<meta property="article:modified_time" content="2025-04-10T15:29:51.000Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="论文阅读">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410150011602.png"><title>2025-4-10-Transformers without Normalization - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-4-10-Transformers without Normalization</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-04-10</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-04-10</time></div>
+
+<div class="post-tags"><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></div></div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约3.7K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><blockquote>
+<p>Zhu, Jiachen, et al. Transformers without Normalization.</p>
+</blockquote>
+<p>一句话概括：我们使用tanh函数取缔了Transformer中的Normalization Layer。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410150011602.png" alt="image-20250410150011602"></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Normalization Layer</th>
+<th>Tanh函数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>缩放输入激活值</td>
+<td>$\text{DyT}(\alpha x)$,$\alpha$是可学习参数、用于调整尺度</td>
+</tr>
+<tr>
+<td>压缩极端值</td>
+<td>Tanh函数$\in (0,1)$，完成压缩极端值</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>好处：</strong></p>
+<ol>
+<li>不需要调整原有架构上超参</li>
+<li>提高训练/推理速度</li>
+</ol>
+<h2 id="Normalization-Layer"><a href="#Normalization-Layer" class="headerlink" title="Normalization Layer"></a>Normalization Layer</h2><p>对于语言模型，输入是$(B,T,C)$:</p>
+<ul>
+<li>B: Batch数。</li>
+<li>T:Token个数。the number of tokens.</li>
+<li>C: Token Vec向量维度。the number of channels.</li>
+</ul>
+<script type="math/tex; mode=display">
+\text{normalization}(x)=\gamma *(\frac{\mathbf{x-\mu}}{\sqrt{\sigma^2+\epsilon}})+\beta</script><p>$\gamma,\beta$分别是缩放、平移参数；$\mu,\sigma^2$是输入服从分布$\mathbf{x}\sim N(\mu,\sigma^2)$.</p>
+<blockquote>
+<p>LN的仿射变换？</p>
+<p>仿射变换指的就是这个部分：</p>
+<script type="math/tex; mode=display">
+\gamma \cdot \text{normalized\_x} + \beta</script><p>这一步让模型在对输入进行归一化的基础上，仍然能通过可学习参数$\gamma$ 和 $\beta$ 恢复或调整原始特征的尺度和偏移，从而不会因为归一化而限制模型的表示能力。</p>
+</blockquote>
+<p>在标准化（normalization）过程中，目标是对输入数据进行处理，使得它们具有均值为零，方差为一的分布，以此来加速训练过程并提高模型的稳定性。</p>
+<h3 id="不同类型的归一化"><a href="#不同类型的归一化" class="headerlink" title="不同类型的归一化"></a>不同类型的归一化</h3><p>根据(B,T,C)不同的维度进行归一化：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410155835785.png" alt="image-20250410155835785"></p>
+<ul>
+<li><strong>批量归一化（BN）</strong>：在批量维度上计算均值和方差。虽然BN在卷积神经网络（ConvNet）中使用广泛，但在Transformer模型中应用时存在局限性，因为它需要跨批次和token维度计算统计量。</li>
+<li><strong>层归一化（LN）</strong>：LN独立地对每个token进行归一化计算，计算每个token的均值和方差，因此非常适合Transformer模型。<ul>
+<li><strong>均方根归一化（RMSNorm）</strong>：RMSNorm通过<strong>去掉均值中心化步骤，仅使用输入的均方根进行归一化</strong>，简化了LN。</li>
+<li>RMSNorm因其简单和高效，在Transformer模型中逐渐受到欢迎(LLaMA,QWen,DeepSeek,…)。</li>
+</ul>
+</li>
+</ul>
+<h3 id="实验部分：从理论的角度解释"><a href="#实验部分：从理论的角度解释" class="headerlink" title="实验部分：从理论的角度解释"></a>实验部分：从理论的角度解释</h3><p>实验1：对不同的transformer架构、在不同的层数、对经过LN前后的输入输出展示：可以看到一开始，在Layer5的时候比较趋向于Linear-Shape，但是往后走，比较偏向于S-Shape。这个曲线与Tanh函数的曲线比较相似。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410160045586.png" alt="image-20250410160045586"></p>
+<p>实验2：分别对Token/Channel进行上色。左2图：不同的Tokens上色之后是成直线的、但是所有的Tokens叠加起来是S-Shape；右2图：每个Channel都在不同的区域内是曲线、是Tanh函数(或者说是整条曲线)的部分组成。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410160717541.png" alt="image-20250410160717541"></p>
+<h2 id="DyT-Dynamic-Tangent-Hyperbolic"><a href="#DyT-Dynamic-Tangent-Hyperbolic" class="headerlink" title="DyT: Dynamic Tangent Hyperbolic"></a>DyT: Dynamic Tangent Hyperbolic</h2><p>受归一化层与缩放后的双曲正切（tanh）函数形状相似性的启发，此文提出动态双曲正切（DyT）作为归一化层的直接替代品。给定一个输入张量 $x$，DyT层定义如下：</p>
+<script type="math/tex; mode=display">
+DyT(x) = \gamma * \tanh(\alpha x) + \beta \quad (2)</script><p>其中，$\alpha$ 是一个可学习的标量参数，它能够根据输入范围对输入进行不同的缩放，以处理不同的 $x$ 尺度（见图2）。这也是我们将整个操作命名为“动态”双曲正切的原因。$\gamma$ 和 $\beta$ 是可学习的逐通道向量参数，与所有归一化层中使用的参数相同 —— 它们使输出能够缩放回任意尺度。这有时被视为一个独立的仿射层；出于我们的目的，我们将它们视为DyT层的一部分，就像归一化层也将其包含在内一样。有关DyT在类似PyTorch伪代码中的实现，请参见算法1。 </p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410161634227.png" alt="image-20250410161634227"></p>
+<h2 id="实验：将原始架构中的-LN-或-RMSNorm-替换为-DyT-层"><a href="#实验：将原始架构中的-LN-或-RMSNorm-替换为-DyT-层" class="headerlink" title="实验：将原始架构中的 LN 或 RMSNorm 替换为 DyT 层"></a>实验：将原始架构中的 LN 或 RMSNorm 替换为 DyT 层</h2><h3 id="视觉模型"><a href="#视觉模型" class="headerlink" title="视觉模型"></a>视觉模型</h3><h4 id="ViT-ConvNeXt-监督学习"><a href="#ViT-ConvNeXt-监督学习" class="headerlink" title="ViT/ConvNeXt-监督学习"></a>ViT/ConvNeXt-监督学习</h4><p>我们在 <code>ImageNet-1K</code> 分类任务上训练“Base”和“Large”大小的 Vision Transformer (ViT) (Dosovitskiy et al., 2020) 和 ConvNeXt (Liu et al., 2022) (Deng et al., 2009)。这些模型因其流行和不同的操作而被选中：ViT 中的注意力和 ConvNeXt 中的卷积。</p>
+<p>表 1 报告了 top-1 分类精度。DyT 在架构和模型大小上的表现略好于 LN。</p>
+<p>图 5 中进一步绘制了 ViT-B 和 ConvNeXt-B 的训练损失。</p>
+<p>曲线表明，DyT 和基于 LN 的模型的收敛行为是高度对齐的。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410161926221.png" alt="image-20250410161926221"></p>
+<h4 id="MAE-DINO-半监督学习"><a href="#MAE-DINO-半监督学习" class="headerlink" title="MAE/DINO-半监督学习"></a>MAE/DINO-半监督学习</h4><p>我们用两种流行的视觉自监督学习方法进行了基准测试:掩模自编码器(MAE) (He et al.， 2022)和DINO (Caron et al.， 2021)。默认情况下，两者都使用 Vision Transformers 作为主干，但具有不同的训练目标：MAE 使用重建损失进行训练，DINO 使用联合嵌入损失（LeCun，2022）。遵循标准的自监督学习协议，我们首先在 ImageNet-1K 上预训练模型，不使用任何标签，然后通过附加分类层并使用标签对其进行微调来测试预训练模型。微调结果如表2所示。DyT在自监督学习任务中始终与LN相当。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410163238851.png" alt="image-20250410163238851"></p>
+<h4 id="Diffusion-Model"><a href="#Diffusion-Model" class="headerlink" title="Diffusion Model"></a>Diffusion Model</h4><p>我们在 ImageNet-1K 上训练三个大小为 B、L 和 XL 的扩散 Transformer (DiT) 模型（Peebles 和 Xie、2023）（Deng 等人，2009）。补丁大小分别为 4、4 和 2。请注意，在 DiT 中，LN 层的仿射参数用于 DiT 中的类条件，我们将它们保持在我们的 DyT 实验中，仅用 tanh(αx) 函数替换归一化变换。训练后，我们使用标准的 ImageNet“参考批次”评估 Fréchet Inception Distance (FID) 分数，如表 3 所示。 Dyt 比 LN 实现了相当或更好的 FID。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410163431536.png" alt="image-20250410163431536"></p>
+<h3 id="大语言模型"><a href="#大语言模型" class="headerlink" title="大语言模型"></a>大语言模型</h3><p>我们预训练 LLAMA 7B、13B、34B 和 70B 模型（Touvron 等人、2023a、b；Dubey 等人、2024），以评估相对于 RMSNorm 的 DyT 性能（Zhang 和 Sennrich，2019 年），LLAMA 中使用的默认归一化层。这些模型是在 Pile 数据集 (Gao et al., 2020) 上训练的，具有 200B 个标记，遵循 LLAMA (Touvron et al., 2023b) 中概述的原始配方。在 DyT 的 LLAMA 上，我们在初始嵌入层之后添加了一个可学习的标量参数，并调整 α 的初始值，如第 7 节所述。我们报告了训练后损失值，并遵循 OpenLLaMA (Geng and Liu, 2023) 对来自 lm-eval 的 15 个零样本任务的模型进行基准测试（Gao et al.）。如表 4 所示，DyT 在所有四种模型大小上的表现与 RMSNorm 相当。图 6 说明了损失曲线，展示了所有模型大小的类似趋势，训练损失在整个训练过程中紧密对齐。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410163534309.png" alt="image-20250410163534309"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410163606996.png" alt="image-20250410163606996"></p>
+<h2 id="消融实验"><a href="#消融实验" class="headerlink" title="消融实验"></a>消融实验</h2><p>首先评估它们的计算效率，然后是两项研究检查了 tanh 函数和可学习尺度 α 的作用。最后，展示了与以前旨在删除归一化层的方法的比较。</p>
+<h3 id="DyT函数的效率"><a href="#DyT函数的效率" class="headerlink" title="DyT函数的效率"></a>DyT函数的效率</h3><p>我们使用 RMSNorm 或 DyT 对 LLAMA 7B 模型进行基准测试，通过使用 4096 个标记的单个序列测量 100 次前向传递（推理）和 100 次前向后向传递（训练）所花费的时间。表 7 报告了在 BF16 精度的 Nvidia H100 GPU 上运行时所有 RMSNorm 或 DyT 层以及整个模型所需的时间。与 RMSNorm 层相比，<strong>DyT 层显着减少了计算时间</strong>，在 FP32 精度下观察到了类似的趋势。DyT可能是面向效率的网络设计的有前途的选择。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410171128597.png" alt="image-20250410171128597"></p>
+<p>Layer是一层Transformer使用的时间、Model则是整体使用的时间(我猜是一个epoch)</p>
+<blockquote>
+<p><strong>话说，论文中只说了Tanh函数相较于Normalization Layer会降低时间。但是没有对降低时间的理由/原因进行推断呢。</strong>也就是只给出了结果，没有给出WHY。</p>
+</blockquote>
+<h3 id="对DyT中Tanh、-alpha-存在的必要性"><a href="#对DyT中Tanh、-alpha-存在的必要性" class="headerlink" title="对DyT中Tanh、$\alpha$存在的必要性"></a>对DyT中Tanh、$\alpha$存在的必要性</h3><p>而进行的消融实验。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410173013594.png" alt="image-20250410173013594"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410173021943.png" alt="image-20250410173021943"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410173050434.png" alt="image-20250410173050434"></p>
+<h3 id="alpha-取值"><a href="#alpha-取值" class="headerlink" title="$\alpha$取值"></a>$\alpha$取值</h3><p>对于图8：左：对于来自 ViT-B 模型的两个选定的 DyT 层，我们跟踪每个 epoch 结束时激活的标准偏差 (1/std) 的倒数，观察到它们在训练期间一起进化。右图：我们根据输入激活的 1/std 绘制了两个训练模型 ViT-B 和 ConvNeXt-B 的最终 α 值，证明了两个值之间的强相关性。</p>
+<ul>
+<li><strong>在训练期间</strong>：我们发现这个 $\alpha$ 的值会跟着一个叫 “激活的标准偏差的倒数（1/std）” 的东西变。就好比你在游戏里角色的一个能力值（$\alpha$），会根据游戏里另一个条件（1/std）变化。从图 8 左边可以看到，一开始 $\alpha$ 的值会变小，然后又会变大，一直在随着 1/std 的变化而变来变去。这说明 $\alpha$ 很重要，它能让模型里的数据（激活）保持在一个合适的范围，这样模型就能更好地学习，变得更厉害，训练也能更稳定有效。</li>
+<li><strong>训练后</strong>：等模型训练好了，我们再看这个 $\alpha$ 的最终值。发现它和 1/std 还有关系呢。如果 1/std 的值大，$\alpha$ 的值也会大；如果 1/std 的值小，$\alpha$ 的值也小。而且我们还看到，模型里更深的层次（可以理解成游戏里角色更高级的技能部分），它们的数据变化范围（激活的标准偏差）更大。</li>
+</ul>
+<p>最后，$\alpha$ 这个参数的作用有点像给模型的数据做整理（归一化），但和另一种叫层归一化（LN）的整理方式不一样。LN 是一个一个地整理数据（对每个标记的激活进行归一化），而 $\alpha$ 是把所有的数据一起整理（对整个输入激活进行归一化）。并且，$\alpha$ 自己没办法把特别大或者特别小的数据（极值）以一种复杂的方式（非线性方式）变小。(<strong>仅 α 不能以非线性方式抑制极值。</strong>)</p>
+<h2 id="alpha-初始化"><a href="#alpha-初始化" class="headerlink" title="$\alpha$初始化"></a>$\alpha$初始化</h2><p>我们发现调整 α（表示为 $\alpha_0$）的初始化很少导致显着的性能改进。唯一的例外是 LLM 训练，仔细调整 $\alpha_0$ 会产生显着的性能提升。在本节中，我们将详细介绍我们的发现对 α 初始化的影响。</p>
+<h4 id="非大语言模型"><a href="#非大语言模型" class="headerlink" title="非大语言模型"></a>非大语言模型</h4><p>非LLM模型对$\alpha_0$相对不敏感。图9显示了不同$\alpha_0$对不同任务验证性能的影响。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410232300835.png" alt="image-20250410232300835"></p>
+<p>所有实验都遵循各自配方的原始设置和超参数。我们观察到性能在广泛的 $\alpha_0$ 值范围内保持稳定，值在 0.5 和 1.2 之间通常会产生良好的结果。我们观察到调整 $\alpha_0$ 通常仅影响训练曲线的早期阶段。主要例外是有监督的 ViT-L 实验，当 $\alpha_0$ 超过 0.6 时，训练变得不稳定并发散。在这种情况下，降低学习率会恢复稳定性，如下所述。较小的 $\alpha_0$ 会导致更稳定的训练。基于之前的观察，我们进一步分析了导致训练不稳定的因素。我们的研究结果表明，增加模型大小或学习率需要降低 $\alpha_0$ 以确保稳定的训练。相反，较高的 $\alpha_0$ 需要较低的学习率来减轻训练不稳定性。</p>
+<p>图 10 显示了使用 ImageNet-1K 数据集消融监督 ViT 的训练稳定性。我们改变学习率、模型大小和 $\alpha_0$ 值。训练更大的模型更容易失败，需要更小的 $\alpha_0$ 值或学习率来稳定训练。类似的不稳定性模式在可比较的条件下在基于 LN 的模型中也观察到，设置 $\alpha_0$ = 0.5 会产生类似于 LN 的稳定性模式。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410232248939.png" alt="image-20250410232248939"></p>
+<h4 id="大语言模型-1"><a href="#大语言模型-1" class="headerlink" title="大语言模型"></a>大语言模型</h4><p>调整$\alpha_0$可以提高LLM的性能。如前所述，$\alpha_0$ = 0.5 的默认设置通常在大多数任务中表现良好。然而，我们发现调整$\alpha_0$可以显著提高LLM的性能。我们通过预训练 30B 个标记并比较它们的训练损失来调整 LLAMA 模型的 $\alpha_0$。表 11 总结了每个模型的调整后的 $\alpha_0$ 值。出现了两个关键发现：</p>
+<ol>
+<li>较大的模型需要较小的 $\alpha_0$ 值。一旦为较小的模型确定最佳 $\alpha_0$，就可以相应地减小较大模型的搜索空间。</li>
+<li>注意块的$\alpha_0$值越高，性能越好。</li>
+</ol>
+<p>我们发现，在注意块中使用 DyT 层的更高值初始化 α，在其他位置（即，在 FFN 块中或最终线性投影之前）中 DyT 层的较低值可以提高性能。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410232341407.png" alt="image-20250410232341407"></p>
+<p>为了进一步说明 $\alpha_0$ 调整的影响，图 11 显示了两个 LLAMA 模型损失值的热图。两种模型都受益于注意块中更高的 $\alpha_0$，导致训练损失减少。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410232351568.png" alt="image-20250410232351568"></p>
+<p>模型宽度主要确定 $\alpha_0$ 选择。我们还研究了模型宽度和深度对最优$\alpha_0$的影响。我们发现模型宽度对于确定最佳$\alpha_0$至关重要，而模型深度的影响最小。表 12 显示了不同宽度和深度的最佳 $\alpha_0$ 值，表明更广泛的网络受益于较小的 $\alpha_0$ 值以获得最佳性能。另一方面，模型深度对 $\alpha_0$ 的选择的影响可以忽略不计。</p>
+<p>如表 12 所示，网络越宽，“attention”和“other”的初始化越不均匀。我们假设与其他模型相比，LLM α 初始化的灵敏度与其过大的宽度有关。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250410232430752.png" alt="image-20250410232430752"></p>
+<h2 id="局限与结论"><a href="#局限与结论" class="headerlink" title="局限与结论"></a>局限与结论</h2><p>我们使用 LN 或 RMSNorm 对网络进行实验，因为它们在 Transformer 和其他现代架构中很受欢迎。初步实验（见附录 C）<strong>表明 DyT 难以直接在 ResNets 等经典网络中替换 BN。</strong>它仍有待更深入地研究 DyT 是否以及如何适应具有其他类型的归一化层的模型。</p>
+<p>在这项工作中，我们展示了现代神经网络，特别是 Transformer，<strong>可以在没有归一化层的情况下进行训练</strong>。这是通过 Dynamic Tanh (DyT) 完成的，这是传统归一化层的简单替换。它通过可学习的比例因子 α 调整输入激活范围，然后通过 S 形 tanh 函数压缩极值。尽管函数更简单，但它有效地捕获了归一化层的行为。在各种设置下，DyT 匹配的模型或超过其归一化对应物的性能。这些发现挑战了对训练现代神经网络中归一化层的必要性的传统理解。我们的研究也有助于理解归一化层的机制，这是深度神经网络中最基本的构建块之一。</p>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/04/10/2025-4-11/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/04/06/2025-4-6-%E5%AE%9E%E9%AA%8C/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#Normalization-Layer"><span class="toc-content-number">1.</span> <span class="toc-content-text">Normalization Layer</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E4%B8%8D%E5%90%8C%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%BD%92%E4%B8%80%E5%8C%96"><span class="toc-content-number">1.1.</span> <span class="toc-content-text">不同类型的归一化</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%AE%9E%E9%AA%8C%E9%83%A8%E5%88%86%EF%BC%9A%E4%BB%8E%E7%90%86%E8%AE%BA%E7%9A%84%E8%A7%92%E5%BA%A6%E8%A7%A3%E9%87%8A"><span class="toc-content-number">1.2.</span> <span class="toc-content-text">实验部分：从理论的角度解释</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#DyT-Dynamic-Tangent-Hyperbolic"><span class="toc-content-number">2.</span> <span class="toc-content-text">DyT: Dynamic Tangent Hyperbolic</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E5%AE%9E%E9%AA%8C%EF%BC%9A%E5%B0%86%E5%8E%9F%E5%A7%8B%E6%9E%B6%E6%9E%84%E4%B8%AD%E7%9A%84-LN-%E6%88%96-RMSNorm-%E6%9B%BF%E6%8D%A2%E4%B8%BA-DyT-%E5%B1%82"><span class="toc-content-number">3.</span> <span class="toc-content-text">实验：将原始架构中的 LN 或 RMSNorm 替换为 DyT 层</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E8%A7%86%E8%A7%89%E6%A8%A1%E5%9E%8B"><span class="toc-content-number">3.1.</span> <span class="toc-content-text">视觉模型</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#ViT-ConvNeXt-%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0"><span class="toc-content-number">3.1.1.</span> <span class="toc-content-text">ViT&#x2F;ConvNeXt-监督学习</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#MAE-DINO-%E5%8D%8A%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0"><span class="toc-content-number">3.1.2.</span> <span class="toc-content-text">MAE&#x2F;DINO-半监督学习</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#Diffusion-Model"><span class="toc-content-number">3.1.3.</span> <span class="toc-content-text">Diffusion Model</span></a></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B"><span class="toc-content-number">3.2.</span> <span class="toc-content-text">大语言模型</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E6%B6%88%E8%9E%8D%E5%AE%9E%E9%AA%8C"><span class="toc-content-number">4.</span> <span class="toc-content-text">消融实验</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#DyT%E5%87%BD%E6%95%B0%E7%9A%84%E6%95%88%E7%8E%87"><span class="toc-content-number">4.1.</span> <span class="toc-content-text">DyT函数的效率</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%AF%B9DyT%E4%B8%ADTanh%E3%80%81-alpha-%E5%AD%98%E5%9C%A8%E7%9A%84%E5%BF%85%E8%A6%81%E6%80%A7"><span class="toc-content-number">4.2.</span> <span class="toc-content-text">对DyT中Tanh、$\alpha$存在的必要性</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#alpha-%E5%8F%96%E5%80%BC"><span class="toc-content-number">4.3.</span> <span class="toc-content-text">$\alpha$取值</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#alpha-%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-content-number">5.</span> <span class="toc-content-text">$\alpha$初始化</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E9%9D%9E%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B"><span class="toc-content-number">5.0.1.</span> <span class="toc-content-text">非大语言模型</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B-1"><span class="toc-content-number">5.0.2.</span> <span class="toc-content-text">大语言模型</span></a></li></ol></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E5%B1%80%E9%99%90%E4%B8%8E%E7%BB%93%E8%AE%BA"><span class="toc-content-number">6.</span> <span class="toc-content-text">局限与结论</span></a></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>

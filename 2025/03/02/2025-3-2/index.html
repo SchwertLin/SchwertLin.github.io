@@ -1,0 +1,310 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="Pirinen-CVPR-2018 Pirinen, Aleksis, and Cristian Sminchisescu. “Deep reinforcement learning of region proposal networks for object detection.” proceedings of the IEEE conference on computer vision and">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-3-2-Pirinen-CVPR-2018">
+<meta property="og:url" content="http://example.com/2025/03/02/2025-3-2/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="Pirinen-CVPR-2018 Pirinen, Aleksis, and Cristian Sminchisescu. “Deep reinforcement learning of region proposal networks for object detection.” proceedings of the IEEE conference on computer vision and">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250302172431386.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250302172431386.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250303144804494.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250303144905354.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250303144923827.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250303144851622.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250303144831490.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250303144938722.png">
+<meta property="article:published_time" content="2025-03-02T08:50:10.000Z">
+<meta property="article:modified_time" content="2025-03-03T06:58:14.000Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="论文阅读">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250302172431386.png"><title>2025-3-2-Pirinen-CVPR-2018 - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-3-2-Pirinen-CVPR-2018</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-03-02</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-03-03</time></div>
+
+<div class="post-tags"><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></div></div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约6.6K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><h1 id="Pirinen-CVPR-2018"><a href="#Pirinen-CVPR-2018" class="headerlink" title="Pirinen-CVPR-2018"></a>Pirinen-CVPR-2018</h1><blockquote>
+<p>Pirinen, Aleksis, and Cristian Sminchisescu. “Deep reinforcement learning of region proposal networks for object detection.” <em>proceedings of the IEEE conference on computer vision and pattern recognition</em>. 2018.</p>
+</blockquote>
+<p><strong>摘要</strong>：此文提出了<strong>基于深度强化学习DRL</strong>的视觉识别模型drl -RPN，该模型由序列区域建议网络（RPN）和目标检测器组成。典型的RPN通过类无关NMS贪婪地选择候选对象区域（roi），与之相反，drl-RPN优化了更接近最终检测任务的目标。这是通过用通过<strong>深度强化学习（DRL）训练的顺序注意机制</strong>取代贪婪的RoI选择过程来实现的。我们的模型能够随着时间的推移积累特定类别的证据，这<strong>可能</strong>(potentially)会影响后续的提案和分类分数，并且我们表明这种上下文集成显著提高了检测准确性。此外，drl-RPN<strong>自动决定何时停止搜索过程，并且能够共同学习策略和检测器的参数</strong>，两者都表示为深度网络。模型可以进一步学习在大范围的勘探精度权衡中进行搜索，从而可以在测试时指定或调整勘探范围。所得到的搜索轨迹与图像和类别相关，但仅依赖于所有对象类别的单一策略。MS COCO和PASCAL VOC挑战的结果表明，我们的方法优于SOTA目标检测方法。</p>
+<blockquote>
+<p>我个人觉得在摘要中用 potentially affecting,是不是不太好？</p>
+</blockquote>
+<h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><p>视觉对象检测侧重于<strong>定位</strong>图像中预定义对象类别集合中的每个实例，最常见的方法是估计具有相关置信度值的边界框(bounding boxes)。在过去的几年里，这项任务的准确率急剧提高，这得益于越来越深和表达能力强的特征提取器。</p>
+<p>一些当代最先进的探测器遵循两步过程(Two-Stage Method)。</p>
+<ol>
+<li>首先，从内部区域建议网络（RPN）中获得自下而上的区域建议，并进行训练与检测网络一起，或从外部网络。</li>
+<li>第二步，对建议进行分类，并对其定位精度进行微调。</li>
+</ol>
+<blockquote>
+<p>引入本文的方法：</p>
+</blockquote>
+<p>最近，人们对<strong>主动、顺序搜索方法</strong>的兴趣越来越大。我们的模型属于这类方法，它们寻求只按顺序检查每个图像的部分。在这项工作中，我们的目标是使主动识别模型更加灵活，其特点是：</p>
+<ol>
+<li>一个微调(FT)的主动搜索过程，在这个过程中，下一步看哪里以及何时停止搜索的决定是依赖于图像和类别的；</li>
+<li>在搜索过程中汇总上下文信息，用于决策和提高检测准确性；</li>
+<li>检测器和搜索策略参数紧密链接到一个基于深度学习的优化问题中，在这个问题中它们被联合估计；</li>
+<li>在推理过程中，搜索过程可以适应各种探索精度权衡；</li>
+<li>学习搜索只是弱监督的，因为我们告诉模型成功意味着什么，而没有告诉它如何实现成功——没有学徒学习或轨迹演示。</li>
+</ol>
+<p>在方法上，我们提出了drl-RPN，这是一种序列区域提议网络，结合了基于RL的自上而下搜索策略（a sequential re gion proposal network combining an RL-based top-down search strategy），作为卷积门控循环单元实现，以及两阶段自下而上的目标检测器。</p>
+<p>值得注意的是，我们的模型用于类无关的提案生成，但在提出后续区域（RoIs）时利用来自早期时间步的类特定信息。这种上下文聚合也用于提高检测的准确性。我们的模型提供了联合训练策略和检测器的灵活性，两者都表示为深度网络，我们在深度强化学习框架中交替执行。我们强调，原则上，drl-RPN可以与任何在一组目标建议上运行的详尽的两阶段最先进目标检测器结合使用，例如Faster R-CNN (Fr R-CNN)或R-FCN。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250302172431386.png" alt="image-20250302172431386"></p>
+<p>检测器将大小为$h_0 × w_0 × 3$的图像作为输入，通过基本网络对其进行处理。我们使用VGG16基础网络。VGG16基本网络输出维度为$h × w × d$的基本特征图，其中$h$和$w$取决于输入图像的$h_0$和$w_0$， $d = 512$。然后，网络分为两个分支，分别进行感兴趣区域（Region of Interest，RoIs）生成，以及后续的 RoI 池化和分类操作。</p>
+<p>区域建议网络（RPN）<strong>用于生成RoIs</strong>，其中在基本特征图上的每个空间位置产生$d$维特征向量，并通过两个类别无关层：盒回归（REG）和盒分类（CLS）发送。为了增加对象召回，根据$k$个锚框预测了一些提议proposals（$k = 9$）。RPN的最后一个任务是<strong>减少转发到RoI池和分类的RoI数量</strong>。这是由基于类中的对象得分的类无关NMS执行的。通过RoI最大池化，将RPN转发的所有RoIs,转换为空间固定大小的小特征图，然后将RoIs发送到两个完全连接的层，执行类概率和边界盒偏移预测。</p>
+<blockquote>
+<p>RoI (Region of Interest)感兴趣区域。在目标检测任务中，它指的是图像中可能包含目标物体的区域。通常，在图像经过基础网络提取特征后，通过区域提议网络（RPN）等方式生成一系列可能包含目标的区域，这些区域就是 RoIs。后续对这些 RoIs 进行进一步处理来实现对目标物体的检测和定位。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>RoIs 池化</th>
+<th>RoIs分类</th>
+<th>RoIs回归</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>将不同大小的 RoIs 对应的特征图转换为固定大小</td>
+<td>判断 RoI 中是否包含目标以及目标的类别</td>
+<td>调整 RoI 的位置和大小以更准确地框住目标</td>
+</tr>
+</tbody>
+</table>
+</div>
+</blockquote>
+<h2 id="序列RPN"><a href="#序列RPN" class="headerlink" title="序列RPN"></a>序列RPN</h2><p>概述: 我们提出的drl-RPNmodel。基处理在左边说明了初始状态$S_0$是如何形成的。在每个时间步$t$上，智能体根据其随机策略$\pi_\theta(\alpha_t,s_t)$来决定是否终止搜索。只要搜索没有终止，就会发出一个固定动作$a^f_t$，并访问一个新的位置$z_t$；在以$z_t$为中心的区域更新RoI观测体$R_t$。所有相应的RoI被发送到RoI池模块，然后是分类和特定于类的边界框偏移量预测。将特定类别的概率向量插入到历史卷$v^4_t$中，该卷与RL基本状态卷$s_t$合并。基于新状态，在时间步长$t + 1$处采取新的动作，并重复该过程，直到完成的动作和$t$发出，然后收集整个轨迹中所有选择的预测。网络的可训练部分（包括特征提取、分类和回归模型以及策略）用灰色突出显示。图5显示了一些drl-RPN搜索策略的可视化效果。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250302172431386.png" alt="image-20250302172431386"></p>
+<h3 id="Conv-GPU-agent"><a href="#Conv-GPU-agent" class="headerlink" title="Conv-GPU agent"></a>Conv-GPU agent</h3><p>序列区域提议网络（drl - RPN）中卷积门控循环单元（Conv - GRU）在时刻$t$，Conv - GRU的输入是强化学习（RL）的基础状态体$S_t$（具体见4.1部分）和前一时刻的隐藏状态$H_{t - 1}$ ，输出是一个双通道的动作体$A_t$ 。所有输入和输出的空间范围都是$h×w$。</p>
+<script type="math/tex; mode=display">
+\begin{align} O_t&=\sigma\left[\boldsymbol{W}_{so} * \boldsymbol{S}_t+\boldsymbol{W}_{ho} * \boldsymbol{H}_{t - 1}+\boldsymbol{b}_o\right] \tag{1}\\ \tilde{\boldsymbol{H}}_t&=\boldsymbol{W}_{sh} * \boldsymbol{S}_t+\boldsymbol{W}_{hh} * \left(\boldsymbol{O}_t \odot \boldsymbol{H}_{t - 1}\right)+\boldsymbol{b}_h \tag{2}\\ \boldsymbol{Z}_t&=\sigma\left[\boldsymbol{W}_{sz} * \boldsymbol{S}_t+\boldsymbol{W}_{hz} * \boldsymbol{H}_{t - 1}+\boldsymbol{b}_z\right] \tag{3}\\ \boldsymbol{H}_t&=(1 - \boldsymbol{Z}_t) \odot \boldsymbol{H}_{t - 1}+\boldsymbol{Z}_t\odot \tanh{} [\boldsymbol{H}_t] \tag{4}\\ \tilde{\boldsymbol{A}}_t&=\text{relu}\left[\boldsymbol{W}_{h\tilde{a}} * \boldsymbol{H}_t+\boldsymbol{b}_{\tilde{a}}\right] \tag{5}\\ \boldsymbol{A}_t&=\tanh\left[\boldsymbol{W}_{\tilde{a}a} * \tilde{\boldsymbol{A}}_t+\boldsymbol{b}_a\right] \tag{6} \end{align}</script><ol>
+<li><p>公式(1)计算$O_t$，是通过对基础状态体$S_t$和前一时刻隐藏状态$H_{t - 1}$进行卷积运算、加权求和，并经过逻辑sigmoid函数$\sigma[\cdot]$得到，用于控制信息传递。</p>
+<p><em>`</em>`表示卷积运算。$\odot$表示对应位置元素相乘。*</p>
+</li>
+<li><p>公式(2)计算$\tilde{H}_t$，它结合了当前状态信息和$O_t$与$H_{t - 1}$的元素相乘结果，得到一个候选隐藏状态。</p>
+</li>
+<li><p>公式(3)计算$Z_t$，类似于$O_t$的计算方式，通过sigmoid函数输出一个值，用于控制前一时刻隐藏状态$H_{t - 1}$和候选隐藏状态$\tilde{H}_t$之间的信息融合比例。</p>
+</li>
+<li><p>公式(4)根据$Z_t$计算当前时刻的隐藏状态$H_t$，实现信息的更新。</p>
+</li>
+<li><p>公式(5)和(6)对隐藏状态$H_t$进行处理，先经过ReLU函数，再经过tanh函数，最终得到输出动作体$A_t$ 。</p>
+</li>
+</ol>
+<p>参数$\theta=[\theta_{base};\theta_{det};\theta_{pol}]$: 使用drl - RPN的系统参数$\theta$可以分解为$\theta_{base}$、$\theta_{det}$和$\theta_{pol}$。其中$\theta_{base}$是基础网络和原始RPN的参数；$\theta_{det}$是分类器和边界框偏移预测器的参数；$\theta_{pol}$是搜索策略参数。</p>
+<h4 id="State"><a href="#State" class="headerlink" title="State"></a>State</h4><p><strong>状态State</strong>：时刻$t$的状态$s_t$是一个元组$(R_t, S_t, H_t)$。</p>
+<ol>
+<li>$R_t$是RoI观察体，大小为$h×w×k$，是一个二进制体，其中的元素为1表示对应的RoI是传递到RoI池化/分类网络的区域提议的一部分，初始为全零。当执行“fixate”动作后，以注视位置$z_t$为中心的矩形邻域内的$R_t$元素会被更新为1 。</li>
+<li>$S_t$是基础状态体，由$V_t^1$（基础特征图）、$V_t^2$（RPN的目标性层）、$V_t^3$（RPN的回归量，经归一化处理）和$V_t^4$（特定类别的历史信息）组成。$R_t$用于更新$V_t^1$、$V_t^2$和$V_t^3$中对应已检查位置的值为 - 1 。对于$V_t^4$ ，在选择RoI后更新特定类别的历史信息。</li>
+<li>$H_t$是Conv - GRU的隐藏状态，维度为$h×w×300$ 。</li>
+</ol>
+<p><strong>组成与更新</strong>：</p>
+<p>基础状态体 $S_t$ 由 $V_t^1$、$V_t^2$、$V_t^3$ 和 $V_t^4$ 组成。使用RoI观察体 $R_t$ 来更新 $V_t^1$、$V_t^2$ 和 $V_t^3$ ，将这些体中与 $R_t$ 对应位置的值设置为 $-1$ ，表示这些位置已经被检查过。</p>
+<ul>
+<li>对于基础输入 $V_t^1$ ，使用 $3\times 3$ 的卷积核。因为是在深度特征图上进行操作，其有效感受野已经很宽，较小的卷积核足以捕捉特征。 </li>
+<li>对于辅助输入 $V_t^2 - V_t^4$ ，则应用更大的 $9\times 9$ 卷积核(可能是因为这些输入需要更大的感受野来整合信息??) 。 </li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>组成</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$V_t^1\in \mathbb{R}^{h\times w\times d}$</td>
+<td>基础特征图（conv5_3） ，它是图像经过基础网络处理后得到的特征表示。</td>
+</tr>
+<tr>
+<td>$V_t^2\in\mathbb{R}^{h\times w\times k}$</td>
+<td>区域提议网络（RPN）中分类（cls）的目标性层，用于判断每个区域是否可能包含目标；</td>
+</tr>
+<tr>
+<td>$V_t^3\in\mathbb{R}^{h\times w\times k}$</td>
+<td>使用RPN的回归量（reg volume），其值为经过 $[0, 1]$ 归一化后的边界框偏移量 $[\Delta x_1, \Delta y_1, \Delta x_2, \Delta y_2]$ 的幅度，用于调整边界框的位置和大小。</td>
+</tr>
+<tr>
+<td>$V_t^4\in \mathbb{R}^{h\times w\times (N + 1)}$</td>
+<td>一个特定类别的历史记录，记录了到目前为止观察到的信息，初始值 $V_0^4 = 0$ 。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>更新机制</strong>：当执行“fixate”动作后，选择的RoI会被发送到特定类别的预测器，然后对分类后的RoI应用局部特定类别的非极大值抑制（NMS），以获取该位置最显著的信息。对于存活下来的RoI的最终边界框预测，会将它们映射到 $V_t^4$ 的特定空间位置。</p>
+<p>输入图像被划分为 $L \times L$ 个大小约为 $h_0/L \times w_0/L$ 的区域（这里 $L = 3$ ），将每个NMS后存活的RoI根据其中心坐标分配到对应的区域中，然后用这些RoI的类别概率向量以滑动平均的方式更新这些位置的历史记录$V_t^4$。</p>
+<blockquote>
+<p>here!</p>
+</blockquote>
+<h3 id="随机策略-pi-theta-a-t-s-t"><a href="#随机策略-pi-theta-a-t-s-t" class="headerlink" title="随机策略$\pi_{\theta}(a_t|s_t)$"></a>随机策略$\pi_{\theta}(a_t|s_t)$</h3><p>策略描述了如何根据Conv - GRU的输出$A_t$选择动作。$A_t$是神经网络层，第一层是$A_t^d$(done)，第二层是$A_t^f$(fixate)</p>
+<ol>
+<li>对于“done”动作，将$A_t$的“done”层$A_t^d$双线性调整大小为$25×25$，然后堆叠成向量$d_t\in\mathbb{R}^{625}$ 。通过公式(7)计算<strong>在状态$s_t$下终止的概率</strong>，其中涉及可训练的权重向量$w_d$和逻辑sigmoid函数。</li>
+<li>对于“fixate”动作，对$A_t$的“fixate”层$A_t^f$应用空间softmax函数转换为概率图$\hat{A}_t^f$ 。通过公式(8)计算在<strong>状态$s_t$下注视位置$z_t$的概率</strong>，该概率与不终止的概率以及$\hat{A}_t^f$中对应位置的值相关 。 </li>
+</ol>
+<script type="math/tex; mode=display">
+\begin{align}
+&\pi_{\boldsymbol{\theta}}\left(a_t^d = 1|s_t\right)=\sigma\left[\boldsymbol{w}_d^{\top} \boldsymbol{d}_t + t\right] \tag{7}\\
+&\pi_{\boldsymbol{\theta}}\left(a_t^d = 0,a_t^f = z_t|s_t\right)=(1 - \sigma\left[\boldsymbol{w}_d^{\top} \boldsymbol{d}_t + t\right]) \hat{\boldsymbol{A}}_t^f\left[z_t\right] \tag{8}\\
+\end{align}</script><p>fixating location: $z_t=(i,j)$, agent不在此处终止的概率：$\hat A^f_t[z_t]$.</p>
+<h4 id="上下文类别概率调整"><a href="#上下文类别概率调整" class="headerlink" title="上下文类别概率调整"></a>上下文类别概率调整</h4><p><strong>现有检测流程：</strong>对所有区域<strong>同时且相互独立</strong>地进行分类。（<em>所以注意力机制是不是好点？</em>）</p>
+<p><strong>缺点</strong>：限制了不同区域之间的信息交换，无法充分利用区域间的关联信息来提升检测效果。</p>
+<p><strong>此文方法</strong>：将搜索过程和候选提议的分类统一到一个单一系统中，使这两个任务之间产生协同效应。之前已说明了如何利用已分类的区域来引导搜索过程，现在进一步扩展drl - RPN模型，通过上下文累积，基于搜索轨迹对检测概率进行后验更新 ，从而更好地整合信息，提高检测的准确性。</p>
+<p><strong>改进模型的具体做法</strong>：</p>
+<ol>
+<li><strong>信息汇总</strong>：改进后的模型会汇总在搜索过程中发现的所有目标实例信息，以此来优化这些检测结果的最终类别概率分数。这里用到了4.1部分描述的历史聚合方法。 </li>
+<li><strong>特征向量处理</strong>：根据最多 $L^2$ 个历史向量，将它们堆叠成一个 $L^2(N + 1)$ 维的向量 $x_{hist}$ ，未观察到的区域在该向量中用0表示。 </li>
+<li><strong>分类层调整</strong>：将最终分类层原来的 $\text{softmax}(\boldsymbol{W}\boldsymbol{x}+\boldsymbol{b})$ 替换为$\text{softmax}[\boldsymbol{W}\boldsymbol{x}+\boldsymbol{b}+\boldsymbol{f}_{hist}(\boldsymbol{x}_{hist})]$以考虑搜索轨迹的影响。其中 $\boldsymbol{f}_{hist}(\boldsymbol{x}_{hist})=\tanh(\boldsymbol{W}_{hist}\boldsymbol{x}_{hist}+\boldsymbol{b}_{hist})$ ，是一个单层激活函数，用于对历史信息向量进行处理，并将处理结果融入到分类过程中 。 </li>
+</ol>
+<h3 id="Reward"><a href="#Reward" class="headerlink" title="Reward"></a>Reward</h3><p>agent应该平衡两个标准:</p>
+<ul>
+<li>所选择的RoI应该产生高的对象实例重叠，</li>
+<li>RoI的数量应该尽可能低，以减少误报的数量，并保持可管理的处理时间。</li>
+</ul>
+<ol>
+<li><p><strong>“fixate”动作奖励</strong>：为了平衡检测过程中的各种因素，每次执行“fixate”动作会给予一个小的负奖励$-\beta$（这里$\beta = 0.075$ ）。同时，如果“fixate”动作产生的区域与当前任何真实目标实例$g_i$的交并比（IoU），相较于之前时间步智能体选择的能产生最大IoU的感兴趣区域（RoI）有所增加，智能体会获得正奖励。具体计算方式为：</p>
+<ol>
+<li>对于每个真实目标实例$g_i$，记录到当前时间步$t$为止，由智能体选择的所有RoI与$g_i$的最大IoU为$IoU^i_t$ ，之前的最大IoU为$IoU^i$ 。</li>
+<li>当$IoU^i_t &gt; IoU^i \geq \tau$（$\tau = 0.5$，符合Pascal VOC的正阈值）时，会给予正奖励$(IoU^i_t - IoU^i)/IoU^{i}_{max}$ ，并更新$IoU^i = IoU^i_t$ ，其中$IoU^{i}_{max}$是$g_i$与所有可能区域的最大IoU。</li>
+<li>因此，时间$t$时“fixate”动作的奖励$r^f_t$由公式(9)计算得出。</li>
+</ol>
+<script type="math/tex; mode=display">
+r_t^f = -\beta+\sum_{i}\mathbb{1}\left[\boldsymbol{g}_i:IoU_t^i > IoU^i\geq\tau\right]\frac{IoU_t^i - IoU^i}{IoU_{max}^{i}}\tag{9}</script><p>$\beta = 0.075$，$\mathbb{1}\left[\boldsymbol{g}_i:IoU_t^i &gt; IoU^i\geq\tau\right]$是指示函数，当满足条件$\boldsymbol{g}_i$对应的$IoU_t^i &gt; IoU^i\geq\tau$（$\tau = 0.5$ ）时为$1$，否则为$0$，$IoU_t^i$是到时间$t$ 时智能体选择的RoI与真实目标实例$\boldsymbol{g}_i$ 的最大IoU，$IoU^i$是之前的最大IoU，$IoU_{max}^{i}$是$\boldsymbol{g}_i$与所有可能区域的最大IoU .</p>
+</li>
+<li><p><strong>“done”动作奖励</strong>：当智能体执行“done”动作终止搜索时，会获得一个最终奖励，该奖励反映搜索轨迹的质量。奖励计算基于整个搜索轨迹中智能体选择的与真实目标实例$g_i$具有最大IoU的RoI: $IoU^i$。</p>
+<script type="math/tex; mode=display">
+r_t^d=\sum_{i}\mathbb{1}\left[\boldsymbol{g}_i:IoU_{max}^{i}\geq\tau\right]\frac{IoU^i - IoU_{max}^{i}}{IoU_{max}^{i}}\tag{10}</script><p>如果所有真实目标实例都被最大程度覆盖，公式(10)的计算结果为0；</p>
+<p>否则，会根据真实目标实例未被覆盖的程度得到一个越来越负的奖励值 。</p>
+</li>
+</ol>
+<h4 id="奖励分离"><a href="#奖励分离" class="headerlink" title="奖励分离"></a>奖励分离</h4><p><strong>分离原因</strong>：虽然drl - RPN是一个单智能体系统，每个时间步通过策略（公式(7) - (8) ）执行一个动作，但可以看作由两个子智能体$agt_d$和$agt_f$组成。$agt_d$根据公式(7)决定是否继续搜索，$agt_f$在$agt_d$未终止搜索时，依据公式(8)控制观察位置。在标准奖励分配中，$agt_f$选择不佳的注视位置可能导致$agt_d$和$agt_f$都获得负奖励，但实际上只有$agt_f$应对未定位到目标负责。因此，需要分离奖励，避免$agt_d$因$agt_f$的错误而受到不合理惩罚。</p>
+<p><strong>新奖励定义</strong>：对于$agt_d$，不给予公式(9)中的实际“fixate”动作奖励$r^f_t$，而是定义一个乐观的对应奖励$\tilde{r}^f_t$ ，如公式(11)所示。</p>
+<script type="math/tex; mode=display">
+\tilde{r}_t^f=-\beta+\max_{IoU\geq\tau}\frac{IoU - IoU^i}{IoU_{max}^{i}}\tag{11}</script><p>该奖励反映了任何“fixate”动作可实现的单个真实目标实例$g_i$的IoU的最大增加量。在训练早期，公式(11)的奖励值通常高于公式(9) 。因此，<strong>使用$max(r^f_t,\tilde{r}^f_t)$作为奖励</strong>，有助于drl - RPN找到合理的终止策略，防止搜索过程早停。</p>
+<h3 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h3><p><strong>目标</strong>：为了学习策略参数，需要最大化训练集上的期望累积奖励，用$J(\boldsymbol{\theta})$表示。</p>
+<script type="math/tex; mode=display">
+J(\boldsymbol{\theta}) = \mathbb{E}_{s\sim\pi_{\boldsymbol{\theta}}}\left[\sum_{t = 1}^{|s|} r_t\right]</script><p>其中$s$代表从初始状态$s_0$（见4.1部分）运行模型采样得到的状态和动作轨迹，$r_t$是时间步$t$的奖励。</p>
+<p><strong>梯度近似与更新</strong>：使用基于样本的近似方法来计算目标函数$J(\boldsymbol{\theta})$的梯度（参考文献[46] ），具体使用REINFORCE算法。通过50个搜索轨迹来近似真实梯度，形成一个梯度更新批次（每批一张图像），并使用Adam算法通过反向传播更新策略参数。</p>
+<h2 id="Expr"><a href="#Expr" class="headerlink" title="Expr"></a>Expr</h2><blockquote>
+<p>此实验可以借鉴(?)</p>
+<p>整个实验部分围绕 drl - RPN 与 Fr R - CNN 的对比展开，</p>
+<ol>
+<li>先介绍整体对比的数据集和基本设置，</li>
+<li>再分别阐述不同模型变体，</li>
+<li>最后呈现各数据集上的具体结果。</li>
+</ol>
+</blockquote>
+<h3 id="实验设置"><a href="#实验设置" class="headerlink" title="实验设置"></a>实验设置</h3><ol>
+<li><strong>对比模型与数据集</strong>：将drl - RPN与Fr R - CNN在MS COCO和PASCAL VOC检测挑战中进行对比。主要报告使用固定探索惩罚$\beta = 0.075$训练的模型结果，关于5.1.2部分中与目标无关模型的结果在6.3部分。 </li>
+<li><strong>训练细节</strong>：    <ul>
+<li><strong>PASCAL VOC</strong>：在VOC 07 + 12训练验证集上按照5.3部分的交替训练方式进行70,000次迭代。策略参数$\theta_{pol}$的初始学习率为$2e - 5$，50,000次迭代后降为$4e - 6$；检测器参数$\theta_{det}$的学习率分别为$2.5e - 4$和$2.5e - 5$。</li>
+<li><strong>MS COCO</strong>：在COCO 2014训练验证集上训练，交替训练350,000次迭代，并在250,000次迭代后更新学习率，其他设置与PASCAL VOC类似。 </li>
+</ul>
+</li>
+<li><strong>drl - RPN模型说明</strong>：除非另有说明，drl - RPN指使用4.2部分中后验类别概率调整的模型。</li>
+</ol>
+<h4 id="模型变体对比"><a href="#模型变体对比" class="headerlink" title="模型变体对比"></a>模型变体对比</h4><p>研究了drl - RPN的一些变体，包括：    </p>
+<ul>
+<li>仅使用特定类别历史信息来指导搜索过程，而不用于后验类别概率调整的模型（np）。  </li>
+<li>完全不使用特定类别历史信息的模型（nh）。</li>
+<li>强制进行12次注视的模型（12 - fix）。 </li>
+<li>自适应停止模型（ads）。</li>
+</ul>
+<p>对于这些不同的drl - RPN模型，还展示了用于特定类别预测的转发RoI的平均比例（称为探索，以%报告）以及每张图像的平均注视次数 。</p>
+<h3 id="MS-COCO2015"><a href="#MS-COCO2015" class="headerlink" title="MS COCO2015"></a>MS COCO2015</h3><p>在2015年test - std和test - dev数据集上的结果显示，drl - RPN的平均精度均值（mAP）比Fr R - CNN高1.1。与ads - np和ads - nh模型相比，后验类别概率调整分别使mAP提高了0.7和0.9。强制12次注视使mAP略微提高0.1，但探索比例显著增加25%。此外，drl - RPN使平均召回率（mAR）提高了0.6 。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250303144804494.png" alt="image-20250303144804494"></p>
+<h3 id="RASCAL-VOC-2007"><a href="#RASCAL-VOC-2007" class="headerlink" title="RASCAL VOC 2007"></a>RASCAL VOC 2007</h3><ul>
+<li>在VOC 2012和2007数据集上，drl - RPN分别比Fr R - CNN高出1.1和0.8 mAP。特定类别历史信息分别使mAP提高了0.5和0.7。强制12次注视对mAP提升不明显。</li>
+<li>自适应停止的drl - RPN - ads比Fr R - CNN高出0.4 mAP，也超过了穷尽式的“所有RoI”变体。在12次注视时，drl - RPN比Fr R - CNN的mAP高出1.8 。</li>
+<li>通过图2（左）展示了每张图像强制特定注视次数$n$（$n = 1,\ldots,12$）时的结果，drl - RPN - ads在$n \geq 5$时超过了Fr R - CNN，且与预设注视次数的模型相比，自动停止条件有3.0 mAP的优势 。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250303144905354.png" alt="image-20250303144905354"></p>
+<p><strong>综合分析</strong>：总体而言，drl - RPN始终优于Fr R - CNN基线模型。特定类别历史信息结合后验调整显著提高了准确性，自适应停止条件大幅减少了平均探索次数，同时达到与强制12次注视策略相当的mAP 。  </p>
+<ul>
+<li>替换Fr R - CNN的特定类别检测器参数为调整后的drl - RPN检测器参数时，结果变化不大；而不进行检测器调整的drl - RPN会使mAP下降2.0，表明联合策略 - 检测器调整至关重要。    </li>
+<li>对比VOC和COCO的结果，VOC的搜索轨迹平均比COCO短约50%，这是因为COCO场景更拥挤和复杂，体现了自动停止条件的优势 。 </li>
+</ul>
+<h3 id="消融实验"><a href="#消融实验" class="headerlink" title="消融实验"></a>消融实验</h3><p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250303144923827.png" alt="image-20250303144923827"></p>
+<p>在VOC 2007测试集上对drl - RPN和Fr R - CNN进行评估，同时展示了一些drl - RPN搜索策略和最终检测结果的可视化内容（图5）。实验中不仅直接对比drl - RPN和Fr R - CNN，还对比了drl - RPN的不同变体，如drl - RPN - ads（自适应停止模型）和drl - RPN - ads - nh（不使用特定类别历史信息的自适应停止模型） 。</p>
+<ol>
+<li><p><strong>运行时间和mAP对比</strong>：通过图3展示不同模型的平均精度均值（mAP）和运行时间。发现drl - RPN模型在检测准确性上优于Fr R - CNN，但速度较慢，原因是drl - RPN转发的感兴趣区域（RoI）集合更大，且基于Conv - GRU的序列处理每次注视会增加约13毫秒的开销。对drl - RPN的提议应用与类别无关的非极大值抑制（NMS），可使运行时间接近Fr R - CNN，同时还能提升mAP。此外，drl - RPN在速度和准确性上都优于穷尽式的Fr R - CNN变体 。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250303144851622.png" alt="image-20250303144851622"></p>
+</li>
+<li><p><strong>mAP与每张图像的目标数量关系</strong>：对比图2（中）中drl - RPN - ads和drl - RPN - ads - nh，可知特定类别上下文聚合在拥挤场景中越来越有用（除了6、7个目标的情况） 。并且，drl - RPN - ads在所有目标数量下都优于Fr R - CNN，在更拥挤的场景中优势更明显。 </p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250303144831490.png" alt="image-20250303144831490"></p>
+</li>
+<li><p><strong>mAP与IoU阈值关系</strong>：从图2（右）可以看出，尽管在训练中使用标准的IoU阈值$\tau = 0.5$，但drl - RPN的相对性能随着边界框IoU阈值$\tau$的增加而提高。对比COCO风格的mAP分数（mAP@[.5, .95]），drl - RPN的mAP（44.3）显著高于Fr R - CNN（41.3）。同时，通过图4展示了用于特定类别预测的RoI转发位置（对于drl - RPN对应于放大的注视区域） 。 </p>
+</li>
+<li><p><strong>探索 - 准确性权衡</strong>：图6展示了将探索惩罚$\beta$作为输入的drl - RPN与目标无关扩展的结果（使用训练中$\beta$值集合$\{0.025, 0.050, \ldots, 0.750\}$进行评估），并与使用与类别无关的NMS来筛选drl - RPN提议的模型进行对比，从而得到可在广泛的速度 - 准确性权衡范围内调整的模型 。 </p>
+</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250303144938722.png" alt="image-20250303144938722"></p>
+<h2 id="原文"><a href="#原文" class="headerlink" title="原文"></a>原文</h2>
+
+	<div class="row">
+    <embed src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic/Pdf/Pirinen_CVPR_2018_paper.pdf" width="100%" height="550" type="application/pdf">
+	</div>
+
+
+
+</div><div class="post-end"><div class="post-prev"><a href="/2025/03/03/2025-3-3/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/03/01/2025-3-1/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#Pirinen-CVPR-2018"><span class="toc-content-number">1.</span> <span class="toc-content-text">Pirinen-CVPR-2018</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#Intro"><span class="toc-content-number">1.1.</span> <span class="toc-content-text">Intro</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E5%BA%8F%E5%88%97RPN"><span class="toc-content-number">1.2.</span> <span class="toc-content-text">序列RPN</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#Conv-GPU-agent"><span class="toc-content-number">1.2.1.</span> <span class="toc-content-text">Conv-GPU agent</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#State"><span class="toc-content-number">1.2.1.1.</span> <span class="toc-content-text">State</span></a></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E9%9A%8F%E6%9C%BA%E7%AD%96%E7%95%A5-pi-theta-a-t-s-t"><span class="toc-content-number">1.2.2.</span> <span class="toc-content-text">随机策略$\pi_{\theta}(a_t|s_t)$</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E4%B8%8A%E4%B8%8B%E6%96%87%E7%B1%BB%E5%88%AB%E6%A6%82%E7%8E%87%E8%B0%83%E6%95%B4"><span class="toc-content-number">1.2.2.1.</span> <span class="toc-content-text">上下文类别概率调整</span></a></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#Reward"><span class="toc-content-number">1.2.3.</span> <span class="toc-content-text">Reward</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E5%A5%96%E5%8A%B1%E5%88%86%E7%A6%BB"><span class="toc-content-number">1.2.3.1.</span> <span class="toc-content-text">奖励分离</span></a></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E7%9B%AE%E6%A0%87%E5%87%BD%E6%95%B0"><span class="toc-content-number">1.2.4.</span> <span class="toc-content-text">目标函数</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#Expr"><span class="toc-content-number">1.3.</span> <span class="toc-content-text">Expr</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%AE%9E%E9%AA%8C%E8%AE%BE%E7%BD%AE"><span class="toc-content-number">1.3.1.</span> <span class="toc-content-text">实验设置</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E6%A8%A1%E5%9E%8B%E5%8F%98%E4%BD%93%E5%AF%B9%E6%AF%94"><span class="toc-content-number">1.3.1.1.</span> <span class="toc-content-text">模型变体对比</span></a></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#MS-COCO2015"><span class="toc-content-number">1.3.2.</span> <span class="toc-content-text">MS COCO2015</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#RASCAL-VOC-2007"><span class="toc-content-number">1.3.3.</span> <span class="toc-content-text">RASCAL VOC 2007</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E6%B6%88%E8%9E%8D%E5%AE%9E%E9%AA%8C"><span class="toc-content-number">1.3.4.</span> <span class="toc-content-text">消融实验</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E5%8E%9F%E6%96%87"><span class="toc-content-number">1.4.</span> <span class="toc-content-text">原文</span></a></li></ol></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>

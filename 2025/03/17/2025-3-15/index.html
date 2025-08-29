@@ -1,0 +1,223 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="Uzkent, Burak, Christopher Yeh, and Stefano Ermon. “Efficient object detection in large images using deep reinforcement learning.” Proceedings of the IEEE&#x2F;CVF winter conference on applications of com">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-3-17-Uzkent-WACV-2020">
+<meta property="og:url" content="http://example.com/2025/03/17/2025-3-15/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="Uzkent, Burak, Christopher Yeh, and Stefano Ermon. “Efficient object detection in large images using deep reinforcement learning.” Proceedings of the IEEE&#x2F;CVF winter conference on applications of com">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250317234428744.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250317235114861.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250317235130635.png">
+<meta property="article:published_time" content="2025-03-17T06:39:30.000Z">
+<meta property="article:modified_time" content="2025-03-17T15:56:19.000Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="论文阅读">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250317234428744.png"><title>2025-3-17-Uzkent-WACV-2020 - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-3-17-Uzkent-WACV-2020</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-03-17</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-03-17</time></div>
+
+<div class="post-tags"><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></div></div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约1.5K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><blockquote>
+<p>Uzkent, Burak, Christopher Yeh, and Stefano Ermon. “Efficient object detection in large images using deep reinforcement learning.” <em>Proceedings of the IEEE/CVF winter conference on applications of computer vision</em>. 2020.</p>
+</blockquote>
+<p>又找到一篇是做RL for OD的，其引用约120+。</p>
+<p>等会看看，但是这个是2019放在arxiv上的，所以是没有添加detr/ViT的，所以是two-stage+RL。</p>
+<blockquote>
+<p>好的，我今天上课无聊看完了。非常想吐槽，首先，这个公式这块、依托；</p>
+<p>然后，这个实验，对比实验选用的、神奇的滑动窗口、等方法；为什么不用Faster RCNN之类的二阶段或者YOLO的来对比、我知道RL会有一些其他比较突出的参数、但是你做的是目标检测任务，难道不是应该以mAP、FPs等指标为先吗？</p>
+<p>最后，奇妙的显卡配置，一度以为我看错了——</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250317234428744.png" alt="image-20250317234428744"></p>
+</blockquote>
+<h1 id="Uzkent-WACV-2020"><a href="#Uzkent-WACV-2020" class="headerlink" title="Uzkent-WACV-2020"></a>Uzkent-WACV-2020</h1>
+
+	<div class="row">
+    <embed src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic/Pdf/Uzkent-WACV-2020.pdf" width="100%" height="550" type="application/pdf">
+	</div>
+
+
+
+<h2 id="奇妙实验部分"><a href="#奇妙实验部分" class="headerlink" title="奇妙实验部分"></a>奇妙实验部分</h2><h3 id="5-1-基线方法与当前最先进模型"><a href="#5-1-基线方法与当前最先进模型" class="headerlink" title="5.1. 基线方法与当前最先进模型"></a>5.1. 基线方法与当前最先进模型</h3><p>该部分介绍了几种用于目标检测的策略：</p>
+<ol>
+<li><strong>Sliding Window（滑动窗口）</strong><br> 这是一种传统的目标检测方法，通过在大图像上使用固定策略的滑动窗口来运行检测器。<ul>
+<li>采用两种检测器：<ul>
+<li><strong>粗粒度检测器（$f_d^c$）</strong>，用于低分辨率图像 $x_L^j$。</li>
+<li><strong>精细粒度检测器（$f_d^f$）</strong>，用于高分辨率图像 $x_H^j$。</li>
+</ul>
+</li>
+<li>该方法遍历所有可能的窗口，检测所有区域。</li>
+</ul>
+</li>
+<li><strong>Random Policy（随机策略）</strong><ul>
+<li>该策略通过均匀分布的方式，为每个图像块随机采样概率，并进行目标检测。</li>
+</ul>
+</li>
+<li><strong>Entropy Based Policy Sampling（基于熵的策略采样）</strong><ul>
+<li>先使用粗粒度检测器计算每个图像块的置信度$s_i^c$，该置信度基于检测到的目标数量计算： $s_i^c = \frac{1}{M} \sum_{m=1}^{M} c_m$ 其中，M 是检测到的目标数量，$c_m$ 表示检测到的目标得分。</li>
+<li>若$s_i^c$ 超过阈值，则进一步使用精细粒度检测器$s_j^f$ 进行高分辨率检测。</li>
+</ul>
+</li>
+<li><strong>Dynamic Zoom-in Network（动态缩放网络）</strong><ul>
+<li>参考了一种 <strong>state-of-the-art</strong> 方法，用于在大图像中高效检测目标。</li>
+<li>该方法原本用于 640×480 图像，但不适用于 3000px 以上的大图像。因此，在实验中，对该方法进行了适配，使其能在更大尺寸的图像上运行。</li>
+</ul>
+</li>
+<li><strong>Variants of the Proposed Approach（提出方法的变体）</strong><ul>
+<li><strong>仅粗粒度检测（Coarse Level Only）</strong>：只使用粗粒度策略，检测 $x_L^i$。</li>
+<li><strong>仅精细粒度检测（Fine Level Only）</strong>：只使用精细粒度策略，检测$x_H^i$。</li>
+</ul>
+</li>
+</ol>
+<h3 id="5-2-实现细节"><a href="#5-2-实现细节" class="headerlink" title="5.2. 实现细节"></a>5.2. 实现细节</h3><ol>
+<li><strong>Policy Networks（策略网络）</strong><ul>
+<li>使用 ResNet-34 作为策略网络，并在 ImageNet 上进行预训练。</li>
+<li>训练使用 4 块 <strong>NVIDIA 1080Ti GPU</strong>。</li>
+</ul>
+</li>
+<li><strong>Object Detectors（目标检测器）</strong><ul>
+<li>采用 <strong>YOLOv3</strong> 进行目标检测，骨干网络为 <strong>DarkNet-53</strong>。</li>
+<li>使用 <strong>单个 NVIDIA 1080Ti GPU</strong> 训练目标检测器。</li>
+</ul>
+</li>
+</ol>
+<h3 id="5-3-评估指标"><a href="#5-3-评估指标" class="headerlink" title="5.3. 评估指标"></a>5.3. 评估指标</h3><p>使用以下指标评估不同方法的性能：</p>
+<ul>
+<li>AP（Average Precision，平均精度）</li>
+<li>AR（Average Recall，平均召回率）</li>
+<li>运行时间（Run-time per image，单位 ms）</li>
+<li>高分辨率图像的采样比例（Ratio of sampled HR image）</li>
+<li>计算不同 IoU 阈值（0.50、0.55、0.60、…、0.95）下的 AP 和 AR。</li>
+</ul>
+<h3 id="5-4-在-xView-数据集上的实验"><a href="#5-4-在-xView-数据集上的实验" class="headerlink" title="5.4. 在 xView 数据集上的实验"></a>5.4. 在 xView 数据集上的实验</h3><ol>
+<li><p><strong>数据集介绍</strong></p>
+<ul>
+<li><p>使用 xView 数据集进行实验，该数据集包含 60 类物体，其中：</p>
+<ul>
+<li>训练集：846,221 张图像</li>
+<li>验证集和测试集：281,228 张图像</li>
+</ul>
+</li>
+<li><p>这些图像的分辨率较大（3,000px 以上）。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>目标检测器的训练</strong></p>
+<ul>
+<li>粗粒度检测器在 <strong>64×64</strong> 的低分辨率图像块$x_L^i$ 上运行。</li>
+<li>精细粒度检测器在 <strong>320×320</strong> 的高分辨率图像块 $x_H^i$ 上运行。</li>
+<li>粗粒度检测器和精细粒度检测器分别训练 <strong>65 轮和 87 轮</strong>。</li>
+</ul>
+</li>
+<li><p><strong>策略网络的训练</strong></p>
+<ul>
+<li>目标检测器权重 <strong>保持固定</strong>，仅训练策略网络。</li>
+<li>初始大图像被裁剪成 <strong>2,400×2,400</strong> 的块，并再划分为 <strong>16 个 600×600</strong> 的子块。</li>
+<li>CPNet 采用 <strong>448×448</strong> 的下采样图像进行训练，而 FPNet 采用 <strong>112×112</strong> 的子块进行训练。</li>
+<li>在最终阶段，CPNet 和 FPNet 均采用 <strong>512 batch size</strong> 训练，训练轮数分别为 <strong>459 轮和 643 轮</strong>。</li>
+</ul>
+</li>
+</ol>
+<h3 id="5-5-定量与定性分析"><a href="#5-5-定量与定性分析" class="headerlink" title="5.5. 定量与定性分析"></a>5.5. 定量与定性分析</h3><ol>
+<li><p><strong>效率对比</strong>：级联方法 CPNet+FPNet提供了最佳的运行时间和信息获取效率：</p>
+<ul>
+<li>AP 和 AR 分别提高 <strong>0.9%-1.2%</strong>。</li>
+<li>相比滑动窗口方法，HR 采样率减少 <strong>31.5%</strong>。</li>
+<li>运行时间比基线方法快 <strong>2.2 倍</strong>。</li>
+</ul>
+</li>
+<li><p><strong>策略学习可视化</strong>：Figure 3显示了 CPNet 和 FPNet学习到的策略：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250317235114861.png" alt="image-20250317235114861"></p>
+<ul>
+<li>CPNet 在 <strong>目标较小的区域</strong> 选择 HR 采样。</li>
+<li>FPNet 在 <strong>包含较多目标的区域</strong> 选择 HR 采样。</li>
+</ul>
+</li>
+<li><p><strong>缩放行为分析</strong>：Figure 4显示了 CPNet 和 FPNet 缩放概率与目标数目/大小的关系：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250317235130635.png" alt="image-20250317235130635"></p>
+<ul>
+<li>目标越多，缩放概率越高。</li>
+<li>FPNet 主要在 <strong>目标尺寸较大的区域</strong> 进行缩放。</li>
+</ul>
+</li>
+<li><p><strong>消融实验</strong>：移除粗粒度检测器后、</p>
+<ul>
+<li><strong>运行时间下降</strong>，效率提高约 <strong>13%</strong>。</li>
+<li><strong>HR 采样增加</strong>。</li>
+</ul>
+</li>
+</ol>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li><p><strong>滑动窗口、随机策略和熵策略</strong>是基础方法。</p>
+</li>
+<li><p><strong>动态缩放网络</strong> 进行高效检测，但需要适配大图像。</p>
+</li>
+<li><p>提出的 CPNet+FPNet 级联方法通过策略网络学习，显著提升了运行效率和目标检测精度：</p>
+<ul>
+<li><strong>减少 HR 采样，提高运行速度</strong>。</li>
+</ul>
+</li>
+<li><strong>在小目标区域使用 HR，大目标区域使用 LR</strong>，优化资源利用。</li>
+</ul>
+<p>这项实验表明，通过策略网络的学习，可以在高分辨率图像检测任务中 <strong>平衡计算开销与检测精度</strong>，为高效目标检测提供了一种有效的方法。</p>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/03/17/2025-3-17-%E6%9D%82%E8%B0%88/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/03/15/2025-3-15-Deformable%E2%80%94DETR/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#Uzkent-WACV-2020"><span class="toc-content-number">1.</span> <span class="toc-content-text">Uzkent-WACV-2020</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E5%A5%87%E5%A6%99%E5%AE%9E%E9%AA%8C%E9%83%A8%E5%88%86"><span class="toc-content-number">1.1.</span> <span class="toc-content-text">奇妙实验部分</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#5-1-%E5%9F%BA%E7%BA%BF%E6%96%B9%E6%B3%95%E4%B8%8E%E5%BD%93%E5%89%8D%E6%9C%80%E5%85%88%E8%BF%9B%E6%A8%A1%E5%9E%8B"><span class="toc-content-number">1.1.1.</span> <span class="toc-content-text">5.1. 基线方法与当前最先进模型</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#5-2-%E5%AE%9E%E7%8E%B0%E7%BB%86%E8%8A%82"><span class="toc-content-number">1.1.2.</span> <span class="toc-content-text">5.2. 实现细节</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#5-3-%E8%AF%84%E4%BC%B0%E6%8C%87%E6%A0%87"><span class="toc-content-number">1.1.3.</span> <span class="toc-content-text">5.3. 评估指标</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#5-4-%E5%9C%A8-xView-%E6%95%B0%E6%8D%AE%E9%9B%86%E4%B8%8A%E7%9A%84%E5%AE%9E%E9%AA%8C"><span class="toc-content-number">1.1.4.</span> <span class="toc-content-text">5.4. 在 xView 数据集上的实验</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#5-5-%E5%AE%9A%E9%87%8F%E4%B8%8E%E5%AE%9A%E6%80%A7%E5%88%86%E6%9E%90"><span class="toc-content-number">1.1.5.</span> <span class="toc-content-text">5.5. 定量与定性分析</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-content-number">1.1.6.</span> <span class="toc-content-text">总结</span></a></li></ol></li></ol></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="知识点Transformer [x] 介绍transformer架构 [x] 详细说一下Decoder的因果注意力 （也叫掩码自注意力）QKV分别来自哪 [x] self-attention: Attention为什么要做scaled 不做会怎么样 为什么用根号$\sqrt{d_k}$ [x] Transformer怎么做加速训练（KV缓存） 训练和推理有什么区别（并行化） [x] Attenti">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-4-22-字节面试准备">
+<meta property="og:url" content="http://example.com/2025/04/22/2025-4-22-%E5%AD%97%E8%8A%82%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="知识点Transformer [x] 介绍transformer架构 [x] 详细说一下Decoder的因果注意力 （也叫掩码自注意力）QKV分别来自哪 [x] self-attention: Attention为什么要做scaled 不做会怎么样 为什么用根号$\sqrt{d_k}$ [x] Transformer怎么做加速训练（KV缓存） 训练和推理有什么区别（并行化） [x] Attenti">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/v2-65dcc3fe507b8ac8e7bdbb030006f38b_1440w.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/E9C481EF1EECC6C346B42C946430FD2B">
+<meta property="article:published_time" content="2025-04-22T13:08:24.000Z">
+<meta property="article:modified_time" content="2025-05-15T13:00:06.000Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="深度学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/v2-65dcc3fe507b8ac8e7bdbb030006f38b_1440w.jpg"><title>2025-4-22-字节面试准备 - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-4-22-字节面试准备</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-04-22</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-05-15</time></div>
+<div class="post-categories"><i class="icon fa-regular fa-folder-open" title="分类"></i><a class="post-category" href="/categories/%E9%9D%A2%E7%BB%8F/">面经</a></div>
+<div class="post-tags"><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></div></div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约1.1K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><h3 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h3><ul>
+<li>[x] 介绍transformer架构</li>
+<li>[x] 详细说一下Decoder的因果注意力 （也叫掩码自注意力）QKV分别来自哪</li>
+<li>[x] self-attention: Attention为什么要做scaled 不做会怎么样 为什么用根号$\sqrt{d_k}$</li>
+<li>[x] Transformer怎么做加速训练（KV缓存） 训练和推理有什么区别（并行化）</li>
+<li>[x] Attention的复杂度是多少？</li>
+</ul>
+<blockquote>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Q</th>
+<th>K</th>
+<th>V</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>交叉注意力层</td>
+<td>解码器中因果注意力层的输出向量</td>
+<td>编码器输出的注意力向量</td>
+<td>编码器输出的注意力向量</td>
+</tr>
+<tr>
+<td>因果注意力层</td>
+<td>输出序列中的<strong>当前位置词向量</strong></td>
+<td>输出序列中的所有位置词向量</td>
+<td>输出序列中的所有位置词向量</td>
+</tr>
+<tr>
+<td>全局自注意力层</td>
+<td>输入序列中的当前位置词向量</td>
+<td>输入序列中的当前位置词向量</td>
+<td>输入序列中的当前位置词向量</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/v2-65dcc3fe507b8ac8e7bdbb030006f38b_1440w.jpg" alt="img"></p>
+</blockquote>
+<h3 id="LoRA"><a href="#LoRA" class="headerlink" title="LoRA"></a>LoRA</h3><ul>
+<li>[ ] LoRA是什么？有什么好处</li>
+<li>[ ] 知道PEFT吗 讲一下LoRA/微调用的LoRA介绍一下LoRA</li>
+<li>[ ] LoRA初始化怎么做的，用的秩是多少，为什么不选其他的数</li>
+</ul>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ul>
+<li><p>[ ] 知道RLHF吗？讲一下训练流程</p>
+</li>
+<li><p>[ ] bn/ln(batch norm,layer norm,RMS norm)</p>
+</li>
+<li><p>[ ] bn训练阶段和测试阶段区别，详细讲讲原理</p>
+</li>
+<li><p>[ ] dropout原理，训练阶段和测试阶段区别，为什么</p>
+</li>
+<li><p>[ ] 优化器的原理</p>
+</li>
+<li><p>[ ] PPO的原理，损失函数</p>
+</li>
+<li><p>[ ] 残差链接的概念</p>
+</li>
+<li><p>[x] 介绍一下LSTM，为什么LSTM能解决梯度消失或者梯度爆炸，LSTM全称叫长短时记忆神经网络，为什么叫“长短时”</p>
+</li>
+<li><p>[x] 梯度消失或者梯度爆炸</p>
+</li>
+<li><p>[ ] 知识蒸馏损失函数</p>
+</li>
+<li><p>[ ] 交叉熵损失、符号以及含义、梯度下降方向是？代码</p>
+</li>
+<li><p>[ ] 二分类任务损失函数是？最后一层的激活函数是？</p>
+</li>
+<li><p>[ ] 回归任务的损失函数可以用哪些？为什么回归使用MSE而不用交叉熵？</p>
+</li>
+<li><p>[ ] 对比学习？增量学习？</p>
+</li>
+<li><p>[ ] 神经网络权重可以全部初始化为0吗、为什么？</p>
+</li>
+<li><p>[ ] 长尾问题的解决方案？为什么长尾侧用MSE、短尾侧用MAE？</p>
+</li>
+<li><p>[ ] CTR问题用的什么loss？可以用MSE吗、为什么？</p>
+</li>
+</ul>
+<h3 id="搜广推"><a href="#搜广推" class="headerlink" title="搜广推"></a>搜广推</h3><ul>
+<li>[ ] 推荐链路是怎么运作的 有哪些模块</li>
+<li>[ ] 如何做排序模型的迭代</li>
+<li>[ ] MAP（最大后验概率）和似然函数有什么关系？</li>
+<li>[ ] 什么情况下，MAP的损失函数可以用NMSE来计算？（高斯噪声）</li>
+<li>[ ] 推荐算法了解哪些？</li>
+</ul>
+<h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><ul>
+<li>[ ] 跳表和二叉树的区别是什么？</li>
+<li>[ ] b+ 树 和 b树的区别， 为什么innodb索引用b+ 不用b</li>
+</ul>
+<h3 id="程序设计语言"><a href="#程序设计语言" class="headerlink" title="程序设计语言"></a>程序设计语言</h3><ul>
+<li>[ ] cpp五种内存类型：如堆、栈</li>
+<li>[ ] python中可变/不可变类型</li>
+<li>[ ] 深拷贝/浅拷贝</li>
+<li>[ ] python中的decorator</li>
+<li>[ ] 智能指针？其作用？与auto区别？</li>
+<li>[ ] 野指针？</li>
+<li>[ ] 面向对象三要素：继承、多态、封装</li>
+</ul>
+<h3 id="软工"><a href="#软工" class="headerlink" title="软工"></a>软工</h3><ul>
+<li>[ ] 设计模式：工厂模式等等</li>
+</ul>
+<h2 id="手撕算法"><a href="#手撕算法" class="headerlink" title="手撕算法"></a>手撕算法</h2><ul>
+<li>[ ] 单调递增数组nums，判断target是否在里面，要求复杂度为log（n）</li>
+<li>[ ] 最大连续子数列</li>
+<li>[ ] TOP K大的数</li>
+<li>[ ] 全排列（口述全排列 II）</li>
+<li>[ ] 合并 K 个升序链表</li>
+<li>[ ] 有序列表是否有数占了数组的一半以上</li>
+<li>[ ] 二叉树最近祖先</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/E9C481EF1EECC6C346B42C946430FD2B" alt="img"></p>
+<h2 id="手撕ML-DL"><a href="#手撕ML-DL" class="headerlink" title="手撕ML/DL"></a>手撕ML/DL</h2><ol>
+<li>numpy实现全连接层</li>
+<li>讲一下multi-head attention 用pytorch手撕一下 要可以实现cross attention的</li>
+<li>手撕attention</li>
+<li>手撕交叉熵</li>
+<li>sigmoid梯度下降</li>
+</ol>
+<h3 id="numpy实现全连接层"><a href="#numpy实现全连接层" class="headerlink" title="numpy实现全连接层"></a>numpy实现全连接层</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">LinearLayer</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,in_deatures,out_features</span>):</span><br><span class="line">        <span class="variable language_">self</span>.W=np.random.randn(in_features, out_features) * <span class="number">0.01</span></span><br><span class="line">        <span class="variable language_">self</span>.b=np.zeros((<span class="number">1</span>,out_features))</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self,x</span>):</span><br><span class="line">        <span class="variable language_">self</span>.x=x</span><br><span class="line">        <span class="variable language_">self</span>.z=x@<span class="variable language_">self</span>.W+<span class="variable language_">self</span>.b</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.z</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">backward</span>(<span class="params">self,grad_output,lr=<span class="number">0.001</span></span>):</span><br><span class="line">        <span class="comment"># grad_output: 上一层传来的 dL/dz</span></span><br><span class="line">        grad_input=grad_output@<span class="variable language_">self</span>.W.T</span><br><span class="line">        grad_W=<span class="variable language_">self</span>.X.T@grad_output</span><br><span class="line">        grad_b=num.<span class="built_in">sum</span>(grad_output,axis=<span class="number">0</span>,keepdims=<span class="literal">True</span>)</span><br><span class="line">        <span class="comment"># 参数更新--S</span></span><br><span class="line">        <span class="variable language_">self</span>.W -= lr * grad_W</span><br><span class="line">        <span class="variable language_">self</span>.b -= lr * grad_b</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> grad_input</span><br></pre></td></tr></table></figure>
+<h3 id="梯度下降"><a href="#梯度下降" class="headerlink" title="梯度下降"></a>梯度下降</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sigmoid</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>/(<span class="number">1</span>+np.exp(-x))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sigmoid_derix</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="comment">#  MSE</span></span><br><span class="line">    s=sigmoid(x)</span><br><span class="line">    <span class="keyword">return</span> s*(<span class="number">1</span>-s)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 初始化参数</span></span><br><span class="line">w = np.random.randn()</span><br><span class="line">b = np.random.randn()</span><br><span class="line">lr = <span class="number">0.1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 假设数据集</span></span><br><span class="line">x = <span class="number">0.5</span></span><br><span class="line">y = <span class="number">1.0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">100</span>):</span><br><span class="line">    <span class="comment"># forward</span></span><br><span class="line">    z = w * x + b</span><br><span class="line">    y_hat = sigmoid(z)</span><br><span class="line">    loss = <span class="number">0.5</span> * (y - y_hat)**<span class="number">2</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># backward</span></span><br><span class="line">    dL_dy = y_hat - y</span><br><span class="line">    dy_dz = sigmoid_deriv(z)</span><br><span class="line">    dz_dw = x</span><br><span class="line">    dz_db = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 链式法则</span></span><br><span class="line">    dL_dw = dL_dy * dy_dz * dz_dw</span><br><span class="line">    dL_db = dL_dy * dy_dz * dz_db</span><br><span class="line"></span><br><span class="line">    <span class="comment"># update</span></span><br><span class="line">    w -= lr * dL_dw</span><br><span class="line">    b -= lr * dL_db</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> i % <span class="number">10</span> == <span class="number">0</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Iter <span class="subst">&#123;i&#125;</span>: loss = <span class="subst">&#123;loss:<span class="number">.4</span>f&#125;</span>&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/04/23/2025-4-23-%E6%A2%AF%E5%BA%A6%E6%B6%88%E5%A4%B1-%E7%88%86%E7%82%B8/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/04/22/2025-4-22-%E6%95%B0%E6%8D%AE%E9%9B%86%E6%94%B6%E9%9B%86%E5%B7%A5%E4%BD%9C%E6%8E%A8%E8%BF%9B/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="toc-content-number">1.</span> <span class="toc-content-text">知识点</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#Transformer"><span class="toc-content-number">1.1.</span> <span class="toc-content-text">Transformer</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#LoRA"><span class="toc-content-number">1.2.</span> <span class="toc-content-text">LoRA</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-content-number">1.3.</span> <span class="toc-content-text">其他</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E6%90%9C%E5%B9%BF%E6%8E%A8"><span class="toc-content-number">1.4.</span> <span class="toc-content-text">搜广推</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-content-number">1.5.</span> <span class="toc-content-text">数据结构</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80"><span class="toc-content-number">1.6.</span> <span class="toc-content-text">程序设计语言</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E8%BD%AF%E5%B7%A5"><span class="toc-content-number">1.7.</span> <span class="toc-content-text">软工</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E6%89%8B%E6%92%95%E7%AE%97%E6%B3%95"><span class="toc-content-number">2.</span> <span class="toc-content-text">手撕算法</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E6%89%8B%E6%92%95ML-DL"><span class="toc-content-number">3.</span> <span class="toc-content-text">手撕ML&#x2F;DL</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#numpy%E5%AE%9E%E7%8E%B0%E5%85%A8%E8%BF%9E%E6%8E%A5%E5%B1%82"><span class="toc-content-number">3.1.</span> <span class="toc-content-text">numpy实现全连接层</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D"><span class="toc-content-number">3.2.</span> <span class="toc-content-text">梯度下降</span></a></li></ol></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>

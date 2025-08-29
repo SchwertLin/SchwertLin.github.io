@@ -1,0 +1,129 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="对于nn.Embeddding的理解nn.Embedding(num_embeddings, embedding_dim)是一个索引表。根据输入，给出对应索引的向量。  num_embeddings → 索引的长度。 embedding_dim → 索引idx对应的向量，维度是：embedding_dim x 1。  与nn.Linear的区别我一开始初看此概念，会觉得比较类似于nn.Linear">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-6-27-对于nn.Embeddding的理解">
+<meta property="og:url" content="http://example.com/2025/06/27/2025-6-27/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="对于nn.Embeddding的理解nn.Embedding(num_embeddings, embedding_dim)是一个索引表。根据输入，给出对应索引的向量。  num_embeddings → 索引的长度。 embedding_dim → 索引idx对应的向量，维度是：embedding_dim x 1。  与nn.Linear的区别我一开始初看此概念，会觉得比较类似于nn.Linear">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-06-27T02:28:31.000Z">
+<meta property="article:modified_time" content="2025-06-30T14:29:24.000Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="每天の学习日记">
+<meta name="twitter:card" content="summary"><title>2025-6-27-对于nn.Embeddding的理解 - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-6-27-对于nn.Embeddding的理解</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-06-27</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-06-30</time></div>
+
+<div class="post-tags"><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E6%AF%8F%E5%A4%A9%E3%81%AE%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/">每天の学习日记</a></div></div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约0.5K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><h1 id="对于nn-Embeddding的理解"><a href="#对于nn-Embeddding的理解" class="headerlink" title="对于nn.Embeddding的理解"></a>对于<code>nn.Embeddding</code>的理解</h1><p><code>nn.Embedding(num_embeddings, embedding_dim)</code>是一个索引表。根据输入，给出对应索引的向量。</p>
+<ul>
+<li><code>num_embeddings</code> → 索引的长度。</li>
+<li><code>embedding_dim</code> → 索引idx对应的向量，维度是：<code>embedding_dim x 1</code>。</li>
+</ul>
+<h2 id="与nn-Linear的区别"><a href="#与nn-Linear的区别" class="headerlink" title="与nn.Linear的区别"></a>与<code>nn.Linear</code>的区别</h2><p>我一开始初看此概念，会觉得比较类似于<code>nn.Linear</code>，现在看来区别非常大？这样。</p>
+<p>虽然都是给定输入、得到输出。但是<code>nn.Embedding</code>是去查自己的索引表（<strong>本身</strong>就有的）给出输出；而<code>nn.Linear</code>则是根据公式$\mathbf{w^T x+b}$<strong>计算</strong>得到的输出。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>特点</th>
+<th><code>nn.Embedding</code></th>
+<th><code>nn.Linear</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>输入</td>
+<td>整数（索引）</td>
+<td>向量</td>
+</tr>
+<tr>
+<td>本质</td>
+<td>查表（取向量）</td>
+<td>线性变换（矩阵乘法）</td>
+</tr>
+<tr>
+<td>输出</td>
+<td>向量</td>
+<td>向量</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="结合例子理解"><a href="#结合例子理解" class="headerlink" title="结合例子理解"></a>结合例子理解</h2><p>假设有 5 个单词，分别编号为 0～4，现在你想用 <code>nn.Embedding</code> 把它们变成“向量”，然后送进神经网络进行后续处理。首先定义一个 <code>Embedding</code> 层（省略导入库）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">embedding = nn.Embedding(num_embeddings=<span class="number">5</span>, embedding_dim=<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>num_embeddings=5</code>：说明我们最多支持 5 个词（编号 0～4）</li>
+<li><code>embedding_dim=3</code>：每个词都表示成长度为 3 的向量</li>
+</ul>
+<p>本质上它内部是一个 <code>5×3</code> 的矩阵，就像这样（随机初始化）：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[[ 0.1, -0.2, 0.3],    # 第0个词</span><br><span class="line"> [ 0.4,  0.0, 0.5],    # 第1个词</span><br><span class="line"> [-0.1, 0.6, 0.7],     # 第2个词</span><br><span class="line"> [ 0.2, 0.3, -0.2],    # 第3个词</span><br><span class="line"> [ 0.0, -0.1, 0.1]]    # 第4个词</span><br></pre></td></tr></table></figure>
+<p>现在我们模拟一个句子作为输入的“索引序列”，比如是词编号 <code>[1, 2, 4]</code>，用 <code>torch.LongTensor</code> 来表示：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">input_ids = torch.LongTensor([<span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>])</span><br></pre></td></tr></table></figure>
+<p>🎯 <strong>注意</strong>：<code>Embedding</code> 只能接受整数（Long 类型），表示索引！</p>
+<p>我们把这组索引喂进 <code>embedding</code> 层：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">output = embedding(input_ids)</span><br><span class="line"><span class="built_in">print</span>(output)</span><br><span class="line"><span class="comment"># output:</span></span><br><span class="line"><span class="comment"># tensor([[ 0.4,  0.0,  0.5],     # 对应词1</span></span><br><span class="line"><span class="comment">#         [-0.1, 0.6,  0.7],     # 对应词2</span></span><br><span class="line"><span class="comment">#         [ 0.0, -0.1, 0.1]])    # 对应词4</span></span><br></pre></td></tr></table></figure>
+<h2 id="Embedding-层如何更新？"><a href="#Embedding-层如何更新？" class="headerlink" title="Embedding 层如何更新？"></a>Embedding 层如何更新？</h2><p>就像 <code>nn.Linear</code> 一样，<code>nn.Embedding</code> 的 weight 也是参数，可以随着训练更新。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(embedding.weight.requires_grad)  <span class="comment"># True</span></span><br></pre></td></tr></table></figure>
+<p>训练时，这个向量表会学到更有意义的表示。</p>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/06/27/2025-6-27-%E7%BA%A2%E6%A5%BC%E6%A2%A6/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/06/26/2025-6-26-1/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#%E5%AF%B9%E4%BA%8Enn-Embeddding%E7%9A%84%E7%90%86%E8%A7%A3"><span class="toc-content-number">1.</span> <span class="toc-content-text">对于nn.Embeddding的理解</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E4%B8%8Enn-Linear%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-content-number">1.1.</span> <span class="toc-content-text">与nn.Linear的区别</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E7%BB%93%E5%90%88%E4%BE%8B%E5%AD%90%E7%90%86%E8%A7%A3"><span class="toc-content-number">1.2.</span> <span class="toc-content-text">结合例子理解</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#Embedding-%E5%B1%82%E5%A6%82%E4%BD%95%E6%9B%B4%E6%96%B0%EF%BC%9F"><span class="toc-content-number">1.3.</span> <span class="toc-content-text">Embedding 层如何更新？</span></a></li></ol></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>

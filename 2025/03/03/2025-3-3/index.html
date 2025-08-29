@@ -1,0 +1,126 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="一、模型架构设计与改进 目标检测中，可能用大模型（教师）指导小模型（学生）的学习。但如何设计蒸馏的损失函数，比如特征图对齐或者预测分布匹配，需要考虑检测任务的特点，如边界框回归和分类。  1. 动态专家混合网络（MoE）改造 多尺度特征适配：将DeepSeek-MoE的专家网络与目标检测的FPN（特征金字塔）结合，每个专家专注于不同尺度的特征提取（如小目标、中目标、大目标），通过门控网络动态分配权">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-3-3">
+<meta property="og:url" content="http://example.com/2025/03/03/2025-3-3/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="一、模型架构设计与改进 目标检测中，可能用大模型（教师）指导小模型（学生）的学习。但如何设计蒸馏的损失函数，比如特征图对齐或者预测分布匹配，需要考虑检测任务的特点，如边界框回归和分类。  1. 动态专家混合网络（MoE）改造 多尺度特征适配：将DeepSeek-MoE的专家网络与目标检测的FPN（特征金字塔）结合，每个专家专注于不同尺度的特征提取（如小目标、中目标、大目标），通过门控网络动态分配权">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-03-03T06:59:41.000Z">
+<meta property="article:modified_time" content="2025-03-05T02:19:12.000Z">
+<meta property="article:author" content="Schwertlilien">
+<meta name="twitter:card" content="summary"><title>2025-3-3 - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-3-3</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-03-03</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-03-05</time></div>
+
+</div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约1.2K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><h3 id="一、模型架构设计与改进"><a href="#一、模型架构设计与改进" class="headerlink" title="一、模型架构设计与改进"></a>一、模型架构设计与改进</h3><blockquote>
+<p>目标检测中，可能用大模型（教师）指导小模型（学生）的学习。但如何设计蒸馏的损失函数，比如特征图对齐或者预测分布匹配，需要考虑检测任务的特点，如边界框回归和分类。</p>
+</blockquote>
+<h4 id="1-动态专家混合网络（MoE）改造"><a href="#1-动态专家混合网络（MoE）改造" class="headerlink" title="1. 动态专家混合网络（MoE）改造"></a>1. <strong>动态专家混合网络（MoE）改造</strong></h4><ul>
+<li><strong>多尺度特征适配</strong>：将DeepSeek-MoE的专家网络与目标检测的FPN（特征金字塔）结合，每个专家专注于不同尺度的特征提取（如小目标、中目标、大目标），通过门控网络动态分配权重。</li>
+<li><strong>MLE驱动的检测头优化</strong>：采用最大似然估计（MLE）替代传统边界框回归的L1/L2损失，直接优化检测框的概率分布，增强模型对定位不确定性的鲁棒性。</li>
+<li><strong>注意力融合模块</strong>：引入DeepSeek-R1中的跨尺度注意力（CSAM）和动态蛇形卷积（DySnakeConv），提升对形变目标的检测能力。</li>
+</ul>
+<h4 id="2-轻量化骨干网络"><a href="#2-轻量化骨干网络" class="headerlink" title="2. 轻量化骨干网络"></a>2. <strong>轻量化骨干网络</strong></h4><ul>
+<li><strong>GhostNet+ShuffleNet混合设计</strong>：参考DeepSeek-R1的分层设计，在浅层使用GhostNet减少计算量，深层采用ShuffleNet增强特征表达能力，平衡速度与精度。</li>
+<li><strong>自适应量化</strong>：部署时对骨干网络进行8bit量化，检测头保留16bit浮点运算，结合TVM编译器优化算子融合。</li>
+</ul>
+<h3 id="二、训练策略优化"><a href="#二、训练策略优化" class="headerlink" title="二、训练策略优化"></a>二、训练策略优化</h3><blockquote>
+<p>RL可能用于优化检测过程中的某些策略，比如选择区域提议或者调整检测框。但如何设计奖励函数是个难点，需要明确优化目标，比如准确率与召回率的平衡。</p>
+</blockquote>
+<h4 id="1-强化学习驱动的检测策略优化"><a href="#1-强化学习驱动的检测策略优化" class="headerlink" title="1. 强化学习驱动的检测策略优化"></a>1. <strong>强化学习驱动的检测策略优化</strong></h4><ul>
+<li><strong>奖励函数设计</strong>：<ul>
+<li><strong>定位奖励</strong>：基于3D IoU（空间IoU × 时序一致性）动态调整边界框回归权重。</li>
+<li><strong>分类奖励</strong>：结合分类置信度与真实标签的KL散度，鼓励模型对困难样本的聚焦。</li>
+</ul>
+</li>
+<li><strong>GRPO算法应用</strong>：采用群体相对策略优化（Group Relative Policy Optimization），通过多组策略对比优化检测头的生成策略，避免传统PPO的高计算成本。</li>
+</ul>
+<h4 id="2-知识蒸馏技术迁移"><a href="#2-知识蒸馏技术迁移" class="headerlink" title="2. 知识蒸馏技术迁移"></a>2. <strong>知识蒸馏技术迁移</strong></h4><ul>
+<li><strong>多阶段蒸馏框架</strong>：<ol>
+<li><strong>特征蒸馏</strong>：使用Cascade R-CNN作为教师模型，指导学生模型（如YOLO）的特征图对齐，通过L2损失约束中间层响应。</li>
+<li><strong>逻辑蒸馏</strong>：提取教师模型的CoT（思维链）式检测逻辑（如区域提议→分类→精调），通过注意力转移损失指导学生模型模仿推理路径。</li>
+<li><strong>动态软标签</strong>：将教师模型的分类概率分布（软标签）与学生模型的输出进行KL散度约束，增强小模型对模糊样本的处理能力。</li>
+</ol>
+</li>
+<li><strong>拒绝采样增强数据质量</strong>：仅保留教师模型高置信度的检测结果作为蒸馏数据，过滤低质量样本</li>
+</ul>
+<h3 id="三、监督微调与数据增强"><a href="#三、监督微调与数据增强" class="headerlink" title="三、监督微调与数据增强"></a>三、监督微调与数据增强</h3><h4 id="1-冷启动数据构建"><a href="#1-冷启动数据构建" class="headerlink" title="1. 冷启动数据构建"></a>1. <strong>冷启动数据构建</strong></h4><ul>
+<li><strong>合成数据生成</strong>：利用Diffusion模型生成遮挡、光照变化的图像，结合GAN生成跨域风格数据，扩充训练集多样性。</li>
+<li><strong>思维链标注</strong>：为检测任务设计“推理链”标注（如“区域提议→分类→边界修正”），通过少量人工标注引导模型学习多步推理。</li>
+</ul>
+<h4 id="2-渐进式微调策略"><a href="#2-渐进式微调策略" class="headerlink" title="2. 渐进式微调策略"></a>2. <strong>渐进式微调策略</strong></h4><ul>
+<li><strong>三阶段训练</strong>：<ol>
+<li><strong>基础预训练</strong>：在COCO数据集上预训练骨干网络。</li>
+<li><strong>任务适配微调</strong>：使用目标领域数据（如VisDrone）进行监督微调，结合动态数据增强（如Mosaic比例自适应调整）。</li>
+<li><strong>强化学习精调</strong>：在微调后的模型上应用GRPO算法，优化长尾类别检测效果。</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p>可能的解决方案包括：使用CNN或ViT处理图像输入，调整Transformer结构以适应密集预测任务，设计适合检测的RL奖励机制，定制化的知识蒸馏策略，以及分阶段微调模型。同时，需要关注计算资源，因为目标检测通常需要处理高分辨率图像，计算开销较大。</p>
+<p>用户可能需要参考DETR的结构，结合RL和KD，比如在训练过程中使用RL优化检测框的生成，或者用KD从复杂模型迁移到更高效的模型。此外，数据增强和预训练策略也很重要，尤其是在数据量有限的情况下。</p>
+<p>总结来说，主要难点在于输入处理、模型结构调整、RL和KD在检测任务中的有效应用，以及计算效率的优化。解决方案需要结合目标检测的最新方法，灵活调整DeepSeek-R1的组件，并进行充分的实验验证。</p>
+</blockquote>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/03/04/2025-3-4/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/03/02/2025-3-2/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E4%B8%80%E3%80%81%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%94%B9%E8%BF%9B"><span class="toc-content-number">1.</span> <span class="toc-content-text">一、模型架构设计与改进</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#1-%E5%8A%A8%E6%80%81%E4%B8%93%E5%AE%B6%E6%B7%B7%E5%90%88%E7%BD%91%E7%BB%9C%EF%BC%88MoE%EF%BC%89%E6%94%B9%E9%80%A0"><span class="toc-content-number">1.1.</span> <span class="toc-content-text">1. 动态专家混合网络（MoE）改造</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#2-%E8%BD%BB%E9%87%8F%E5%8C%96%E9%AA%A8%E5%B9%B2%E7%BD%91%E7%BB%9C"><span class="toc-content-number">1.2.</span> <span class="toc-content-text">2. 轻量化骨干网络</span></a></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E4%BA%8C%E3%80%81%E8%AE%AD%E7%BB%83%E7%AD%96%E7%95%A5%E4%BC%98%E5%8C%96"><span class="toc-content-number">2.</span> <span class="toc-content-text">二、训练策略优化</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#1-%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E9%A9%B1%E5%8A%A8%E7%9A%84%E6%A3%80%E6%B5%8B%E7%AD%96%E7%95%A5%E4%BC%98%E5%8C%96"><span class="toc-content-number">2.1.</span> <span class="toc-content-text">1. 强化学习驱动的检测策略优化</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#2-%E7%9F%A5%E8%AF%86%E8%92%B8%E9%A6%8F%E6%8A%80%E6%9C%AF%E8%BF%81%E7%A7%BB"><span class="toc-content-number">2.2.</span> <span class="toc-content-text">2. 知识蒸馏技术迁移</span></a></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E4%B8%89%E3%80%81%E7%9B%91%E7%9D%A3%E5%BE%AE%E8%B0%83%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA"><span class="toc-content-number">3.</span> <span class="toc-content-text">三、监督微调与数据增强</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#1-%E5%86%B7%E5%90%AF%E5%8A%A8%E6%95%B0%E6%8D%AE%E6%9E%84%E5%BB%BA"><span class="toc-content-number">3.1.</span> <span class="toc-content-text">1. 冷启动数据构建</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#2-%E6%B8%90%E8%BF%9B%E5%BC%8F%E5%BE%AE%E8%B0%83%E7%AD%96%E7%95%A5"><span class="toc-content-number">3.2.</span> <span class="toc-content-text">2. 渐进式微调策略</span></a></li></ol></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>

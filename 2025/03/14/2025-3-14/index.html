@@ -1,0 +1,197 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="python .&#x2F;test.py —dataset food101 —model Conv4 —method baseline —num_classes 101   Test Acc &#x3D; 47.95% +- 0.69%  python test.py —dataset food172 —model Conv4 —method baseline  Test Acc &#x3D; 67.41% +- 0.71">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-3-14-继续实验">
+<meta property="og:url" content="http://example.com/2025/03/14/2025-3-14/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="python .&#x2F;test.py —dataset food101 —model Conv4 —method baseline —num_classes 101   Test Acc &#x3D; 47.95% +- 0.69%  python test.py —dataset food172 —model Conv4 —method baseline  Test Acc &#x3D; 67.41% +- 0.71">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250314163908242.png">
+<meta property="article:published_time" content="2025-03-14T08:37:28.000Z">
+<meta property="article:modified_time" content="2025-03-17T15:57:55.000Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="实验">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250314163908242.png"><title>2025-3-14-继续实验 - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-3-14-继续实验</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-03-14</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-03-17</time></div>
+
+<div class="post-tags"><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E5%AE%9E%E9%AA%8C/">实验</a></div></div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约1.6K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><blockquote>
+<p>python ./test.py —dataset food101 —model Conv4 —method baseline —num_classes 101</p>
+</blockquote>
+<p> Test Acc = 47.95% +- 0.69%</p>
+<blockquote>
+<p>python test.py —dataset food172 —model Conv4 —method baseline</p>
+</blockquote>
+<p>Test Acc = 67.41% +- 0.71%</p>
+<p>昨天的话稍微处理了一下数据，然后发现了存在一些问题：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250314163908242.png" alt="image-20250314163908242"></p>
+<p>事实证明，是我数据处理有一点问题：我给数据分类成了85：42：44，但是主要原因是因为类别只有171类。</p>
+<p>原因是类别中第47和100类的名称重复。于是修改了下名称，然后把给的json文件处理成我需要的形式，然后在CC上继续跑。</p>
+<p>当时稍微有点疑惑，然后发现大事不妙（？）</p>
+<p>就是有关于数据集的划分问题，师姐主要做的是开放词汇学习、需要我辅助做小样本方法来进行对比。</p>
+<p>然后我检索数据集划分的时候，发现真是众说纷纭。</p>
+<p>有的说是base,val,novel三类中的类别是互不相交的</p>
+<blockquote>
+<p>但是这是不是和迁移有点像了？？</p>
+</blockquote>
+<p>然后我又看了下某few-shot方法的代码，发现真的是base,val,novel中的类别是一致，但是数据占比不同。相当于是在同类别的图片上学习，然后后续给出一张全新的图片，也要能识别出来这是同类别的。</p>
+<blockquote>
+<p>这么说的话，感觉和普通的深度学习也好像没什么区别。</p>
+</blockquote>
+<p>然后去开发词汇方法（OMVR）上看了下它数据集划分的代码</p>
+<p>虽然是开放词汇，但是数据集的划分还是与上面一致（每种类别都有、只是占比不同），于是我就有点疑惑：不是说开放世界，需要能识别出之前根本就没见过的类别吗？</p>
+<p>于是去问了GPT，下面是它的回复：</p>
+<blockquote>
+<h2 id="开放词汇方法（Open-Vocabulary）划分特点"><a href="#开放词汇方法（Open-Vocabulary）划分特点" class="headerlink" title="开放词汇方法（Open Vocabulary）划分特点"></a>开放词汇方法（Open Vocabulary）划分特点</h2><ol>
+<li><strong>所有类别都出现在 train, val, test 中</strong><ul>
+<li>也就是说，每个数据集划分都覆盖了数据集中所有的类别。</li>
+<li>只是每个类别的数据在不同的划分中是不同的图片。</li>
+</ul>
+</li>
+<li><strong>基于比例划分数据</strong><ul>
+<li>一般按照 <code>train:val:test = 50%:20%:30%</code>（或者其他比例）来划分。</li>
+<li>例如，如果一个类别有 100 张图片：<ul>
+<li>50 张图片进入训练集</li>
+<li>20 张图片进入验证集</li>
+<li>30 张图片进入测试集</li>
+</ul>
+</li>
+<li>但这 <strong>不会影响类别的完整性</strong>，即训练、验证、测试集都会包含所有的类别。</li>
+</ul>
+</li>
+</ol>
+<p>疑问是：<strong>few-shot 训练集 (<code>train</code>) 和测试集 (<code>test</code>) 是否包含不同的类别，即它们是否是不相交的类别集？</strong></p>
+<p><strong>答案：No，few-shot 数据集中的 <code>train</code> 和 <code>test</code> 仍然是从相同的类别集中采样的，并没有明确执行 open-set 或 zero-shot 分割，即</strong>：</p>
+<ul>
+<li><strong>训练集 (<code>train</code>) 和测试集 (<code>test</code>) 仍然共享相同的类别集</strong>，只是<strong>数据样本不完全相同</strong>。</li>
+<li><code>generate_fewshot_dataset()</code> 只是<strong>在已有的训练集 (<code>train</code>) 和验证集 (<code>val</code>) 上</strong> 进行 <strong>few-shot 采样</strong>，并不会影响 <code>test</code> 的类别。</li>
+</ul>
+<h2 id="1-Few-shot-learning-的目标"><a href="#1-Few-shot-learning-的目标" class="headerlink" title="1. Few-shot learning 的目标"></a>1. Few-shot learning 的目标</h2><p>Few-shot learning 主要是希望 <strong>模型能在少量样本上进行有效学习</strong>，并在测试集上 <strong>泛化到相同类别的新样本</strong>。</p>
+<ul>
+<li>训练集 (<code>train</code>) 和测试集 (<code>test</code>) 通常 <strong>共享相同的类别集</strong>，只是 <strong>测试集包含不同的样本</strong>（同类别但不同图片）。</li>
+<li>重点在于<strong>如何从少量数据中学到类别的有效表示，并推广到新样本</strong>。</li>
+</ul>
+<p>📌 <strong>例子（Few-shot 设置）</strong></p>
+<ul>
+<li><p>训练集 (train)：</p>
+<ul>
+<li>🍕 Pizza：3 张</li>
+<li>🍔 Burger：3 张</li>
+<li>🍣 Sushi：3 张</li>
+</ul>
+</li>
+<li><p>测试集 (test)：</p>
+<ul>
+<li>🍕 Pizza：新图片</li>
+<li>🍔 Burger：新图片</li>
+<li>🍣 Sushi：新图片<br>👉 目标是让模型<strong>在仅见过 3 张 <code>Pizza</code> 的情况下，学会分类新的 <code>Pizza</code> 图片</strong>。</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-为什么-few-shot-任务不需要类别不相交？"><a href="#2-为什么-few-shot-任务不需要类别不相交？" class="headerlink" title="2. 为什么 few-shot 任务不需要类别不相交？"></a>2. 为什么 few-shot 任务不需要类别不相交？</h2><p>❌ 如果 <code>train</code> 和 <code>test</code> 使用完全 <strong>不相交的类别集</strong>，few-shot 任务就会变成 <strong>zero-shot learning</strong> 或 <strong>open-set learning</strong>，这与 few-shot 任务的初衷不同：</p>
+<ul>
+<li>Few-shot 任务是 <strong>小样本情况下的学习问题</strong>，即模型在训练时见过的类别，在测试时仍然需要分类。</li>
+<li>Zero-shot 任务是 <strong>模型需要识别训练时完全没见过的类别</strong>，依赖 <strong>类别的语义信息（如文本描述）</strong> 或 <strong>迁移学习</strong>。</li>
+</ul>
+<p>📌 <strong>例子（Zero-shot 设置）</strong></p>
+<ul>
+<li>训练集 <ul>
+<li>🍕 Pizza：3 张</li>
+<li>🍔 Burger：3 张</li>
+<li>🍣 Sushi：3 张</li>
+</ul>
+</li>
+<li>测试集 <ul>
+<li>🍎 Apple：新类别</li>
+<li>🍇 Grapes：新类别</li>
+<li>🍉 Watermelon：新类别<br> 👉 目标是让模型在<strong>完全没见过 <code>Apple</code> 的情况下，能识别 <code>Apple</code></strong>，这就属于 zero-shot learning。</li>
+</ul>
+</li>
+</ul>
+<p>✅ <strong>Few-shot learning 只是在相同类别上用少量样本训练，而不要求 <code>test</code> 里必须是没见过的类别</strong>。</p>
+<h2 id="3-Few-shot-训练集如何划分？"><a href="#3-Few-shot-训练集如何划分？" class="headerlink" title="3. Few-shot 训练集如何划分？"></a>3. Few-shot 训练集如何划分？</h2><p>在 few-shot 任务中，常见的数据划分方式有：</p>
+<ol>
+<li>标准划分（相同类别，少样本）：<ul>
+<li><code>train</code>、<code>val</code>、<code>test</code> <strong>共享相同的类别</strong>，但 <code>train</code> 只有少量样本。</li>
+<li><code>generate_fewshot_dataset()</code> 只是在 <code>train</code> 里采样少量数据，不影响 <code>test</code> 的类别。</li>
+</ul>
+</li>
+<li>N-way K-shot 任务（Meta-learning）：<ul>
+<li>训练阶段，每次 <strong>随机采样</strong> <code>N</code> 个类别，每个类别 <code>K</code> 张图片进行训练。</li>
+<li>测试阶段，使用相同的 <code>N</code> 个类别，但不同的样本进行测试。</li>
+<li>这种方法也不需要 <code>train</code> 和 <code>test</code> 具有不相交的类别。</li>
+</ul>
+</li>
+</ol>
+<h2 id="4-什么时候需要不相交类别？"><a href="#4-什么时候需要不相交类别？" class="headerlink" title="4. 什么时候需要不相交类别？"></a><strong>4. </strong>什么时候需要不相交类别<strong>？</strong></h2><p>如果你的任务是：</p>
+<ul>
+<li><strong>Zero-shot learning（零样本学习）</strong>：模型在 <code>test</code> 里看到的是完全没见过的类别，需要基于语义信息推理。</li>
+<li><strong>Open-vocabulary learning（开放词汇学习）</strong>：<code>test</code> 包含一些 <code>train</code> 没见过的类别，模型需要有能力推理新的类别。</li>
+</ul>
+<p>👉 这时候，你需要确保 <code>train</code> 和 <code>test</code> <strong>类别完全不重叠</strong>。</p>
+<h2 id="5-结论"><a href="#5-结论" class="headerlink" title="5. 结论"></a>5. 结论</h2><p>✅ <strong>Few-shot learning</strong> 任务<strong>不需要 <code>train</code> 和 <code>test</code> 的类别不相交</strong>，因为 few-shot 目标是<strong>在相同类别上学习如何泛化到新的样本</strong>。<br> ✅ <strong>Zero-shot learning</strong> 或 <strong>开放词汇学习</strong> 才需要 <code>train</code> 和 <code>test</code> 具有不相交的类别。<br>✅ <code>generate_fewshot_dataset()</code> 只是<strong>减少 <code>train</code> 的样本数</strong>，并不会改变 <code>test</code> 的类别分布。</p>
+</blockquote>
+<p><strong>错误：实际上开放词汇学习+Few-Shot都不要类别不相交，据GPT说Zero-Shot方法才需要类别不相交，这一点值得商榷。</strong></p>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/03/15/2025-5-15/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/03/13/2025-3-13-%E5%AE%9E%E9%AA%8C%E8%BF%9B%E5%B1%95/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E5%BC%80%E6%94%BE%E8%AF%8D%E6%B1%87%E6%96%B9%E6%B3%95%EF%BC%88Open-Vocabulary%EF%BC%89%E5%88%92%E5%88%86%E7%89%B9%E7%82%B9"><span class="toc-content-number">1.</span> <span class="toc-content-text">开放词汇方法（Open Vocabulary）划分特点</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#1-Few-shot-learning-%E7%9A%84%E7%9B%AE%E6%A0%87"><span class="toc-content-number">2.</span> <span class="toc-content-text">1. Few-shot learning 的目标</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#2-%E4%B8%BA%E4%BB%80%E4%B9%88-few-shot-%E4%BB%BB%E5%8A%A1%E4%B8%8D%E9%9C%80%E8%A6%81%E7%B1%BB%E5%88%AB%E4%B8%8D%E7%9B%B8%E4%BA%A4%EF%BC%9F"><span class="toc-content-number">3.</span> <span class="toc-content-text">2. 为什么 few-shot 任务不需要类别不相交？</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#3-Few-shot-%E8%AE%AD%E7%BB%83%E9%9B%86%E5%A6%82%E4%BD%95%E5%88%92%E5%88%86%EF%BC%9F"><span class="toc-content-number">4.</span> <span class="toc-content-text">3. Few-shot 训练集如何划分？</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#4-%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E9%9C%80%E8%A6%81%E4%B8%8D%E7%9B%B8%E4%BA%A4%E7%B1%BB%E5%88%AB%EF%BC%9F"><span class="toc-content-number">5.</span> <span class="toc-content-text">4. 什么时候需要不相交类别？</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#5-%E7%BB%93%E8%AE%BA"><span class="toc-content-number">6.</span> <span class="toc-content-text">5. 结论</span></a></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>

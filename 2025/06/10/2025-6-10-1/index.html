@@ -1,0 +1,437 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="国内外研究进展此部分主要从以下三个方面进行介绍：  单阶段、双阶段、端到端目标检测 Anchor-based 与 Anchor-free目标检测 基于强化学习的目标检测  单阶段、双阶段、端到端目标检测双阶段双阶段检测器遵循“先生成区域提议，再进行分类和回归”的策略，以高精度著称。  第 1 阶段：区域建议：第一阶段的目标是生成一组可管理的候选区域（感兴趣区域，或 RoIs），这些区域中可能存在物">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-6-10(1)">
+<meta property="og:url" content="http://example.com/2025/06/10/2025-6-10-1/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="国内外研究进展此部分主要从以下三个方面进行介绍：  单阶段、双阶段、端到端目标检测 Anchor-based 与 Anchor-free目标检测 基于强化学习的目标检测  单阶段、双阶段、端到端目标检测双阶段双阶段检测器遵循“先生成区域提议，再进行分类和回归”的策略，以高精度著称。  第 1 阶段：区域建议：第一阶段的目标是生成一组可管理的候选区域（感兴趣区域，或 RoIs），这些区域中可能存在物">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-06-10T08:30:57.000Z">
+<meta property="article:modified_time" content="2025-06-12T16:12:16.000Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="目标检测">
+<meta name="twitter:card" content="summary"><title>2025-6-10(1) - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-6-10(1)</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-06-10</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-06-13</time></div>
+
+<div class="post-tags"><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/">目标检测</a></div></div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约5.5K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><h1 id="国内外研究进展"><a href="#国内外研究进展" class="headerlink" title="国内外研究进展"></a>国内外研究进展</h1><p>此部分主要从以下三个方面进行介绍：</p>
+<ol>
+<li>单阶段、双阶段、端到端目标检测</li>
+<li>Anchor-based 与 Anchor-free目标检测</li>
+<li>基于强化学习的目标检测</li>
+</ol>
+<h2 id="单阶段、双阶段、端到端目标检测"><a href="#单阶段、双阶段、端到端目标检测" class="headerlink" title="单阶段、双阶段、端到端目标检测"></a>单阶段、双阶段、端到端目标检测</h2><h3 id="双阶段"><a href="#双阶段" class="headerlink" title="双阶段"></a>双阶段</h3><p>双阶段检测器遵循“先生成区域提议，再进行分类和回归”的策略，以高精度著称。</p>
+<ol>
+<li><strong>第 1 阶段：区域建议：</strong>第一阶段的目标是生成一组可管理的候选区域（感兴趣区域，或 RoIs），这些区域中可能存在物体。早期的<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1311.2524">R-CNN(2013)</a>等模型使用选择性搜索等外部方法，而后来的进步，特别是<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1506.01497">Faster R-CNN(2015)</a>架构，则使用区域建议网络 (RPN) 将这一步骤集成到神经网络本身。RPN 可有效扫描骨干网络生成的特征图，并预测潜在对象的位置和大小。</li>
+<li><strong>第二阶段：分类和细化：</strong>第一阶段提出的区域将进入第二阶段。对于每个 RoI，都会从共享特征图中提取特征（使用 RoIPooling 或 RoIAlign 等技术处理不同的区域大小）。这些特征将输入检测头，检测头将执行两项任务：对 RoI 中的物体进行分类（如 “汽车”、”人”、”背景”），并完善边界框的坐标，以便更准确地匹配物体。</li>
+</ol>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R-CNN (2014)</td>
+<td>首次将卷积神经网络(CNN)引入目标检测。它首先使用选择性搜索（Selective Search）在图像上生成约2000个候选区域（Region Proposals），然后将每个区域缩放到固定大小并送入CNN提取特征，最后用SVM进行分类并用线性回归器微调边界框。该方法精度高但速度极慢。</td>
+</tr>
+<tr>
+<td>Fast R-CNN (2015)</td>
+<td>针对R-CNN的计算冗余问题进行了改进。它将整张图直接输入CNN，得到一个全局特征图。然后，将选择性搜索生成的候选区域映射到该特征图上，通过RoI (Region of Interest) Pooling层提取固定大小的特征，从而共享了卷积计算，速度大幅提升。</td>
+</tr>
+<tr>
+<td>Faster R-CNN (2015)</td>
+<td>双阶段检测器的里程碑。它提出了<strong>区域提议网络(Region Proposal Network, RPN)</strong>，将区域提议步骤也整合到神经网络中，实现了与检测网络共享卷积特征。这使得整个检测流程几乎成为一个统一的框架，速度和精度都达到了当时的新高度。</td>
+</tr>
+<tr>
+<td>Cascade R-CNN</td>
+<td>多级回归级联迭代提升精度</td>
+</tr>
+<tr>
+<td>MimicDet(2020 ECCV)</td>
+<td>尝试将双阶段检测的精细化特征对齐机制迁移至单阶段框架，通过交错特征金字塔和级联回归策略，在保持单阶段效率优势的同时获得2.3%的精度提升<a target="_blank" rel="noopener" href="https://www.ecva.net/papers/eccv_2020/papers_ECCV/papers/123590528.pdf">link</a>。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>双阶段检测器依然是许多追求极致精度任务的基石。后续研究主要集中在改进其各个组件，如使用更强大的主干网络（如ResNeXt, Swin Transformer）、改进RoI池化方式（如RoIAlign, PrRoI Pooling）、以及更高效的特征融合结构（如FPN - Feature Pyramid Network）。尽管单阶段和端到端模型在速度上优势明显，但Faster R-CNN及其变体（如Mask R-CNN用于实例分割）仍然是工业界和学术界非常重要的基线模型。</p>
+<h3 id="单阶段"><a href="#单阶段" class="headerlink" title="单阶段"></a>单阶段</h3><p>单阶段目标检测模型通过单一网络直接预测物体位置和类别，速度快，适合实时应用。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>YOLO (You Only Look Once, 2016)</td>
+<td>将目标检测视为一个单一的回归问题。它将输入图像划分为网格（Grid），每个网格单元负责预测该区域内的目标。YOLOv1实现了前所未有的检测速度，但对小目标和密集目标的检测效果不佳。</td>
+</tr>
+<tr>
+<td>SSD (Single Shot MultiBox Detector, 2016)</td>
+<td>结合了YOLO的速度和Faster R-CNN中“锚框(Anchor Box)”的思想。SSD在多个不同尺度的特征图上进行预测，使得模型对不同大小的目标都有较好的检测能力，在速度和精度之间取得了很好的平衡。</td>
+</tr>
+<tr>
+<td>RetinaNet</td>
+<td>通过特征金字塔网络和焦点损失解决类别不平衡问题，在COCO数据集上表现出色，适合检测大小不一的物体（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1708.02002">RetinaNet Paper</a>）。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>性能飞跃：</strong> 以<strong>YOLO系列</strong>为代表的单阶段检测器发展迅猛。从YOLOv3、v4、v5到如今广泛使用的 <strong>YOLOv8, YOLOv9</strong>，现在已有YOLOv10,YOLOv11,YOLOe。通过不断优化主干网络、特征融合颈部（Neck）、检测头（Head）以及引入新的训练策略和损失函数，其精度已经可以媲美甚至超越许多双阶段检测器，同时保持极高的推理速度。</p>
+<h3 id="端到端"><a href="#端到端" class="headerlink" title="端到端"></a>端到端</h3><p>传统的检测器大多依赖于一些手工设计的组件，如锚框和非极大值抑制（Non-Maximum Suppression, NMS）。NMS用于在后处理阶段去除冗余的预测框，但它不是网络的一部分，难以进行端到端优化。端到端（End-to-End）目标检测方法近年来兴起，旨在移除这些组件，构建一个从输入到输出完全可微分的简洁模型。以Transformer为基础的架构最具代表性。</p>
+<p><strong>DETR</strong>（2020）首次引入了全局自注意力和匈牙利匹配，将目标检测作为集合预测问题，一次性直接输出固定数量的目标，去除了传统的锚框和NMS模块。DETR的优点是管线简洁，但缺点是训练收敛较慢。</p>
+<p><strong>Deformable DETR</strong>（2020）在此基础上使用可变形Attention和多尺度特征，显著加快了收敛速度并提升了小目标检测性能。</p>
+<p>后续工作如<strong>Conditional DETR</strong>、<strong>Anchor DETR</strong>、<strong>DINO</strong>等，通过改进查询初始化（如基于锚点或噪声查询）进一步提高了收敛效率和检测精度。</p>
+<p>例如，<strong>DINO（2022）</strong>在<strong>Deformable DETR</strong>上添加了噪声对齐机制，在ResNet-50骨干下达到COCO检测AP约50.9%。此外，<strong>Sparse R-CNN</strong>（2021）提出基于动态可学习候选框和迭代多阶段头的框架，无需Transformer模块，也能实现端到端学习。</p>
+<blockquote>
+<p>DINO（Deformable DETR）ResNet-50模型AP约50.9%，而RT-DETR（Real-Time DETR）的ResNet-50/101模型分别达到53.1%和54.3%的AP，超越了同期大多数YOLO家族模型。</p>
+</blockquote>
+<ul>
+<li><strong>DETR</strong>：基于Transformer的检测器，直接预测目标集合，省略了锚框和NMS，但收敛慢。</li>
+<li><strong>Deformable DETR</strong>：引入可变形注意力和多尺度输入，加速训练收敛并强化小目标检测。</li>
+<li><strong>DINO</strong>：基于Deformable DETR，新增去噪查询等技术改善查询初始化，显著提高性能。</li>
+<li><strong>Sparse R-CNN</strong>：使用少量可学习的候选框与多阶段头，实现无锚、无需NMS的端到端检测。</li>
+<li><strong>其他变体</strong>：如Conditional DETR、Anchor DETR等也针对查询优化进行改进，进一步提升了检测效率和精度。</li>
+<li><strong>YOLOv10(2024)</strong>：引入“双重标签分配”和“一致性匹配策略”，在训练中实现了无NMS的设计，标志着主流的实时检测器也开始全面拥抱端到端理念。</li>
+</ul>
+<h2 id="Anchor-based-与-Anchor-free"><a href="#Anchor-based-与-Anchor-free" class="headerlink" title="Anchor-based 与 Anchor-free"></a>Anchor-based 与 Anchor-free</h2><h3 id="Anchor-based"><a href="#Anchor-based" class="headerlink" title="Anchor-based"></a>Anchor-based</h3><p><strong>Anchor-based（基于锚框）检测</strong>使用预定义的锚框（多尺度多宽高比）作为参考，在每个特征图位置生成一系列固定大小的候选框，模型学习预测这些锚框相对于真实目标的偏移量和类别概率<a target="_blank" rel="noopener" href="https://www.mdpi.com/2227-7390/13/6/893#:~:text=SSD,based detectors exhibit several">link</a>。例如，在 Faster R-CNN 和 SSD 中，每个位置会设定若干锚框，目标检出即为对这些锚框的回归与分类。锚框方法的设计动因是引入强先验信息，让网络只需学习在锚框基础上的微调而非从零回归。优点是易于覆盖不同尺度和长宽比的目标形状<a target="_blank" rel="noopener" href="https://www.mdpi.com/2227-7390/13/6/893#:~:text=SSD,based detectors exhibit several">link</a>。缺点是参数多、超参数调节复杂：需要人为设定锚框的尺寸、比例、密度，且锚框过多导致正负样本极度不平衡<a target="_blank" rel="noopener" href="https://www.mdpi.com/2227-7390/13/6/893#:~:text=,which further slows down training">link</a>；固定的形状难以适应极端目标；训练时还需基于 IoU 进行阈值划分，增加计算复杂度<a target="_blank" rel="noopener" href="https://www.mdpi.com/2227-7390/13/6/893#:~:text=,which further slows down training">link</a><a target="_blank" rel="noopener" href="https://www.mdpi.com/2227-7390/13/6/893#:~:text=To overcome these limitations%2C anchor,based approaches%2C presented">link</a>。</p>
+<h3 id="Anchor-free"><a href="#Anchor-free" class="headerlink" title="Anchor-free"></a>Anchor-free</h3><p><strong>无锚框（Anchor-Free）的兴起：</strong> 为了摆脱对需要手动设计的锚框的依赖，研究者们提出了无锚框检测器。摆脱了预定义锚框的限制，直接从图像特征中回归目标边界框。Anchor-free 方法一般分为两类：</p>
+<ul>
+<li><strong>关键点（Keypoint）方法</strong>：通过检测关键点来表示目标，例如 CornerNet<a target="_blank" rel="noopener" href="https://www.mdpi.com/2227-7390/13/6/893#:~:text=Anchor,right corners">link</a>检测目标的左上角和右下角配对，CenterNet<a target="_blank" rel="noopener" href="https://www.mdpi.com/2227-7390/13/6/893#:~:text=In 2019%2C K,CenterNet%2C therefore%2C extends">link</a>在此基础上增加中心点约束，从而得到完整框；还有通过检测极值点或边界点来建模目标。此类方法优势在于不依赖锚框，可以更灵活地表示复杂形状，但需要解决关键点组合匹配问题。</li>
+<li><strong>中心点（Center）或像素回归方法</strong>：如 FCOS<a target="_blank" rel="noopener" href="https://www.mdpi.com/2227-7390/13/6/893#:~:text=match at L1496 ,them directly as training samples">link</a>将每个前景像素点看作候选，通过回归该像素到框的4个边界距离来预测目标框；FoveaBox 等也是类似的中心回归方法。这些方法简单高效，避免了繁琐的锚框设计，同时天生平衡了正负样本（每个像素都可成为训练样本）。</li>
+</ul>
+<p>总的来说，anchor-free 方法的设计动因是<strong>简化检测流程、减少超参数</strong><a target="_blank" rel="noopener" href="https://www.mdpi.com/2227-7390/13/6/893#:~:text=To overcome these limitations%2C anchor,based approaches%2C presented">link</a>。它们直接回归框参数或关键点，省去了预设锚框的步骤<a target="_blank" rel="noopener" href="https://www.mdpi.com/2227-7390/13/6/893#:~:text=To overcome these limitations%2C anchor,based approaches%2C presented">link</a>。近年来，锚框检测的性能瓶颈（如超参数敏感、样本不平衡等）使得无锚方法成为研究热点，并取得了与传统方法相当的效果<a target="_blank" rel="noopener" href="https://www.mdpi.com/2227-7390/13/6/893#:~:text=To overcome these limitations%2C anchor,based approaches%2C presented">link</a>。例如 FCOS 提出后即成为典型的一阶段无锚检测器，其性能与 SSD/RetinaNet 等持平甚至更优<a target="_blank" rel="noopener" href="https://www.mdpi.com/2227-7390/13/6/893#:~:text=match at L1496 ,them directly as training samples">link</a>。</p>
+<ol>
+<li><strong>FCOS</strong> 将目标检测视为逐像素的预测任务；</li>
+<li><strong>CenterNet</strong> 则通过预测目标的中心点来定位目标。</li>
+</ol>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>阶段类型</th>
+<th>锚框机制</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Faster R-CNN</td>
+<td>两阶段</td>
+<td>基于锚框</td>
+<td>RPN 生成基于锚框的候选框</td>
+</tr>
+<tr>
+<td>Mask R-CNN</td>
+<td>两阶段</td>
+<td>基于锚框</td>
+<td>在 Faster R-CNN 基础上添加实例分割头，仍采用锚框</td>
+</tr>
+<tr>
+<td>Cascade R-CNN</td>
+<td>两阶段</td>
+<td>基于锚框</td>
+<td>多阶段回归或可分离卷积的两阶段框架，均使用锚框方案</td>
+</tr>
+<tr>
+<td>SSD</td>
+<td>单阶段</td>
+<td>基于锚框</td>
+<td>SSD 在多尺度特征层上预设锚框进行预测</td>
+</tr>
+<tr>
+<td>RetinaNet</td>
+<td>单阶段</td>
+<td>基于锚框</td>
+<td>RetinaNet 提出 FPN+FocalLoss 解决单阶段检测正负样本失衡，同样依赖锚框。</td>
+</tr>
+<tr>
+<td>YOLOv2/v3/v4/v5</td>
+<td>单阶段</td>
+<td>基于锚框</td>
+<td>采用锚框机制</td>
+</tr>
+<tr>
+<td>YOLOv1/v6/v8等</td>
+<td>单阶段</td>
+<td>无锚框</td>
+<td>采用无锚框、基于中心点的方法</td>
+</tr>
+<tr>
+<td>FCOS</td>
+<td>单阶段</td>
+<td>无锚框</td>
+<td>一个典型的全卷积（Fully Convolutional）无锚检测器，直接在每个像素上回归边框并预测一个中心度得分</td>
+</tr>
+<tr>
+<td>CornerNet/CenterNet</td>
+<td>单阶段</td>
+<td>无锚框</td>
+<td>CornerNet 使用成对角点来检测框，CenterNet 增加中心点约束，均不使用锚框。</td>
+</tr>
+<tr>
+<td>YOLOX,PP-YOLOv2 等新 YOLO 变体</td>
+<td>单阶段</td>
+<td>无锚框</td>
+<td>YOLOX 明确放弃了锚框，转为 anchor-free 模型；PP-YOLOv2 则进一步改进训练策略。</td>
+</tr>
+<tr>
+<td>EfficientDet</td>
+<td>单阶段</td>
+<td>基于锚框</td>
+<td>依然使用 BiFPN 等模块，但输出层也是依赖锚框回归。</td>
+</tr>
+<tr>
+<td>DETR (Deformable DETR, DINO)</td>
+<td>端到端</td>
+<td>无锚框</td>
+<td>Transformer 检测器，无需锚框，采用查询（query）来直接预测目标框和类别，训练过程可端到端优化</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="基于强化学习"><a href="#基于强化学习" class="headerlink" title="基于强化学习"></a>基于强化学习</h3><p>将强化学习（RL）用于目标检测是一个相对前沿且小众的研究方向。它不像前两者那样直接作为检测范式，<strong>而是更多地用于优化检测过程的某个环节。</strong></p>
+<p>早期工作如Caicedo等人（2015）将深度Q网络用于主动目标定位，在图像中学习一步步搜索目标位置。Bueno等人（2018）提出层级搜索策略，先粗略定位含多个目标的区域再细化搜索。</p>
+<p>此外，一些方法将RL用于设计检测器组件：<strong>ReinforceDet</strong>（2021）提出无锚框检测器，通过RL智能体提出少量高质量候选框并由CNN网络精细回归，从而有效减少提议数量。</p>
+<p>Uzkent等人（2020）的工作中，RL被用于自适应选择图像分辨率：智能体在粗糙和精细分辨率间切换，以在尽量少用高分辨率的同时最大化检测精度。最新的<strong>AIRS</strong>（2024，NeurIPS）方法引入了基于证据理论的层级Q学习，学习选择具有高密度目标的区域并重点检测，显著提升了高密度场景下的检测效率。综上，当前基于RL的检测研究主要集中在利用智能体搜索优化候选框（anchor选择或区域选择）、自动调节训练策略和强化正负样本采样等方向，推动了检测器在特定场景下的性能提升。</p>
+<p><strong>研究方向:</strong></p>
+<ol>
+<li><strong>主动视觉与注意力引导 (Active Vision &amp; Attention Guidance):</strong> 将检测器视为一个智能体（Agent），它学习一个策略（Policy）来决定“看哪里”。例如，智能体可以学习如何在一张高分辨率图像上进行一系列的视窗裁剪（glimpse），以最高效的方式找到所有目标，而不是一次性处理整张图。</li>
+<li><strong>搜索路径规划:</strong> 对于寻找特定类别的目标任务，RL可以用来规划一个高效的搜索路径，逐步缩小搜索范围，这在机器人视觉等领域有应用潜力。</li>
+<li><strong>优化检测组件:</strong> RL也被用于学习和优化检测器中的某些超参数或模块，例如，学习一种最优的数据增强策略（如AutoAugment），或者在后处理中学习一种比NMS更智能的冗余框过滤策略。</li>
+</ol>
+<p><strong>挑战</strong>：状态空间和动作空间的定义复杂、奖励函数难以设计、训练成本高昂且不稳定。因此，基于RL的目标检测目前仍主要处于学术探索阶段，尚未像单阶段/双阶段模型那样在工业界得到广泛应用。</p>
+<blockquote>
+<p>存疑：</p>
+<ul>
+<li><strong>顺序搜索</strong>：2016年的研究通过RL优化搜索策略，积累少量位置证据以有效检测物体（<a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/document/7780685">RL for Visual Object Detection</a>）。</li>
+<li><strong>预处理优化</strong>：2020年的研究提出ObjectRL，通过RL选择最佳预处理技术（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2008.08005">RL for Improving Object Detection</a>）。</li>
+<li><strong>主动定位</strong>：2022年的研究实现基于深度RL的主动物体定位算法（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2208.04511">Object Detection with DRL</a>）。</li>
+</ul>
+</blockquote>
+<h3 id="食品领域目标检测"><a href="#食品领域目标检测" class="headerlink" title="食品领域目标检测"></a>食品领域目标检测</h3><p>食品目标检测在智能餐饮和营养管理等领域具有重要应用价值。典型研究方向包括<strong>智能餐盘识别</strong>（自动检测餐盘上食物种类和数量）、<strong>快餐自动识别</strong>（如汉堡、披萨等识别）以及<strong>菜品分类与营养估计</strong>等。</p>
+<p>常用的数据集有：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>数据集</th>
+<th>图像数量</th>
+<th>类别数</th>
+<th>标注类型（示例）</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UNIMIB2016</td>
+<td>1027</td>
+<td>73</td>
+<td>多边形+边界框</td>
+<td>意大利自助餐环境拍摄的食品图像，共1027张，73类食物，标注多边形分割和边框</td>
+</tr>
+<tr>
+<td>UECFood256</td>
+<td>~25600</td>
+<td>256</td>
+<td>边界框</td>
+<td>日本各种料理256类，每类约100张图像</td>
+</tr>
+<tr>
+<td>EgocentricFood2</td>
+<td>5038</td>
+<td>9</td>
+<td>边界框</td>
+<td>可穿戴摄像头视角图像，9类食品或容器，共5038张图像，8573个标注框</td>
+</tr>
+<tr>
+<td>Food2K (识别)</td>
+<td>1,036,564</td>
+<td>2000</td>
+<td>图像级标签</td>
+<td>约103万张图像，2000类食物，主要用于食物识别</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>在方法上，食品检测通常借鉴通用目标检测架构（如YOLO系列、Faster R-CNN、RetinaNet等），并结合领域知识进行改进。例如通过多任务学习联合预测食物类别和分割掩码，或利用视觉语言模型辅助识别菜品名称等。随着深度学习和视觉-语言模型的发展，食品目标检测技术在智慧餐厅、自动食堂结算和营养跟踪等应用场景中前景广阔。</p>
+<h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><h3 id="主流数据集"><a href="#主流数据集" class="headerlink" title="主流数据集"></a>主流数据集</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">数据集名称</th>
+<th style="text-align:left">基本信息</th>
+<th style="text-align:left">大小</th>
+<th style="text-align:left">是否包含重合/覆盖情况</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">包含20个常见物体类别，是早期目标检测研究的经典基准。</td>
+<td style="text-align:left">约1.1万张训练/验证图片，约2.7万个标注对象。</td>
+<td style="text-align:left">是，但密度相对较低。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>COCO (Common Objects in Context)</strong></td>
+<td style="text-align:left">目前最权威、最流行的数据集。包含80个物体类别，场景复杂，目标尺寸多变。</td>
+<td style="text-align:left"><strong>2017版:</strong> 约11.8万张训练图，5千张验证图，4.1万张测试图。</td>
+<td style="text-align:left"><strong>是，非常显著。</strong> 包含大量小目标、密集和严重遮挡的场景，是评估模型鲁棒性的黄金标准。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>ImageNet (ILSVRC)</strong></td>
+<td style="text-align:left">主要用于图像分类，但也有一个目标检测的子任务，包含200个类别。</td>
+<td style="text-align:left">检测任务：约45万张训练图，2万张验证图，4万张测试图。</td>
+<td style="text-align:left">是，场景多样，包含遮挡情况。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Open Images Dataset</strong></td>
+<td style="text-align:left">谷歌发布的大规模数据集，类别非常丰富，层级化标签。</td>
+<td style="text-align:left"><strong>V7版本:</strong> 约900万张图片，包含600个类别的边界框标注。</td>
+<td style="text-align:left"><strong>是，规模巨大且场景极其复杂</strong>，提供了海量的遮挡和重合案例。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Objects365</strong></td>
+<td style="text-align:left">微软发布的大规模数据集，旨在推动对日常物体的检测研究。</td>
+<td style="text-align:left">包含365个物体类别，超过60万张图片和1000万个高质量标注框。</td>
+<td style="text-align:left">是，目标密度高，覆盖情况常见。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="具有遮挡-重合的数据集"><a href="#具有遮挡-重合的数据集" class="headerlink" title="具有遮挡/重合的数据集"></a>具有遮挡/重合的数据集</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">数据集名称</th>
+<th style="text-align:left">基本信息</th>
+<th style="text-align:left">大小</th>
+<th style="text-align:left">特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>CrowdHuman</strong></td>
+<td style="text-align:left">专为拥挤场景下的行人检测设计。</td>
+<td style="text-align:left">训练集1.5万张，验证集4370张，测试集5000张，共约47万个行人实例。</td>
+<td style="text-align:left"><strong>高度拥挤和遮挡。</strong> 标注了可见框（Visible Box）和完整框（Full Box），非常适合研究遮挡问题。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>BDD100K (Berkeley DeepDrive)</strong></td>
+<td style="text-align:left">最大的自动驾驶场景数据集之一。</td>
+<td style="text-align:left">包含10万段高清视频，从中采样出10万张图片进行标注，含10个交通相关类别。</td>
+<td style="text-align:left">包含各种天气（晴、雨、雪）和光照（白天、黑夜）条件下的<strong>真实交通场景</strong>，车辆和行人间存在大量相互遮挡。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>MOT (Multiple Object Tracking) Series</strong></td>
+<td style="text-align:left">虽然是为多目标跟踪设计的，但其标注数据也可用于检测任务。</td>
+<td style="text-align:left">例如MOT17/MOT20，包含数千帧视频序列。</td>
+<td style="text-align:left">视频序列中的目标（主要是行人）<strong>持续移动，并频繁发生交错和遮挡</strong>，对检测器的鲁棒性要求极高。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="评估指标"><a href="#评估指标" class="headerlink" title="评估指标"></a>评估指标</h2><h3 id="基准测试"><a href="#基准测试" class="headerlink" title="基准测试"></a>基准测试</h3><p>Benchmark: 通常指“一个数据集 + 一套评测协议和指标”。</p>
+<ul>
+<li><strong>COCO Detection Benchmark:</strong> 这是行业黄金标准。模型必须在COCO的<code>test-dev</code>集上提交结果进行评估。其复杂的场景和严格的评估指标（见下文）使其成为衡量模型综合性能的最佳选择。</li>
+<li><strong>Objects365 Benchmark:</strong> 因其类别众多和数据量大，也成为衡量模型泛化能力的重要基准。</li>
+<li><strong>BDD100K Benchmark:</strong> 在自动驾驶领域，这是评估模型在真实、复杂交通场景下表现的核心基准。</li>
+</ul>
+<h3 id="基线模型"><a href="#基线模型" class="headerlink" title="基线模型"></a>基线模型</h3><p>Baseline: 用于比较新模型性能的参考模型，通常是那些经过验证、广为人知且性能优越的模型。</p>
+<p><strong>端到端Baseline:</strong></p>
+<ul>
+<li><strong>DINO:</strong> 作为目前端到端模型中精度的标杆，是学术研究中进行SOTA比较的重要基线。</li>
+<li><strong>RT-DETR / YOLOv10:</strong> 随着实时和端到端成为趋势，这两个模型正迅速成为衡量模型效率和简洁性的新一代基线。</li>
+</ul>
+<h3 id="评估指标-1"><a href="#评估指标-1" class="headerlink" title="评估指标"></a>评估指标</h3><p>FPS,mAP,占用内存</p>
+<ul>
+<li><p><strong>IoU (Intersection over Union):</strong></p>
+<ul>
+<li><strong>定义:</strong> 预测框（Predicted Bounding Box）与真实框（Ground Truth Box）的交集面积除以并集面积。它是衡量预测框定位准确度的基础。</li>
+<li><strong>作用:</strong> 用于判断一个预测是否为“正样本”（True Positive）。通常需要设定一个IoU阈值（如0.5或0.75），当预测框与真实框的IoU大于该阈值时，才认为检测成功。</li>
+</ul>
+</li>
+<li><p><strong>Precision (精确率) &amp; Recall (召回率):</strong></p>
+<ul>
+<li><strong>Precision:</strong> 在所有预测为正样本的结果中，真正是正样本的比例。公式：<code>TP / (TP + FP)</code> (TP:真正例, FP:假正例)。衡量的是“查得准不准”。</li>
+<li><strong>Recall:</strong> 在所有真实的正样本中，被成功预测出来的比例。公式：<code>TP / (TP + FN)</code> (FN:假反例)。衡量的是“查得全不全”。</li>
+</ul>
+</li>
+<li><p><strong>AP (Average Precision) &amp; mAP (mean Average Precision):</strong></p>
+<ul>
+<li><strong>AP:</strong> 综合衡量单一类别的Precision和Recall。通过在不同召回率水平下计算精确率，可以绘制出P-R曲线，AP就是该曲线下的面积。AP值越高，说明模型在该类别上的性能越好。</li>
+<li><strong>mAP (mean Average Precision):</strong> 目标检测任务中最核心的综合性指标。它是对所有类别AP值的平均。</li>
+<li><strong>COCO Metrics:</strong> COCO的评估体系更为严格和全面，其mAP通常指代 <code>AP@[.5:.05:.95]</code>，即在IoU阈值从0.5到0.95、步长为0.05的10个不同阈值下计算mAP，然后取平均值。这要求模型在各种重叠程度上都有很好的表现。此外，还有针对大、中、小目标的AP（<code>AP_L</code>, <code>AP_M</code>, <code>AP_S</code>），用于评估模型的多尺度检测能力。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% mimicdet eccv 2020</span></span><br><span class="line">@inproceedings&#123;lu2020mimicdet,</span><br><span class="line">  title=&#123;Mimicdet: Bridging the gap between one-stage and two-stage object detection&#125;,</span><br><span class="line">  author=&#123;Lu, Xin and Li, Quanquan and Li, Buyu and Yan, Junjie&#125;,</span><br><span class="line">  booktitle=&#123;Computer Vision--ECCV 2020: 16th European Conference, Glasgow, UK, August 23--28, 2020, Proceedings, Part XIV 16&#125;,</span><br><span class="line">  pages=&#123;541--557&#125;,</span><br><span class="line">  year=&#123;2020&#125;,</span><br><span class="line">  organization=&#123;Springer&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/06/12/2025-6-12/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/06/10/2025-6-10/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#%E5%9B%BD%E5%86%85%E5%A4%96%E7%A0%94%E7%A9%B6%E8%BF%9B%E5%B1%95"><span class="toc-content-number">1.</span> <span class="toc-content-text">国内外研究进展</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E5%8D%95%E9%98%B6%E6%AE%B5%E3%80%81%E5%8F%8C%E9%98%B6%E6%AE%B5%E3%80%81%E7%AB%AF%E5%88%B0%E7%AB%AF%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B"><span class="toc-content-number">1.1.</span> <span class="toc-content-text">单阶段、双阶段、端到端目标检测</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%8F%8C%E9%98%B6%E6%AE%B5"><span class="toc-content-number">1.1.1.</span> <span class="toc-content-text">双阶段</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%8D%95%E9%98%B6%E6%AE%B5"><span class="toc-content-number">1.1.2.</span> <span class="toc-content-text">单阶段</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E7%AB%AF%E5%88%B0%E7%AB%AF"><span class="toc-content-number">1.1.3.</span> <span class="toc-content-text">端到端</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#Anchor-based-%E4%B8%8E-Anchor-free"><span class="toc-content-number">1.2.</span> <span class="toc-content-text">Anchor-based 与 Anchor-free</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#Anchor-based"><span class="toc-content-number">1.2.1.</span> <span class="toc-content-text">Anchor-based</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#Anchor-free"><span class="toc-content-number">1.2.2.</span> <span class="toc-content-text">Anchor-free</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%9F%BA%E4%BA%8E%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0"><span class="toc-content-number">1.2.3.</span> <span class="toc-content-text">基于强化学习</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E9%A3%9F%E5%93%81%E9%A2%86%E5%9F%9F%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B"><span class="toc-content-number">1.2.4.</span> <span class="toc-content-text">食品领域目标检测</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-content-number">1.3.</span> <span class="toc-content-text">数据集</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E4%B8%BB%E6%B5%81%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-content-number">1.3.1.</span> <span class="toc-content-text">主流数据集</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%85%B7%E6%9C%89%E9%81%AE%E6%8C%A1-%E9%87%8D%E5%90%88%E7%9A%84%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-content-number">1.3.2.</span> <span class="toc-content-text">具有遮挡&#x2F;重合的数据集</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E8%AF%84%E4%BC%B0%E6%8C%87%E6%A0%87"><span class="toc-content-number">1.4.</span> <span class="toc-content-text">评估指标</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95"><span class="toc-content-number">1.4.1.</span> <span class="toc-content-text">基准测试</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%9F%BA%E7%BA%BF%E6%A8%A1%E5%9E%8B"><span class="toc-content-number">1.4.2.</span> <span class="toc-content-text">基线模型</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E8%AF%84%E4%BC%B0%E6%8C%87%E6%A0%87-1"><span class="toc-content-number">1.4.3.</span> <span class="toc-content-text">评估指标</span></a></li></ol></li></ol></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>

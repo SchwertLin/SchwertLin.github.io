@@ -1,0 +1,144 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="梯度消失与梯度爆炸的定义梯度消失（Vanishing Gradient） 现象：反向传播中，梯度随着网络层数或时间步长增加而指数级减小，导致浅层参数更新缓慢，模型无法学习底层特征。   案例：深层CNN或长序列RNN中，浅层权重几乎不更新。  梯度爆炸（Exploding Gradient） 现象：反向传播中，梯度指数级增大，导致参数剧烈震荡，模型无法收敛（如权重变为NaN）。   案例：未使用梯">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-4-23-梯度消失&#x2F;爆炸">
+<meta property="og:url" content="http://example.com/2025/04/23/2025-4-23-%E6%A2%AF%E5%BA%A6%E6%B6%88%E5%A4%B1-%E7%88%86%E7%82%B8/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="梯度消失与梯度爆炸的定义梯度消失（Vanishing Gradient） 现象：反向传播中，梯度随着网络层数或时间步长增加而指数级减小，导致浅层参数更新缓慢，模型无法学习底层特征。   案例：深层CNN或长序列RNN中，浅层权重几乎不更新。  梯度爆炸（Exploding Gradient） 现象：反向传播中，梯度指数级增大，导致参数剧烈震荡，模型无法收敛（如权重变为NaN）。   案例：未使用梯">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-04-23T06:51:54.000Z">
+<meta property="article:modified_time" content="2025-04-23T07:59:50.000Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="深度学习">
+<meta name="twitter:card" content="summary"><title>2025-4-23-梯度消失/爆炸 - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-4-23-梯度消失/爆炸</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-04-23</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-04-23</time></div>
+<div class="post-categories"><i class="icon fa-regular fa-folder-open" title="分类"></i><a class="post-category" href="/categories/%E9%9D%A2%E7%BB%8F/">面经</a></div>
+<div class="post-tags"><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></div></div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约1.3K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><h3 id="梯度消失与梯度爆炸的定义"><a href="#梯度消失与梯度爆炸的定义" class="headerlink" title="梯度消失与梯度爆炸的定义"></a>梯度消失与梯度爆炸的定义</h3><h4 id="梯度消失（Vanishing-Gradient）"><a href="#梯度消失（Vanishing-Gradient）" class="headerlink" title="梯度消失（Vanishing Gradient）"></a>梯度消失（Vanishing Gradient）</h4><ul>
+<li><strong>现象</strong>：反向传播中，梯度随着网络层数或时间步长增加而指数级减小，导致浅层参数更新缓慢，模型无法学习底层特征。  </li>
+<li><strong>案例</strong>：深层CNN或长序列RNN中，浅层权重几乎不更新。</li>
+</ul>
+<h4 id="梯度爆炸（Exploding-Gradient）"><a href="#梯度爆炸（Exploding-Gradient）" class="headerlink" title="梯度爆炸（Exploding Gradient）"></a>梯度爆炸（Exploding Gradient）</h4><ul>
+<li><strong>现象</strong>：反向传播中，梯度指数级增大，导致参数剧烈震荡，模型无法收敛（如权重变为NaN）。  </li>
+<li><strong>案例</strong>：未使用梯度裁剪的深层RNN，参数更新时出现数值不稳定。</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th><strong>现象</strong></th>
+<th><strong>核心原因</strong></th>
+<th><strong>常见模型</strong></th>
+<th><strong>解决方法</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>梯度消失</strong></td>
+<td>激活函数导数小于 1 + 权重矩阵谱半径小于 1 的连乘</td>
+<td>RNN、传统神经网络</td>
+<td>换用 ReLU 激活函数、残差连接、LSTM/GRU</td>
+</tr>
+<tr>
+<td><strong>梯度爆炸</strong></td>
+<td>权重矩阵谱半径大于 1 的连乘 + 无界激活函数</td>
+<td>LSTM、普通神经网络</td>
+<td>梯度裁剪（Gradient Clipping）、权重初始化、正则化</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id=""><a href="#" class="headerlink" title=" "></a> </h3><h3 id="关于softmax输出“尖锐”导致梯度消失的问题"><a href="#关于softmax输出“尖锐”导致梯度消失的问题" class="headerlink" title="关于softmax输出“尖锐”导致梯度消失的问题"></a>关于softmax输出“尖锐”导致梯度消失的问题</h3><p>假设点积结果为一个很大的正数 $s$，softmax公式为：  </p>
+<script type="math/tex; mode=display">
+\text{softmax}(s_i) = \frac{e^{s_i}}{\sum_j e^{s_j}}</script><p>当某一位置的 $s_i$ 远大于其他值时（如 $s_i = 100$，其他 $s_j = 0$），$e^{100}$ 会远大于其他项的和，导致 $\text{softmax}(s_i) \approx 1$，其他位置趋近于0。此时输出概率分布非常“集中”（尖锐）。</p>
+<blockquote>
+<h3 id="softmax梯度推导"><a href="#softmax梯度推导" class="headerlink" title="softmax梯度推导"></a>softmax梯度推导</h3><p>设 $\text{softmax}(s_i) = p_i$，则：  </p>
+<script type="math/tex; mode=display">
+\frac{\partial p_i}{\partial s_j} = p_i (\delta_{ij} - p_j)</script><p>其中 $\delta_{ij}=1$ 当 $i=j$，否则为0。<br>对于交叉熵损失 $L = -\sum_k y_k \log p_k$，梯度为：  (当$k=j$时,$p_jy_k=p_j,\delta_{kj}=1$)</p>
+<script type="math/tex; mode=display">
+\frac{\partial L}{\partial s_j} = \sum_k \frac{-y_k}{p_k} \cdot \frac{\partial p_k}{\partial s_j} = \sum_k -y_k (\delta_{kj} - p_j) = p_j - y_j</script><p>当真实标签 $y_j=1$ 时，梯度为 $p_j - 1$；当 $y_j=0$ 时，梯度为 $p_j$。<br>若 $p_j \approx 1$（尖锐分布），则两种情况的梯度均趋近于0。</p>
+</blockquote>
+<p>以二元分类为例，假设softmax输出为 $[p, 1-p]$，真实标签为 $[1, 0]$，损失函数为交叉熵：  </p>
+<p>梯度为 $\frac{\partial L}{\partial s_i} = p - 1$。  </p>
+<ul>
+<li>当 $p \approx 1$ 时，梯度 $\approx 0$，参数更新极慢；  </li>
+<li>其他位置（如 $s_j$）的梯度为 $\frac{\partial L}{\partial s_j} = p$，也趋近于0。<br><strong>结果</strong>：无论最大值位置还是其他位置，梯度都趋近于0，导致模型难以更新参数，即<strong>梯度消失</strong>。</li>
+</ul>
+<h3 id="RNN梯度消失"><a href="#RNN梯度消失" class="headerlink" title="RNN梯度消失"></a>RNN梯度消失</h3><p>在 RNN 中，每个时间步的隐藏状态依赖于前一个时间步的隐藏状态，所以在反向传播时，梯度需要从最后一个时间步一直传回第一个时间步，这中间会经过多个时间步的权重矩阵乘法。</p>
+<script type="math/tex; mode=display">
+h_t = tanh (W_xh x_t + W_hh h_{t-1} + b)\\
+\delta_t = \frac{\partial L}{\partial h_t},\delta_{t-1} = \delta_t \cdot W_{hh}^T \cdot \text{tanh}'(h_t)\\</script><p>传统的 RNN 可能使用 tanh 或 sigmoid 激活函数，它们的导数在输出接近饱和区时会变得很小，接近 0。当多个这样的导数相乘时，梯度就会<strong>指数级衰减</strong>，导致前面时间步的梯度几乎为 0，无法更新参数。</p>
+<h3 id="LSTM梯度爆炸"><a href="#LSTM梯度爆炸" class="headerlink" title="LSTM梯度爆炸"></a>LSTM梯度爆炸</h3><p>LSTM 通过门控机制（输入门 $i_t$、遗忘门 $f_t$、输出门 $o_t$）来控制信息的流动，理论上可以缓解梯度消失问题，因为门控机制中的 sigmoid 函数输出接近 0 或 1，当门接近 1 时，信息可以几乎不变地传递，梯度也能较好地保留。</p>
+<p>如果 LSTM 中的权重矩阵过大，或者在训练过程中权重变得过大，那么在反向传播时，梯度可能会指数级增长，导致梯度爆炸。此外，LSTM 虽然缓解了梯度消失，但并没有完全解决梯度爆炸的问题，尤其是在没有适当正则化或梯度裁剪的情况下。</p>
+<script type="math/tex; mode=display">
+C_t = f_t \odot C_{t-1} + i_t \odot \tilde{C}_t\\
+f_t = \sigma(W_f \cdot [h_{t-1}, x_t] + b_f),f_t\in(0, 1)</script><p>在反向传播时，细胞状态 $C_{t-1}$ 的梯度:</p>
+<script type="math/tex; mode=display">
+\frac{\partial L}{\partial C_{t-1}} = \frac{\partial L}{\partial C_t} \cdot f_t + \cdots</script><p>若 $f_t \approx 1$（遗忘门打开），梯度可直接传递至 $C_{t-1}$，<strong>缓解了梯度消失</strong>（因无需经过激活函数导数的连乘）。</p>
+<h4 id="梯度爆炸的原因"><a href="#梯度爆炸的原因" class="headerlink" title="梯度爆炸的原因"></a>梯度爆炸的原因</h4><ol>
+<li><strong>权重矩阵的无界性</strong>：LSTM 中的权重矩阵 $W_f, W_i, W_o, W_c$ 若初始化过大或训练中更新至过大值，会导致门控信号或细胞状态的计算值过大，进而在反向传播时使梯度指数级放大。  </li>
+<li><strong>无激活函数约束的路径</strong>：细胞状态 $C_t$ 的更新中，$f_t \odot C_{t-1}$ 部分虽受门控控制，但 $i_t \odot \tilde{C}_t$ 中的 $\tilde{C}_t = \text{tanh}(W_c \cdot [h_{t-1}, x_t] + b_c)$ 仍涉及权重矩阵 $W_c$，若 $W_c$ 过大，$\tilde{C}_t$ 的梯度可能因 $W_c$ 的连乘而爆炸。  </li>
+<li><strong>与 RNN 的本质区别</strong>：RNN 的梯度消失源于激活函数导数的衰减，而 LSTM 的梯度爆炸源于权重矩阵的无约束增长（类似普通神经网络的梯度爆炸）。</li>
+</ol>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/04/23/2025-4-23-Transformer%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/04/22/2025-4-22-%E5%AD%97%E8%8A%82%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E6%A2%AF%E5%BA%A6%E6%B6%88%E5%A4%B1%E4%B8%8E%E6%A2%AF%E5%BA%A6%E7%88%86%E7%82%B8%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-content-number">1.</span> <span class="toc-content-text">梯度消失与梯度爆炸的定义</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E6%A2%AF%E5%BA%A6%E6%B6%88%E5%A4%B1%EF%BC%88Vanishing-Gradient%EF%BC%89"><span class="toc-content-number">1.1.</span> <span class="toc-content-text">梯度消失（Vanishing Gradient）</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E6%A2%AF%E5%BA%A6%E7%88%86%E7%82%B8%EF%BC%88Exploding-Gradient%EF%BC%89"><span class="toc-content-number">1.2.</span> <span class="toc-content-text">梯度爆炸（Exploding Gradient）</span></a></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link"><span class="toc-content-number">2.</span> <span class="toc-content-text"> </span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%85%B3%E4%BA%8Esoftmax%E8%BE%93%E5%87%BA%E2%80%9C%E5%B0%96%E9%94%90%E2%80%9D%E5%AF%BC%E8%87%B4%E6%A2%AF%E5%BA%A6%E6%B6%88%E5%A4%B1%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-content-number">3.</span> <span class="toc-content-text">关于softmax输出“尖锐”导致梯度消失的问题</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#softmax%E6%A2%AF%E5%BA%A6%E6%8E%A8%E5%AF%BC"><span class="toc-content-number">4.</span> <span class="toc-content-text">softmax梯度推导</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#RNN%E6%A2%AF%E5%BA%A6%E6%B6%88%E5%A4%B1"><span class="toc-content-number">5.</span> <span class="toc-content-text">RNN梯度消失</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#LSTM%E6%A2%AF%E5%BA%A6%E7%88%86%E7%82%B8"><span class="toc-content-number">6.</span> <span class="toc-content-text">LSTM梯度爆炸</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E6%A2%AF%E5%BA%A6%E7%88%86%E7%82%B8%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="toc-content-number">6.1.</span> <span class="toc-content-text">梯度爆炸的原因</span></a></li></ol></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>

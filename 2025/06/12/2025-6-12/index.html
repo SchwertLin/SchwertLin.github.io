@@ -1,0 +1,158 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="基于强化学习增强的端到端食品目标检测研究摘要食品目标检测在理想场景下已有较好性能，但在真实中式菜品混合和遮挡情况下仍面临巨大挑战。本文提出一种基于强化学习的DETR目标检测方法（RL-DETR），将解码器中查询向量的更新建模为序列决策过程，通过高斯策略采样更新查询并结合强化学习优化。具体地，每层解码器输出查询分布参数并采样新查询，用检测损失转换为奖励信号，采用改进的PPO目标（GPRO）稳定更新策">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-6-12">
+<meta property="og:url" content="http://example.com/2025/06/12/2025-6-12/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="基于强化学习增强的端到端食品目标检测研究摘要食品目标检测在理想场景下已有较好性能，但在真实中式菜品混合和遮挡情况下仍面临巨大挑战。本文提出一种基于强化学习的DETR目标检测方法（RL-DETR），将解码器中查询向量的更新建模为序列决策过程，通过高斯策略采样更新查询并结合强化学习优化。具体地，每层解码器输出查询分布参数并采样新查询，用检测损失转换为奖励信号，采用改进的PPO目标（GPRO）稳定更新策">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-06-12T14:15:32.000Z">
+<meta property="article:modified_time" content="2025-06-24T10:31:33.000Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="目标检测">
+<meta name="twitter:card" content="summary"><title>2025-6-12 - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-6-12</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-06-12</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-06-24</time></div>
+
+<div class="post-tags"><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/">目标检测</a></div></div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约4.8K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><h1 id="基于强化学习增强的端到端食品目标检测研究"><a href="#基于强化学习增强的端到端食品目标检测研究" class="headerlink" title="基于强化学习增强的端到端食品目标检测研究"></a>基于强化学习增强的端到端食品目标检测研究</h1><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>食品目标检测在理想场景下已有较好性能，但在真实中式菜品混合和遮挡情况下仍面临巨大挑战。本文提出一种基于强化学习的DETR目标检测方法（RL-DETR），将解码器中查询向量的更新建模为序列决策过程，通过高斯策略采样更新查询并结合强化学习优化。具体地，每层解码器输出查询分布参数并采样新查询，用检测损失转换为奖励信号，采用改进的PPO目标（GPRO）稳定更新策略网络。我们在新构建的FoodDet100k（清晰菜品图像）和MixFood500（混合遮挡菜品图像）数据集上进行实验。结果表明，RL-DETR在复杂遮挡场景下显著优于原始DETR、Deformable DETR和DINO等基线模型，尤其在密集和模糊目标下召回率和准确率均有所提升。此外的消融实验验证了RL模块对性能的贡献，并比较了PPO、REINFORCE和GPRO等优化方法的效果。本文的研究为食品成分识别等健康场景中的目标检测提供了新的思路和方向。</p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>食品目标检测是饮食记录与健康管理等应用的核心技术之一。然而，现有目标检测方法主要在理想环境下（如分隔摆放的西餐或单一菜品）取得了优异表现，但在真实的中式菜品场景中，复杂混合和严重遮挡导致检测性能下降。大量“清晰边界”的食品图像数据可以训练出较高精度的检测模型，但一旦遇到不同菜品被混合在同一盘中、边界模糊或菜品遮挡等情况，传统检测器往往难以应对。此外，中国成人超重率持续攀升，2021年中国已有超过4亿成年人超重或肥胖，预测到2030年超过65%的成年人将面临超重或肥胖问题。准确的食物检测有助于饮食成分识别和营养分析，从而支持健康管理和“体重管理年”等国家行动。基于此，我们关注小样本条件下的复杂场景食品检测问题：利用大量清晰样本和少量混合遮挡样本，提升模型在复杂遮挡分布上的泛化能力，而无需改变总体菜品类别。</p>
+<p>当前的研究多集中于理想摆放的食品检测，实际混合菜品研究尚属空白。因此，本工作引入强化学习（RL）机制，增强Transformer解码器查询更新过程的灵活性和适应性。我们提出的RL-DETR方法不改变检测类别空间，通过让解码器在每层迭代时对查询向量进行随机高斯采样，并根据预测质量计算奖励，引导查询更新策略逐层优化，以提高对混合遮挡场景的检测能力。本文的主要贡献包括：</p>
+<p>1）在食品目标检测领域提出首次将RL框架与DETR结合的端到端检测方法；</p>
+<p>2）设计高斯策略查询更新机制和基于目标检测损失的奖励函数；</p>
+<p>3）提出GPRO优化目标，结合PPO剪切和参考策略KL约束，稳定训练过程；</p>
+<p>4）在两个食品检测数据集上进行对比实验，验证方法在复杂遮挡环境下的有效性。</p>
+<h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><p>近三年、最新</p>
+<h3 id="食品领域数据集与挑战"><a href="#食品领域数据集与挑战" class="headerlink" title="食品领域数据集与挑战"></a>食品领域数据集与挑战</h3><p>食品-目标检测数据集</p>
+<p>通用目标检测数据集</p>
+<h3 id="TIP-周鹏飞再去细分"><a href="#TIP-周鹏飞再去细分" class="headerlink" title="TIP 周鹏飞再去细分"></a>TIP 周鹏飞再去细分</h3><blockquote>
+<p>根据目前组里的再去写、放两篇AAAI 模仿的写</p>
+</blockquote>
+<p>目前公开的食品相关检测数据集数量有限，多数专注于西餐或单一菜品的检测、分类任务。例如Food-101等数据集针对食物分类，而面向检测的BTBUFood-60等数据集包含60类常见食品，但一般物品间分隔较好。与此不同，中式菜品常常混合摆盘，菜品间互相遮挡。此类混合遮挡场景下的标注数据稀缺，属于小样本检测问题。我们新构建的MixFood500数据集即包含多菜品混合图像，以研究模型在复杂遮挡下的检测性能。</p>
+<h3 id="目标检测方法分类"><a href="#目标检测方法分类" class="headerlink" title="目标检测方法分类"></a>目标检测方法分类</h3><p><strong>传统方法略写</strong> 通用+食品，</p>
+<p>传统目标检测方法可分为单阶段和双阶段两类。单阶段检测器（如YOLO系列）将检测视作回归问题，通过单个网络直接预测边界框和类别，这类方法速度快且端到端优化。例如，YOLO提出统一检测架构，一次网络前向即可同时输出多个目标的位置和类别，达到实时处理的效果。双阶段检测器（如Faster R-CNN）则首先生成候选区域（region proposals），然后对每个候选进行分类和回归。Faster R-CNN通过引入区域建议网络（RPN），显著加速了检测过程并在PASCAL VOC上达到了73.2%的mAP。这两类方法通常需要手工设计NMS等后处理，且候选生成对小目标性能有限。</p>
+<p>近年来，以DETR（Detection Transformer）为代表的端到端检测方法得到关注。DETR使用Transformer编码器-解码器结构，将检测视为直接集合预测问题，通过二分图匹配损失消除了传统的候选生成和NMS，获得了与Faster R-CNN相当的精度。端到端检测器不依赖额外组件，模型结构更简单。然而，DETR收敛速度较慢，对小目标敏感，并且在复杂场景下泛化能力仍有待提升。本文在DETR架构基础上引入RL机制，以提高模型对复杂遮挡场景的适应性。</p>
+<h3 id="DETR及其改进方法"><a href="#DETR及其改进方法" class="headerlink" title="DETR及其改进方法"></a>DETR及其改进方法</h3><p>对DETR的改进工作主要集中在加速收敛、增强小目标检测等方面。一类代表工作是Deformable DETR，其通过引入可变形注意力机制，仅对关键采样点计算注意力，从而加快训练收敛速度并提高小目标检测性能。Zhu等人报道，Deformable DETR在COCO上比原始DETR表现更好，且训练迭代次数缩短了10倍。另一条研究路线是改进训练策略和查询初始化，例如DINO（ICLR 2023）提出对噪声框进行对比学习的去噪训练方法，并采用多尺度和混合查询等技术，使得模型在相同资源下大幅提升性能。DINO在COCO上使用ResNet-50主干训练12轮即可达到49.4 AP，24轮达到51.3 AP，相较先前最优的DN-DETR提升了6.0个AP。这些工作表明，合理设计检测器和训练策略能够提升检测效果，但尚无研究将强化学习策略融入DETR查询更新的过程。</p>
+<h3 id="强化学习在目标检测中的应用"><a href="#强化学习在目标检测中的应用" class="headerlink" title="强化学习在目标检测中的应用"></a>强化学习在目标检测中的应用</h3><p>强化学习（RL）逐渐应用于目标检测相关任务中。一类典型工作是<strong>主动目标检测</strong>：通过控制相机或观测角度，优化捕获视角以提升检测质量。例如，Ding等人提出“Learning to View: Decision Transformers for Active Object Detection”，使用RL（决策Transformer）控制机器人移动，选取能使检测质量最大的视角。这种方法将检测结果作为奖励信号引导策略学习。与此不同的是，本文关注<strong>被动视角下</strong>的检测，即在给定图像中进行目标检测，但将DETR解码器的查询更新视为RL动作决策，利用RL优化查询生成策略。这在以往工作中尚未出现，将为目标检测带来新的思路。</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>针对中式混合菜品检测问题，我们提出RL-DETR：在DETR基础上加入强化学习模块，以增强解码器查询更新策略的灵活性。整个模型分为以下三部分：</p>
+<ul>
+<li><strong>图像编码模块</strong>：输入图像首先通过预训练的视觉Transformer（ViT）或卷积网络提取特征，得到维度为$(B, T, d)$的特征图，其中$B$为批量大小，$T$为特征序列长度，$d$为特征维度。</li>
+<li><strong>Transformer编码器-解码器结构</strong>：采用标准DETR架构，包含若干层Transformer编码器和解码器。编码器提取全局语义信息；解码器逐层迭代更新查询向量$q_k$，并输出边界框和类别预测。</li>
+<li><strong>RL增强查询更新机制</strong>：在解码器每层，我们不使用传统的确定性更新，而是将查询向量更新视为随机动作采样。具体地，第$k$层解码器产生下一层查询的高斯分布参数$\mu_k,\sigma_k^2$（通过对隐藏状态$h_k$进行线性变换得到），然后从该高斯分布中采样得到新查询$q_{k+1}$：<script type="math/tex; mode=display">
+o_k = q_{k+1} = \mu_k + \epsilon \cdot \sigma_k,\quad \epsilon \sim \mathcal{N}(0,I),</script></li>
+</ul>
+<p>因此策略$\pi_\theta(o_k|q_k)$可表示为多维高斯分布$\mathcal{N}(o_k;,\mu_k,\sigma_k^2)$。通过引入随机性，每层解码器的查询向量更新都具有探索性。</p>
+<p>在模型的每一层解码器中，根据当前查询$q_k$采样动作得到新的查询$q_{k+1}$，再经解码器产生对应的分类和回归预测。然后我们将检测损失转化为奖励信号：假设第$k$层对第$i$个查询的预测损失为$\mathcal{L}<em>{\text{cls}}^i+\lambda \mathcal{L}</em>{\text{box}}^i$，则对应的即时奖励定义为</p>
+<script type="math/tex; mode=display">
+r_k^i = -\bigl(\mathcal{L}_{\text{cls}}^i + \lambda \mathcal{L}_{\text{box}}^i\bigr),</script><p>即预测损失越低奖励越高。这样的设计鼓励策略选择能降低检测损失的查询更新方向。</p>
+<p>为了稳定策略更新，我们引入**GPRO（Generalized PPO with Reference Policy）**作为优化目标。GPRO结合了PPO的剪切目标和参考策略的KL散度约束：其目标函数为期望式：</p>
+<script type="math/tex; mode=display">
+\mathcal{J}_{\text{GPRO}}(\theta) = \mathbb{E}\Bigg[\frac{1}{G}\sum_{i=1}^G \min\Big(r_i A_i,\;\text{clip}(r_i,1-\epsilon,1+\epsilon)A_i\Big) - \beta\,\mathbb{D}_{\text{KL}}\bigl(\pi_\theta(\cdot|q_k^i)\,\|\,\pi_{\text{ref}}(\cdot|q_k^i)\bigr)\Bigg],</script><p>其中$r_i=\frac{\pi_\theta(o_i|q_k^i)}{\pi_{\theta_{\text{old}}}(o_i|q_k^i)}$为当前策略与旧策略的比值，$A_i$为计算得到的优势值（基于累积奖励），$\epsilon$为剪切参数，$\beta$为KL系数，$\pi_{\text{ref}}$为参考策略（可取为上一次策略或DETR的确定性更新）。该目标兼顾了PPO多步更新的稳定性以及与参考策略的一致性，适用于对查询更新策略进行微调。</p>
+<p><strong>模型训练流程</strong>如下：首先冻结图像编码器（ViT）和Transformer编码器，仅训练解码器的查询更新模块（策略网络），重点优化RL部分。具体步骤可总结为：</p>
+<ol>
+<li><strong>前向传播（采样动作）</strong>：对输入图像，依次通过编码器和每层解码器。每层解码器根据当前查询$q_k$计算分布参数$(\mu_k,\sigma_k)$，并从$\mathcal{N}(\mu_k,\sigma_k^2)$中采样得到$q_{k+1}$作为下一层的输入。</li>
+<li><strong>计算奖励</strong>：每层解码器基于$q_k$生成的预测结果（分类概率和边框）与真实标注进行Hungarian匹配后，计算检测损失，并按照上述式子转换为奖励。这一步为每个查询轨迹提供了即时奖励序列。</li>
+<li><strong>更新策略</strong>：利用采样轨迹计算优势值$A_i$（例如基于时序差分或GAE），构建GPRO损失进行反向传播。策略网络的参数$\theta$根据剪切损失和KL约束同时更新，使得新策略在提高奖励的同时与参考策略保持适度接近。这里参考策略可以选择前一时刻的策略或DETR的确定性更新，以平衡探索与稳定。</li>
+</ol>
+<p>最终，模型在融合了检测损失和RL策略损失的联合目标下训练。经过迭代，RL-DETR学会生成更利于降低损失的查询更新，从而提升在复杂场景下的检测性能。</p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>我们在两个食品检测数据集上评估所提方法。<strong>FoodDet100k</strong>数据集包含大量单一菜品的“清晰边界”图像，用于预训练模型；<strong>MixFood500</strong>数据集则由多菜品混合、相互遮挡的图像构成，用于微调和测试。在基准测试中，将RL-DETR与原始DETR、Deformable DETR和DINO等方法进行比较。所有方法均使用相同的训练设置和评价指标进行对比。</p>
+<p>实验结果显示，RL-DETR在MixFood500混合遮挡场景下的平均精度（mAP）和召回率明显优于基线模型。在多个指标上，RL-DETR特别在密集遮挡和小目标的检测上提升显著，而在清晰简单场景下性能保持不减。此外，我们通过对比检测热力图和可视化结果发现，RL-DETR能够更准确地定位被遮挡的食品边界。上述结果验证了在复杂场景下引入随机策略和奖励引导能有效增强DETR的检测能力。</p>
+<h2 id="消融研究"><a href="#消融研究" class="headerlink" title="消融研究"></a>消融研究</h2><p>为评估各组件的作用，我们进行了消融实验。首先对比了<strong>是否使用RL奖励</strong>的模型：去除RL机制后，模型退化为常规DETR，其在混合遮挡场景下性能明显下降，说明RL模块对模型泛化至复杂场景有帮助。其次，我们比较了不同强化学习优化策略的效果：传统策略梯度（REINFORCE）和PPO方法虽能训练策略网络，但收敛较慢且效果有限；而引入我们设计的GPRO目标后，策略更新更稳定、性能更优。例如，PPO已被证明在多种任务中具有良好样本效率，但直接应用于DETR查询更新时仍易过拟合于清晰数据分布；相比之下，GPRO通过参考策略约束，兼顾了探索和原有更新规则，从而在遮挡场景中获得了最高的检测精度。综合消融结果表明，RL模块和GPRO优化均为RL-DETR提升性能的关键。</p>
+<h2 id="结论与展望"><a href="#结论与展望" class="headerlink" title="结论与展望"></a>结论与展望</h2><p>本文提出了一种基于强化学习增强的端到端食品目标检测方法（RL-DETR），针对中式混合菜品检测中的遮挡与混合问题，结合DETR的解码器结构引入查询随机采样和策略优化。实验验证了该方法在复杂遮挡场景下的有效性，相对于传统DETR及其改进方法具有明显优势。未来工作可进一步扩展RL-DETR框架：例如探索自监督学习策略以降低对标注数据的依赖、将该方法推广至食品分割或其他高密度目标检测任务，以及研究更高级的RL算法以进一步提升收敛速度和性能。同时，可考虑结合领域自适应技术，以增强模型在不同餐饮场景中的泛化能力。总之，引入强化学习为目标检测带来了新的视角，为食品成分识别等实际应用提供了有前景的方案。</p>
+<p><strong>参考文献：</strong> 本文中提及的技术方法和结果均有相关文献支持，例如DETR的原始论文、YOLO和Faster R-CNN的提出，Deformable DETR与DINO的改进，以及强化学习在目标检测相关任务中的应用等。上述引用为本文内容提供了理论和实验依据。</p>
+<p>我们的方法如何<strong>有效验证问题、</strong></p>
+<p>逻辑不太对—训练、测试、验证数据集—数据集-训练上</p>
+<p>-小样本few-shot</p>
+<p>食品数据集/</p>
+<p>通用数据集-验证泛化性</p>
+<p>方法：数据集评估，数据集构建，</p>
+<p>所以到底问题是什么？我现在已经把方法构建好了。但是这个方法是用来解决问题的。</p>
+<p>现在问题就是对于目标混合、覆盖、重叠的情况需要较好的识别。</p>
+<p>但是我要怎么让我的方法cover这个问题？</p>
+<p>模型需要：准备数据集-构建模型-训练-评估。</p>
+<ol>
+<li><p>数据集如何设计？</p>
+<ul>
+<li>大部分的数据都是正常分割完整的数据。非常容易识别到边界。只有极少部分的是混合的数据。这样下来收集就会比较苦难。所以改成few-shot的目标检测。充分利用上少量的混合菜品。能不能对于边界清晰已识别的数据进行部分采样、而对于混合数据全部使用？那这一部分的代码该如何写？</li>
+<li>这个要使用少样本学习吗？但是我此处并不涉及到两个不相交的数据集，而是类别、域都比较一致的数据分布上。还是说想办法去多收集一些数据？那要收集多少才比较好？我当然知道是越多越好，但是实际上数据需要人工收集、所以收集起来比较困难；所以我需要收集到能够让我的模型表现不错、最经济的数据数量。</li>
+<li>只要数据设计好了，投入模型是否就代表数据集设计部分的工作已经完成？但是我现在的混合图片数据一共是500张、如何安排训练数据、验证数据、测试数据数量？</li>
+</ul>
+</li>
+<li><p>模型代码完成</p>
+</li>
+<li><p>训练部分</p>
+</li>
+<li><p>评估使用指标是？</p>
+<ul>
+<li>模型部分因为使用了强化学习方法、可以使用梯度下降吗？再因为我使用的数据大部分是正常课清晰辨认的数据、在检测上不存在难度；只有小部分数据是混合数据、我需要针对此种情况重新修改我的loss函数。如何重新在loss函数中加载其他的数学公式部分，使得可以满足这种情况？</li>
+</ul>
+</li>
+</ol>
+<p><strong>“Few-shot 意识”</strong> 就是：</p>
+<ol>
+<li>在<strong>数据采样</strong>时，保证每个 batch 都包含一定比例的难例（混合样本）。</li>
+<li>在<strong>Loss</strong>或<strong>梯度</strong>层面，对难例给更高权重。</li>
+<li>在<strong>训练策略</strong>上（如 curriculum learning），先让模型在清晰样本上收敛，再强化学习混合样本。</li>
+</ol>
+<p>这样，模型本身没有用到元学习算法，但会<strong>在训练过程中“刻意”放大那少数难例的影响</strong>，达到“少样本场景下也能学到关键特征”的效果。</p>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/06/18/2025-6-18/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/06/10/2025-6-10-1/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#%E5%9F%BA%E4%BA%8E%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%A2%9E%E5%BC%BA%E7%9A%84%E7%AB%AF%E5%88%B0%E7%AB%AF%E9%A3%9F%E5%93%81%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%A0%94%E7%A9%B6"><span class="toc-content-number">1.</span> <span class="toc-content-text">基于强化学习增强的端到端食品目标检测研究</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E6%91%98%E8%A6%81"><span class="toc-content-number">1.1.</span> <span class="toc-content-text">摘要</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E5%BC%95%E8%A8%80"><span class="toc-content-number">1.2.</span> <span class="toc-content-text">引言</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C"><span class="toc-content-number">1.3.</span> <span class="toc-content-text">相关工作</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E9%A3%9F%E5%93%81%E9%A2%86%E5%9F%9F%E6%95%B0%E6%8D%AE%E9%9B%86%E4%B8%8E%E6%8C%91%E6%88%98"><span class="toc-content-number">1.3.1.</span> <span class="toc-content-text">食品领域数据集与挑战</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#TIP-%E5%91%A8%E9%B9%8F%E9%A3%9E%E5%86%8D%E5%8E%BB%E7%BB%86%E5%88%86"><span class="toc-content-number">1.3.2.</span> <span class="toc-content-text">TIP 周鹏飞再去细分</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%96%B9%E6%B3%95%E5%88%86%E7%B1%BB"><span class="toc-content-number">1.3.3.</span> <span class="toc-content-text">目标检测方法分类</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#DETR%E5%8F%8A%E5%85%B6%E6%94%B9%E8%BF%9B%E6%96%B9%E6%B3%95"><span class="toc-content-number">1.3.4.</span> <span class="toc-content-text">DETR及其改进方法</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%9C%A8%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-content-number">1.3.5.</span> <span class="toc-content-text">强化学习在目标检测中的应用</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E6%96%B9%E6%B3%95"><span class="toc-content-number">1.4.</span> <span class="toc-content-text">方法</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E5%AE%9E%E9%AA%8C"><span class="toc-content-number">1.5.</span> <span class="toc-content-text">实验</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E6%B6%88%E8%9E%8D%E7%A0%94%E7%A9%B6"><span class="toc-content-number">1.6.</span> <span class="toc-content-text">消融研究</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E7%BB%93%E8%AE%BA%E4%B8%8E%E5%B1%95%E6%9C%9B"><span class="toc-content-number">1.7.</span> <span class="toc-content-text">结论与展望</span></a></li></ol></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>

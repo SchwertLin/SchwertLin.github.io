@@ -1,0 +1,512 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="用 “开一家线上线下结合的便利店” 作为类比看MCP所有这些 “抽象” 的规则，最终都是为了实现 3 件事：  稳定：服务器不崩溃、不丢数据，客户端能正常用； 安全：不被攻击、不泄露隐私，资源不被恶意破坏； 好维护：出问题能快速查到原因，能优化性能，能应对更多用户。  一、传输方式-“与顾客沟通的方式”     MCP服务 类比开便利店     核心问题 MCP 服务器和客户端怎么连接？选哪种连接">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-8-25">
+<meta property="og:url" content="http://example.com/2025/08/25/2025-8-25/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="用 “开一家线上线下结合的便利店” 作为类比看MCP所有这些 “抽象” 的规则，最终都是为了实现 3 件事：  稳定：服务器不崩溃、不丢数据，客户端能正常用； 安全：不被攻击、不泄露隐私，资源不被恶意破坏； 好维护：出问题能快速查到原因，能优化性能，能应对更多用户。  一、传输方式-“与顾客沟通的方式”     MCP服务 类比开便利店     核心问题 MCP 服务器和客户端怎么连接？选哪种连接">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-08-25T01:56:17.000Z">
+<meta property="article:modified_time" content="2025-08-25T03:46:00.000Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="MCP">
+<meta name="twitter:card" content="summary"><title>2025-8-25 - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-8-25</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-08-25</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-08-25</time></div>
+
+<div class="post-tags"><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/MCP/">MCP</a></div></div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约3.4K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><h1 id="用-“开一家线上线下结合的便利店”-作为类比看MCP"><a href="#用-“开一家线上线下结合的便利店”-作为类比看MCP" class="headerlink" title="用 “开一家线上线下结合的便利店” 作为类比看MCP"></a>用 <strong>“开一家线上线下结合的便利店”</strong> 作为类比看MCP</h1><p>所有这些 “抽象” 的规则，最终都是为了实现 3 件事：</p>
+<ol>
+<li><strong>稳定</strong>：服务器不崩溃、不丢数据，客户端能正常用；</li>
+<li><strong>安全</strong>：不被攻击、不泄露隐私，资源不被恶意破坏；</li>
+<li><strong>好维护</strong>：出问题能快速查到原因，能优化性能，能应对更多用户。</li>
+</ol>
+<h2 id="一、传输方式-“与顾客沟通的方式”"><a href="#一、传输方式-“与顾客沟通的方式”" class="headerlink" title="一、传输方式-“与顾客沟通的方式”"></a>一、传输方式-“与顾客沟通的方式”</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>MCP服务</th>
+<th>类比开便利店</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>核心问题</td>
+<td>MCP 服务器和客户端怎么连接？选哪种连接方式效率高、成本低？</td>
+<td>你的便利店怎么和顾客交互？是 “面对面（本地）” 还是 “线上下单（远程）”？</td>
+</tr>
+<tr>
+<td>本地通信</td>
+<td>本地进程用 STDIO 传输（标准输入输出），同机通信效率高、进程管理简单。</td>
+<td>顾客直接走进店里，和店员面对面说话（比如 “要一瓶可乐”）。不用打电话、不用发快递，沟通快、没延迟，也不用管 “快递丢件”（网络问题）。</td>
+</tr>
+<tr>
+<td>远程通信</td>
+<td>需要 HTTP 兼容的场景用 SSE（服务器发送事件），要考虑安全（身份验证、授权）。</td>
+<td>顾客不在店里，用手机 APP 下单（比如 “订一箱牛奶，送上门”）。这时候要考虑得就多了：顾客是不是会员？订单信息准确吗？会不会被别人偷看？等等</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="二、消息处理-“处理顾客需求”"><a href="#二、消息处理-“处理顾客需求”" class="headerlink" title="二、消息处理-“处理顾客需求”"></a>二、消息处理-“处理顾客需求”</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>MCP服务</th>
+<th>类比开便利店</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>核心问题</td>
+<td>MCP 服务器收到客户端的请求（比如 “调用工具查天气”），怎么处理才不会出错、让客户端满意？</td>
+<td>店员收到顾客的订单（比如 “订 10 个面包”），怎么处理才不会发错、不耽误顾客？</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="（1）请求处理-“核对订单”"><a href="#（1）请求处理-“核对订单”" class="headerlink" title="（1）请求处理-“核对订单”"></a>（1）请求处理-“核对订单”</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>请求处理</th>
+<th>类比开店：顾客订了10个面包</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>验证输入</td>
+<td>“10 个面包” 是有效需求吗？店里有没有 10 个？（比如顾客说 “订 -1 个面包”，就要提醒 “数量不对”）；</td>
+</tr>
+<tr>
+<td>类型安全</td>
+<td>“面包” 是哪种？是全麦还是奶油？（避免顾客要 “全麦”，店员给 “奶油”—— 对应 MCP 里 “参数类型不对”，比如要字符串 “北京”，客户端传了数字 123）；</td>
+</tr>
+<tr>
+<td>优雅地处理错误</td>
+<td>如果面包卖完了，不能说 “没了” 就完事，要告诉顾客 “今天全麦面包卖完了，明天到货，需要预留吗？”（对应 MCP 里 “工具调用失败，返回具体原因，不是只说‘错了’”）；</td>
+</tr>
+<tr>
+<td>实施超时</td>
+<td>如果顾客下单后，一直不付款，10 分钟后自动取消订单（对应 MCP 里 “客户端发了请求，服务器等了很久没回应，就主动结束，避免占资源”）。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p><strong>MCP实际例子：</strong>客户端调用 “查天气工具”，传了参数 <code>&#123;&quot;city&quot;: 123&#125;</code>（数字，不是字符串）。</p>
+<ul>
+<li><strong>验证输入</strong>：<code>city</code> 应该是字符串（比如 “北京”），123 不对，返回错误 “city 参数需为城市名称字符串”（不是只说 “参数错了”）；</li>
+<li><strong>实施超时</strong>：如果服务器调用第三方天气 API 超时（比如 5 秒没响应），就主动告诉客户端 “天气查询超时，请稍后再试”，而不是一直卡着。</li>
+</ul>
+</blockquote>
+<h3 id="（2）进度报告—“进度可视化”"><a href="#（2）进度报告—“进度可视化”" class="headerlink" title="（2）进度报告—“进度可视化”"></a>（2）进度报告—“进度可视化”</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>进度报告</th>
+<th>类比开店：顾客订了 “定制蛋糕（要做 30 分钟）”，店员不能让顾客干等</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>长时间操作用水印令牌（progress tokens）</td>
+<td>给顾客一个 “订单号（进度令牌）”：比如 “NO.123”，顾客可以随时查 “我的蛋糕做到哪了”；</td>
+<td></td>
+</tr>
+<tr>
+<td>增量报告进度</td>
+<td>增量报告：“蛋糕胚烤好了（20%）→ 抹奶油中（50%）→ 装饰中（80%）”（不是只说 “在做了”）；</td>
+<td></td>
+</tr>
+<tr>
+<td>已知总进度要包含总进度</td>
+<td>总进度：告诉顾客 “总共要 30 分钟，现在过了 15 分钟，还剩 15 分钟”。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p><strong>MCP实际例子：</strong>客户端调用 “大文件上传工具”（要传 1GB 的文件，需要 10 秒）：</p>
+<ul>
+<li><strong>长时间操作用水印令牌</strong>：服务器返回一个 “进度令牌：upload_123”，客户端可以用这个令牌查进度；</li>
+<li><strong>增量报告进度</strong>：服务器每隔 1 秒推一次进度：“已上传 100MB（10%）”→“已上传 500MB（50%）”→“已上传 1GB（100%）”；</li>
+<li><strong>知总进度要包含总进度</strong>：客户端拿到进度，就能显示 “上传中 50%，还剩 5 秒”，用户体验更好。</li>
+</ul>
+</blockquote>
+<h3 id="（3）错误管理-“处理错误”"><a href="#（3）错误管理-“处理错误”" class="headerlink" title="（3）错误管理-“处理错误”"></a>（3）错误管理-“处理错误”</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>错误管理</th>
+<th>类比开店：顾客订的 “牛奶送上门时漏了”，店员要</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用适当错误代码</td>
+<td>给总部报 “配送漏液（错误码 003）”（方便内部定位问题，不是只说 “出问题了”）；</td>
+<td></td>
+</tr>
+<tr>
+<td>有用错误消息</td>
+<td>告诉顾客 “牛奶在配送中漏了，我们马上重送，10 分钟到，还送您一张优惠券”（不是只说 “对不起”）；</td>
+<td></td>
+</tr>
+<tr>
+<td>出错清理资源</td>
+<td>让配送员把漏的牛奶回收，别留在顾客门口（避免浪费或引来虫子）。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p><strong>MCP实际例子</strong>：客户端调用 “创建文件工具”，但磁盘满了：</p>
+<ul>
+<li><strong>错误代码</strong>：返回 “error_code: disk_full”（方便客户端识别是 “磁盘满”，不是 “权限不够”）；</li>
+<li><strong>错误消息</strong>：“创建文件失败：磁盘剩余空间不足 100MB，请清理后重试”（具体原因，不是只说 “失败”）；</li>
+<li><strong>清理资源</strong>：服务器已经创建了一个空文件，出错后要删掉这个空文件（避免占磁盘空间）。</li>
+</ul>
+</blockquote>
+<h2 id="三、安全注意-“防小偷、防诈骗”"><a href="#三、安全注意-“防小偷、防诈骗”" class="headerlink" title="三、安全注意-“防小偷、防诈骗”"></a>三、安全注意-“防小偷、防诈骗”</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>MCP服务</th>
+<th>类比开便利店</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>核心问题</td>
+<td>MCP 通信过程中，怎么避免 “坏人” 偷数据、假装成合法用户、破坏服务器？</td>
+<td>你的便利店怎么防 “小偷进店偷东西”“假顾客骗商品”“故意捣乱的人”？</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="（1）传输安全-“保护订单信息不被偷看”"><a href="#（1）传输安全-“保护订单信息不被偷看”" class="headerlink" title="（1）传输安全-“保护订单信息不被偷看”"></a>（1）传输安全-“保护订单信息不被偷看”</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>传输安全</th>
+<th>开店类比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>远程连接用 TLS（加密）</td>
+<td>顾客用 APP 下单时，订单信息（比如 “买 1000 元的红酒”）要加密，不能让别人截获后偷看；</td>
+</tr>
+<tr>
+<td>验证连接来源</td>
+<td>顾客下单的手机，是不是 “绑定过的手机号”（避免别人用假手机号下单）；</td>
+</tr>
+<tr>
+<td>实施身份验证</td>
+<td>顾客要登录账号才能下单（避免 “陌生人随便用你的账号订东西”）。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p><strong>MCP 实际例子</strong>：远程调用 “公司财务 MCP 服务器（查工资）”：</p>
+<ul>
+<li><strong>用 TLS 加密</strong>：所有通信数据（比如 “查 2024 年 8 月工资”）都加密，即使被截获，别人也看不懂；</li>
+<li><strong>验证来源</strong>：只允许公司内网的 IP 连接（避免外面的人连接）；</li>
+<li><strong>身份验证</strong>：必须输入 “员工 ID + 密码”，验证通过才能查工资。</li>
+</ul>
+</blockquote>
+<h3 id="（2）消息验证-“检查订单是不是真的、没被改”"><a href="#（2）消息验证-“检查订单是不是真的、没被改”" class="headerlink" title="（2）消息验证-“检查订单是不是真的、没被改”"></a>（2）消息验证-“检查订单是不是真的、没被改”</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>消息验证</th>
+<th>类比开店：顾客拿一张 “优惠券” 来用，店员要</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>验证所有传入消息</td>
+<td>是不是店里发的？有没有过期？（避免假优惠券）；</td>
+</tr>
+<tr>
+<td>清理输入</td>
+<td>优惠券上有乱涂乱画的字，要忽略（避免 “恶意字符” 影响系统）；</td>
+</tr>
+<tr>
+<td>检查消息大小</td>
+<td>优惠券不能是 “100 米长的纸”（避免占满收银台，对应 MCP 里 “消息太大，服务器处理不了”）；</td>
+</tr>
+<tr>
+<td>验证 JSON-RPC 格式</td>
+<td>优惠券是不是 “标准样式”（比如有二维码、有效期栏，对应 MCP 里 “消息要符合 JSON-RPC 格式，否则服务器看不懂”）。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p><strong>MCP 实际例子</strong>：客户端发了一个 “调用工具” 的消息：</p>
+<ul>
+<li><strong>验证格式</strong>：是不是 JSON-RPC 格式？有没有 “method”“params” 字段？（避免发个 “乱码” 让服务器崩溃）；</li>
+<li><strong>清理输入</strong>：参数里有 <code>&lt;script&gt;</code>这样的恶意字符（可能想攻击服务器），要过滤掉；</li>
+<li><strong>检查大小</strong>：消息有 1GB 大（明显不正常），直接拒绝（避免服务器内存被占满）。</li>
+</ul>
+</blockquote>
+<h3 id="（3）资源保护-“别让顾客随便拿店里的东西”"><a href="#（3）资源保护-“别让顾客随便拿店里的东西”" class="headerlink" title="（3）资源保护-“别让顾客随便拿店里的东西”"></a>（3）资源保护-“别让顾客随便拿店里的东西”</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>资源保护</th>
+<th>类比开店</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>实施访问控制</td>
+<td>仓库里的 “进口红酒” 只有 VIP 顾客能买（普通顾客不能进仓库）；</td>
+</tr>
+<tr>
+<td>验证资源路径</td>
+<td>顾客说 “要拿仓库最里面的箱子”，要确认 “那个箱子是不是对外销售的”（避免顾客拿 “员工私人物品”）；</td>
+</tr>
+<tr>
+<td>监视使用情况</td>
+<td>某个顾客一天买 100 瓶可乐，要警惕 “是不是倒卖”；</td>
+</tr>
+<tr>
+<td>限制请求速率</td>
+<td>促销活动时，每人最多买 2 瓶特价牛奶（避免一个人抢光，别人买不到）。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p><strong>MCP 实际例子</strong>：MCP 服务器有 “删除文件” 的工具：</p>
+<ul>
+<li><strong>访问控制</strong>：只有 “管理员” 角色的客户端能调用（普通用户不能删文件）；</li>
+<li><strong>验证路径</strong>：客户端要删 “/home/admin/important.txt”，要确认 “这个路径是允许删除的”（避免删系统文件）；</li>
+<li><strong>限制速率</strong>：一个客户端 1 分钟内最多删 5 个文件（避免恶意删光所有文件）。</li>
+</ul>
+</blockquote>
+<h3 id="（4）错误处理-“出问题了，别泄露隐私”"><a href="#（4）错误处理-“出问题了，别泄露隐私”" class="headerlink" title="（4）错误处理-“出问题了，别泄露隐私”"></a>（4）错误处理-“出问题了，别泄露隐私”</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>错误处理</th>
+<th>类比开店</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>不泄露敏感信息</td>
+<td>顾客付款失败，不能说 “你银行卡余额只有 10 元”（只能说 “付款失败，请检查银行卡”）；</td>
+</tr>
+<tr>
+<td>记录安全错误</td>
+<td>有人尝试用假密码登录，要记下来（方便后续查 “是不是小偷”）；</td>
+</tr>
+<tr>
+<td>处理 DoS 场景</td>
+<td>一群人假装下单，却不付款，占满所有订单名额（要自动识别 “恶意下单”，临时限制这些人的账号）。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p><strong>MCP 实际例子</strong>：客户端调用 “查工资” 工具失败：</p>
+<ul>
+<li><strong>不泄露敏感信息</strong>：不能说 “你密码错了，正确密码是 123456”（只能说 “身份验证失败，请检查账号密码”）；</li>
+<li><strong>记录错误</strong>：有人连续输错 5 次密码，要记录 “IP 地址 + 时间”（可能是恶意破解）；</li>
+<li><strong>处理 DoS</strong>：一个 IP 1 秒内发 1000 次 “查工资” 请求（想搞垮服务器），要临时拉黑这个 IP。</li>
+</ul>
+</blockquote>
+<h2 id="四、调试和监控-“如何知道店里运营情况”"><a href="#四、调试和监控-“如何知道店里运营情况”" class="headerlink" title="四、调试和监控-“如何知道店里运营情况”"></a>四、调试和监控-“如何知道店里运营情况”</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>MCP服务</th>
+<th>类比开便利店</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>核心问题</td>
+<td>MCP 服务器运行时，怎么知道 “有没有问题”“慢不慢”“要不要修”？</td>
+<td>你的便利店怎么知道 “今天有没有丢东西”“顾客等得久不久”“设备坏没坏”？</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="（1）日志记录-“流水账”"><a href="#（1）日志记录-“流水账”" class="headerlink" title="（1）日志记录-“流水账”"></a>（1）日志记录-“流水账”</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>日志记录</th>
+<th>类比开店：店员要记 “流水账”</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>记录协议事件</td>
+<td>“9:00 顾客 A 进店→9:05 点了可乐→9:06 付款离开”（对应 MCP 里 “客户端连接→发送请求→接收响应”）；</td>
+</tr>
+<tr>
+<td>跟踪消息流</td>
+<td>“顾客 A 要的是‘冰可乐’，店员给的是‘常温’→后来换了”（对应 MCP 里 “客户端发的参数是‘北京’，服务器查的是‘上海’→错误修正”）；</td>
+</tr>
+<tr>
+<td>监控性能</td>
+<td>“顾客 B 等了 10 分钟才拿到蛋糕”（对应 MCP 里 “某个请求处理了 5 秒，太慢了”）；</td>
+</tr>
+<tr>
+<td>记录错误</td>
+<td>“10:00 收银机卡住了，重启后恢复”（对应 MCP 里 “服务器连接断开，重新启动”）。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p><strong>MCP 实际例子</strong>：<br>服务器日志里会有这样的记录：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">2024-08-25 09:00: 客户端 127.0.0.1 连接成功</span><br><span class="line">2024-08-25 09:01: 收到请求：调用工具 get_weather，参数 &#123;&quot;city&quot;:&quot;北京&quot;&#125;</span><br><span class="line">2024-08-25 09:01: 处理耗时 0.5 秒，返回结果：&#123;&quot;temperature&quot;:25&#125;</span><br><span class="line">2024-08-25 09:02: 客户端断开连接</span><br></pre></td></tr></table></figure>
+<p>如果后来客户端说 “没收到天气结果”，查日志就知道 “服务器已经返回了，可能是客户端那边的问题”。</p>
+</blockquote>
+<h3 id="（2）诊断-“定期自检”"><a href="#（2）诊断-“定期自检”" class="headerlink" title="（2）诊断-“定期自检”"></a>（2）诊断-“定期自检”</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>诊断</th>
+<th>类比开店</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>实施健康检查</td>
+<td>每天开门前，检查 “收银机能不能用”“冰箱冷不冷”（对应 MCP 里 “服务器定期自查‘能不能正常接收请求’‘内存够不够’”）；</td>
+</tr>
+<tr>
+<td>监视连接状态</td>
+<td>看看 “有多少顾客在店里”（对应 MCP 里 “当前有多少客户端连接，有没有卡死的连接”）；</td>
+</tr>
+<tr>
+<td>跟踪资源使用</td>
+<td>“冰箱里还剩多少牛奶”“收银机纸还够不够”（对应 MCP 里 “服务器磁盘用了多少、内存用了多少”）；</td>
+</tr>
+<tr>
+<td>分析性能</td>
+<td>“今天顾客平均等餐时间是 5 分钟，比昨天慢了 2 分钟”（对应 MCP 里 “请求平均处理时间从 0.5 秒变成 2 秒，要优化”）。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p><strong>MCP 实际例子</strong>：</p>
+<ul>
+<li><strong>健康检查</strong>：服务器每 10 秒自查一次，返回 “status: ok”（如果内存满了，返回 “status: warning”）；</li>
+<li><strong>资源跟踪</strong>：发现服务器磁盘使用率到 90% 了，及时清理日志文件（避免无法存储新数据）；</li>
+<li><strong>性能分析</strong>：某个工具调用平均耗时从 0.5 秒变成 5 秒，查原因发现是 “第三方 API 变慢了”，要换 API。</li>
+</ul>
+</blockquote>
+<h3 id="（3）测试-“模拟各种情况，确保店里能应对”"><a href="#（3）测试-“模拟各种情况，确保店里能应对”" class="headerlink" title="（3）测试-“模拟各种情况，确保店里能应对”"></a>（3）测试-“模拟各种情况，确保店里能应对”</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>测试</th>
+<th>类比开店</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>测试不同传输</td>
+<td>“顾客面对面点单”“APP 下单”“电话下单” 都试一遍，看看是不是都能正常处理；</td>
+</tr>
+<tr>
+<td>验证错误处理</td>
+<td>故意说 “要 -1 个面包”，看店员会不会提醒 “数量不对”；</td>
+</tr>
+<tr>
+<td>检查边缘情况</td>
+<td>“顾客用 1000 元现金买 1 瓶可乐”“顾客凌晨 3 点下单”，看系统能不能应对；</td>
+</tr>
+<tr>
+<td>负载测试</td>
+<td>模拟 “双 11 当天 100 个顾客同时下单”，看收银机会不会卡住（对应 MCP 里 “模拟 1000 个客户端同时调用工具，看服务器能不能扛住”）。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p><strong>MCP 实际例子</strong>：</p>
+<ul>
+<li><strong>传输测试</strong>：分别用 STDIO 和 SSE 连接服务器，看工具调用是不是都正常；</li>
+<li><strong>边缘测试</strong>：客户端传 “空字符串” 作为城市名，看服务器会不会返回 “请输入有效城市”（不是崩溃）；</li>
+<li><strong>负载测试</strong>：用工具模拟 500 个客户端同时调用 “查天气” 工具，看服务器 CPU 使用率、响应时间是不是在正常范围（如果 CPU 到 100%，要加服务器性能）。</li>
+</ul>
+</blockquote>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/08/25/2025-8-25-1/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/08/24/2025-8-24/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#%E7%94%A8-%E2%80%9C%E5%BC%80%E4%B8%80%E5%AE%B6%E7%BA%BF%E4%B8%8A%E7%BA%BF%E4%B8%8B%E7%BB%93%E5%90%88%E7%9A%84%E4%BE%BF%E5%88%A9%E5%BA%97%E2%80%9D-%E4%BD%9C%E4%B8%BA%E7%B1%BB%E6%AF%94%E7%9C%8BMCP"><span class="toc-content-number">1.</span> <span class="toc-content-text">用 “开一家线上线下结合的便利店” 作为类比看MCP</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E4%B8%80%E3%80%81%E4%BC%A0%E8%BE%93%E6%96%B9%E5%BC%8F-%E2%80%9C%E4%B8%8E%E9%A1%BE%E5%AE%A2%E6%B2%9F%E9%80%9A%E7%9A%84%E6%96%B9%E5%BC%8F%E2%80%9D"><span class="toc-content-number">1.1.</span> <span class="toc-content-text">一、传输方式-“与顾客沟通的方式”</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E4%BA%8C%E3%80%81%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86-%E2%80%9C%E5%A4%84%E7%90%86%E9%A1%BE%E5%AE%A2%E9%9C%80%E6%B1%82%E2%80%9D"><span class="toc-content-number">1.2.</span> <span class="toc-content-text">二、消息处理-“处理顾客需求”</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%EF%BC%881%EF%BC%89%E8%AF%B7%E6%B1%82%E5%A4%84%E7%90%86-%E2%80%9C%E6%A0%B8%E5%AF%B9%E8%AE%A2%E5%8D%95%E2%80%9D"><span class="toc-content-number">1.2.1.</span> <span class="toc-content-text">（1）请求处理-“核对订单”</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%EF%BC%882%EF%BC%89%E8%BF%9B%E5%BA%A6%E6%8A%A5%E5%91%8A%E2%80%94%E2%80%9C%E8%BF%9B%E5%BA%A6%E5%8F%AF%E8%A7%86%E5%8C%96%E2%80%9D"><span class="toc-content-number">1.2.2.</span> <span class="toc-content-text">（2）进度报告—“进度可视化”</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%EF%BC%883%EF%BC%89%E9%94%99%E8%AF%AF%E7%AE%A1%E7%90%86-%E2%80%9C%E5%A4%84%E7%90%86%E9%94%99%E8%AF%AF%E2%80%9D"><span class="toc-content-number">1.2.3.</span> <span class="toc-content-text">（3）错误管理-“处理错误”</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E4%B8%89%E3%80%81%E5%AE%89%E5%85%A8%E6%B3%A8%E6%84%8F-%E2%80%9C%E9%98%B2%E5%B0%8F%E5%81%B7%E3%80%81%E9%98%B2%E8%AF%88%E9%AA%97%E2%80%9D"><span class="toc-content-number">1.3.</span> <span class="toc-content-text">三、安全注意-“防小偷、防诈骗”</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%EF%BC%881%EF%BC%89%E4%BC%A0%E8%BE%93%E5%AE%89%E5%85%A8-%E2%80%9C%E4%BF%9D%E6%8A%A4%E8%AE%A2%E5%8D%95%E4%BF%A1%E6%81%AF%E4%B8%8D%E8%A2%AB%E5%81%B7%E7%9C%8B%E2%80%9D"><span class="toc-content-number">1.3.1.</span> <span class="toc-content-text">（1）传输安全-“保护订单信息不被偷看”</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%EF%BC%882%EF%BC%89%E6%B6%88%E6%81%AF%E9%AA%8C%E8%AF%81-%E2%80%9C%E6%A3%80%E6%9F%A5%E8%AE%A2%E5%8D%95%E6%98%AF%E4%B8%8D%E6%98%AF%E7%9C%9F%E7%9A%84%E3%80%81%E6%B2%A1%E8%A2%AB%E6%94%B9%E2%80%9D"><span class="toc-content-number">1.3.2.</span> <span class="toc-content-text">（2）消息验证-“检查订单是不是真的、没被改”</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%EF%BC%883%EF%BC%89%E8%B5%84%E6%BA%90%E4%BF%9D%E6%8A%A4-%E2%80%9C%E5%88%AB%E8%AE%A9%E9%A1%BE%E5%AE%A2%E9%9A%8F%E4%BE%BF%E6%8B%BF%E5%BA%97%E9%87%8C%E7%9A%84%E4%B8%9C%E8%A5%BF%E2%80%9D"><span class="toc-content-number">1.3.3.</span> <span class="toc-content-text">（3）资源保护-“别让顾客随便拿店里的东西”</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%EF%BC%884%EF%BC%89%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86-%E2%80%9C%E5%87%BA%E9%97%AE%E9%A2%98%E4%BA%86%EF%BC%8C%E5%88%AB%E6%B3%84%E9%9C%B2%E9%9A%90%E7%A7%81%E2%80%9D"><span class="toc-content-number">1.3.4.</span> <span class="toc-content-text">（4）错误处理-“出问题了，别泄露隐私”</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E5%9B%9B%E3%80%81%E8%B0%83%E8%AF%95%E5%92%8C%E7%9B%91%E6%8E%A7-%E2%80%9C%E5%A6%82%E4%BD%95%E7%9F%A5%E9%81%93%E5%BA%97%E9%87%8C%E8%BF%90%E8%90%A5%E6%83%85%E5%86%B5%E2%80%9D"><span class="toc-content-number">1.4.</span> <span class="toc-content-text">四、调试和监控-“如何知道店里运营情况”</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%EF%BC%881%EF%BC%89%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95-%E2%80%9C%E6%B5%81%E6%B0%B4%E8%B4%A6%E2%80%9D"><span class="toc-content-number">1.4.1.</span> <span class="toc-content-text">（1）日志记录-“流水账”</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%EF%BC%882%EF%BC%89%E8%AF%8A%E6%96%AD-%E2%80%9C%E5%AE%9A%E6%9C%9F%E8%87%AA%E6%A3%80%E2%80%9D"><span class="toc-content-number">1.4.2.</span> <span class="toc-content-text">（2）诊断-“定期自检”</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%EF%BC%883%EF%BC%89%E6%B5%8B%E8%AF%95-%E2%80%9C%E6%A8%A1%E6%8B%9F%E5%90%84%E7%A7%8D%E6%83%85%E5%86%B5%EF%BC%8C%E7%A1%AE%E4%BF%9D%E5%BA%97%E9%87%8C%E8%83%BD%E5%BA%94%E5%AF%B9%E2%80%9D"><span class="toc-content-number">1.4.3.</span> <span class="toc-content-text">（3）测试-“模拟各种情况，确保店里能应对”</span></a></li></ol></li></ol></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>

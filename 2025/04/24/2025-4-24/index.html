@@ -1,0 +1,314 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="其他知道RLHF吗？讲一下训练流程  用于大模型（如ChatGPT）对齐人类价值的训练方法。  Supervised Fine-Tuning（SFT）：用高质量人类标注数据微调预训练模型 Reward Model（RM）训练：用人类偏好数据训练打分模型 PPO阶段： 使用 PPO 在 reward model 指导下优化生成策略 避免模型输出“看起来对但实际上错误”的结果     PPO的原理，损">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-4-24">
+<meta property="og:url" content="http://example.com/2025/04/24/2025-4-24/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="其他知道RLHF吗？讲一下训练流程  用于大模型（如ChatGPT）对齐人类价值的训练方法。  Supervised Fine-Tuning（SFT）：用高质量人类标注数据微调预训练模型 Reward Model（RM）训练：用人类偏好数据训练打分模型 PPO阶段： 使用 PPO 在 reward model 指导下优化生成策略 避免模型输出“看起来对但实际上错误”的结果     PPO的原理，损">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-04-24T02:26:04.000Z">
+<meta property="article:modified_time" content="2025-04-24T02:47:55.000Z">
+<meta property="article:author" content="Schwertlilien">
+<meta name="twitter:card" content="summary"><title>2025-4-24 - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-4-24</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-04-24</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-04-24</time></div>
+
+</div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约1.6K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>知道RLHF吗？讲一下训练流程</p>
+<blockquote>
+<p>用于大模型（如ChatGPT）对齐人类价值的训练方法。</p>
+<ol>
+<li><strong>Supervised Fine-Tuning（SFT）</strong>：用高质量人类标注数据微调预训练模型</li>
+<li><strong>Reward Model（RM）训练</strong>：用人类偏好数据训练打分模型</li>
+<li><strong>PPO阶段</strong>：<ul>
+<li>使用 PPO 在 reward model 指导下优化生成策略</li>
+<li>避免模型输出“看起来对但实际上错误”的结果</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<p>PPO的原理，损失函数: 优化策略时避免剧烈更新，防止性能骤降</p>
+<blockquote>
+<script type="math/tex; mode=display">
+\mathbb{E} \left[\min \left( r_t(\theta)\hat{A}_t, \text{clip}(r_t(\theta), 1 - \epsilon, 1 + \epsilon) \hat{A}_t \right) \right]</script></blockquote>
+<p>bn/ln(batch norm,layer norm,RMS norm)、bn训练阶段和测试阶段区别，详细讲讲原理</p>
+<blockquote>
+<h4 id="RMSNorm："><a href="#RMSNorm：" class="headerlink" title="RMSNorm："></a>RMSNorm：</h4><ul>
+<li>仅使用输入的 <strong>均方根（RMS）</strong> 进行归一化，不减均值</li>
+<li>更轻量、效果接近 LayerNorm</li>
+</ul>
+</blockquote>
+<p>dropout原理，训练阶段和测试阶段区别，为什么</p>
+<blockquote>
+<ul>
+<li><strong>训练时</strong>：以概率 p 随机“丢弃”部分神经元（乘 0）</li>
+<li><strong>测试时</strong>：不丢弃，<strong>将输出乘1 - p</strong> 来保持期望一致</li>
+<li><strong>目的</strong>：防止 co-adaptation，增强泛化能力</li>
+</ul>
+</blockquote>
+<p>优化器的原理</p>
+<blockquote>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>优化器</th>
+<th>原理说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SGD</td>
+<td>基于当前梯度方向一步步下降</td>
+</tr>
+<tr>
+<td>Momentum</td>
+<td>加入“惯性”，加速收敛</td>
+</tr>
+<tr>
+<td>RMSProp</td>
+<td>使用梯度平方的滑动平均调节学习率</td>
+</tr>
+<tr>
+<td>Adam</td>
+<td>Momentum + RMSProp（结合一阶+二阶信息）</td>
+</tr>
+</tbody>
+</table>
+</div>
+</blockquote>
+<p>残差链接的概念</p>
+<blockquote>
+<p><strong>形式</strong>：y = F(x) + x</p>
+<p><strong>作用</strong>：</p>
+<ul>
+<li>缓解梯度消失</li>
+<li>让网络更容易拟合恒等映射</li>
+<li>提升深层网络可训练性（ResNet）</li>
+</ul>
+</blockquote>
+<p><strong>知识蒸馏损失函数</strong>:让 student 模仿 teacher 的“行为”。</p>
+<blockquote>
+<script type="math/tex; mode=display">
+\mathcal{L}_{KD} = (1 - \alpha)\cdot CE(y, p_s) + \alpha \cdot T^2 \cdot KL(p_t^T || p_s^T)</script><ul>
+<li>CE：真实标签交叉熵</li>
+<li>KL：学生和教师 softmax 输出的 KL 散度（用温度 T soften logits）</li>
+<li>α：两个目标的加权系数</li>
+<li>$p_s^T = \text{Softmax}(z_s/T)$，$p_t^T = \text{Softmax}(z_t/T)$</li>
+</ul>
+</blockquote>
+<p>交叉熵损失、符号以及含义、梯度下降方向是？代码</p>
+<blockquote>
+<script type="math/tex; mode=display">
+\mathcal{L}_{CE} = -\sum_{i} y_i \log(p_i)\\
+\frac{\partial \mathcal{L}}{\partial z_i} = p_i - y_i</script></blockquote>
+<p>二分类任务损失函数是？最后一层的激活函数是？Sigmoid</p>
+<script type="math/tex; mode=display">
+\mathcal{L}_{BCE} = -[y \log(p) + (1 - y)\log(1 - p)]</script><p>回归任务的损失函数可以用哪些？为什么回归使用MSE而不用交叉熵？</p>
+<blockquote>
+<ul>
+<li>回归输出是连续实数，交叉熵是概率分布之间的距离</li>
+<li>不满足 softmax 概率空间的假设，不适合做数值回归</li>
+</ul>
+<p>MSE（均方误差）,MAE（平均绝对误差）</p>
+</blockquote>
+<p>对比学习？增量学习？</p>
+<p>神经网络权重可以全部初始化为0吗、为什么？</p>
+<blockquote>
+<p>不能。原因：如果所有权重都是 0，每个神经元的输出都一样，梯度也一样，导致所有神经元更新相同，<strong>失去了“对称性打破”</strong></p>
+<p>正确做法是：使用随机初始化（如 Xavier, He），打破对称性</p>
+</blockquote>
+<p>长尾问题的解决方案？为什么长尾侧用MSE、短尾侧用MAE？</p>
+<blockquote>
+<p><strong>长尾问题：少数类别样本过少</strong></p>
+<p><strong>解决方案：</strong></p>
+<ul>
+<li><p>数据层：重采样（欠采多头 / 过采尾部）</p>
+</li>
+<li><p>损失层：</p>
+<ul>
+<li><p>re-weighting</p>
+</li>
+<li><p>label-distribution-aware margin loss</p>
+</li>
+<li><p>Focal Loss(<strong>RetinaNet</strong> 模型（ICCV 2017）)</p>
+<script type="math/tex; mode=display">
+FL=-(1-p_i)^{\gamma}\log(p_i)</script></li>
+<li><p>LDAM Loss</p>
+</li>
+</ul>
+</li>
+<li><p>表达层：两阶段训练 / 分支网络</p>
+</li>
+</ul>
+<p><strong>为何尾部用 MSE？头部用 MAE？</strong></p>
+<ol>
+<li>MSE 更关注大误差（方差大、长尾更敏感）</li>
+<li>MAE 更稳健，不被极端样本拉动</li>
+</ol>
+</blockquote>
+<p>CTR问题用的什么loss？可以用MSE吗、为什么？</p>
+<blockquote>
+<p><strong>CTR = Click-Through Rate</strong>，是一个 <strong>二分类问题</strong></p>
+<ul>
+<li><p>常用损失：<strong>Binary Cross-Entropy Loss</strong></p>
+<script type="math/tex; mode=display">
+\mathcal{L}_{BCE} = -[y \log(p) + (1-y)\log(1-p)]</script></li>
+<li><p>MSE 理论上能用，但效果不好：输出是概率，但 MSE 对误差不敏感（如 0.01 vs 0.1）</p>
+</li>
+<li><p>BCE 更关注<strong>概率分布间的差异</strong></p>
+</li>
+</ul>
+</blockquote>
+<h3 id="搜广推"><a href="#搜广推" class="headerlink" title="搜广推"></a>搜广推</h3><ul>
+<li>[ ] 推荐链路是怎么运作的 有哪些模块</li>
+<li>[ ] 如何做排序模型的迭代</li>
+<li>[ ] MAP（最大后验概率）和似然函数有什么关系？</li>
+<li>[ ] 什么情况下，MAP的损失函数可以用NMSE来计算？（高斯噪声）</li>
+<li>[ ] 推荐算法了解哪些？</li>
+</ul>
+<h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><ul>
+<li>[ ] 跳表和二叉树的区别是什么？</li>
+<li>[ ] b+ 树 和 b树的区别， 为什么innodb索引用b+ 不用b</li>
+</ul>
+<h3 id="程序设计语言"><a href="#程序设计语言" class="headerlink" title="程序设计语言"></a>程序设计语言</h3><ul>
+<li><p>[ ] cpp五种内存类型：</p>
+<blockquote>
+<p>堆、栈、全局/静态存储区、常量区、代码区</p>
+</blockquote>
+</li>
+<li><p>[ ] python中可变/不可变类型</p>
+<blockquote>
+<p><strong>不可变类型（Immutable）</strong>：</p>
+<ul>
+<li>一旦创建，值不能更改。</li>
+<li>示例：<code>int</code>、<code>float</code>、<code>str</code>、<code>tuple</code>。</li>
+<li>改变时会创建新的对象。</li>
+</ul>
+<p><strong>可变类型（Mutable）</strong>：</p>
+<ul>
+<li>可以改变其内容。</li>
+<li>示例：<code>list</code>、<code>dict</code>、<code>set</code>。</li>
+<li>改变时不需要创建新对象，直接修改原对象。</li>
+</ul>
+</blockquote>
+</li>
+<li><p>[ ] 深拷贝/浅拷贝</p>
+<blockquote>
+<p><strong>浅拷贝（Shallow Copy）</strong>：</p>
+<ul>
+<li>只复制对象的引用，不复制对象本身。即拷贝的是引用类型的“引用”。</li>
+<li>例如：使用 <code>copy()</code> 或 <code>copy.copy()</code>，复制的是最外层对象，<strong>内层对象仍然是共享的</strong>。</li>
+</ul>
+<p><strong>深拷贝（Deep Copy）</strong>：</p>
+<ul>
+<li>递归地复制对象及其嵌套对象，确保每一层都被复制。</li>
+<li>例如：使用 <code>copy.deepcopy()</code>。</li>
+</ul>
+</blockquote>
+</li>
+<li><p>[ ] python中的decorator</p>
+<blockquote>
+<p><strong>装饰器</strong>是一个函数，用于在不修改函数本身的前提下，动态地添加功能。<code>@decorator</code></p>
+</blockquote>
+</li>
+<li><p>[ ] 智能指针？其作用？与auto区别？</p>
+<blockquote>
+<p><strong>智能指针（Smart Pointer）</strong>：是一个包装指针的对象，自动管理内存，以避免手动 <code>delete</code> 带来的内存泄漏和野指针问题。</p>
+<p><strong><code>auto</code> 关键字</strong>：用于让编译器自动推导变量类型。</p>
+</blockquote>
+</li>
+<li><p>[ ] 野指针？</p>
+<blockquote>
+<p><strong>野指针</strong>是一个指向已经释放的内存区域的指针。</p>
+</blockquote>
+</li>
+<li><p>[ ] 面向对象三要素：继承、多态、封装</p>
+<blockquote>
+<p><strong>继承（Inheritance）</strong>：</p>
+<ul>
+<li>允许新类从已有类派生，继承父类的属性和方法。</li>
+<li>优点：代码复用、层次化组织代码。</li>
+</ul>
+<p><strong>多态（Polymorphism）</strong>：</p>
+<ul>
+<li>相同接口可以由不同的对象实现，方法调用的具体实现可以在运行时决定。</li>
+<li>通过继承和重写（Override）实现。</li>
+<li>提高灵活性。</li>
+</ul>
+<p><strong>封装（Encapsulation）</strong>：</p>
+<ul>
+<li>将对象的状态（数据）和行为（方法）封装在一起，并对外界隐藏实现细节。</li>
+<li>只暴露必要的接口给外部使用，提高代码的安全性、可维护性。</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h3 id="软工"><a href="#软工" class="headerlink" title="软工"></a>软工</h3><ul>
+<li>[ ] 设计模式：工厂模式等等</li>
+</ul>
+<blockquote>
+<p><strong>创建型模式、结构型模式和行为型模式</strong>。</p>
+</blockquote>
+<p>MVC,三层：表现层、业务逻辑层、数据访问层</p>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/04/29/2025-4-29/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/04/23/2025-4-23-LSTM/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-content-number">1.</span> <span class="toc-content-text">其他</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#RMSNorm%EF%BC%9A"><span class="toc-content-number">1.1.</span> <span class="toc-content-text">RMSNorm：</span></a></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E6%90%9C%E5%B9%BF%E6%8E%A8"><span class="toc-content-number">2.</span> <span class="toc-content-text">搜广推</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-content-number">3.</span> <span class="toc-content-text">数据结构</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80"><span class="toc-content-number">4.</span> <span class="toc-content-text">程序设计语言</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E8%BD%AF%E5%B7%A5"><span class="toc-content-number">5.</span> <span class="toc-content-text">软工</span></a></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="写出具体任务：输入输出，对问题要比较明确。 面临挑战 当前领域的经典方法，和最新方法benchmark 给出自己的技术路线   检测vs识别vs分割     检测（Detection） 识别（Recognition） 分割（Segmentation）     定义 检测主要是确定目标物体是否存在于给定的场景（如图像、视频、传感器数据等）中，并大致定位其位置。例如，在一张交通场景的图像中，目标检">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-1-23-食品检测">
+<meta property="og:url" content="http://example.com/2025/01/23/2025-1-23-%E9%A3%9F%E5%93%81%E6%A3%80%E6%B5%8B/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="写出具体任务：输入输出，对问题要比较明确。 面临挑战 当前领域的经典方法，和最新方法benchmark 给出自己的技术路线   检测vs识别vs分割     检测（Detection） 识别（Recognition） 分割（Segmentation）     定义 检测主要是确定目标物体是否存在于给定的场景（如图像、视频、传感器数据等）中，并大致定位其位置。例如，在一张交通场景的图像中，目标检">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250123214523567.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250224140749276.png">
+<meta property="article:published_time" content="2025-01-23T13:01:26.000Z">
+<meta property="article:modified_time" content="2025-04-18T14:45:25.000Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="食品检测">
+<meta property="article:tag" content="目标检测">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250123214523567.png"><title>2025-1-23-食品检测 - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-1-23-食品检测</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-01-23</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-04-18</time></div>
+<div class="post-categories"><i class="icon fa-regular fa-folder-open" title="分类"></i><a class="post-category" href="/categories/%E5%B7%A5%E4%BD%9C/">工作</a></div>
+<div class="post-tags"><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E9%A3%9F%E5%93%81%E6%A3%80%E6%B5%8B/">食品检测</a><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/">目标检测</a></div></div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约3.4K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><blockquote>
+<ul>
+<li>写出具体任务：输入输出，对问题要比较明确。</li>
+<li>面临挑战</li>
+<li>当前领域的经典方法，和最新方法benchmark</li>
+<li>给出自己的技术路线</li>
+</ul>
+</blockquote>
+<h2 id="检测vs识别vs分割"><a href="#检测vs识别vs分割" class="headerlink" title="检测vs识别vs分割"></a>检测vs识别vs分割</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>检测（Detection）</th>
+<th>识别（Recognition）</th>
+<th>分割（Segmentation）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>定义</td>
+<td>检测主要是确定目标物体是否存在于给定的场景（如图像、视频、传感器数据等）中，并大致定位其位置。例如，在一张交通场景的图像中，目标检测任务是找出图像中是否有汽车、行人、交通标志等物体，并确定它们在图像中的位置，通常用边界框（bounding box）来表示位置信息。</td>
+<td>识别是在检测的基础上，对目标物体进行分类或确认其身份。它侧重于确定目标物体属于哪一个特定的类别。例如，在已经检测到图像中有车辆后，识别任务是判断这辆车是轿车、SUV、卡车还是公共汽车等具体车型；如果是人脸检测后，识别就是确定这个人是谁。</td>
+<td>分割是将图像、视频或其他数据划分为不同的区域，这些区域通常对应着不同的物体或者物体的不同部分。与检测不同，分割不是简单地用边界框定位物体，而是要精确地划分出物体的轮廓。例如，在医学图像分割中，将人体器官（如肝脏、肾脏等）从CT图像中精确地分割出来，每个像素都被标记为属于某个器官或者背景。</td>
+</tr>
+<tr>
+<td>应用场景</td>
+<td>安防监控领域，通过摄像头拍摄的视频进行目标检测，可以及时发现可疑人员或物体的出现。例如，在机场候机大厅的监控系统中，检测是否有无人看管的行李等异常情况。 工业检测中，检测产品表面是否有缺陷。比如在电子芯片生产过程中，检测芯片表面是否有划痕、杂质等缺陷，只需要确定缺陷是否存在以及大概位置，后续可能会进一步分析缺陷的类型等。</td>
+<td>门禁系统中，对人脸进行识别，判断进门的人员是否是授权用户。当摄像头检测到人脸后，通过人脸识别算法与预先存储的人脸数据库进行比对，识别出这个人的身份，决定是否允许其进入。 文档处理中，识别文字的内容和字体。例如，将扫描的纸质文档中的文字进行识别，确定每个字符是什么字，属于哪种字体，然后将其转换为可编辑的电子文本格式。</td>
+<td>医学影像领域，对肿瘤的分割非常重要。通过对MRI或CT等医学影像进行分割，可以精确地确定肿瘤的大小、形状和位置，帮助医生更好地诊断病情和制定治疗方案。 自动驾驶领域，对道路场景进行分割，区分出道路、车辆、行人、交通标志等不同的部分。这样汽车的智能系统可以更准确地了解周围环境，例如判断车辆是否偏离车道，或者识别出前方的行人等。</td>
+</tr>
+<tr>
+<td>输出结果</td>
+<td>检测的输出通常是一系列的边界框坐标（对于图像和视频数据），每个边界框对应一个检测到的目标物体，同时可能会有一个置信度分数，表示检测结果的可靠性。例如，一个目标检测算法检测到一张图像中有汽车，输出的可能是一个包含汽车的矩形边界框的左上角和右下角坐标，以及一个表示这个检测是汽车的概率值（如0.9，表示有90%的置信度认为这个边界框内的物体是汽车）。</td>
+<td>识别的输出通常是一个类别标签或者身份标识。比如对于图像中的汽车识别，输出可能是“轿车”这个类别名称；对于人脸识别，输出可能是人名或者对应的身份编号等。同时，可能也会有一个置信度分数来衡量识别结果的准确性。</td>
+<td>分割的输出是一个标记图，其中每个像素都被分配了一个标签，表示它属于哪个物体或区域。例如，在一张分割后的图像中，代表天空的像素可能被标记为1，代表草地的像素可能被标记为2，代表建筑物的像素可能被标记为3等。这种像素级别的标注提供了比检测更精细的物体信息。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="一、具体任务"><a href="#一、具体任务" class="headerlink" title="一、具体任务"></a>一、具体任务</h2><h3 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h3><p><strong>图像数据</strong>：包含分格餐盘及盘中食物的彩色图像。</p>
+<p>图像包括不同形状材质的凹凸餐盘（如方形/圆形分格餐盘、不锈钢/塑料分格餐盘等）、各类食物（包括混合食物、液体及半流质食物等）、不同的光线反射（强光、弱光、光斑等）以及餐盘表面存在污渍和残渣的情况。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250123214523567.png" alt="image-20250123214527380"></p>
+<h3 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h3><p><code>边界框(x,y,w,h)</code>+<code>类别标签(class)</code>+<code>置信度(convenience)</code></p>
+<ol>
+<li><strong>边界框信息</strong>：针对每个检测到的食物(不以餐盘格为边界框)，输出其在图像中的二维边界框坐标，通常以（x,y,w,h）的形式表示。</li>
+<li><strong>类别标签</strong>：明确每个边界框对应的类别，如餐盘、具体食物类别（如米饭、青菜、红烧肉等）。</li>
+<li><strong>置信度分数</strong>：为每个检测结果提供一个置信度分数，用于衡量模型对该检测结果的确定程度，分数范围通常在 0 - 1 之间，越接近 1 表示置信度越高。</li>
+</ol>
+<h2 id="二、面临挑战"><a href="#二、面临挑战" class="headerlink" title="二、面临挑战"></a>二、面临挑战</h2><h3 id="（一）复杂的餐盘形状"><a href="#（一）复杂的餐盘形状" class="headerlink" title="（一）复杂的餐盘形状"></a>（一）复杂的餐盘形状</h3><ol>
+<li>餐盘的凹凸结构会导致食物轮廓被遮挡或变形，使得准确确定食物边界框变得困难。例如，深凹槽可能会隐藏部分食物，凸起边缘可能使食物边缘看起来不完整。</li>
+<li>餐盘边界的不规则性和复杂形状容易干扰目标检测，传统方法容易将餐盘边缘误判为食物边界，导致边界框定位不准确。</li>
+</ol>
+<h3 id="（二）食物混合问题"><a href="#（二）食物混合问题" class="headerlink" title="（二）食物混合问题"></a>（二）食物混合问题</h3><ol>
+<li>当食物混合在一起，如拼盘菜或食物堆叠时，食物之间的界限模糊，这给准确区分不同食物类别并分别绘制边界框带来挑战。</li>
+<li>混合食物的特征相互交织，使得模型难以准确提取每个食物的独特特征，从而影响分类和检测的准确性。</li>
+</ol>
+<h3 id="（三）光线及环境因素"><a href="#（三）光线及环境因素" class="headerlink" title="（三）光线及环境因素"></a>（三）光线及环境因素</h3><ol>
+<li>光线在餐盘表面的反射可能导致图像曝光过度或产生光斑，这会使图像部分区域的像素值异常，干扰模型对食物和餐盘特征的提取。</li>
+<li>不同的拍摄角度会使餐盘和食物出现透视畸变，导致目标的形状和尺寸在图像中发生变化，增加了模型学习和识别的难度。</li>
+<li>光线不足或不均匀会使图像对比度降低，边界不清晰，影响模型对目标的检测和定位。</li>
+</ol>
+<h3 id="（四）特殊场景需求"><a href="#（四）特殊场景需求" class="headerlink" title="（四）特殊场景需求"></a>（四）特殊场景需求</h3><ol>
+<li>液体及半流质食品在凹凸餐盘中容易流动，其形状不固定，难以确定稳定的边界框，并且它们的外观特征与固体食物有较大差异，对模型的适应性提出了挑战。</li>
+<li>餐盘表面的污渍及残渣容易与食物混淆，模型可能将其误判为食物，从而影响检测的准确性。</li>
+</ol>
+<h2 id="三、当前领域的经典方法和最新方法-benchmark"><a href="#三、当前领域的经典方法和最新方法-benchmark" class="headerlink" title="三、当前领域的经典方法和最新方法 benchmark"></a>三、当前领域的经典方法和最新方法 benchmark</h2><h3 id="（一）经典方法"><a href="#（一）经典方法" class="headerlink" title="（一）经典方法"></a>（一）经典方法</h3><ol>
+<li><strong>滑动窗口 + 手工特征 + 分类器</strong>：通过在图像上滑动固定大小或不同大小的窗口，提取窗口内图像的手工特征，如 SIFT（尺度不变特征变换）、HOG（方向梯度直方图）等。然后将这些特征输入到分类器（如 SVM - 支持向量机）中进行分类，判断窗口内是否包含目标（餐盘或食物）。在凹凸餐盘识别中，该方法计算量大，对复杂形状和多样场景的适应性较差，难以准确检测和分类。</li>
+<li><strong>基于深度学习的两阶段目标检测模型 - Faster R - CNN</strong>：第一阶段通过区域提议网络（RPN）生成可能包含目标的候选区域，第二阶段对候选区域进行分类和边界框回归。在凹凸餐盘检测中，RPN 能够生成大量候选区域，但对于复杂的餐盘和食物形状，候选区域的质量和准确性有待提高，且模型计算复杂，检测速度较慢。</li>
+</ol>
+<h3 id="（二）最新方法"><a href="#（二）最新方法" class="headerlink" title="（二）最新方法"></a>（二）最新方法</h3><ol>
+<li><strong>单阶段目标检测模型 - YOLO 系列（如 YOLOv5、YOLOv7）</strong>：将目标检测视为一个回归问题，直接在图像上预测边界框的位置和类别概率，检测速度快。在凹凸餐盘识别任务中，通过优化网络结构和训练策略，对不同形状的餐盘和食物有一定的适应性，但在处理复杂场景（如严重的光线干扰、高度混合的食物）时，检测精度仍有提升空间。</li>
+<li><strong>基于 Transformer 的目标检测模型 - DETR（Detection Transformer）</strong>：引入 Transformer 架构，通过自注意力机制对全局图像信息进行建模，无需生成大量候选区域，简化了检测流程。在凹凸餐盘检测中，对复杂场景和目标的上下文理解有一定优势，但模型训练时间长，对硬件要求高。</li>
+</ol>
+<h3 id="（三）benchmark-对比指标"><a href="#（三）benchmark-对比指标" class="headerlink" title="（三）benchmark 对比指标"></a>（三）benchmark 对比指标</h3><p>通常使用平均精度均值（mAP）、准确率（Precision）、召回率（Recall）、F1 值以及检测速度（FPS - Frames Per Second）等指标来对比不同方法的性能。在凹凸餐盘识别任务中，mAP 能综合反映模型在不同类别和不同置信度下的检测精度；准确率衡量正确检测的比例；召回率表示实际目标被检测到的比例；F1 值是准确率和召回率的调和平均数，能更全面地评估模型性能；检测速度则影响模型在实际应用中的实时性。</p>
+<h2 id="四、技术路线"><a href="#四、技术路线" class="headerlink" title="四、技术路线"></a>四、技术路线</h2><h3 id="（一）数据预处理"><a href="#（一）数据预处理" class="headerlink" title="（一）数据预处理"></a>（一）数据预处理</h3><ol>
+<li><strong>图像增强</strong>：对输入图像进行多种增强操作，包括旋转（±30° 范围内随机旋转）、缩放（0.8 - 1.2 倍随机缩放）、翻转（水平和垂直翻转）、亮度和对比度调整（随机调整亮度和对比度在一定范围内）。通过这些操作增加数据的多样性，提高模型的鲁棒性。</li>
+<li><strong>图像归一化</strong>：将图像的像素值归一化到 [0, 1] 或 [-1, 1] 范围内，使不同图像的数据分布一致，有助于模型的训练和收敛。</li>
+</ol>
+<h3 id="（二）模型选择与改进"><a href="#（二）模型选择与改进" class="headerlink" title="（二）模型选择与改进"></a>（二）模型选择与改进</h3><ol>
+<li>选择 YOLOv7 作为基础模型，因为其在检测速度和精度上有较好的平衡，且具有灵活的网络结构可进行改进。</li>
+<li><strong>改进网络结构</strong>：</li>
+</ol>
+<ul>
+<li><ul>
+<li>在骨干网络中增加注意力模块，如 CBAM（Convolutional Block Attention Module），使模型更加关注凹凸餐盘和食物的关键特征，增强对复杂形状和场景的特征提取能力。</li>
+</ul>
+</li>
+<li><ul>
+<li>针对液体及半流质食物难以检测的问题，在特征金字塔网络（FPN）中增加特定的特征融合层，融合不同尺度下对液体和半流质食物敏感的特征，提高对这类特殊食物的检测能力。</li>
+</ul>
+</li>
+</ul>
+<h3 id="（三）训练策略"><a href="#（三）训练策略" class="headerlink" title="（三）训练策略"></a>（三）训练策略</h3><ol>
+<li><strong>多尺度训练</strong>：在训练过程中，随机调整输入图像的大小，使模型适应不同分辨率下的目标检测，进一步提高模型的泛化能力。</li>
+<li><strong>损失函数优化</strong>：除了标准的分类损失（交叉熵损失）和回归损失（CIoU Loss - 完整交并比损失）外，针对餐盘和食物检测的特点，增加一个边界框约束损失。该损失用于约束边界框的形状和位置，使其更符合餐盘和食物的实际情况，减少误检和漏检。</li>
+<li><strong>训练数据扩充</strong>：收集更多不同场景、不同类型的凹凸餐盘和食物图像，同时人工合成一些包含特殊情况（如极端光线条件、复杂食物混合）的图像，增加训练数据的多样性和复杂性。</li>
+</ol>
+<h3 id="（四）模型评估与优化"><a href="#（四）模型评估与优化" class="headerlink" title="（四）模型评估与优化"></a>（四）模型评估与优化</h3><ol>
+<li><strong>定期评估</strong>：在训练过程中，每隔一定的训练轮数，使用验证集对模型进行评估，监控 mAP、准确率、召回率等指标的变化。</li>
+<li><strong>模型优化</strong>：根据评估结果，调整模型的超参数，如学习率、权重衰减等。如果发现模型在某些特定场景（如光线反射严重的场景）下性能较差，可以针对性地增加这类场景的数据进行重新训练，或者调整模型结构和损失函数，以提高模型在这些场景下的性能。</li>
+<li><strong>集成学习</strong>：训练多个不同初始化参数的模型，然后采用投票或加权平均的方式对这些模型的检测结果进行融合，进一步提高检测的准确性和稳定性。</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250224140749276.png" alt="image-20250224140749276"></p>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/02/24/2025-2-24/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/01/20/2025-1-20-%E9%A3%9F%E5%93%81%E6%A3%80%E6%B5%8B/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E6%A3%80%E6%B5%8Bvs%E8%AF%86%E5%88%ABvs%E5%88%86%E5%89%B2"><span class="toc-content-number">1.</span> <span class="toc-content-text">检测vs识别vs分割</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E4%B8%80%E3%80%81%E5%85%B7%E4%BD%93%E4%BB%BB%E5%8A%A1"><span class="toc-content-number">2.</span> <span class="toc-content-text">一、具体任务</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E8%BE%93%E5%85%A5"><span class="toc-content-number">2.1.</span> <span class="toc-content-text">输入</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E8%BE%93%E5%87%BA"><span class="toc-content-number">2.2.</span> <span class="toc-content-text">输出</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E4%BA%8C%E3%80%81%E9%9D%A2%E4%B8%B4%E6%8C%91%E6%88%98"><span class="toc-content-number">3.</span> <span class="toc-content-text">二、面临挑战</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E5%A4%8D%E6%9D%82%E7%9A%84%E9%A4%90%E7%9B%98%E5%BD%A2%E7%8A%B6"><span class="toc-content-number">3.1.</span> <span class="toc-content-text">（一）复杂的餐盘形状</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E9%A3%9F%E7%89%A9%E6%B7%B7%E5%90%88%E9%97%AE%E9%A2%98"><span class="toc-content-number">3.2.</span> <span class="toc-content-text">（二）食物混合问题</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E5%85%89%E7%BA%BF%E5%8F%8A%E7%8E%AF%E5%A2%83%E5%9B%A0%E7%B4%A0"><span class="toc-content-number">3.3.</span> <span class="toc-content-text">（三）光线及环境因素</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89%E7%89%B9%E6%AE%8A%E5%9C%BA%E6%99%AF%E9%9C%80%E6%B1%82"><span class="toc-content-number">3.4.</span> <span class="toc-content-text">（四）特殊场景需求</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E4%B8%89%E3%80%81%E5%BD%93%E5%89%8D%E9%A2%86%E5%9F%9F%E7%9A%84%E7%BB%8F%E5%85%B8%E6%96%B9%E6%B3%95%E5%92%8C%E6%9C%80%E6%96%B0%E6%96%B9%E6%B3%95-benchmark"><span class="toc-content-number">4.</span> <span class="toc-content-text">三、当前领域的经典方法和最新方法 benchmark</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E7%BB%8F%E5%85%B8%E6%96%B9%E6%B3%95"><span class="toc-content-number">4.1.</span> <span class="toc-content-text">（一）经典方法</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E6%9C%80%E6%96%B0%E6%96%B9%E6%B3%95"><span class="toc-content-number">4.2.</span> <span class="toc-content-text">（二）最新方法</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89benchmark-%E5%AF%B9%E6%AF%94%E6%8C%87%E6%A0%87"><span class="toc-content-number">4.3.</span> <span class="toc-content-text">（三）benchmark 对比指标</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E5%9B%9B%E3%80%81%E6%8A%80%E6%9C%AF%E8%B7%AF%E7%BA%BF"><span class="toc-content-number">5.</span> <span class="toc-content-text">四、技术路线</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-content-number">5.1.</span> <span class="toc-content-text">（一）数据预处理</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E6%A8%A1%E5%9E%8B%E9%80%89%E6%8B%A9%E4%B8%8E%E6%94%B9%E8%BF%9B"><span class="toc-content-number">5.2.</span> <span class="toc-content-text">（二）模型选择与改进</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E8%AE%AD%E7%BB%83%E7%AD%96%E7%95%A5"><span class="toc-content-number">5.3.</span> <span class="toc-content-text">（三）训练策略</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%EF%BC%88%E5%9B%9B%EF%BC%89%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E4%BC%98%E5%8C%96"><span class="toc-content-number">5.4.</span> <span class="toc-content-text">（四）模型评估与优化</span></a></li></ol></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>

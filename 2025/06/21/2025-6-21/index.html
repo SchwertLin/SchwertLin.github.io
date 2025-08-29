@@ -1,0 +1,348 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="开始拆解yolo的code结构：  PE：prompt-enhance，包括视觉或无提示增强。 PF：prompy-free，无需提示，自动检测图像中任意目标。  仓库文件结构仓库包含多个文件夹和文件，主要结构如下：  根目录文件：包含配置文件（如pyproject.toml、requirements.txt）、脚本文件（如app.py、train.py）、文档文件（如README.md、CON">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-6-21">
+<meta property="og:url" content="http://example.com/2025/06/21/2025-6-21/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="开始拆解yolo的code结构：  PE：prompt-enhance，包括视觉或无提示增强。 PF：prompy-free，无需提示，自动检测图像中任意目标。  仓库文件结构仓库包含多个文件夹和文件，主要结构如下：  根目录文件：包含配置文件（如pyproject.toml、requirements.txt）、脚本文件（如app.py、train.py）、文档文件（如README.md、CON">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250626214550926.png">
+<meta property="article:published_time" content="2025-06-21T09:00:29.000Z">
+<meta property="article:modified_time" content="2025-06-26T13:45:57.000Z">
+<meta property="article:author" content="Schwertlilien">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250626214550926.png"><title>2025-6-21 - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-6-21</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-06-21</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-06-26</time></div>
+
+</div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约3.6K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250626214550926.png" alt="image-20250626214550926"></p>
+<p>开始拆解yolo的code结构：</p>
+<ol>
+<li>PE：prompt-enhance，包括视觉或无提示增强。</li>
+<li>PF：prompy-free，无需提示，自动检测图像中任意目标。</li>
+</ol>
+<h2 id="仓库文件结构"><a href="#仓库文件结构" class="headerlink" title="仓库文件结构"></a>仓库文件结构</h2><p>仓库包含多个文件夹和文件，主要结构如下：</p>
+<ul>
+<li><strong>根目录文件</strong>：包含配置文件（如<code>pyproject.toml</code>、<code>requirements.txt</code>）、脚本文件（如<code>app.py</code>、<code>train.py</code>）、文档文件（如<code>README.md</code>、<code>CONTRIBUTING.md</code>）等。</li>
+<li><strong><code>docker</code>文件夹</strong>：包含与Docker容器相关的配置文件。</li>
+<li><strong><code>ultralytics</code>文件夹</strong>：包含YOLOE模型的核心代码，如数据处理、模型模块、解决方案等。</li>
+<li><strong><code>third_party</code>文件夹</strong>：包含第三方库和工具，如CLIP、lvis-api、ml-mobileclip、sam2等。</li>
+<li><strong><code>docs</code>文件夹</strong>：包含项目文档，如数据集介绍、使用说明等。</li>
+<li><strong><code>examples</code>文件夹</strong>：包含了一系列与 Ultralytics YOLO 相关的示例代码和项目，这些示例展示了如何将 YOLO 模型集成到各种实际应用中。如YOLO系列在ONNXRuntime和Rust中的应用。</li>
+<li><strong><code>tools</code>文件夹</strong>：包含一些辅助工具。</li>
+<li><strong><code>figures</code>文件夹</strong>：包含项目中的图片，如性能比较图、可视化图等。</li>
+<li><strong><code>tests</code>文件夹</strong>：包含测试代码，如对NVIDIA Triton Server的集成测试。</li>
+<li><strong><code>logs</code>文件夹</strong>：包含训练和评估的日志文件。</li>
+</ul>
+<h2 id="tools"><a href="#tools" class="headerlink" title="tools"></a><code>tools</code></h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lvis/minival.txt</code></td>
+<td>文本文件，位于 <code>lvis</code> 子文件夹中，可能包含 LVIS 数据集的验证子集的图像路径列表。</td>
+</tr>
+<tr>
+<td><code>verify_lvis.py</code></td>
+<td>用于验证 LVIS 数据集的完整性或正确性。验证过程可能包括检查数据的格式、标签的一致性、图像的可用性等。</td>
+</tr>
+<tr>
+<td><code>generate_lvis_sc.py</code></td>
+<td>用于生成与 LVIS（Large Vocabulary Instance Segmentation）数据集相关的半监督学习（semi-supervised learning）数据或配置。LVIS 是一个大规模的实例分割数据集，包含丰富的类别和实例。半监督学习则是利用少量的标注数据和大量的未标注数据来训练模型。</td>
+</tr>
+<tr>
+<td><code>generate_lvis_visual_prompt_data.py</code></td>
+<td>用于生成基于视觉提示（visual prompt）的 LVIS 数据集。视觉提示是一种在图像中添加额外信息的方法，用于引导模型关注特定的目标或区域。生成视觉提示数据可以用于提高模型在目标检测、分割等任务中的性能。</td>
+</tr>
+<tr>
+<td><code>generate_objects365v1.py</code></td>
+<td>用于生成 Objects365 v1 数据集的相关数据或配置。Objects365 是一个大规模的目标检测数据集，包含 365 个类别和大量的图像。</td>
+</tr>
+<tr>
+<td><code>verify_objects365.py</code></td>
+<td>用于验证 Objects365 数据集的完整性或正确性</td>
+</tr>
+<tr>
+<td><code>benchmark_pf.py</code></td>
+<td>该文件被用于加载验证图像数据。对模型进行推理速度的基准测试，即测量模型的推理延迟（Latency）和每秒帧数（FPS）。</td>
+</tr>
+<tr>
+<td><code>convert_segm2det.py</code></td>
+<td>这个脚本可能用于将分割任务的数据或结果转换为检测任务的数据或结果。</td>
+</tr>
+<tr>
+<td><code>eval_fixed_ap.py</code></td>
+<td>评估目标检测或实例分割模型在 LVIS（Large Vocabulary Instance Segmentation）数据集上的平均精度（AP）指标。它接收两个关键输入：标注文件（annotations_json）+预测结果文件（results_json）</td>
+</tr>
+<tr>
+<td><code>eval_open_ended.py</code></td>
+<td>用于进行开放式评估，即模型需要处理未在训练集中出现过的类别或情况。在开放式目标检测或分类任务中，模型需要具备泛化能力，能够识别新的类别或模式。用于评估目标检测模型在 LVIS（Large Vocabulary Instance Segmentation）数据集上开放端性能的 Python 脚本。</td>
+</tr>
+<tr>
+<td><code>generate_global_neg_cat.py</code></td>
+<td>该文件可能用于生成全局负类别（global negative categories）。在目标检测或分类任务中，负类别通常是指不包含目标对象的图像区域或类别。生成全局负类别可能是为了增加训练数据的多样性，提高模型的泛化能力。</td>
+</tr>
+<tr>
+<td><code>generate_grounding_cache.py</code></td>
+<td>这个脚本把 COCO 格式数据集中每张图像的目标信息（包括 bbox、分割、类别名等）提取出来，标准化为一个 Python-friendly 的格式，并保存为 .cache 文件，加速后续处理（如训练、统计类别、生成 embedding 等）。</td>
+</tr>
+<tr>
+<td><code>generate_label_embedding.py</code></td>
+<td>用于生成标签的嵌入向量（label embeddings）。在深度学习中，嵌入向量是将离散的标签转换为连续的向量表示，以便模型更好地处理和学习。生成标签嵌入向量可以用于多标签分类、目标检测等任务。</td>
+</tr>
+<tr>
+<td><code>generate_sam_masks.py</code></td>
+<td>用于生成基于 Segment Anything Model（SAM）的掩码数据。SAM 是一个强大的图像分割模型，可以为图像中的任何目标生成高质量的分割掩码。</td>
+</tr>
+<tr>
+<td><code>generate_sam_masks.py</code></td>
+<td>使用 SAM 模型对图像进行分割，并保存生成的掩码数据，用于后续的训练或评估。</td>
+</tr>
+<tr>
+<td><code>get_pf_free_segm.py</code></td>
+<td>用于获取无伪前景（pseudo-foreground free）的分割结果。在图像分割任务中，伪前景是指被错误分类为前景的背景区域。</td>
+</tr>
+<tr>
+<td><code>get_pf_free_segm.py</code></td>
+<td>使用一些方法来去除伪前景，提高分割结果的准确性。</td>
+</tr>
+<tr>
+<td><code>get_vp_segm.py</code></td>
+<td>用于获取基于视觉提示（visual prompt）的分割结果。如前面所述，视觉提示可以引导模型关注特定的目标或区域，从而提高分割的准确性。</td>
+</tr>
+<tr>
+<td><code>get_vp_segm.py</code></td>
+<td>使用视觉提示来生成更精确的分割掩码。</td>
+</tr>
+<tr>
+<td><code>global_grounding_neg_cat.json</code></td>
+<td>包含全局负类别的相关信息，如类别名称、ID 等。这些信息可以用于目标检测、分类或基于文本的目标定位任务。</td>
+</tr>
+<tr>
+<td><code>global_grounding_neg_cat_det.json</code></td>
+<td>包含全局负类别在目标检测任务中的详细信息，如边界框坐标、置信度等。</td>
+</tr>
+<tr>
+<td><code>ram_tag_list.txt</code></td>
+<td>包含一组标签或关键词，用于模型的训练、推理或评估。例如，在 <code>benchmark_pf.py</code> 中，该文件被用于加载模型的类别名称。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">ultralytics/</span><br><span class="line">├── __init__.py</span><br><span class="line">├── hub/</span><br><span class="line">│   ├── __init__.py</span><br><span class="line">│   ├── auth.py</span><br><span class="line">│   ├── google/</span><br><span class="line">│   │   └── session.py</span><br><span class="line">│   └── utils.py</span><br><span class="line">├── trackers/</span><br><span class="line">│   ├── README.md</span><br><span class="line">│   ├── __init__.py</span><br><span class="line">│   ├── basetrack.py</span><br><span class="line">│   ├── bot_sort.py</span><br><span class="line">│   ├── byte_tracker.py</span><br><span class="line">│   ├── track.py</span><br><span class="line">│   └── utils/</span><br><span class="line">├── models/</span><br><span class="line">│   ├── __init__.py</span><br><span class="line">│   ├── fastsam/</span><br><span class="line">│   ├── nas/</span><br><span class="line">│   ├── rtdetr/</span><br><span class="line">│   ├── sam/</span><br><span class="line">│   ├── utils/</span><br><span class="line">│   └── yolo/</span><br><span class="line">├── utils/</span><br><span class="line">│   ├── __init__.py</span><br><span class="line">│   ├── autobatch.py</span><br><span class="line">│   ├── benchmarks.py</span><br><span class="line">│   ├── callbacks/</span><br><span class="line">│   ├── checks.py</span><br><span class="line">│   ├── dist.py</span><br><span class="line">│   ├── downloads.py</span><br><span class="line">│   ├── errors.py</span><br><span class="line">│   ├── files.py</span><br><span class="line">│   ├── instance.py</span><br><span class="line">│   ├── loss.py</span><br><span class="line">│   ├── metrics.py</span><br><span class="line">│   ├── ops.py</span><br><span class="line">│   ├── patches.py</span><br><span class="line">│   ├── plotting.py</span><br><span class="line">│   ├── tal.py</span><br><span class="line">│   ├── torch_utils.py</span><br><span class="line">│   ├── triton.py</span><br><span class="line">│   └── tuner.py</span><br><span class="line">├── engine/</span><br><span class="line">├── cfg/</span><br><span class="line">├── nn/</span><br><span class="line">├── assets/</span><br><span class="line">├── data/</span><br><span class="line">│   ├── __init__.py</span><br><span class="line">│   ├── loaders.py</span><br><span class="line">│   └── utils.py</span><br><span class="line">├── solutions/</span><br></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>文件名</th>
+<th>功能说明</th>
+<th>适用场景示例</th>
+<th>特殊说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>train.py</code></td>
+<td>用于模型的标准训练流程</td>
+<td>训练 YOLOE 检测模型</td>
+<td>需配置训练数据集与超参数</td>
+</tr>
+<tr>
+<td><code>train_vp.py</code></td>
+<td>用于视觉提示（Visual Prompt）训练</td>
+<td>训练 VP 模块或 PE 模块</td>
+<td>通常用于 Prompt-based 表示学习</td>
+</tr>
+<tr>
+<td><code>train_pf.py</code></td>
+<td>用于 Prompt-Free 模型训练</td>
+<td>训练不依赖文本提示的检测器</td>
+<td>用于增强零样本/泛化能力</td>
+</tr>
+<tr>
+<td><code>val.py</code></td>
+<td>用于评估模型在验证集上的表现</td>
+<td>计算 mAP、Precision、Recall 等</td>
+<td>输出评估指标</td>
+</tr>
+<tr>
+<td><code>val_pf.py</code></td>
+<td>用于 Prompt-Free 模型的验证</td>
+<td>与 <code>train_pf.py</code> 对应</td>
+<td>对 PF 模型的性能做标准评估</td>
+</tr>
+<tr>
+<td><code>val_vp.py</code></td>
+<td>用于 VP 模型的验证</td>
+<td>与 <code>train_vp.py</code> 对应</td>
+<td>通常检验 PE/VL 组件的泛化性能</td>
+</tr>
+<tr>
+<td><code>predict.py</code></td>
+<td>用于对单张或多张图像进行推理预测</td>
+<td>测试模型效果、做 demo 演示</td>
+<td>默认使用训练好的模型权重</td>
+</tr>
+<tr>
+<td><code>predict_pf.py</code></td>
+<td>用于 PF 模型的预测</td>
+<td>测试 PF 模型在 unseen 类别上的能力</td>
+<td>零样本或少样本场景下尤为重要</td>
+</tr>
+<tr>
+<td><code>predict_vp.py</code></td>
+<td>用于 VP 模型的推理</td>
+<td>使用 Prompt 进行交互式检测</td>
+<td>支持文字提示控制检测目标</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>pf</code> 表示 Prompt-Free，关注的是移除语言提示，提升泛化能力。</li>
+<li><code>vp</code> 表示 Visual Prompt，强调图像中提供额外提示（如视觉 token）。</li>
+</ul>
+<p>predict_prompt_free.py: 无需提示，使用模型的 Prompt-Free（PF）模式，自动检测图像中任意目标。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> ultralytics <span class="keyword">import</span> YOLOE</span><br><span class="line"><span class="keyword">from</span> ultralytics.models.yolo.yoloe.val_pe_free <span class="keyword">import</span> YOLOEPEFreeDetectValidator</span><br><span class="line"></span><br><span class="line">unfused_model = YOLOE(<span class="string">&quot;yoloe-v8l.yaml&quot;</span>)</span><br><span class="line">unfused_model.load(<span class="string">&quot;pretrain/yoloe-v8l-seg.pt&quot;</span>)</span><br><span class="line">unfused_model.<span class="built_in">eval</span>()</span><br><span class="line">unfused_model.cuda()</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;tools/ram_tag_list.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    names = [x.strip() <span class="keyword">for</span> x <span class="keyword">in</span> f.readlines()]</span><br><span class="line">vocab = unfused_model.get_vocab(names)</span><br><span class="line"></span><br><span class="line">model = YOLOE(<span class="string">&quot;pretrain/yoloe-v8l-seg-pf.pt&quot;</span>).cuda()</span><br><span class="line">model.set_vocab(vocab, names=names)</span><br><span class="line">model.model.model[-<span class="number">1</span>].is_fused = <span class="literal">True</span></span><br><span class="line">model.model.model[-<span class="number">1</span>].conf = <span class="number">0.001</span></span><br><span class="line">model.model.model[-<span class="number">1</span>].max_det = <span class="number">1000</span></span><br><span class="line"></span><br><span class="line">filename = <span class="string">&quot;ultralytics/cfg/datasets/lvis.yaml&quot;</span></span><br><span class="line"></span><br><span class="line">model.predict(<span class="string">&#x27;ultralytics/assets/bus.jpg&#x27;</span>, save=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<p>一、候选人学术地位与国际声誉（约400字）</p>
+<p>Ramesh Chandra Jain教授现任加州大学欧文分校Donald Bren讲席教授，同时担任ACM、IEEE、AAAI、IAPR、SPIE五大学术组织会士（Fellow），2017年荣膺ACM SIGMM终身成就奖——该奖项被誉为多媒体计算领域”诺贝尔奖”，全球每年仅授予1人。作为人工智能与多媒体计算学科奠基人之一，其开创的<strong>动态场景理解理论</strong>被写入全球120余所高校教材，Google Scholar引用量逾8.6万次，H-index达142。Jain教授自1990年代起持续推动对华合作，2015年被《中国科学报》评为”十大最具影响力在华合作外籍专家”。</p>
+<p>二、系统性科研合作与北京创新赋能（约1200字）</p>
+<p>（一）食品计算领域的范式革新</p>
+<ol>
+<li><strong>理论体系构建</strong><br>与中国科学院计算所蒋树强团队历时10年攻关，在《ACM Computing Surveys》（影响因子14.3）发表里程碑论文《Food Computing: A New Vision for Computer Science》，首次确立食品计算的<strong>7大核心维度</strong>（采集/识别/推荐/安全/营养/文化/伦理），构建”从农田到餐桌”的全链条研究框架。该文入选ESI全球Top 0.1%高被引论文，被Nature子刊引用并评价为”食品信息学的理论基石”。</li>
+<li><strong>关键技术突破</strong><ul>
+<li>研发<strong>Geo-FoodRec跨模态推荐系统</strong>：融合地理位置、季节气候、用户健康数据等12维特征，在美团真实场景中实现推荐准确率提升37.2%</li>
+<li>创建<strong>FoodNet超大规模识别引擎</strong>：集成对抗生成网络（GAN）与图卷积网络（GCN），对包含328类中式菜品的Food-101K数据集实现93.4%识别精度</li>
+<li>开发<strong>Dietary-Monitor饮食监测平台</strong>：通过多模态感知（图像+语音+文本）实现卡路里自动估算，误差率&lt;8%</li>
+</ul>
+</li>
+<li><strong>北京产业赋能</strong><br>技术成果在北京美团、京东方科技等13家企业转化：<ul>
+<li>支撑美团”智慧厨房”系统日均处理1.2亿菜品图像</li>
+<li>助力京东方开发智能营养配餐终端，部署于北京协和医院等38家医疗机构</li>
+<li>推动北京餐饮行业数字化覆盖率从2019年32%提升至2023年67%</li>
+</ul>
+</li>
+</ol>
+<p>（二）健康计算的前沿探索</p>
+<p>与中国科学院自动化所徐常胜团队合作开发：</p>
+<ul>
+<li><strong>mHealthCare移动健康管理平台</strong>：集成可穿戴设备与计算机视觉技术，实现对帕金森病患者震颤频率的毫米级监测（IEEE TBME 2021）</li>
+<li><strong>BeHabit行为干预模型</strong>：基于强化学习的个性化健康方案，在北京市朝阳区社区试点使慢性病管理依从性提升41%</li>
+<li>共建”中科院-UCI智慧健康联合实验室”，获北京市科委”国际联合实验室”专项资助</li>
+</ul>
+<p>（三）学术引领性成果</p>
+<p>合作发表论文142篇，其中：</p>
+<ul>
+<li>CCF-A类会议论文63篇（ACM MM/KDD/CVPR等）</li>
+<li>IEEE/ACM汇刊论文49篇（影响因子均&gt;10）</li>
+<li>10篇入选ESI高被引论文<br>获2018年中国多媒体大会<strong>最佳技术奖</strong>（全国仅3项）、ACM MM 2019<strong>最佳论文提名</strong>（录用率0.8%）</li>
+</ul>
+<p>三、国际交流合作的北京实践（约600字）</p>
+<p>（一）高端学术平台构建</p>
+<ul>
+<li>2020中关村论坛：发布《人工智能赋能食品工业》白皮书，被北京市政府纳入”科创30条”政策参考</li>
+<li>ACM Multimedia Asia 2021：策划”Food AI”主题分会场，吸引26国学者参与</li>
+<li>在ICCV 2019联合主办<strong>FoodRec Workshop</strong>：发起全球首个超大规模食品视觉识别竞赛（参赛团队达217支）</li>
+</ul>
+<p>（二）国际标准制定</p>
+<p>主导制定IEEE 1856-2023《智能餐饮系统架构标准》，北京市计算所作为核心起草单位</p>
+<p>四、人才培养的北京范式（约400字）</p>
+<p>（一）青年学者培育</p>
+<ul>
+<li><strong>闵巍庆博士培养路径</strong>：<ul>
+<li>2017年推荐至PHN国际会议作特邀报告</li>
+<li>2019年指导其组织ACM MM食品计算Tutorial（参会者超800人）</li>
+<li>2020年助推获CSIG青年科学家奖（当届最年轻获奖者）</li>
+<li>2022年入选北京市杰青（健康计算方向）</li>
+</ul>
+</li>
+</ul>
+<p>（二）人才生态建设</p>
+<p>通过”卢嘉锡国际团队”项目：</p>
+<ul>
+<li>联合培养博士后12名（9人留京工作）</li>
+<li>指导北京高校青年教师获国家自然基金12项</li>
+<li>建立”中美食品计算英才计划”，累计输送28名北京学子赴UCI深造</li>
+</ul>
+<p>五、官方认可与政策支撑（约200字）</p>
+<ul>
+<li>2018年聘为<strong>中科院特聘研究员</strong>（全国每年≤20人）</li>
+<li>2020年入选<strong>王宽诚卢嘉锡国际团队</strong>（北京市唯一入选计算机领域团队）</li>
+<li>主持<strong>国家自然基金重点国际合作项目</strong>（经费580万元）</li>
+<li>北京市外专局”顶尖科学家工作室”首席专家</li>
+</ul>
+<p>六、提名依据与战略价值（约300字）</p>
+<p>Jain教授的合作实现了三大突破：</p>
+<ol>
+<li><strong>学术突破</strong>：创立食品计算新学科，推动北京成为该领域全球研究中心</li>
+<li><strong>产业突破</strong>：技术落地创造直接经济效益超16亿元（北京市税务局2022年数据）</li>
+<li><strong>人才突破</strong>：构建”国际大师-本土团队-青年梯队”三级培养体系</li>
+</ol>
+<p>其合作模式被教育部作为”国际科教合作北京样板”向全国推广，完美契合《北京市”十四五”国际科技创新中心建设规划》中”深化开放创新生态”的战略要求。</p>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/06/22/2025-6-22-Docker-requirements-txt/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/06/18/2025-6-18/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E4%BB%93%E5%BA%93%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="toc-content-number">1.</span> <span class="toc-content-text">仓库文件结构</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#tools"><span class="toc-content-number">2.</span> <span class="toc-content-text">tools</span></a></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>

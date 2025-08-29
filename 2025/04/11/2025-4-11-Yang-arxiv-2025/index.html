@@ -1,0 +1,174 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="Yang, Chuanguang, et al. “Multi-Teacher Knowledge Distillation with Reinforcement Learning for Visual Recognition.” arXiv preprint arXiv:2502.18510 (2025).  也是用了RL，但是不是很fit我的想法捏。 此处使用到的是知识蒸馏为主、关于奖励函数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-4-11-Yang-arxiv-2025">
+<meta property="og:url" content="http://example.com/2025/04/11/2025-4-11-Yang-arxiv-2025/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="Yang, Chuanguang, et al. “Multi-Teacher Knowledge Distillation with Reinforcement Learning for Visual Recognition.” arXiv preprint arXiv:2502.18510 (2025).  也是用了RL，但是不是很fit我的想法捏。 此处使用到的是知识蒸馏为主、关于奖励函数">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250411095224572.png">
+<meta property="article:published_time" content="2025-04-11T01:21:23.000Z">
+<meta property="article:modified_time" content="2025-04-11T06:35:50.000Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="论文阅读">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250411095224572.png"><title>2025-4-11-Yang-arxiv-2025 - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-4-11-Yang-arxiv-2025</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-04-11</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-04-11</time></div>
+
+<div class="post-tags"><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></div></div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约1.2K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><blockquote>
+<p>Yang, Chuanguang, et al. “Multi-Teacher Knowledge Distillation with Reinforcement Learning for Visual Recognition.” arXiv preprint arXiv:2502.18510 (2025).</p>
+</blockquote>
+<p>也是用了RL，但是不是很fit我的想法捏。</p>
+<p>此处使用到的是知识蒸馏为主、关于奖励函数设计、以及优化上也是最普通的那一种。</p>
+<p>但是可以回扣一下之前的想法：<code>2025-3-10-不打算使用KD</code>这篇。</p>
+<h1 id="Multi-Teacher-Knowledge-Distillation-with-Reinforcement-Learning-MTKD-RL"><a href="#Multi-Teacher-Knowledge-Distillation-with-Reinforcement-Learning-MTKD-RL" class="headerlink" title="Multi-Teacher Knowledge Distillation with Reinforcement Learning (MTKD-RL)"></a>Multi-Teacher Knowledge Distillation with Reinforcement Learning (MTKD-RL)</h1><p><img src="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/image-20250411095224572.png" alt="image-20250411095224572"></p>
+<h2 id="框架Overview"><a href="#框架Overview" class="headerlink" title="框架Overview"></a>框架Overview</h2><p>该框架旨在通过强化学习动态优化多教师网络中每个教师的权重，从而提升学生模型的性能。整体流程包括两个主要阶段：</p>
+<h3 id="预训练阶段"><a href="#预训练阶段" class="headerlink" title="预训练阶段"></a>预训练阶段</h3><ul>
+<li>使用固定的平均权重（如 $w_t^m = \frac{1}{M}$）进行一次完整的多教师知识蒸馏（MTKD）训练，得到初步的学生模型 $S$。</li>
+<li>同时记录每个训练样本对应的 (state, action, reward) 三元组信息。</li>
+</ul>
+<h3 id="强化学习优化阶段"><a href="#强化学习优化阶段" class="headerlink" title="强化学习优化阶段"></a>强化学习优化阶段</h3><ul>
+<li>将记录下的状态（state）作为输入，训练一个 RL agent $\pi_{\theta_m}$ 来输出教师权重 $w_t^m$。</li>
+<li>使用这些权重重新进行知识蒸馏，训练学生模型。</li>
+<li>使用更新后的学生模型重新评估 reward，并用这些数据训练 RL agent。</li>
+<li>两个过程交替进行直到收敛。</li>
+</ul>
+<blockquote>
+<p>诶，这个感觉能对应上首先SFT，然后再RFT。</p>
+<p>可以看到的是对于$\{s,a\}$序列只进行了一次收集，所以是off-policy,比较适合使用PRO的方法。</p>
+</blockquote>
+<h2 id="公式推导"><a href="#公式推导" class="headerlink" title="公式推导"></a>公式推导</h2><h3 id="总损失"><a href="#总损失" class="headerlink" title="总损失"></a>总损失</h3><script type="math/tex; mode=display">
+\mathcal{L}_{MTKD} = \mathcal{H}(y_i^S, y_i) + \sum_{m=1}^{M} w_t^m \mathcal{D}_{KL}(y_i^S, y_i^{T_m}) + \beta \sum_{m=1}^{M} w_t^m \mathcal{D}_{\text{fea}}(F_i^S, F_i^{T_m}) \tag{2}</script><ul>
+<li>$\mathcal{H}$：交叉熵损失</li>
+<li>$\mathcal{D}_{KL}$：KL散度（logit知识蒸馏）</li>
+<li>$\mathcal{D}_{\text{fea}}$：特征层距离</li>
+<li>$w_t^m$：教师 $T_m$ 的权重</li>
+</ul>
+<h3 id="状态定义（State）"><a href="#状态定义（State）" class="headerlink" title="状态定义（State）"></a>状态定义（State）</h3><p>每个样本的状态向量 $s_i^m$ 包含以下五种特征：</p>
+<ol>
+<li>教师特征表示 $f_{i}^{T_m} \in \mathbb{R}^{d_m}$</li>
+<li>教师 logit 表示 $z_i^{T_m} \in \mathbb{R}^C$</li>
+<li>教师 cross-entropy loss: $\mathcal{L}_{CE}^{T_m} = \mathcal{H}(y_i, y_i^{T_m})$</li>
+<li>学生-教师特征相似度：  <script type="math/tex; mode=display">
+\cos_i^{\text{fea}} = \cos(\tau(f_i^S), f_i^{T_m})</script></li>
+<li>学生-教师 logit KL 散度：  <script type="math/tex; mode=display">
+KL_i^{\text{logit}} = \mathcal{D}_{KL}(y_i^S, y_i^{T_m})</script></li>
+</ol>
+<p>拼接成整体状态向量：</p>
+<script type="math/tex; mode=display">
+s_i^m = \left[ f_i^{T_m} \| z_i^{T_m} \| \mathcal{L}_{CE}^{T_m} \| \cos_i^{\text{fea}} \| KL_i^{\text{logit}} \right] \tag{5}</script><h3 id="动作定义（Action）"><a href="#动作定义（Action）" class="headerlink" title="动作定义（Action）"></a>动作定义（Action）</h3><ul>
+<li>动作 $w_t^m = \pi_{\theta_m}(s_i^m) \in (0, 1)$</li>
+<li>每个教师都有自己的 agent 网络 $\pi_{\theta_m}$，用于给出该教师的权重</li>
+</ul>
+<h3 id="奖励函数（Reward）"><a href="#奖励函数（Reward）" class="headerlink" title="奖励函数（Reward）"></a>奖励函数（Reward）</h3><p>奖励函数（Reward Function）是整个 MTKD-RL 框架的核心部分之一，用于评估某一教师在指导学生模型学习过程中的“贡献”大小。该奖励用于训练强化学习 agent，让它学会为每个教师动态分配合适的权重。奖励越高表示教师贡献越大。<strong>此处使用负值表示损失，越小越好。</strong></p>
+<p>每一轮 RL 迭代中，学生模型训练后会计算新的 reward：</p>
+<script type="math/tex; mode=display">
+R_t^m = - \mathcal{H}(y_i^S, y_i) - \alpha \mathcal{D}_{KL}(y_i^S, y_i^{T_m}) - \beta \mathcal{D}_{\text{fea}}(F_i^S, F_i^{T_m}) \tag{6}</script><ul>
+<li>$ y_i $：第 $ i $ 个样本的 ground-truth 标签</li>
+<li>$ y_i^S $：学生网络的输出（logits 或 softmax 概率）</li>
+<li>$ y_i^{T_m} $：教师 $ T_m $ 的输出</li>
+<li>$ F_i^S $：学生网络的特征表示（通常来自某一中间层）</li>
+<li>$ F_i^{T_m} $：教师 $ T_m $ 的特征表示</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>项</th>
+<th>含义</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$ \mathcal{H}(y_i^S, y_i) $</td>
+<td>学生与真实标签之间的交叉熵损失</td>
+<td>衡量学生模型的基本分类性能</td>
+</tr>
+<tr>
+<td>$ \mathcal{D}_{KL}(y_i^S, y_i^{T_m}) $</td>
+<td>学生与教师 $ T_m $ 输出之间的 KL 散度</td>
+<td>衡量学生是否学到了教师的分布</td>
+</tr>
+<tr>
+<td>$ \mathcal{D}_{\text{fea}}(F_i^S, F_i^{T_m}) $</td>
+<td>学生与教师在特征空间的距离（如 MSE）</td>
+<td>衡量学生与教师在中间特征上的相似度</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="奖励归一化（Reward-Normalization）"><a href="#奖励归一化（Reward-Normalization）" class="headerlink" title="奖励归一化（Reward Normalization）"></a>奖励归一化（Reward Normalization）</h3><p>为确保 RL 优化稳定，使用 min-max 归一化：</p>
+<script type="math/tex; mode=display">
+R_t^{m,\text{norm}} = \frac{R_t^m - R_t^{\min}}{R_t^{\max} - R_t^{\min}} - \frac{1}{M} \sum_{k=1}^M \left( \frac{R_t^k - R_t^{\min}}{R_t^{\max} - R_t^{\min}} \right) \tag{8}</script><h3 id="Agent-参数优化"><a href="#Agent-参数优化" class="headerlink" title="Agent 参数优化"></a>Agent 参数优化</h3><p>使用策略梯度（Policy Gradient, PG）更新 RL agent 参数：</p>
+<script type="math/tex; mode=display">
+\theta_m \leftarrow \theta_m - \eta \sum_{i=1}^B \nabla_{\theta_m} \pi_{\theta_m}(s_i^m) R_t^{m,\text{norm}} \tag{7}</script><h2 id="整体算法流程"><a href="#整体算法流程" class="headerlink" title="整体算法流程"></a>整体算法流程</h2><ol>
+<li>用平均权重做一轮 MTKD，得到初始学生模型</li>
+<li>记录训练过程中的状态-动作-奖励数据</li>
+<li>用这些数据训练 agent 网络</li>
+<li>用 agent 输出的权重做新一轮 MTKD，得到新的学生模型</li>
+<li>重复步骤 2–4，直到收敛</li>
+</ol>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/04/12/2025-4-12-MNIST%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/04/10/2025-4-11/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#Multi-Teacher-Knowledge-Distillation-with-Reinforcement-Learning-MTKD-RL"><span class="toc-content-number">1.</span> <span class="toc-content-text">Multi-Teacher Knowledge Distillation with Reinforcement Learning (MTKD-RL)</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E6%A1%86%E6%9E%B6Overview"><span class="toc-content-number">1.1.</span> <span class="toc-content-text">框架Overview</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E9%A2%84%E8%AE%AD%E7%BB%83%E9%98%B6%E6%AE%B5"><span class="toc-content-number">1.1.1.</span> <span class="toc-content-text">预训练阶段</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%BC%98%E5%8C%96%E9%98%B6%E6%AE%B5"><span class="toc-content-number">1.1.2.</span> <span class="toc-content-text">强化学习优化阶段</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC"><span class="toc-content-number">1.2.</span> <span class="toc-content-text">公式推导</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E6%80%BB%E6%8D%9F%E5%A4%B1"><span class="toc-content-number">1.2.1.</span> <span class="toc-content-text">总损失</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E7%8A%B6%E6%80%81%E5%AE%9A%E4%B9%89%EF%BC%88State%EF%BC%89"><span class="toc-content-number">1.2.2.</span> <span class="toc-content-text">状态定义（State）</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%8A%A8%E4%BD%9C%E5%AE%9A%E4%B9%89%EF%BC%88Action%EF%BC%89"><span class="toc-content-number">1.2.3.</span> <span class="toc-content-text">动作定义（Action）</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%A5%96%E5%8A%B1%E5%87%BD%E6%95%B0%EF%BC%88Reward%EF%BC%89"><span class="toc-content-number">1.2.4.</span> <span class="toc-content-text">奖励函数（Reward）</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%A5%96%E5%8A%B1%E5%BD%92%E4%B8%80%E5%8C%96%EF%BC%88Reward-Normalization%EF%BC%89"><span class="toc-content-number">1.2.5.</span> <span class="toc-content-text">奖励归一化（Reward Normalization）</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#Agent-%E5%8F%82%E6%95%B0%E4%BC%98%E5%8C%96"><span class="toc-content-number">1.2.6.</span> <span class="toc-content-text">Agent 参数优化</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E6%95%B4%E4%BD%93%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B"><span class="toc-content-number">1.3.</span> <span class="toc-content-text">整体算法流程</span></a></li></ol></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>

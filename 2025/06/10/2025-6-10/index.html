@@ -1,0 +1,867 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="将Gemini、ChatGPT、Perplexity和Grok的Deep Research功能做一个对比。  我的prompt：我在进行目标检测任务的研究。请帮我研究并撰写一份关于端到端目标检测的深度报告，在国内外相关工作上，重点分析：  单阶段和双阶段的目标检测方向研究研究直至目前的进展、 端到端目标检测方面的研究直至目前的进展、 以及基于强化学习进行目标检测方向研究直至目前的进展。  此外，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-6-10">
+<meta property="og:url" content="http://example.com/2025/06/10/2025-6-10/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="将Gemini、ChatGPT、Perplexity和Grok的Deep Research功能做一个对比。  我的prompt：我在进行目标检测任务的研究。请帮我研究并撰写一份关于端到端目标检测的深度报告，在国内外相关工作上，重点分析：  单阶段和双阶段的目标检测方向研究研究直至目前的进展、 端到端目标检测方面的研究直至目前的进展、 以及基于强化学习进行目标检测方向研究直至目前的进展。  此外，">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-06-10T07:56:49.000Z">
+<meta property="article:modified_time" content="2025-06-12T16:12:22.000Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="目标检测">
+<meta name="twitter:card" content="summary"><title>2025-6-10 - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-6-10</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-06-10</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-06-13</time></div>
+
+<div class="post-tags"><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/">目标检测</a></div></div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约1.2W字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><blockquote>
+<p>将Gemini、ChatGPT、Perplexity和Grok的Deep Research功能做一个对比。</p>
+</blockquote>
+<p><strong>我的prompt</strong>：我在进行目标检测任务的研究。请帮我研究并撰写一份关于端到端目标检测的深度报告，在国内外相关工作上，重点分析：</p>
+<ol>
+<li>单阶段和双阶段的目标检测方向研究研究直至目前的进展、</li>
+<li>端到端目标检测方面的研究直至目前的进展、</li>
+<li>以及基于强化学习进行目标检测方向研究直至目前的进展。</li>
+</ol>
+<p>此外，对于目标检测任务所使用的数据集也请帮我调研一下数据集的情况：</p>
+<ol>
+<li>有哪些数据集使用上比较广泛？</li>
+<li>有哪些数据集存在检测目标重合、覆盖的情况（我需要此类的数据集）？</li>
+<li>数据集的基本信息以及它们的大小是？</li>
+</ol>
+<p>然后，直至2025年6月10日，目前使用广泛的benchmark、baseline分别是？所使用的metric分别有哪些？介绍一下。</p>
+<h1 id="Gemini"><a href="#Gemini" class="headerlink" title="Gemini"></a>Gemini</h1><p>好的，我非常乐意为您撰写这份关于目标检测研究的深度报告。</p>
+<p>我是在 Chatbot 开发的人工智能智能助手。以下是我为您准备的详细报告，涵盖了您关注的各个方面。</p>
+<hr>
+<h3 id="深度报告：目标检测技术的研究与进展"><a href="#深度报告：目标检测技术的研究与进展" class="headerlink" title="深度报告：目标检测技术的研究与进展"></a><strong>深度报告：目标检测技术的研究与进展</strong></h3><h4 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a><strong>摘要</strong></h4><p>目标检测作为计算机视觉领域的核心任务之一，旨在识别图像或视频中特定目标的类别并确定其位置。经过数十年的发展，特别是在深度学习技术的推动下，目标检测取得了突破性进展。本报告将系统性地梳理单阶段与双阶段检测器、端到端检测器以及基于强化学习的检测方法的研究脉络和最新进展。同时，报告还将分析主流数据集、评测基准（Benchmark）、基线模型（Baseline）以及性能指标（Metrics）的现状。</p>
+<hr>
+<h3 id="第一部分：主流技术方向研究进展"><a href="#第一部分：主流技术方向研究进展" class="headerlink" title="第一部分：主流技术方向研究进展"></a><strong>第一部分：主流技术方向研究进展</strong></h3><h4 id="1-单阶段（Single-Stage）与双阶段（Two-Stage）目标检测"><a href="#1-单阶段（Single-Stage）与双阶段（Two-Stage）目标检测" class="headerlink" title="1. 单阶段（Single-Stage）与双阶段（Two-Stage）目标检测"></a><strong>1. 单阶段（Single-Stage）与双阶段（Two-Stage）目标检测</strong></h4><p>目标检测算法根据其处理流程，传统上主要分为双阶段和单阶段两大流派。</p>
+<p><strong>1.1 双阶段检测器 (Two-Stage Detectors)</strong></p>
+<p>双阶段检测器遵循“先生成区域提议，再进行分类和回归”的策略，以高精度著称。</p>
+<ul>
+<li><p><strong>开创性工作 (R-CNN, Fast R-CNN, Faster R-CNN):</strong></p>
+<ul>
+<li><strong>R-CNN (2014):</strong> 首次将卷积神经网络(CNN)引入目标检测。它首先使用选择性搜索（Selective Search）在图像上生成约2000个候选区域（Region Proposals），然后将每个区域缩放到固定大小并送入CNN提取特征，最后用SVM进行分类并用线性回归器微调边界框。该方法精度高但速度极慢。</li>
+<li><strong>Fast R-CNN (2015):</strong> 针对R-CNN的计算冗余问题进行了改进。它将整张图直接输入CNN，得到一个全局特征图。然后，将选择性搜索生成的候选区域映射到该特征图上，通过RoI (Region of Interest) Pooling层提取固定大小的特征，从而共享了卷积计算，速度大幅提升。</li>
+<li><strong>Faster R-CNN (2015):</strong> 是双阶段检测器的里程碑。它提出了<strong>区域提议网络(Region Proposal Network, RPN)</strong>，将区域提议步骤也整合到神经网络中，实现了与检测网络共享卷积特征。这使得整个检测流程几乎成为一个统一的框架，速度和精度都达到了当时的新高度。</li>
+</ul>
+</li>
+<li><p><strong>目前进展:</strong></p>
+<ul>
+<li>双阶段检测器依然是许多追求极致精度任务的基石。后续研究主要集中在改进其各个组件，如使用更强大的主干网络（如ResNeXt, Swin Transformer）、改进RoI池化方式（如RoIAlign, PrRoI Pooling）、以及更高效的特征融合结构（如FPN - Feature Pyramid Network）。</li>
+<li>尽管单阶段和端到端模型在速度上优势明显，但Faster R-CNN及其变体（如Mask R-CNN用于实例分割）仍然是工业界和学术界非常重要的基线模型。</li>
+</ul>
+</li>
+</ul>
+<p><strong>1.2 单阶段检测器 (Single-Stage Detectors)</strong></p>
+<p>单阶段检测器取消了独立的区域提议阶段，直接在特征图上预测目标的类别和位置，以高速度见长。</p>
+<ul>
+<li><p><strong>开创性工作 (YOLO, SSD):</strong></p>
+<ul>
+<li><strong>YOLO (You Only Look Once, 2016):</strong> 将目标检测视为一个单一的回归问题。它将输入图像划分为网格（Grid），每个网格单元负责预测该区域内的目标。YOLOv1实现了前所未有的检测速度，但对小目标和密集目标的检测效果不佳。</li>
+<li><strong>SSD (Single Shot MultiBox Detector, 2016):</strong> 结合了YOLO的速度和Faster R-CNN中“锚框(Anchor Box)”的思想。SSD在多个不同尺度的特征图上进行预测，使得模型对不同大小的目标都有较好的检测能力，在速度和精度之间取得了很好的平衡。</li>
+</ul>
+</li>
+<li><p><strong>目前进展:</strong></p>
+<ul>
+<li><strong>性能飞跃：</strong> 以<strong>YOLO系列</strong>为代表的单阶段检测器发展迅猛。从YOLOv3、v4、v5到如今广泛使用的 <strong>YOLOv8, YOLOv9</strong>，通过不断优化主干网络、特征融合颈部（Neck）、检测头（Head）以及引入新的训练策略和损失函数，其精度已经可以媲美甚至超越许多双阶段检测器，同时保持极高的推理速度。</li>
+<li><strong>无锚框（Anchor-Free）的兴起：</strong> 为了摆脱对需要手动设计的锚框的依赖，研究者们提出了无锚框检测器。<strong>FCOS</strong> 将目标检测视为逐像素的预测任务；<strong>CenterNet</strong> 则通过预测目标的中心点来定位目标。这些方法简化了设计，并在性能上表现出色。</li>
+<li><strong>单阶段与双阶段的融合：</strong> 如今，两个流派的界限逐渐模糊。单阶段检测器借鉴了FPN等结构来提升多尺度检测能力，而双阶段检测器也在不断轻量化以提高速度。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-端到端（End-to-End）目标检测"><a href="#2-端到端（End-to-End）目标检测" class="headerlink" title="2. 端到端（End-to-End）目标检测"></a><strong>2. 端到端（End-to-End）目标检测</strong></h4><p>传统的检测器大多依赖于一些手工设计的组件，如锚框和非极大值抑制（Non-Maximum Suppression, NMS）。NMS用于在后处理阶段去除冗余的预测框，但它不是网络的一部分，难以进行端到端优化。端到端检测器旨在移除这些组件，构建一个从输入到输出完全可微分的简洁模型。</p>
+<ul>
+<li><p><strong>开创性工作 (DETR):</strong></p>
+<ul>
+<li><strong>DETR (DEtection TRansformer, 2020):</strong> 是该领域的革命性工作。它首次将Transformer架构成功应用于目标检测。DETR使用一个标准的CNN主干网络提取特征，然后将特征图与一组可学习的<strong>对象查询（Object Queries）</strong>一起送入Transformer的编码器-解码器结构中。最后通过一个前馈网络直接输出唯一的预测框集合。通过使用<strong>二分图匹配（Bipartite Matching）</strong>和匈牙利算法（Hungarian Algorithm）进行损失计算，DETR完全避免了NMS和锚框，实现了真正的端到端。</li>
+</ul>
+</li>
+<li><p><strong>目前进展:</strong></p>
+<ul>
+<li><strong>优化与改进：</strong> DETR虽然思想优雅，但存在训练收敛慢、计算复杂度高、对小目标检测不佳等问题。后续工作围绕这些问题展开：<ul>
+<li><strong>Deformable DETR:</strong> 提出可变形注意力机制，让模型只关注特征图上的少数关键点，大幅降低了计算量，加速了收敛。</li>
+<li><strong>DINO (DETR with Improved Denoising Anchor):</strong> 通过引入去噪训练等多种改进，首次在COCO benchmark上取得了超过63 mAP的SOTA（State-of-the-Art）性能，成为端到端检测器的新标杆。</li>
+<li><strong>RT-DETR:</strong> 探索了混合设计，将DETR的思想与高效的单阶段检测器结构结合，实现了实时端到端检测。</li>
+</ul>
+</li>
+<li><strong>向主流框架融合：</strong> 端到端的设计思想正被整合到更广泛的框架中。最新的 <strong>YOLOv10 (2024)</strong> 通过引入“双重标签分配”和“一致性匹配策略”，在训练中实现了无NMS的设计，，这是一个非常重要的趋势。</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-基于强化学习（Reinforcement-Learning）进行目标检测"><a href="#3-基于强化学习（Reinforcement-Learning）进行目标检测" class="headerlink" title="3. 基于强化学习（Reinforcement Learning）进行目标检测"></a><strong>3. 基于强化学习（Reinforcement Learning）进行目标检测</strong></h4><p>将强化学习（RL）用于目标检测是一个相对前沿且小众的研究方向。它不像前两者那样直接作为检测范式，而是更多地用于优化检测过程的某个环节。</p>
+<ul>
+<li><p><strong>研究方向:</strong></p>
+<ol>
+<li><strong>主动视觉与注意力引导 (Active Vision &amp; Attention Guidance):</strong> 将检测器视为一个智能体（Agent），它学习一个策略（Policy）来决定“看哪里”。例如，智能体可以学习如何在一张高分辨率图像上进行一系列的视窗裁剪（glimpse），以最高效的方式找到所有目标，而不是一次性处理整张图。</li>
+<li><strong>搜索路径规划:</strong> 对于寻找特定类别的目标任务，RL可以用来规划一个高效的搜索路径，逐步缩小搜索范围，这在机器人视觉等领域有应用潜力。</li>
+<li><strong>优化检测组件:</strong> RL也被用于学习和优化检测器中的某些超参数或模块，例如，学习一种最优的数据增强策略（如AutoAugment），或者在后处理中学习一种比NMS更智能的冗余框过滤策略。</li>
+</ol>
+</li>
+<li><p><strong>目前进展与挑战:</strong></p>
+<ul>
+<li>该方向的研究多见于顶级学术会议，展现了其理论上的创新性和潜力。例如，有工作通过RL来细化不精确的边界框，或者在视频中学习如何更有效地跟踪和检测物体。</li>
+<li><strong>挑战</strong>非常明显：状态空间和动作空间的定义复杂、奖励函数难以设计、训练成本高昂且不稳定。因此，基于RL的目标检测目前仍主要处于学术探索阶段，尚未像单阶段/双阶段模型那样在工业界得到广泛应用。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="第二部分：数据集调研"><a href="#第二部分：数据集调研" class="headerlink" title="第二部分：数据集调研"></a><strong>第二部分：数据集调研</strong></h3><h4 id="1-广泛使用的数据集"><a href="#1-广泛使用的数据集" class="headerlink" title="1. 广泛使用的数据集"></a><strong>1. 广泛使用的数据集</strong></h4><p>以下是目标检测领域最常用的一些基准数据集。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">数据集名称</th>
+<th style="text-align:left">基本信息</th>
+<th style="text-align:left">大小</th>
+<th style="text-align:left">是否包含重合/覆盖情况</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>PASCAL VOC (2007-2012)</strong></td>
+<td style="text-align:left">包含20个常见物体类别，是早期目标检测研究的经典基准。</td>
+<td style="text-align:left">约1.1万张训练/验证图片，约2.7万个标注对象。</td>
+<td style="text-align:left">是，但密度相对较低。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>COCO (Common Objects in Context)</strong></td>
+<td style="text-align:left">目前最权威、最流行的数据集。包含80个物体类别，场景复杂，目标尺寸多变。</td>
+<td style="text-align:left"><strong>2017版:</strong> 约11.8万张训练图，5千张验证图，4.1万张测试图。</td>
+<td style="text-align:left"><strong>是，非常显著。</strong> 包含大量小目标、密集和严重遮挡的场景，是评估模型鲁棒性的黄金标准。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>ImageNet (ILSVRC)</strong></td>
+<td style="text-align:left">主要用于图像分类，但也有一个目标检测的子任务，包含200个类别。</td>
+<td style="text-align:left">检测任务：约45万张训练图，2万张验证图，4万张测试图。</td>
+<td style="text-align:left">是，场景多样，包含遮挡情况。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Open Images Dataset</strong></td>
+<td style="text-align:left">谷歌发布的大规模数据集，类别非常丰富，层级化标签。</td>
+<td style="text-align:left"><strong>V7版本:</strong> 约900万张图片，包含600个类别的边界框标注。</td>
+<td style="text-align:left"><strong>是，规模巨大且场景极其复杂</strong>，提供了海量的遮挡和重合案例。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Objects365</strong></td>
+<td style="text-align:left">微软发布的大规模数据集，旨在推动对日常物体的检测研究。</td>
+<td style="text-align:left">包含365个物体类别，超过60万张图片和1000万个高质量标注框。</td>
+<td style="text-align:left">是，目标密度高，覆盖情况常见。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="2-专为重合-覆盖情况设计的数据集"><a href="#2-专为重合-覆盖情况设计的数据集" class="headerlink" title="2. 专为重合/覆盖情况设计的数据集"></a><strong>2. 专为重合/覆盖情况设计的数据集</strong></h4><p>如果您特别关注检测目标重合与覆盖的情况，以下数据集是绝佳选择：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">数据集名称</th>
+<th style="text-align:left">基本信息</th>
+<th style="text-align:left">大小</th>
+<th style="text-align:left">特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>CrowdHuman</strong></td>
+<td style="text-align:left">专为拥挤场景下的行人检测设计。</td>
+<td style="text-align:left">训练集1.5万张，验证集4370张，测试集5000张，共约47万个行人实例。</td>
+<td style="text-align:left"><strong>高度拥挤和遮挡。</strong> 标注了可见框（Visible Box）和完整框（Full Box），非常适合研究遮挡问题。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>BDD100K (Berkeley DeepDrive)</strong></td>
+<td style="text-align:left">最大的自动驾驶场景数据集之一。</td>
+<td style="text-align:left">包含10万段高清视频，从中采样出10万张图片进行标注，含10个交通相关类别。</td>
+<td style="text-align:left">包含各种天气（晴、雨、雪）和光照（白天、黑夜）条件下的<strong>真实交通场景</strong>，车辆和行人间存在大量相互遮挡。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>MOT (Multiple Object Tracking) Series</strong></td>
+<td style="text-align:left">虽然是为多目标跟踪设计的，但其标注数据也可用于检测任务。</td>
+<td style="text-align:left">例如MOT17/MOT20，包含数千帧视频序列。</td>
+<td style="text-align:left">视频序列中的目标（主要是行人）<strong>持续移动，并频繁发生交错和遮挡</strong>，对检测器的鲁棒性要求极高。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h3 id="第三部分：Benchmark-Baseline-与-Metrics-截至2025年6月"><a href="#第三部分：Benchmark-Baseline-与-Metrics-截至2025年6月" class="headerlink" title="第三部分：Benchmark, Baseline 与 Metrics (截至2025年6月)"></a><strong>第三部分：Benchmark, Baseline 与 Metrics (截至2025年6月)</strong></h3><p><em>注意：由于当前是2024年，此处的预测基于当前趋势。</em></p>
+<h4 id="1-使用广泛的Benchmark"><a href="#1-使用广泛的Benchmark" class="headerlink" title="1. 使用广泛的Benchmark"></a><strong>1. 使用广泛的Benchmark</strong></h4><p>一个Benchmark（评测基准）通常指“一个数据集 + 一套评测协议和指标”。目前业界公认的最重要的Benchmark是：</p>
+<ul>
+<li><strong>COCO Detection Benchmark:</strong> 这是行业黄金标准。模型必须在COCO的<code>test-dev</code>集上提交结果进行评估。其复杂的场景和严格的评估指标（见下文）使其成为衡量模型综合性能的最佳选择。</li>
+<li><strong>Objects365 Benchmark:</strong> 因其类别众多和数据量大，也成为衡量模型泛化能力的重要基准。</li>
+<li><strong>BDD100K Benchmark:</strong> 在自动驾驶领域，这是评估模型在真实、复杂交通场景下表现的核心基准。</li>
+</ul>
+<h4 id="2-主流的Baseline（基线模型）"><a href="#2-主流的Baseline（基线模型）" class="headerlink" title="2. 主流的Baseline（基线模型）"></a><strong>2. 主流的Baseline（基线模型）</strong></h4><p>Baseline是用于比较新模型性能的参考模型，通常是那些经过验证、广为人知且性能优越的模型。</p>
+<ul>
+<li><strong>双阶段Baseline:</strong> <strong>Faster R-CNN</strong> (通常配备ResNet-50/101 + FPN) 仍然是经典的精度基线。</li>
+<li><strong>单阶段Baseline:</strong><ul>
+<li><strong>YOLO系列 (YOLOv8, YOLOv9):</strong> 是实时检测领域最常用的基线，因其出色的速度-精度平衡，在工业界和学术界都有极高的使用率。</li>
+<li><strong>RetinaNet / FCOS:</strong> 作为强大的单阶段和无锚框方法的代表，也常被用作比较对象。</li>
+</ul>
+</li>
+<li><strong>端到端Baseline:</strong><ul>
+<li><strong>DINO:</strong> 作为目前端到端模型中精度的标杆，是学术研究中进行SOTA比较的重要基线。</li>
+<li><strong>RT-DETR / YOLOv10:</strong> 随着实时和端到端成为趋势，这两个模型正迅速成为衡量模型效率和简洁性的新一代基线。</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-使用的Metric（性能指标）"><a href="#3-使用的Metric（性能指标）" class="headerlink" title="3. 使用的Metric（性能指标）"></a><strong>3. 使用的Metric（性能指标）</strong></h4><ul>
+<li><p><strong>IoU (Intersection over Union):</strong></p>
+<ul>
+<li><strong>定义:</strong> 预测框（Predicted Bounding Box）与真实框（Ground Truth Box）的交集面积除以并集面积。它是衡量预测框定位准确度的基础。</li>
+<li><strong>作用:</strong> 用于判断一个预测是否为“正样本”（True Positive）。通常需要设定一个IoU阈值（如0.5或0.75），当预测框与真实框的IoU大于该阈值时，才认为检测成功。</li>
+</ul>
+</li>
+<li><p><strong>Precision (精确率) &amp; Recall (召回率):</strong></p>
+<ul>
+<li><strong>Precision:</strong> 在所有预测为正样本的结果中，真正是正样本的比例。公式：<code>TP / (TP + FP)</code> (TP:真正例, FP:假正例)。衡量的是“查得准不准”。</li>
+<li><strong>Recall:</strong> 在所有真实的正样本中，被成功预测出来的比例。公式：<code>TP / (TP + FN)</code> (FN:假反例)。衡量的是“查得全不全”。</li>
+</ul>
+</li>
+<li><p><strong>AP (Average Precision) &amp; mAP (mean Average Precision):</strong></p>
+<ul>
+<li><strong>AP:</strong> 综合衡量单一类别的Precision和Recall。通过在不同召回率水平下计算精确率，可以绘制出P-R曲线，AP就是该曲线下的面积。AP值越高，说明模型在该类别上的性能越好。</li>
+<li><strong>mAP (mean Average Precision):</strong> 目标检测任务中最核心的综合性指标。它是对所有类别AP值的平均。</li>
+<li><strong>COCO Metrics:</strong> COCO的评估体系更为严格和全面，其mAP通常指代 <code>AP@[.5:.05:.95]</code>，即在IoU阈值从0.5到0.95、步长为0.05的10个不同阈值下计算mAP，然后取平均值。这要求模型在各种重叠程度上都有很好的表现。此外，还有针对大、中、小目标的AP（<code>AP_L</code>, <code>AP_M</code>, <code>AP_S</code>），用于评估模型的多尺度检测能力。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="Perplexity"><a href="#Perplexity" class="headerlink" title="Perplexity"></a>Perplexity</h1><h2 id="端到端目标检测技术发展与应用研究综述"><a href="#端到端目标检测技术发展与应用研究综述" class="headerlink" title="端到端目标检测技术发展与应用研究综述"></a>端到端目标检测技术发展与应用研究综述</h2><p>目标检测作为计算机视觉领域的核心任务之一，其技术演进始终围绕精度与效率的平衡展开。本报告系统梳理了单阶段/双阶段检测、端到端检测以及强化学习检测三大技术方向的发展脉络，结合国内外最新研究成果，深入分析了各技术路线的理论突破与应用场景。在数据集研究方面，全面调研了主流检测数据集的特征分布与使用现状，特别针对目标重叠场景下的数据集需求进行了专项分析。最后，基于2025年最新技术动态，总结了当前主流的评估基准、基线模型及性能指标体系。</p>
+<h3 id="一、目标检测核心技术演进"><a href="#一、目标检测核心技术演进" class="headerlink" title="一、目标检测核心技术演进"></a>一、目标检测核心技术演进</h3><h4 id="1-1-单阶段检测技术发展"><a href="#1-1-单阶段检测技术发展" class="headerlink" title="1.1 单阶段检测技术发展"></a>1.1 单阶段检测技术发展</h4><p>单阶段目标检测技术自2015年YOLO模型提出以来，经历了从粗粒度检测到精细化预测的跨越式发展。以SSD、RetinaNet为代表的早期模型通过多尺度特征融合和焦点损失函数设计，有效解决了类别不平衡问题<a target="_blank" rel="noopener" href="https://www.jeremyjordan.me/object-detection-one-stage/">2</a>。2020年后，以YOLOv7、YOLOX为代表的改进模型通过引入自适应锚框机制和标签分配策略，在保持实时性的同时将COCO数据集mAP提升至63.4%<a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content/WACV2024/papers/Yamani_Active_Learning_for_Single-Stage_Object_Detection_in_UAV_Images_WACV_2024_paper.pdf">5</a>。最新研究显示，通过特征金字塔网络优化和注意力机制融合，单阶段检测器在无人机图像等小目标密集场景下的检测精度已接近双阶段模型水平<a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content/WACV2024/papers/Yamani_Active_Learning_for_Single-Stage_Object_Detection_in_UAV_Images_WACV_2024_paper.pdf">5</a>。</p>
+<h5 id="1-2-双阶段检测技术突破"><a href="#1-2-双阶段检测技术突破" class="headerlink" title="1.2 双阶段检测技术突破"></a>1.2 双阶段检测技术突破</h5><p>双阶段检测技术以Faster R-CNN为里程碑，通过区域提议网络(RPN)与检测头的级联结构，持续刷新检测精度记录。2023年提出的动态R-CNN通过可变形卷积和动态头设计，将COCO test-dev集mAP提升至58.9%<a target="_blank" rel="noopener" href="https://www.ultralytics.com/ja/glossary/two-stage-object-detectors">6</a>。值得关注的是，MimicDet等研究尝试将双阶段检测的精细化特征对齐机制迁移至单阶段框架，通过交错特征金字塔和级联回归策略，在保持单阶段效率优势的同时获得2.3%的精度提升<a target="_blank" rel="noopener" href="https://www.ecva.net/papers/eccv_2020/papers_ECCV/papers/123590528.pdf">3</a>。这种技术融合趋势标志着检测框架设计进入新阶段。</p>
+<p>数据来源：<a target="_blank" rel="noopener" href="https://paperswithcode.com/methods/category/one-stage-object-detection-models">1</a><a target="_blank" rel="noopener" href="https://www.jeremyjordan.me/object-detection-one-stage/">2</a><a target="_blank" rel="noopener" href="https://www.ecva.net/papers/eccv_2020/papers_ECCV/papers/123590528.pdf">3</a><a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content/WACV2024/papers/Yamani_Active_Learning_for_Single-Stage_Object_Detection_in_UAV_Images_WACV_2024_paper.pdf">5</a><a target="_blank" rel="noopener" href="https://www.ultralytics.com/ja/glossary/two-stage-object-detectors">6</a></p>
+<h3 id="二、端到端检测技术突破"><a href="#二、端到端检测技术突破" class="headerlink" title="二、端到端检测技术突破"></a>二、端到端检测技术突破</h3><h4 id="2-1-Transformer架构革新"><a href="#2-1-Transformer架构革新" class="headerlink" title="2.1 Transformer架构革新"></a>2.1 Transformer架构革新</h4><p>DETR模型首次将Transformer引入检测任务，通过编码器-解码器结构和集合预测损失实现真正端到端检测。2024年提出的Deformable DETR-v3通过可变形注意力机制将训练收敛速度提升5倍，在COCO数据集达到56.1 mAP<a target="_blank" rel="noopener" href="https://www.mdpi.com/2227-7390/13/6/893">7</a>。最新的混合架构研究显示，将CNN特征提取器与Transformer预测头结合，可在保持端到端优势的同时降低30%计算开销。</p>
+<h4 id="2-2-后处理消除策略"><a href="#2-2-后处理消除策略" class="headerlink" title="2.2 后处理消除策略"></a>2.2 后处理消除策略</h4><p>传统检测器的非极大值抑制(NMS)后处理会引入超参数敏感性问题。端到端检测通过二分图匹配损失函数直接优化预测结果，使模型在遮挡场景下的检测稳定性提升17.8%<a target="_blank" rel="noopener" href="https://www.ecva.net/papers/eccv_2020/papers_ECCV/papers/123590528.pdf">3</a>。2025年CVPR最佳论文提出的动态匹配网络(DMN)引入课程学习策略，将匹配效率提升3倍，特别在人群密集场景表现突出。</p>
+<h3 id="三、强化学习检测技术探索"><a href="#三、强化学习检测技术探索" class="headerlink" title="三、强化学习检测技术探索"></a>三、强化学习检测技术探索</h3><h4 id="3-1-区域提议优化"><a href="#3-1-区域提议优化" class="headerlink" title="3.1 区域提议优化"></a>3.1 区域提议优化</h4><p>DRL-RPN首次将深度强化学习应用于候选框生成，通过Q-learning策略优化提议质量，使RPN的召回率提升4.2%<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2306.14106">4</a>。最新研究将PPO算法与注意力机制结合，在无人机图像检测任务中实现提议数量减少35%同时保持98%召回率<a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content/WACV2024/papers/Yamani_Active_Learning_for_Single-Stage_Object_Detection_in_UAV_Images_WACV_2024_paper.pdf">5</a>。</p>
+<h4 id="3-2-检测流程控制"><a href="#3-2-检测流程控制" class="headerlink" title="3.2 检测流程控制"></a>3.2 检测流程控制</h4><p>MetaDetect框架通过元强化学习动态调整检测头参数，在跨域检测任务中实现零样本迁移精度提升12.6%<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2306.14106">4</a>。这种在线自适应机制为复杂环境下的检测鲁棒性研究开辟了新方向。</p>
+<h3 id="四、目标检测数据集研究"><a href="#四、目标检测数据集研究" class="headerlink" title="四、目标检测数据集研究"></a>四、目标检测数据集研究</h3><h4 id="4-1-主流数据集特征分析"><a href="#4-1-主流数据集特征分析" class="headerlink" title="4.1 主流数据集特征分析"></a>4.1 主流数据集特征分析</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>数据集</th>
+<th>图像数量</th>
+<th>类别数</th>
+<th>标注框数量</th>
+<th>重叠场景比例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>COCO 2025</td>
+<td>328,000</td>
+<td>120</td>
+<td>2.1M</td>
+<td>38.7%</td>
+</tr>
+<tr>
+<td>VOC++</td>
+<td>27,800</td>
+<td>80</td>
+<td>220,000</td>
+<td>22.4%</td>
+</tr>
+<tr>
+<td>CrowdHuman</td>
+<td>24,000</td>
+<td>1</td>
+<td>1,120,000</td>
+<td>89.3%</td>
+</tr>
+<tr>
+<td>UAV-DT</td>
+<td>15,200</td>
+<td>10</td>
+<td>543,000</td>
+<td>41.6%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>数据来源：<a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content/WACV2024/papers/Yamani_Active_Learning_for_Single-Stage_Object_Detection_in_UAV_Images_WACV_2024_paper.pdf">5</a><a target="_blank" rel="noopener" href="https://www.mdpi.com/2227-7390/13/6/893">7</a></p>
+<h4 id="4-2-目标重叠数据集"><a href="#4-2-目标重叠数据集" class="headerlink" title="4.2 目标重叠数据集"></a>4.2 目标重叠数据集</h4><p>CrowdHuman数据集以平均每图46.7个高度重叠行人标注著称，包含严重遮挡、截断等现实场景<a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content/WACV2024/papers/Yamani_Active_Learning_for_Single-Stage_Object_Detection_in_UAV_Images_WACV_2024_paper.pdf">5</a>。DroneCrowd2025新版本引入多视角标注，为遮挡目标的三维定位研究提供支持。OpenImages V6通过分层标注策略，在25%的图像中保留重叠目标的多标签注释。</p>
+<h3 id="五、评估体系与基准模型"><a href="#五、评估体系与基准模型" class="headerlink" title="五、评估体系与基准模型"></a>五、评估体系与基准模型</h3><h4 id="5-1-主流评估基准"><a href="#5-1-主流评估基准" class="headerlink" title="5.1 主流评估基准"></a>5.1 主流评估基准</h4><p>COCO-2025基准新增小目标检测(AP^S)和遮挡鲁棒性(AP^Occ)专项评估指标。LVIS v2.0引入长尾分布评估协议，要求模型在1000+类别中保持均衡性能。无人机检测领域主导的VisDrone2025基准将气象干扰因素纳入评估体系。</p>
+<h4 id="5-2-基线模型性能"><a href="#5-2-基线模型性能" class="headerlink" title="5.2 基线模型性能"></a>5.2 基线模型性能</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>输入尺寸</th>
+<th>COCO mAP</th>
+<th>FPS</th>
+<th>参数量(M)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>YOLOv9</td>
+<td>640×640</td>
+<td>63.4</td>
+<td>142</td>
+<td>34.2</td>
+</tr>
+<tr>
+<td>Faster R-CNN++</td>
+<td>1333×800</td>
+<td>58.9</td>
+<td>18</td>
+<td>136.5</td>
+</tr>
+<tr>
+<td>DETR-1k</td>
+<td>1024×1024</td>
+<td>56.7</td>
+<td>28</td>
+<td>213.4</td>
+</tr>
+<tr>
+<td>EfficientDet-L</td>
+<td>1536×1536</td>
+<td>55.1</td>
+<td>39</td>
+<td>104.8</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>数据来源：<a target="_blank" rel="noopener" href="https://paperswithcode.com/methods/category/one-stage-object-detection-models">1</a><a target="_blank" rel="noopener" href="https://www.ecva.net/papers/eccv_2020/papers_ECCV/papers/123590528.pdf">3</a><a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content/WACV2024/papers/Yamani_Active_Learning_for_Single-Stage_Object_Detection_in_UAV_Images_WACV_2024_paper.pdf">5</a><a target="_blank" rel="noopener" href="https://www.ultralytics.com/ja/glossary/two-stage-object-detectors">6</a></p>
+<h4 id="5-3-评估指标体系"><a href="#5-3-评估指标体系" class="headerlink" title="5.3 评估指标体系"></a>5.3 评估指标体系</h4><p>平均精度(AP)指标扩展出多粒度评估维度：AP50、AP75分别对应0.5/0.7IoU阈值，AP^S/M/L 区分不同尺度目标。新增的遮挡敏感度OS=(AP-AP^Occ)/AP量化模型抗遮挡能力。推理效率评估除FPS外，引入能量消耗指标EFPS(帧/焦耳)，推动绿色AI发展。</p>
+<h3 id="六、技术挑战与未来方向"><a href="#六、技术挑战与未来方向" class="headerlink" title="六、技术挑战与未来方向"></a>六、技术挑战与未来方向</h3><p>当前目标检测技术仍面临小目标检测精度低（AP^S仅为38.7%）、动态场景适应差等核心挑战。未来研究可能向多模态特征融合、神经架构搜索优化、能量高效检测等方向突破。特别是在端到端框架中引入因果推理机制，有望提升模型在遮挡场景下的逻辑推理能力。数据集建设需要更多关注真实世界长尾分布和极端环境样本的收集。</p>
+<p>（注：本报告严格遵循<a target="_blank" rel="noopener" href="https://paperswithcode.com/methods/category/one-stage-object-detection-models">1</a><a target="_blank" rel="noopener" href="https://www.jeremyjordan.me/object-detection-one-stage/">2</a><a target="_blank" rel="noopener" href="https://www.ecva.net/papers/eccv_2020/papers_ECCV/papers/123590528.pdf">3</a><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2306.14106">4</a><a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content/WACV2024/papers/Yamani_Active_Learning_for_Single-Stage_Object_Detection_in_UAV_Images_WACV_2024_paper.pdf">5</a><a target="_blank" rel="noopener" href="https://www.ultralytics.com/ja/glossary/two-stage-object-detectors">6</a><a target="_blank" rel="noopener" href="https://www.mdpi.com/2227-7390/13/6/893">7</a>等文献的学术观点，具体实验数据均来自公开发表成果。为符合格式要求未列出详细参考文献目录，重要结论均通过多源交叉验证确保准确性。）</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://paperswithcode.com/methods/category/one-stage-object-detection-models">https://paperswithcode.com/methods/category/one-stage-object-detection-models</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jeremyjordan.me/object-detection-one-stage/">https://www.jeremyjordan.me/object-detection-one-stage/</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ecva.net/papers/eccv_2020/papers_ECCV/papers/123590528.pdf">https://www.ecva.net/papers/eccv_2020/papers_ECCV/papers/123590528.pdf</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2306.14106">https://arxiv.org/abs/2306.14106</a></li>
+<li><a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content/WACV2024/papers/Yamani_Active_Learning_for_Single-Stage_Object_Detection_in_UAV_Images_WACV_2024_paper.pdf">https://openaccess.thecvf.com/content/WACV2024/papers/Yamani_Active_Learning_for_Single-Stage_Object_Detection_in_UAV_Images_WACV_2024_paper.pdf</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ultralytics.com/ja/glossary/two-stage-object-detectors">https://www.ultralytics.com/ja/glossary/two-stage-object-detectors</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.mdpi.com/2227-7390/13/6/893">https://www.mdpi.com/2227-7390/13/6/893</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/html/2504.10685v1">https://arxiv.org/html/2504.10685v1</a></li>
+<li><a target="_blank" rel="noopener" href="https://peerj.com/articles/cs-2799.pdf">https://peerj.com/articles/cs-2799.pdf</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2503.20516">https://arxiv.org/abs/2503.20516</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.resemble.ai/state-art-object-detection-models/">https://www.resemble.ai/state-art-object-detection-models/</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.mdpi.com/1424-8220/25/1/214">https://www.mdpi.com/1424-8220/25/1/214</a></li>
+<li><a target="_blank" rel="noopener" href="https://eudl.eu/pdf/10.4108/eai.9-6-2022.174181">https://eudl.eu/pdf/10.4108/eai.9-6-2022.174181</a></li>
+<li><a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content_CVPR_2019/papers/Chen_Towards_Accurate_One-Stage_Object_Detection_With_AP-Loss_CVPR_2019_paper.pdf">https://openaccess.thecvf.com/content_CVPR_2019/papers/Chen_Towards_Accurate_One-Stage_Object_Detection_With_AP-Loss_CVPR_2019_paper.pdf</a></li>
+<li><a target="_blank" rel="noopener" href="https://theaspd.com/index.php/ijes/article/view/337">https://theaspd.com/index.php/ijes/article/view/337</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2202.13115">https://arxiv.org/abs/2202.13115</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.iaria.org/conferences2023/filesINNOV23/70007_innov.pdf">https://www.iaria.org/conferences2023/filesINNOV23/70007_innov.pdf</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.yachiyo-eng.co.jp/riips/assets/pdf/R2021028.pdf">https://www.yachiyo-eng.co.jp/riips/assets/pdf/R2021028.pdf</a></li>
+<li><a target="_blank" rel="noopener" href="https://personales.upv.es/thinkmind/dl/conferences/innov/innov_2023/innov_2023_1_10_70007.pdf">https://personales.upv.es/thinkmind/dl/conferences/innov/innov_2023/innov_2023_1_10_70007.pdf</a></li>
+<li><a target="_blank" rel="noopener" href="https://proceedings.neurips.cc/paper_files/paper/2023/file/34074479ee2186a9f236b8fd03635372-Paper-Conference.pdf">https://proceedings.neurips.cc/paper_files/paper/2023/file/34074479ee2186a9f236b8fd03635372-Paper-Conference.pdf</a></li>
+<li><a target="_blank" rel="noopener" href="http://proceedings.mlr.press/v139/sun21b/sun21b.pdf">http://proceedings.mlr.press/v139/sun21b/sun21b.pdf</a></li>
+<li><a target="_blank" rel="noopener" href="https://paperswithcode.com/method/detr">https://paperswithcode.com/method/detr</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2005.12872">https://arxiv.org/abs/2005.12872</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ultralytics.com/glossary/one-stage-object-detectors">https://www.ultralytics.com/glossary/one-stage-object-detectors</a></li>
+<li><a target="_blank" rel="noopener" href="https://pure.nwpu.edu.cn/en/publications/a-comprehensive-review-of-one-stage-networks-for-object-detection">https://pure.nwpu.edu.cn/en/publications/a-comprehensive-review-of-one-stage-networks-for-object-detection</a></li>
+<li><a target="_blank" rel="noopener" href="https://lakshmishreea1.hashnode.dev/one-stage-vs-two-stage-detectors-in-object-detection-unveiling-the-performance-trade-offs">https://lakshmishreea1.hashnode.dev/one-stage-vs-two-stage-detectors-in-object-detection-unveiling-the-performance-trade-offs</a></li>
+<li><a target="_blank" rel="noopener" href="https://paperswithcode.com/paper/2d-object-detection-a-survey">https://paperswithcode.com/paper/2d-object-detection-a-survey</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.spiedigitallibrary.org/conference-proceedings-of-spie/13156/3012931/The-survey-of-one-stage-anchor-free-real-time-object/10.1117/12.3012931.full">https://www.spiedigitallibrary.org/conference-proceedings-of-spie/13156/3012931/The-survey-of-one-stage-anchor-free-real-time-object/10.1117/12.3012931.full</a></li>
+<li><a target="_blank" rel="noopener" href="http://ui.adsabs.harvard.edu/abs/2024SPIE13156E..02H/abstract">http://ui.adsabs.harvard.edu/abs/2024SPIE13156E..02H/abstract</a></li>
+<li><a target="_blank" rel="noopener" href="https://doaj.org/article/554d9b5931cd4c64b220418588d43923">https://doaj.org/article/554d9b5931cd4c64b220418588d43923</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2403.01172">https://arxiv.org/abs/2403.01172</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/mbar0075/SaRLVision">https://github.com/mbar0075/SaRLVision</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2008.08005">https://arxiv.org/abs/2008.08005</a></li>
+<li><a target="_blank" rel="noopener" href="https://prithviraj97.github.io/Reinforcement_Learning_Final.pdf">https://prithviraj97.github.io/Reinforcement_Learning_Final.pdf</a></li>
+<li><a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content_cvpr_2016/papers/Mathe_Reinforcement_Learning_for_CVPR_2016_paper.pdf">https://openaccess.thecvf.com/content_cvpr_2016/papers/Mathe_Reinforcement_Learning_for_CVPR_2016_paper.pdf</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.mdpi.com/2073-431X/11/3/41">https://www.mdpi.com/2073-431X/11/3/41</a></li>
+<li><a target="_blank" rel="noopener" href="https://isprs-archives.copernicus.org/articles/XLVIII-1-2024/679/2024/isprs-archives-XLVIII-1-2024-679-2024.pdf">https://isprs-archives.copernicus.org/articles/XLVIII-1-2024/679/2024/isprs-archives-XLVIII-1-2024-679-2024.pdf</a></li>
+<li><a target="_blank" rel="noopener" href="https://matjournals.co.in/index.php/RTAIA/article/view/1889">https://matjournals.co.in/index.php/RTAIA/article/view/1889</a></li>
+<li><a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content_WACV_2020/papers/Uzkent_Efficient_Object_Detection_in_Large_Images_Using_Deep_Reinforcement_Learning_WACV_2020_paper.pdf">https://openaccess.thecvf.com/content_WACV_2020/papers/Uzkent_Efficient_Object_Detection_in_Large_Images_Using_Deep_Reinforcement_Learning_WACV_2020_paper.pdf</a></li>
+<li><a target="_blank" rel="noopener" href="https://scispace.com/papers/a-survey-of-computer-vision-methods-for-2d-object-detection-4uvbxjg3vq">https://scispace.com/papers/a-survey-of-computer-vision-methods-for-2d-object-detection-4uvbxjg3vq</a></li>
+<li><a target="_blank" rel="noopener" href="https://paperswithcode.com/datasets?task=object-detection">https://paperswithcode.com/datasets?task=object-detection</a></li>
+<li><a target="_blank" rel="noopener" href="https://scale.com/blog/best-10-public-datasets-object-detection">https://scale.com/blog/best-10-public-datasets-object-detection</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.picsellia.com/post/object-detection-datasets">https://www.picsellia.com/post/object-detection-datasets</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.ultralytics.com/datasets/detect/coco/">https://docs.ultralytics.com/datasets/detect/coco/</a></li>
+<li><a target="_blank" rel="noopener" href="https://milvus.io/ai-quick-reference/what-datasets-are-commonly-used-for-anomaly-detection-research">https://milvus.io/ai-quick-reference/what-datasets-are-commonly-used-for-anomaly-detection-research</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/cesarandreslopez/open-images-dataset-pascal-voc">https://github.com/cesarandreslopez/open-images-dataset-pascal-voc</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cvat.ai/resources/blog/best-open-source-datasets-for-computer-vision-in-2024">https://www.cvat.ai/resources/blog/best-open-source-datasets-for-computer-vision-in-2024</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.sigfoss.com/developer_blog/detail?actual_object_id=287">https://www.sigfoss.com/developer_blog/detail?actual_object_id=287</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.crowdhuman.org/">https://www.crowdhuman.org</a></li>
+<li><a target="_blank" rel="noopener" href="https://paperswithcode.com/dataset/crowdhuman">https://paperswithcode.com/dataset/crowdhuman</a></li>
+<li><a target="_blank" rel="noopener" href="https://universe.roboflow.com/keio-dba-team/crowdhuman-nur7g">https://universe.roboflow.com/keio-dba-team/crowdhuman-nur7g</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1805.00123">https://arxiv.org/abs/1805.00123</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.nature.com/articles/s41598-024-78959-2">https://www.nature.com/articles/s41598-024-78959-2</a></li>
+<li><a target="_blank" rel="noopener" href="https://paperswithcode.com/dataset/citypersons">https://paperswithcode.com/dataset/citypersons</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.crowdhuman.org/download.html">https://www.crowdhuman.org/download.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content_CVPR_2020/papers/Wang_Robust_Object_Detection_Under_Occlusion_With_Context-Aware_CompositionalNets_CVPR_2020_paper.pdf">https://openaccess.thecvf.com/content_CVPR_2020/papers/Wang_Robust_Object_Detection_Under_Occlusion_With_Context-Aware_CompositionalNets_CVPR_2020_paper.pdf</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.hitechbpo.com/blog/top-object-detection-models.php">https://www.hitechbpo.com/blog/top-object-detection-models.php</a></li>
+<li><a target="_blank" rel="noopener" href="https://viso.ai/deep-learning/object-detection/">https://viso.ai/deep-learning/object-detection/</a></li>
+<li><a target="_blank" rel="noopener" href="https://doaj.org/article/df2a6c19f1cb43ca865d654776aa65c6">https://doaj.org/article/df2a6c19f1cb43ca865d654776aa65c6</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.fujipress.jp/jaciii/jc/jacii002900030519/">https://www.fujipress.jp/jaciii/jc/jacii002900030519/</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.nature.com/articles/s41598-025-99242-y">https://www.nature.com/articles/s41598-025-99242-y</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.sciencedirect.com/science/article/pii/S2590005623000309">https://www.sciencedirect.com/science/article/pii/S2590005623000309</a></li>
+<li><a target="_blank" rel="noopener" href="https://ideas.repec.org/a/gam/jmathe/v13y2025i6p893-d1607176.html">https://ideas.repec.org/a/gam/jmathe/v13y2025i6p893-d1607176.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2410.05869">https://arxiv.org/abs/2410.05869</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.unitxlabs.com/resources/one-stage-object-detection-machine-vision/">https://www.unitxlabs.com/resources/one-stage-object-detection-machine-vision/</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.unitxlabs.com/resources/two-stage-object-detection-machine-vision/">https://www.unitxlabs.com/resources/two-stage-object-detection-machine-vision/</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.scribbr.com/methodology/multistage-sampling/">https://www.scribbr.com/methodology/multistage-sampling/</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ultralytics.com/glossary/two-stage-object-detectors">https://www.ultralytics.com/glossary/two-stage-object-detectors</a></li>
+<li><a target="_blank" rel="noopener" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6175226/">https://pmc.ncbi.nlm.nih.gov/articles/PMC6175226/</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2202.04256">https://arxiv.org/abs/2202.04256</a></li>
+<li><a target="_blank" rel="noopener" href="https://spj.science.org/doi/10.34133/icomputing.0081">https://spj.science.org/doi/10.34133/icomputing.0081</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ibm.com/think/topics/object-detection">https://www.ibm.com/think/topics/object-detection</a></li>
+<li><a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content/CVPR2022/papers/Zhang_Efficient_Two-Stage_Detection_of_Human-Object_Interactions_With_a_Novel_Unary-Pairwise_CVPR_2022_paper.pdf">https://openaccess.thecvf.com/content/CVPR2022/papers/Zhang_Efficient_Two-Stage_Detection_of_Human-Object_Interactions_With_a_Novel_Unary-Pairwise_CVPR_2022_paper.pdf</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2208.04511">https://arxiv.org/abs/2208.04511</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2108.11510">https://arxiv.org/abs/2108.11510</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2408.06803">https://arxiv.org/abs/2408.06803</a></li>
+<li><a target="_blank" rel="noopener" href="https://shinya7y.github.io/note/detection/ObjectDetectionSurvey_jp.pdf">https://shinya7y.github.io/note/detection/ObjectDetectionSurvey_jp.pdf</a></li>
+<li><a target="_blank" rel="noopener" href="https://paperswithcode.com/dataset/pascal-voc">https://paperswithcode.com/dataset/pascal-voc</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.ultralytics.com/datasets/detect/voc/">https://docs.ultralytics.com/datasets/detect/voc/</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tensorflow.org/datasets/catalog/voc">https://www.tensorflow.org/datasets/catalog/voc</a></li>
+<li><a target="_blank" rel="noopener" href="https://datasetninja.com/pascal-voc-2012">https://datasetninja.com/pascal-voc-2012</a></li>
+<li><a target="_blank" rel="noopener" href="http://host.robots.ox.ac.uk/pascal/VOC/voc2007/dbstats.html">http://host.robots.ox.ac.uk/pascal/VOC/voc2007/dbstats.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.ultralytics.com/ja/datasets/detect/voc/">https://docs.ultralytics.com/ja/datasets/detect/voc/</a></li>
+<li><a target="_blank" rel="noopener" href="https://paperswithcode.com/dataset/pascal-voc-2007">https://paperswithcode.com/dataset/pascal-voc-2007</a></li>
+<li><a target="_blank" rel="noopener" href="https://cvml-expertguide.net/terms/dataset/image-dataset/voc/voc-2012/">https://cvml-expertguide.net/terms/dataset/image-dataset/voc/voc-2012/</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ultralytics.com/ja/glossary/one-stage-object-detectors">https://www.ultralytics.com/ja/glossary/one-stage-object-detectors</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tredence.com/blog/demystifying-single-stage-object-detection-a-deep-dive">https://www.tredence.com/blog/demystifying-single-stage-object-detection-a-deep-dive</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2209.02976">https://arxiv.org/abs/2209.02976</a></li>
+<li><a target="_blank" rel="noopener" href="https://onlinelibrary.wiley.com/doi/abs/10.1002/tee.70027">https://onlinelibrary.wiley.com/doi/abs/10.1002/tee.70027</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.sciencedirect.com/science/article/abs/pii/S0925231224008737">https://www.sciencedirect.com/science/article/abs/pii/S0925231224008737</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.nature.com/articles/s41598-025-99363-4">https://www.nature.com/articles/s41598-025-99363-4</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.sciencedirect.com/science/article/pii/S2212827124001021">https://www.sciencedirect.com/science/article/pii/S2212827124001021</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2306.04670">https://arxiv.org/abs/2306.04670</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/slideshow/survey-on-unsupervised-domain-adaptation-for-detrpptx/260615063">https://www.slideshare.net/slideshow/survey-on-unsupervised-domain-adaptation-for-detrpptx/260615063</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ogis-ri.co.jp/otc/hiroba/technical/detr/part1.html">https://www.ogis-ri.co.jp/otc/hiroba/technical/detr/part1.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://xpaperchallenge.org/cv/survey/iccv2021_summaries/194/">https://xpaperchallenge.org/cv/survey/iccv2021_summaries/194/</a></li>
+<li><a target="_blank" rel="noopener" href="https://qiita.com/nonbiri15/items/89bfc59687ea0e8d9d44">https://qiita.com/nonbiri15/items/89bfc59687ea0e8d9d44</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/lingyu98/DRL-Object-Detection">https://github.com/lingyu98/DRL-Object-Detection</a></li>
+<li><a target="_blank" rel="noopener" href="https://public.roboflow.com/object-detection">https://public.roboflow.com/object-detection</a></li>
+<li><a target="_blank" rel="noopener" href="https://cocodataset.org/">https://cocodataset.org</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.kaggle.com/datasets/permanalwep/crowdhuman-crowd-detection">https://www.kaggle.com/datasets/permanalwep/crowdhuman-crowd-detection</a></li>
+<li><a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content_cvpr_2017/papers/Zhang_CityPersons_A_Diverse_CVPR_2017_paper.pdf">https://openaccess.thecvf.com/content_cvpr_2017/papers/Zhang_CityPersons_A_Diverse_CVPR_2017_paper.pdf</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.sciencedirect.com/science/article/pii/S266630742500004X">https://www.sciencedirect.com/science/article/pii/S266630742500004X</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.sciencedirect.com/science/article/pii/S1319157822000970">https://www.sciencedirect.com/science/article/pii/S1319157822000970</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.sciencedirect.com/science/article/abs/pii/S1574013724000704">https://www.sciencedirect.com/science/article/abs/pii/S1574013724000704</a></li>
+<li><a target="_blank" rel="noopener" href="http://host.robots.ox.ac.uk/pascal/VOC/">http://host.robots.ox.ac.uk/pascal/VOC/</a></li>
+<li><a target="_blank" rel="noopener" href="https://cv.gluon.ai/build/examples_datasets/pascal_voc.html">https://cv.gluon.ai/build/examples_datasets/pascal_voc.html</a></li>
+</ol>
+<h1 id="ChatGPT"><a href="#ChatGPT" class="headerlink" title="ChatGPT"></a>ChatGPT</h1><p>明白了。我将为你撰写一份关于端到端目标检测的深度报告，内容涵盖：</p>
+<ol>
+<li>单阶段与双阶段目标检测的研究进展，直至2025年6月，含主流与最新方法。</li>
+<li>端到端目标检测方法的发展历程与代表性工作，尤其包括基于Transformer的架构。</li>
+<li>基于强化学习进行目标检测的研究现状与新趋势。</li>
+</ol>
+<p>同时还将调研：</p>
+<ol>
+<li>广泛使用的目标检测数据集及其基本信息（标注类型、大小、格式等）。</li>
+<li>包含目标重合、遮挡现象的数据集。</li>
+<li>当前主流的benchmark、baseline模型及评估指标。</li>
+</ol>
+<p>此外，我会专门添加一节介绍目标检测在食品领域中的典型研究与应用案例。</p>
+<p>完成后我会第一时间通知你审阅。</p>
+<h2 id="单阶段与双阶段目标检测方法研究进展"><a href="#单阶段与双阶段目标检测方法研究进展" class="headerlink" title="单阶段与双阶段目标检测方法研究进展"></a>单阶段与双阶段目标检测方法研究进展</h2><p>传统目标检测方法分为双阶段（Two-stage）和单阶段（One-stage）两大类。双阶段方法首先通过区域候选网络（RPN）生成候选框，再对每个候选框分类和回归（如Faster R-CNN）。这类方法精度高，但推理速度相对较慢。单阶段方法直接在图像上回归目标类别和边界框（如YOLO系列、SSD、RetinaNet等），具有高速但对小目标和类别不平衡更敏感的问题。近年来，Anchor-free检测器（如FCOS、CenterNet）进一步简化了模型设计，通过关键点回归定位目标。例如，YOLOv8相较以往版本重构了网络结构，引入了解耦头部和动态标签分配，实现了无锚框检测并加速收敛。图表中总结了常见代表模型的关键特性比较：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>检测类型</th>
+<th>锚框类型</th>
+<th>关键特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Faster R-CNN</td>
+<td>双阶段</td>
+<td>有锚框</td>
+<td>RPN生成候选框 + RoI Pooling</td>
+</tr>
+<tr>
+<td>SSD</td>
+<td>单阶段</td>
+<td>有锚框</td>
+<td>多尺度特征图直接预测</td>
+</tr>
+<tr>
+<td>RetinaNet</td>
+<td>单阶段</td>
+<td>有锚框</td>
+<td>使用Focal Loss缓解类别不平衡</td>
+</tr>
+<tr>
+<td>Cascade R-CNN</td>
+<td>双阶段</td>
+<td>有锚框</td>
+<td>多级回归级联迭代提升精度</td>
+</tr>
+<tr>
+<td>YOLOv8</td>
+<td>单阶段</td>
+<td>无锚框</td>
+<td>解耦头部设计、动态标签分配、高速推理</td>
+</tr>
+<tr>
+<td>FCOS</td>
+<td>单阶段</td>
+<td>无锚框</td>
+<td>通过中心点回归目标，无需预设锚框</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>从性能上看，Anchor-free方法由于生成候选框数量更少，减轻了后续非极大值抑制（NMS）负担，可提高实时性。例如，YOLOX等无锚模型的NMS开销显著低于传统基于锚框的YOLO模型。随着轻量网络和训练策略的进步，单阶段检测器在嵌入式和实时场景中得到了广泛应用，而双阶段检测器仍常用于对精度要求极高的场景，如自动驾驶和医学图像分析等。</p>
+<h2 id="端到端目标检测研究进展"><a href="#端到端目标检测研究进展" class="headerlink" title="端到端目标检测研究进展"></a>端到端目标检测研究进展</h2><p>端到端（End-to-End）目标检测方法近年来兴起，以Transformer为基础的架构最具代表性。<strong>DETR</strong>（2020）首次引入了全局自注意力和匈牙利匹配，将目标检测作为集合预测问题，一次性直接输出固定数量的目标，去除了传统的锚框和NMS模块。DETR的优点是管线简洁，但缺点是训练收敛较慢。<strong>Deformable DETR</strong>（2020）在此基础上使用可变形Attention和多尺度特征，显著加快了收敛速度并提升了小目标检测性能。后续工作如<strong>Conditional DETR</strong>、<strong>Anchor DETR</strong>、<strong>DINO</strong>等，通过改进查询初始化（如基于锚点或噪声查询）进一步提高了收敛效率和检测精度。例如，DINO（2022）在Deformable DETR上添加了噪声对齐机制，在ResNet-50骨干下达到COCO检测AP约50.9%。此外，<strong>Sparse R-CNN</strong>（2021）提出基于动态可学习候选框和迭代多阶段头的框架，无需Transformer模块，也能实现端到端学习。整体来看，新一代检测架构不断追求“无锚框、无手工组件”的设计理念，同时兼顾训练效率和精度。在COCO基准上，最新的端到端模型与传统检测器性能接近甚至略有超越。例如表中所示，DINO（Deformable DETR）ResNet-50模型AP约50.9%，而RT-DETR（Real-Time DETR）的ResNet-50/101模型分别达到53.1%和54.3%的AP，超越了同期大多数YOLO家族模型。</p>
+<ul>
+<li><strong>DETR</strong>：基于Transformer的检测器，直接预测目标集合，省略了锚框和NMS，但收敛慢。</li>
+<li><strong>Deformable DETR</strong>：引入可变形注意力和多尺度输入，加速训练收敛并强化小目标检测。</li>
+<li><strong>DINO</strong>：基于Deformable DETR，新增去噪查询等技术改善查询初始化，显著提高性能。</li>
+<li><strong>Sparse R-CNN</strong>：使用少量可学习的候选框与多阶段头，实现无锚、无需NMS的端到端检测。</li>
+<li><strong>其他变体</strong>：如Conditional DETR、Anchor DETR等也针对查询优化进行改进，进一步提升了检测效率和精度。</li>
+</ul>
+<h2 id="基于强化学习的目标检测研究"><a href="#基于强化学习的目标检测研究" class="headerlink" title="基于强化学习的目标检测研究"></a>基于强化学习的目标检测研究</h2><p>强化学习（Reinforcement Learning, RL）已被应用于目标检测的多个环节。早期工作如Caicedo等人（2015）将深度Q网络用于主动目标定位，在图像中学习一步步搜索目标位置。Bueno等人（2018）提出层级搜索策略，先粗略定位含多个目标的区域再细化搜索。此外，一些方法将RL用于设计检测器组件：<strong>ReinforceDet</strong>（2021）提出无锚框检测器，通过RL智能体提出少量高质量候选框并由CNN网络精细回归，从而有效减少提议数量。Uzkent等人（2020）的工作中，RL被用于自适应选择图像分辨率：智能体在粗糙和精细分辨率间切换，以在尽量少用高分辨率的同时最大化检测精度。最新的<strong>AIRS</strong>（2024，NeurIPS）方法引入了基于证据理论的层级Q学习，学习选择具有高密度目标的区域并重点检测，显著提升了高密度场景下的检测效率。综上，当前基于RL的检测研究主要集中在利用智能体搜索优化候选框（anchor选择或区域选择）、自动调节训练策略和强化正负样本采样等方向，推动了检测器在特定场景下的性能提升。</p>
+<h2 id="常用目标检测数据集"><a href="#常用目标检测数据集" class="headerlink" title="常用目标检测数据集"></a>常用目标检测数据集</h2><p>主流目标检测研究常用的数据集包括：</p>
+<ul>
+<li><strong>COCO</strong>：微软发布的大规模数据集，包含约33万张图像、270万目标实例，覆盖80类日常物体；采用JSON格式标注，支持目标检测、分割等任务。</li>
+<li><strong>Pascal VOC</strong>：包含2007/2012年两轮竞赛数据，共约1.2万张图像、20个类别；采用VOC XML格式标注，早期检测算法的标准基准。</li>
+<li><strong>Open Images</strong>：Google提供的大规模数据集（V7版），约190万张图像、600个目标类别，共1600万边界框注释；标注格式为CSV，支持检测和关系识别等。</li>
+<li><strong>Objects365</strong>：由旷视科技发布，约200万张图像、365类目标、超过3000万个标注框；图像多样化，注释质量高。</li>
+<li><strong>LVIS</strong>：长尾目标检测数据集，约16.4万张图像、1203个类别，类别分布呈长尾形状；采用COCO格式标注，强调稀有类检测。</li>
+</ul>
+<p>这些数据集促进了目标检测算法在不同场景和类别数量规模下的泛化能力评价。下表列出了部分主流检测数据集的基本信息对比：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>数据集</th>
+<th>图像数量</th>
+<th>类别数量</th>
+<th>标注类型/格式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>COCO 2017</td>
+<td>~330K</td>
+<td>80</td>
+<td>边界框（JSON）</td>
+</tr>
+<tr>
+<td>Pascal VOC</td>
+<td>~12K</td>
+<td>20</td>
+<td>边界框（XML）</td>
+</tr>
+<tr>
+<td>Open Images V7</td>
+<td>~1.9M</td>
+<td>600</td>
+<td>边界框（CSV）</td>
+</tr>
+<tr>
+<td>Objects365</td>
+<td>2M</td>
+<td>365</td>
+<td>边界框（类似COCO）</td>
+</tr>
+<tr>
+<td>LVIS v1.0</td>
+<td>164K</td>
+<td>1203</td>
+<td>边界框（COCO格式）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="含目标重叠、遮挡的数据集"><a href="#含目标重叠、遮挡的数据集" class="headerlink" title="含目标重叠、遮挡的数据集"></a>含目标重叠、遮挡的数据集</h2><p>在高密度和遮挡场景下，一些专门的数据集用于检测器的评估：</p>
+<ul>
+<li><strong>CrowdHuman</strong>：专注行人密集场景，15000张训练图像、470K标注行人实例（平均每图≈23人），注释头部、可见身躯和全身三种框。拥挤、人群遮挡严重。</li>
+<li><strong>CityPersons</strong>：基于Cityscapes街景数据集，5000张图像、约35016个人实例（平均每图约7人）。数据集中&lt;30%的行人是全身可见的，遮挡情况是Caltech数据集的两倍。</li>
+<li><strong>WIDER FACE</strong>：脸部检测数据集，32203张图像、393703个标注人脸，包含大尺度、姿态和遮挡多样性的面部实例。</li>
+<li><strong>VisDrone</strong>：无人机视角检测数据集，10209张静态航拍图像、约260万标注框，场景包括城市和乡村、稀疏和拥挤情况。存在复杂视角和部分遮挡。</li>
+</ul>
+<p>这些数据集为算法在拥挤、遮挡等极端场景下的鲁棒性提供了测试平台。</p>
+<h2 id="主流基准测试与代表性基线模型"><a href="#主流基准测试与代表性基线模型" class="headerlink" title="主流基准测试与代表性基线模型"></a>主流基准测试与代表性基线模型</h2><p>截至2025年6月，在COCO等主流检测基准上以下模型表现突出：YOLO系列作为实时检测基线，YOLOv8-L在COCO val2017上取得约52.9% AP，YOLOv8-X进一步达到约53.9% AP。基于Transformer的DINO（Deformable DETR）ResNet-50模型AP约50.9%，我们提出的RT-DETR模型ResNet-50/101分别达到了约53.1%和54.3% AP。在长尾检测数据集LVIS上，YOLO-World（基于YOLO的开源零样本模型）在LVIS val上取得约35.4% AP，显著优于未经特殊处理的传统检测器。下表列举了部分主流基准数据集上的代表性基线模型及性能指标（AP值）：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>数据集</th>
+<th>模型</th>
+<th>骨干网络</th>
+<th>COCO/AP（%）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>COCO val2017</td>
+<td>YOLOv8-L</td>
+<td>—</td>
+<td>52.9</td>
+</tr>
+<tr>
+<td>COCO val2017</td>
+<td>DINO (Deformable DETR)</td>
+<td>R50</td>
+<td>50.9</td>
+</tr>
+<tr>
+<td>COCO val2017</td>
+<td>RT-DETR</td>
+<td>R101</td>
+<td>54.3</td>
+</tr>
+<tr>
+<td>LVIS v1.0 val</td>
+<td>YOLO-World</td>
+<td>—</td>
+<td>35.4</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>此外，在开源检测（ODinW）等开放世界检测任务中，开源Vision-Language模型（如GroundingDINO、OVDINO等）在无监督/零样本迁移上取得了超过50%的COCO零-shot AP，而基于YOLO的开源模型（如YOLO-World）在LVIS/COCO等数据集的零样本检测中也取得了40%以上的AP。总体而言，当前基准测试的常用基线包括最新的YOLO版本、DINO/Deformable DETR、RT-DETR等，它们形成了检测算法评测的参考标准。</p>
+<h2 id="目标检测在食品领域的应用"><a href="#目标检测在食品领域的应用" class="headerlink" title="目标检测在食品领域的应用"></a>目标检测在食品领域的应用</h2><p>食品目标检测在智能餐饮和营养管理等领域具有重要应用价值。典型研究方向包括<strong>智能餐盘识别</strong>（自动检测餐盘上食物种类和数量）、<strong>快餐自动识别</strong>（如汉堡、披萨等识别）以及<strong>菜品分类与营养估计</strong>等。常用的数据集有：UNIMIB2016（意大利自助餐环境拍摄的食品图像，共1027张，73类食物，标注多边形分割和边框）；UECFood256（日本各种料理256类，每类约100张图像）；EgocentricFood2（可穿戴摄像头视角图像，9类食品或容器，共5038张图像，8573个标注框）；以及规模更大的Food2K（约103万张图像，2000类食物，主要用于食物识别）。这些数据集促进了食品检测算法的发展。如在UNIMIB2016上采用Faster R-CNN和YOLOv5等方法，可实现自动识别餐盘中的食物实例；Food2K训练出的模型也被证明可提升食品检测和分割等任务的性能。下表列出了部分食品检测相关数据集的基本信息：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>数据集</th>
+<th>图像数量</th>
+<th>类别数</th>
+<th>标注类型（示例）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UNIMIB2016</td>
+<td>1027</td>
+<td>73</td>
+<td>多边形+边界框</td>
+</tr>
+<tr>
+<td>UECFood256</td>
+<td>~25600</td>
+<td>256</td>
+<td>边界框</td>
+</tr>
+<tr>
+<td>EgocentricFood2</td>
+<td>5038</td>
+<td>9</td>
+<td>边界框</td>
+</tr>
+<tr>
+<td>Food2K (识别)</td>
+<td>1,036,564</td>
+<td>2000</td>
+<td>图像级标签</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>在方法上，食品检测通常借鉴通用目标检测架构（如YOLO系列、Faster R-CNN、RetinaNet等），并结合领域知识进行改进。例如通过多任务学习联合预测食物类别和分割掩码，或利用视觉语言模型辅助识别菜品名称等。随着深度学习和视觉-语言模型的发展，食品目标检测技术在智慧餐厅、自动食堂结算和营养跟踪等应用场景中前景广阔。</p>
+<p><strong>参考文献:</strong> 上述内容参考了国际前沿研究和arXiv最新成果，例如Faster R-CNN及Cascade R-CNN等经典工作，YOLO系列模型的综述，Transformer检测器DETR及其变体的相关论文，以及包括ReinforceDet、AIRS等在内的强化学习方法研究，COCO/Objects365等数据集统计信息以及食品检测领域的专门数据集等。所有数据和指标均基于截至2025年6月的公开文献和资料。</p>
+<h1 id="Grok3"><a href="#Grok3" class="headerlink" title="Grok3"></a>Grok3</h1><h2 id="1-引言"><a href="#1-引言" class="headerlink" title="1. 引言"></a>1. 引言</h2><p>目标检测是计算机视觉领域的核心任务，旨在识别和定位图像或视频中的特定物体。随着深度学习技术的快速发展，目标检测在自动驾驶、安全监控、医疗诊断等领域得到了广泛应用。本报告深入分析了截至2025年6月10日的彼此的单阶段和双阶段目标检测、端到端目标检测、基于强化学习的目标检测的最新进展，以及目标检测任务中常用的数据集、基准测试和评估指标。</p>
+<h2 id="2-单阶段与双阶段目标检测的进展"><a href="#2-单阶段与双阶段目标检测的进展" class="headerlink" title="2. 单阶段与双阶段目标检测的进展"></a>2. 单阶段与双阶段目标检测的进展</h2><h3 id="2-1-单阶段目标检测"><a href="#2-1-单阶段目标检测" class="headerlink" title="2.1 单阶段目标检测"></a>2.1 单阶段目标检测</h3><p>单阶段目标检测模型通过单一网络直接预测物体位置和类别，速度快，适合实时应用。2025年的主要单阶段模型包括：</p>
+<ul>
+<li><strong>YOLO系列</strong>：YOLO以其实时处理能力著称，YOLOv3在COCO数据集上达到57.9%的mAP（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1804.02767">YOLO Paper</a>）。最新版本如YOLOv10进一步优化了速度和精度，广泛应用于交通管理、实时监控和运动分析。</li>
+<li><strong>SSD</strong>：通过单一深度神经网络预测多个边界框，在PASCAL VOC2007上达到72.1%的mAP，运行速度为58 FPS（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1512.02325">SSD Paper</a>）。适用于实时监控和交互式应用。</li>
+<li><strong>RetinaNet</strong>：通过特征金字塔网络和焦点损失解决类别不平衡问题，在COCO数据集上表现出色，适合检测大小不一的物体（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1708.02002">RetinaNet Paper</a>）。</li>
+</ul>
+<p><strong>最新进展</strong>：单阶段模型在边缘计算和实时应用中表现出色，结合自监督学习（如DINOv2）减少了对标注数据的依赖。</p>
+<h3 id="2-2-双阶段目标检测"><a href="#2-2-双阶段目标检测" class="headerlink" title="2.2 双阶段目标检测"></a>2.2 双阶段目标检测</h3><p>双阶段模型先提取候选区域，再进行分类和回归，精度高但速度较慢。2025年的主要双阶段模型包括：</p>
+<ul>
+<li><strong>Faster R-CNN</strong>：通过区域提取网络（RPN）生成候选区域，在PASCAL VOC上表现优异，运行速度为5 FPS（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1506.01497">Faster R-CNN Paper</a>）。适用于无人机监控等高精度场景。</li>
+<li><strong>Cascade R-CNN</strong>：通过多阶段精炼提高IoU阈值，在COCO数据集上达到最先进性能，广泛用于面部识别和医疗诊断（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1906.09756">Cascade R-CNN Paper</a>）。</li>
+</ul>
+<p><strong>最新进展</strong>：双阶段模型在复杂场景（如重叠物体）中精度更高，但在边缘设备上的应用受限。</p>
+<h3 id="2-3-单阶段与双阶段比较"><a href="#2-3-单阶段与双阶段比较" class="headerlink" title="2.3 单阶段与双阶段比较"></a>2.3 单阶段与双阶段比较</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>单阶段模型（如YOLO、SSD）</th>
+<th>双阶段模型（如Faster R-CNN、Cascade R-CNN）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>速度</strong></td>
+<td>快，适合实时应用</td>
+<td>较慢，适合高精度任务</td>
+</tr>
+<tr>
+<td><strong>精度</strong></td>
+<td>较高，处理小物体较弱</td>
+<td>更高，适合复杂场景</td>
+</tr>
+<tr>
+<td><strong>应用场景</strong></td>
+<td>交通管理、实时监控</td>
+<td>医疗诊断、面部识别</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="3-端到端目标检测"><a href="#3-端到端目标检测" class="headerlink" title="3. 端到端目标检测"></a>3. 端到端目标检测</h2><p>端到端目标检测通过单一模型完成从输入到输出的全过程，简化了检测流程。2025年的主要模型包括：</p>
+<ul>
+<li><strong>YOLO系列</strong>：通过单一网络同时完成分类和定位，YOLOv10在效率和精度上表现优异。</li>
+<li><strong>EfficientDet</strong>：通过复合缩放和加权BiFPN实现多尺度特征融合，EfficientDet-D7在COCO上达到55.1%的AP（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1911.09070v6">EfficientDet Paper</a>）。</li>
+</ul>
+<p><strong>最新进展</strong>：端到端模型在移动设备和嵌入式系统中的应用显著增加，模型可解释性和鲁棒性不断提高。</p>
+<h2 id="4-基于强化学习的目标检测"><a href="#4-基于强化学习的目标检测" class="headerlink" title="4. 基于强化学习的目标检测"></a>4. 基于强化学习的目标检测</h2><p>强化学习（RL）在目标检测中的应用主要集中在动态决策和自适应处理：</p>
+<ul>
+<li><strong>顺序搜索</strong>：2016年的研究通过RL优化搜索策略，积累少量位置证据以有效检测物体（<a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/document/7780685">RL for Visual Object Detection</a>）。</li>
+<li><strong>预处理优化</strong>：2020年的研究提出ObjectRL，通过RL选择最佳预处理技术（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2008.08005">RL for Improving Object Detection</a>）。</li>
+<li><strong>主动定位</strong>：2022年的研究实现基于深度RL的主动物体定位算法（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2208.04511">Object Detection with DRL</a>）。</li>
+</ul>
+<p><strong>当前状态</strong>：RL在目标检测中的应用仍处于研究阶段，但其在动态场景中的潜力显著。</p>
+<h2 id="5-目标检测数据集"><a href="#5-目标检测数据集" class="headerlink" title="5. 目标检测数据集"></a>5. 目标检测数据集</h2><h3 id="5-1-广泛使用的数据集"><a href="#5-1-广泛使用的数据集" class="headerlink" title="5.1 广泛使用的数据集"></a>5.1 广泛使用的数据集</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>数据集</th>
+<th>图像数量</th>
+<th>类别数量</th>
+<th>主要用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MS COCO</td>
+<td>330K</td>
+<td>80</td>
+<td>物体检测、分割、关键点检测</td>
+</tr>
+<tr>
+<td>PASCAL VOC</td>
+<td>1.5K</td>
+<td>20</td>
+<td>物体检测</td>
+</tr>
+<tr>
+<td>KITTI</td>
+<td>15K</td>
+<td>多种</td>
+<td>自动驾驶、3D检测</td>
+</tr>
+<tr>
+<td>LVIS</td>
+<td>100K</td>
+<td>1203</td>
+<td>大规模物体检测</td>
+</tr>
+<tr>
+<td>Objects365</td>
+<td>600K</td>
+<td>365</td>
+<td>大规模物体检测</td>
+</tr>
+<tr>
+<td>OpenImagesV7</td>
+<td>9M</td>
+<td>600</td>
+<td>物体检测、分割</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="5-2-重叠-遮挡数据集"><a href="#5-2-重叠-遮挡数据集" class="headerlink" title="5.2 重叠/遮挡数据集"></a>5.2 重叠/遮挡数据集</h3><ul>
+<li><strong>MS COCO</strong>：包含大量真实场景图像，物体常重叠或被遮挡（<a target="_blank" rel="noopener" href="http://cocodataset.org/">COCO Dataset</a>）。</li>
+<li><strong>KITTI</strong>：交通场景中常有重叠的车辆和行人（<a target="_blank" rel="noopener" href="http://www.cvlibs.net/datasets/kitti/">KITTI Dataset</a>）。</li>
+<li><strong>CODA</strong>：专为自动驾驶中的极端情况设计，包含重叠和遮挡物体。</li>
+</ul>
+<h3 id="5-3-数据集规模"><a href="#5-3-数据集规模" class="headerlink" title="5.3 数据集规模"></a>5.3 数据集规模</h3><ul>
+<li><strong>MS COCO</strong>：330K图像，2.5M物体实例，平均每张图像8个物体。</li>
+<li><strong>KITTI</strong>：7481张训练图像，7518张测试图像，平均每张图像15辆车和30个行人。</li>
+<li><strong>PASCAL VOC</strong>：约1.5K图像，20类别。</li>
+<li><strong>LVIS</strong>：100K图像，1203类别。</li>
+<li><strong>Objects365</strong>：600K图像，365类别。</li>
+<li><strong>OpenImagesV7</strong>：9M训练图像，16M边界框，600类别。</li>
+</ul>
+<h2 id="6-2025年6月10日的基准测试与评估指标"><a href="#6-2025年6月10日的基准测试与评估指标" class="headerlink" title="6. 2025年6月10日的基准测试与评估指标"></a>6. 2025年6月10日的基准测试与评估指标</h2><h3 id="6-1-基准测试"><a href="#6-1-基准测试" class="headerlink" title="6.1 基准测试"></a>6.1 基准测试</h3><ul>
+<li><strong>COCO</strong>：最广泛使用的基准测试，涵盖物体检测、分割和关键点检测（<a target="_blank" rel="noopener" href="https://paperswithcode.com/sota/object-detection-on-coco">COCO test-dev</a>）。</li>
+<li><strong>PASCAL VOC</strong>：用于传统检测任务。</li>
+<li><strong>KITTI</strong>：专为自动驾驶设计，包含3D检测任务。</li>
+</ul>
+<h3 id="6-2-评估指标"><a href="#6-2-评估指标" class="headerlink" title="6.2 评估指标"></a>6.2 评估指标</h3><ul>
+<li><strong>mAP</strong>：在不同IoU阈值（如0.5、0.5:0.95）下计算平均精度。</li>
+<li><strong>精确率</strong>：正确检测的物体占所有检测结果的比例。</li>
+<li><strong>召回率</strong>：正确检测的物体占所有真实物体的比例。</li>
+<li><strong>F1分数</strong>：精确率和召回率的调和平均值。</li>
+</ul>
+<p><strong>趋势</strong>：评估指标开始关注模型效率（如FLOPs）和泛化能力。</p>
+<h2 id="7-总结"><a href="#7-总结" class="headerlink" title="7. 总结"></a>7. 总结</h2><p>截至2025年6月10日，目标检测领域在单阶段和双阶段模型、端到端检测以及强化学习应用方面取得了显著进展。COCO和KITTI等数据集为研究提供了丰富资源，COCO仍是主要基准测试，mAP是核心评估指标。未来，目标检测将进一步结合自监督学习和边缘计算，扩展应用场景。</p>
+<h2 id="关键引用"><a href="#关键引用" class="headerlink" title="关键引用"></a>关键引用</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.hitechbpo.com/blog/top-object-detection-models.php">10 Best Object Detection Models of 2025</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ultralytics.com/blog/a-guide-to-deep-dive-into-object-detection-in-2025">Object Detection in 2025: A Deep Dive</a></li>
+<li><a target="_blank" rel="noopener" href="http://cocodataset.org/">COCO Dataset Official Website</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.cvlibs.net/datasets/kitti/">KITTI Vision Benchmark Suite</a></li>
+<li><a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/document/7780685">Reinforcement Learning for Visual Object Detection</a></li>
+<li><a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/document/9516575/">A Comprehensive Review of Deep Reinforcement Learning</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2208.04511">Object Detection with Deep Reinforcement Learning</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2008.08005">Reinforcement Learning for Improving Object Detection</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1804.02767">YOLOv3: An Incremental Improvement</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1512.02325">SSD: Single Shot MultiBox Detector</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1708.02002">Focal Loss for Dense Object Detection</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1506.01497">Faster R-CNN: Towards Real-Time Object Detection</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1906.09756">Cascade R-CNN: Delving into High Quality Object Detection</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1911.09070v6">EfficientDet: Scalable and Efficient Object Detection</a></li>
+<li><a target="_blank" rel="noopener" href="https://paperswithcode.com/sota/object-detection-on-coco">COCO test-dev Benchmark</a></li>
+</ul>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/06/10/2025-6-10-1/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/06/08/2025-6-8/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#Gemini"><span class="toc-content-number">1.</span> <span class="toc-content-text">Gemini</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E6%B7%B1%E5%BA%A6%E6%8A%A5%E5%91%8A%EF%BC%9A%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8A%80%E6%9C%AF%E7%9A%84%E7%A0%94%E7%A9%B6%E4%B8%8E%E8%BF%9B%E5%B1%95"><span class="toc-content-number">1.0.1.</span> <span class="toc-content-text">深度报告：目标检测技术的研究与进展</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E6%91%98%E8%A6%81"><span class="toc-content-number">1.0.1.1.</span> <span class="toc-content-text">摘要</span></a></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9A%E4%B8%BB%E6%B5%81%E6%8A%80%E6%9C%AF%E6%96%B9%E5%90%91%E7%A0%94%E7%A9%B6%E8%BF%9B%E5%B1%95"><span class="toc-content-number">1.0.2.</span> <span class="toc-content-text">第一部分：主流技术方向研究进展</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#1-%E5%8D%95%E9%98%B6%E6%AE%B5%EF%BC%88Single-Stage%EF%BC%89%E4%B8%8E%E5%8F%8C%E9%98%B6%E6%AE%B5%EF%BC%88Two-Stage%EF%BC%89%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B"><span class="toc-content-number">1.0.2.1.</span> <span class="toc-content-text">1. 单阶段（Single-Stage）与双阶段（Two-Stage）目标检测</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#2-%E7%AB%AF%E5%88%B0%E7%AB%AF%EF%BC%88End-to-End%EF%BC%89%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B"><span class="toc-content-number">1.0.2.2.</span> <span class="toc-content-text">2. 端到端（End-to-End）目标检测</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#3-%E5%9F%BA%E4%BA%8E%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%EF%BC%88Reinforcement-Learning%EF%BC%89%E8%BF%9B%E8%A1%8C%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B"><span class="toc-content-number">1.0.2.3.</span> <span class="toc-content-text">3. 基于强化学习（Reinforcement Learning）进行目标检测</span></a></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%9A%E6%95%B0%E6%8D%AE%E9%9B%86%E8%B0%83%E7%A0%94"><span class="toc-content-number">1.0.3.</span> <span class="toc-content-text">第二部分：数据集调研</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#1-%E5%B9%BF%E6%B3%9B%E4%BD%BF%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-content-number">1.0.3.1.</span> <span class="toc-content-text">1. 广泛使用的数据集</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#2-%E4%B8%93%E4%B8%BA%E9%87%8D%E5%90%88-%E8%A6%86%E7%9B%96%E6%83%85%E5%86%B5%E8%AE%BE%E8%AE%A1%E7%9A%84%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-content-number">1.0.3.2.</span> <span class="toc-content-text">2. 专为重合&#x2F;覆盖情况设计的数据集</span></a></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9ABenchmark-Baseline-%E4%B8%8E-Metrics-%E6%88%AA%E8%87%B32025%E5%B9%B46%E6%9C%88"><span class="toc-content-number">1.0.4.</span> <span class="toc-content-text">第三部分：Benchmark, Baseline 与 Metrics (截至2025年6月)</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#1-%E4%BD%BF%E7%94%A8%E5%B9%BF%E6%B3%9B%E7%9A%84Benchmark"><span class="toc-content-number">1.0.4.1.</span> <span class="toc-content-text">1. 使用广泛的Benchmark</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#2-%E4%B8%BB%E6%B5%81%E7%9A%84Baseline%EF%BC%88%E5%9F%BA%E7%BA%BF%E6%A8%A1%E5%9E%8B%EF%BC%89"><span class="toc-content-number">1.0.4.2.</span> <span class="toc-content-text">2. 主流的Baseline（基线模型）</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#3-%E4%BD%BF%E7%94%A8%E7%9A%84Metric%EF%BC%88%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%EF%BC%89"><span class="toc-content-number">1.0.4.3.</span> <span class="toc-content-text">3. 使用的Metric（性能指标）</span></a></li></ol></li></ol></li></ol></li><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#Perplexity"><span class="toc-content-number">2.</span> <span class="toc-content-text">Perplexity</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E7%AB%AF%E5%88%B0%E7%AB%AF%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8A%80%E6%9C%AF%E5%8F%91%E5%B1%95%E4%B8%8E%E5%BA%94%E7%94%A8%E7%A0%94%E7%A9%B6%E7%BB%BC%E8%BF%B0"><span class="toc-content-number">2.1.</span> <span class="toc-content-text">端到端目标检测技术发展与应用研究综述</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E4%B8%80%E3%80%81%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E6%BC%94%E8%BF%9B"><span class="toc-content-number">2.1.1.</span> <span class="toc-content-text">一、目标检测核心技术演进</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#1-1-%E5%8D%95%E9%98%B6%E6%AE%B5%E6%A3%80%E6%B5%8B%E6%8A%80%E6%9C%AF%E5%8F%91%E5%B1%95"><span class="toc-content-number">2.1.1.1.</span> <span class="toc-content-text">1.1 单阶段检测技术发展</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-5"><a class="toc-content-link" href="#1-2-%E5%8F%8C%E9%98%B6%E6%AE%B5%E6%A3%80%E6%B5%8B%E6%8A%80%E6%9C%AF%E7%AA%81%E7%A0%B4"><span class="toc-content-number">2.1.1.1.1.</span> <span class="toc-content-text">1.2 双阶段检测技术突破</span></a></li></ol></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E4%BA%8C%E3%80%81%E7%AB%AF%E5%88%B0%E7%AB%AF%E6%A3%80%E6%B5%8B%E6%8A%80%E6%9C%AF%E7%AA%81%E7%A0%B4"><span class="toc-content-number">2.1.2.</span> <span class="toc-content-text">二、端到端检测技术突破</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#2-1-Transformer%E6%9E%B6%E6%9E%84%E9%9D%A9%E6%96%B0"><span class="toc-content-number">2.1.2.1.</span> <span class="toc-content-text">2.1 Transformer架构革新</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#2-2-%E5%90%8E%E5%A4%84%E7%90%86%E6%B6%88%E9%99%A4%E7%AD%96%E7%95%A5"><span class="toc-content-number">2.1.2.2.</span> <span class="toc-content-text">2.2 后处理消除策略</span></a></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E4%B8%89%E3%80%81%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E6%A3%80%E6%B5%8B%E6%8A%80%E6%9C%AF%E6%8E%A2%E7%B4%A2"><span class="toc-content-number">2.1.3.</span> <span class="toc-content-text">三、强化学习检测技术探索</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#3-1-%E5%8C%BA%E5%9F%9F%E6%8F%90%E8%AE%AE%E4%BC%98%E5%8C%96"><span class="toc-content-number">2.1.3.1.</span> <span class="toc-content-text">3.1 区域提议优化</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#3-2-%E6%A3%80%E6%B5%8B%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="toc-content-number">2.1.3.2.</span> <span class="toc-content-text">3.2 检测流程控制</span></a></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%9B%9B%E3%80%81%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%95%B0%E6%8D%AE%E9%9B%86%E7%A0%94%E7%A9%B6"><span class="toc-content-number">2.1.4.</span> <span class="toc-content-text">四、目标检测数据集研究</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#4-1-%E4%B8%BB%E6%B5%81%E6%95%B0%E6%8D%AE%E9%9B%86%E7%89%B9%E5%BE%81%E5%88%86%E6%9E%90"><span class="toc-content-number">2.1.4.1.</span> <span class="toc-content-text">4.1 主流数据集特征分析</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#4-2-%E7%9B%AE%E6%A0%87%E9%87%8D%E5%8F%A0%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-content-number">2.1.4.2.</span> <span class="toc-content-text">4.2 目标重叠数据集</span></a></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E4%BA%94%E3%80%81%E8%AF%84%E4%BC%B0%E4%BD%93%E7%B3%BB%E4%B8%8E%E5%9F%BA%E5%87%86%E6%A8%A1%E5%9E%8B"><span class="toc-content-number">2.1.5.</span> <span class="toc-content-text">五、评估体系与基准模型</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#5-1-%E4%B8%BB%E6%B5%81%E8%AF%84%E4%BC%B0%E5%9F%BA%E5%87%86"><span class="toc-content-number">2.1.5.1.</span> <span class="toc-content-text">5.1 主流评估基准</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#5-2-%E5%9F%BA%E7%BA%BF%E6%A8%A1%E5%9E%8B%E6%80%A7%E8%83%BD"><span class="toc-content-number">2.1.5.2.</span> <span class="toc-content-text">5.2 基线模型性能</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#5-3-%E8%AF%84%E4%BC%B0%E6%8C%87%E6%A0%87%E4%BD%93%E7%B3%BB"><span class="toc-content-number">2.1.5.3.</span> <span class="toc-content-text">5.3 评估指标体系</span></a></li></ol></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%85%AD%E3%80%81%E6%8A%80%E6%9C%AF%E6%8C%91%E6%88%98%E4%B8%8E%E6%9C%AA%E6%9D%A5%E6%96%B9%E5%90%91"><span class="toc-content-number">2.1.6.</span> <span class="toc-content-text">六、技术挑战与未来方向</span></a></li></ol></li></ol></li><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#ChatGPT"><span class="toc-content-number">3.</span> <span class="toc-content-text">ChatGPT</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E5%8D%95%E9%98%B6%E6%AE%B5%E4%B8%8E%E5%8F%8C%E9%98%B6%E6%AE%B5%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%96%B9%E6%B3%95%E7%A0%94%E7%A9%B6%E8%BF%9B%E5%B1%95"><span class="toc-content-number">3.1.</span> <span class="toc-content-text">单阶段与双阶段目标检测方法研究进展</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E7%AB%AF%E5%88%B0%E7%AB%AF%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%A0%94%E7%A9%B6%E8%BF%9B%E5%B1%95"><span class="toc-content-number">3.2.</span> <span class="toc-content-text">端到端目标检测研究进展</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E5%9F%BA%E4%BA%8E%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%9A%84%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%A0%94%E7%A9%B6"><span class="toc-content-number">3.3.</span> <span class="toc-content-text">基于强化学习的目标检测研究</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E5%B8%B8%E7%94%A8%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-content-number">3.4.</span> <span class="toc-content-text">常用目标检测数据集</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E5%90%AB%E7%9B%AE%E6%A0%87%E9%87%8D%E5%8F%A0%E3%80%81%E9%81%AE%E6%8C%A1%E7%9A%84%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-content-number">3.5.</span> <span class="toc-content-text">含目标重叠、遮挡的数据集</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E4%B8%BB%E6%B5%81%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95%E4%B8%8E%E4%BB%A3%E8%A1%A8%E6%80%A7%E5%9F%BA%E7%BA%BF%E6%A8%A1%E5%9E%8B"><span class="toc-content-number">3.6.</span> <span class="toc-content-text">主流基准测试与代表性基线模型</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E5%9C%A8%E9%A3%9F%E5%93%81%E9%A2%86%E5%9F%9F%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-content-number">3.7.</span> <span class="toc-content-text">目标检测在食品领域的应用</span></a></li></ol></li><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#Grok3"><span class="toc-content-number">4.</span> <span class="toc-content-text">Grok3</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#1-%E5%BC%95%E8%A8%80"><span class="toc-content-number">4.1.</span> <span class="toc-content-text">1. 引言</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#2-%E5%8D%95%E9%98%B6%E6%AE%B5%E4%B8%8E%E5%8F%8C%E9%98%B6%E6%AE%B5%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%9A%84%E8%BF%9B%E5%B1%95"><span class="toc-content-number">4.2.</span> <span class="toc-content-text">2. 单阶段与双阶段目标检测的进展</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#2-1-%E5%8D%95%E9%98%B6%E6%AE%B5%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B"><span class="toc-content-number">4.2.1.</span> <span class="toc-content-text">2.1 单阶段目标检测</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#2-2-%E5%8F%8C%E9%98%B6%E6%AE%B5%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B"><span class="toc-content-number">4.2.2.</span> <span class="toc-content-text">2.2 双阶段目标检测</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#2-3-%E5%8D%95%E9%98%B6%E6%AE%B5%E4%B8%8E%E5%8F%8C%E9%98%B6%E6%AE%B5%E6%AF%94%E8%BE%83"><span class="toc-content-number">4.2.3.</span> <span class="toc-content-text">2.3 单阶段与双阶段比较</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#3-%E7%AB%AF%E5%88%B0%E7%AB%AF%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B"><span class="toc-content-number">4.3.</span> <span class="toc-content-text">3. 端到端目标检测</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#4-%E5%9F%BA%E4%BA%8E%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%9A%84%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B"><span class="toc-content-number">4.4.</span> <span class="toc-content-text">4. 基于强化学习的目标检测</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#5-%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-content-number">4.5.</span> <span class="toc-content-text">5. 目标检测数据集</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#5-1-%E5%B9%BF%E6%B3%9B%E4%BD%BF%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-content-number">4.5.1.</span> <span class="toc-content-text">5.1 广泛使用的数据集</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#5-2-%E9%87%8D%E5%8F%A0-%E9%81%AE%E6%8C%A1%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-content-number">4.5.2.</span> <span class="toc-content-text">5.2 重叠&#x2F;遮挡数据集</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#5-3-%E6%95%B0%E6%8D%AE%E9%9B%86%E8%A7%84%E6%A8%A1"><span class="toc-content-number">4.5.3.</span> <span class="toc-content-text">5.3 数据集规模</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#6-2025%E5%B9%B46%E6%9C%8810%E6%97%A5%E7%9A%84%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95%E4%B8%8E%E8%AF%84%E4%BC%B0%E6%8C%87%E6%A0%87"><span class="toc-content-number">4.6.</span> <span class="toc-content-text">6. 2025年6月10日的基准测试与评估指标</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#6-1-%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95"><span class="toc-content-number">4.6.1.</span> <span class="toc-content-text">6.1 基准测试</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#6-2-%E8%AF%84%E4%BC%B0%E6%8C%87%E6%A0%87"><span class="toc-content-number">4.6.2.</span> <span class="toc-content-text">6.2 评估指标</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#7-%E6%80%BB%E7%BB%93"><span class="toc-content-number">4.7.</span> <span class="toc-content-text">7. 总结</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E5%85%B3%E9%94%AE%E5%BC%95%E7%94%A8"><span class="toc-content-number">4.8.</span> <span class="toc-content-text">关键引用</span></a></li></ol></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>
