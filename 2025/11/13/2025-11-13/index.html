@@ -1,0 +1,113 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="代码部分MultiModalDataset.py这是一个多模态数据集类，主要负责数据加载和预处理，包含以下核心组件： 主要类： HSIProcessor ：高光谱数据处理器  处理npy格式的高光谱数据文件 支持通道数统一（通过平均池化、重复、截断或填充） 调整空间尺寸（默认256×256） 可选的数据归一化处理   RGBProcessor ：RGB图像处理器  处理RGB图像文件 调整尺寸并转">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Thu Nov 13 2025 00:00:00 GMT+0800 (中國標準時間)">
+<meta property="og:url" content="http://example.com/2025/11/13/2025-11-13/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="代码部分MultiModalDataset.py这是一个多模态数据集类，主要负责数据加载和预处理，包含以下核心组件： 主要类： HSIProcessor ：高光谱数据处理器  处理npy格式的高光谱数据文件 支持通道数统一（通过平均池化、重复、截断或填充） 调整空间尺寸（默认256×256） 可选的数据归一化处理   RGBProcessor ：RGB图像处理器  处理RGB图像文件 调整尺寸并转">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-11-13T07:16:17.000Z">
+<meta property="article:modified_time" content="2025-12-24T03:44:28.029Z">
+<meta property="article:author" content="Schwertlilien">
+<meta name="twitter:card" content="summary"><title>Thu Nov 13 2025 00:00:00 GMT+0800 (中國標準時間) - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>Thu Nov 13 2025 00:00:00 GMT+0800 (中國標準時間)</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-11-13</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-12-24</time></div>
+
+</div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约1.1K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><h2 id="代码部分"><a href="#代码部分" class="headerlink" title="代码部分"></a>代码部分</h2><h2 id="MultiModalDataset-py"><a href="#MultiModalDataset-py" class="headerlink" title="MultiModalDataset.py"></a>MultiModalDataset.py</h2><p>这是一个多模态数据集类，主要负责数据加载和预处理，包含以下核心组件：</p>
+<h3 id="主要类："><a href="#主要类：" class="headerlink" title="主要类："></a>主要类：</h3><ul>
+<li><p>HSIProcessor ：高光谱数据处理器</p>
+<ul>
+<li>处理npy格式的高光谱数据文件</li>
+<li>支持通道数统一（通过平均池化、重复、截断或填充）</li>
+<li>调整空间尺寸（默认256×256）</li>
+<li>可选的数据归一化处理</li>
+</ul>
+</li>
+<li><p>RGBProcessor ：RGB图像处理器</p>
+<ul>
+<li>处理RGB图像文件</li>
+<li>调整尺寸并转换为张量</li>
+<li>对缺失图像返回默认零张量</li>
+</ul>
+</li>
+<li><p>LabelProcessor ：标签处理器</p>
+<ul>
+<li>对标签进行对数变换（默认开启）</li>
+<li>支持使用StandardScaler进行标准化</li>
+<li>提供逆变换功能，将预测结果转回原始尺度</li>
+</ul>
+</li>
+<li><p>Validation Loss: 0.3464 MAE: 123048.0000 RMSE: 251103.0469 R²: 0.4773<br>Epoch 178/200<br>Train Loss: 0.5165 MAE: 251015.7500 RMSE: 933500.5000 R²: 0.0277<br>Validation Loss: 0.2887 MAE: 77823.0547 RMSE: 165240.5000 R²: 0.7736<br>Epoch 179/200<br>Train Loss: 0.5380 MAE: 254873.3438 RMSE: 920897.5625 R²: 0.0537<br>Validation Loss: 0.5153 MAE: 250036.1875 RMSE: 525814.1250 R²: -1.2921<br>Epoch 180/200<br>Train Loss: 0.5162 MAE: 267688.5312 RMSE: 977263.5625 R²: -0.0656<br>Validation Loss: 0.2729 MAE: 88708.2031 RMSE: 183497.7031 R²: 0.7209</p>
+</li>
+</ul>
+<p>-inf — 1</p>
+<p>[-inf ,-1]</p>
+<p>Epoch 181/200<br>  Train Loss: 0.4926 MAE: 228768.2031 RMSE: 898883.0625 R²: 0.0984<br>  Validation Loss: 0.6303 MAE: 160930.1406 RMSE: 321643.3750 R²: 0.1423<br>Epoch 182/200<br>  Train Loss: 0.7472 MAE: 372025.8438 RMSE: 1098051.3750 R²: -0.3453<br>  Validation Loss: 0.4184 MAE: 159994.5312 RMSE: 322837.7188 R²: 0.1360<br>Epoch 183/200<br>  Train Loss: 0.5582 MAE: 261034.2812 RMSE: 962091.4375 R²: -0.0328<br>  Validation Loss: 0.7292 MAE: 430913.0312 RMSE: 959121.6250 R²: -6.6263<br>Epoch 184/200<br>  Train Loss: 0.5356 MAE: 256986.6406 RMSE: 941638.5625 R²: 0.0106<br>  Validation Loss: 0.4641 MAE: 224205.6875 RMSE: 474270.5000 R²: -0.8647<br>Epoch 185/200<br>  Train Loss: 0.5984 MAE: 295664.3125 RMSE: 966598.2500 R²: -0.0425<br>  Validation Loss: 0.3660 MAE: 110208.8906 RMSE: 226541.0469 R²: 0.5745<br>Epoch 186/200<br>  Train Loss: 0.7722 MAE: 381546.9688 RMSE: 1150542.6250 R²: -0.4770<br>  Validation Loss: 0.3066 MAE: 110757.3984 RMSE: 226244.0625 R²: 0.5757<br>Epoch 187/200<br>  Train Loss: 0.4389 MAE: 198513.5781 RMSE: 873803.0000 R²: 0.1480<br>  Validation Loss: 0.2747 MAE: 88846.9453 RMSE: 183255.9688 R²: 0.7216<br>Epoch 188/200<br>  Train Loss: 0.4491 MAE: 199502.5156 RMSE: 880009.0625 R²: 0.1359<br>  Validation Loss: 0.2932 MAE: 80564.2969 RMSE: 171644.2969 R²: 0.7558<br>Epoch 189/200<br>  Train Loss: 0.5977 MAE: 284538.3750 RMSE: 1028627.3750 R²: -0.1806<br>  Validation Loss: 0.8808 MAE: 571123.5000 RMSE: 1306598.8750 R²: -13.1531<br>Epoch 190/200<br>  Train Loss: 0.5413 MAE: 280375.3125 RMSE: 974062.8125 R²: -0.0587<br>  Validation Loss: 0.2998 MAE: 107401.5625 RMSE: 219184.6250 R²: 0.6017<br>Epoch 196/200<br>  Train Loss: 0.5344 MAE: 264654.0000 RMSE: 926124.6250 R²: 0.0430<br>  Validation Loss: 0.2813 MAE: 91278.9062 RMSE: 187786.8906 R²: 0.7077</p>
+<p>seaborn res1:就是普通没有加皮归一化的可视化100epoch，</p>
+<p>原始结果：Val - Loss: 0.1552, MSE: 0.3646, MAE: 0.4279, R²: 0.9463<br>Saved best model with val_loss: 0.1552</p>
+<p>加入原始值后（但感觉没加成功）Original scale - MAE: 0.4062, RMSE: 0.6424, R²: 0.9392<br>Val - Loss: 0.1624, MSE: 0.4127, MAE: 0.4062, R²: 0.9392</p>
+<p>再加入早停：Original scale - MAE: 0.4376, RMSE: 0.6691, R²: 0.9340</p>
+<p>Final Test Results:<br>Transformed scale - MSE: 0.4477, MAE: 0.4376, R²: 0.9340<br>Original scale - MSE: 0.4477, MAE: 0.4376, RMSE: 0.6691, R²: 0.9340</p>
+<h2 id="UNet"><a href="#UNet" class="headerlink" title="UNet++"></a>UNet++</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">✅ 评估完成！结果已保存到 evaluation_results/ 目录</span><br><span class="line">(base) schwertlilien@SchwertliliendeMacBook-Pro test % </span><br><span class="line">python evaluate_unet_fixed.py</span><br><span class="line">✅ Stratified sampling available</span><br><span class="line">🎯 修复版UNet++模型评估</span><br><span class="line">============================================================</span><br><span class="line">🔄 重新创建训练环境...</span><br><span class="line">Found 786 valid samples</span><br><span class="line">Fluorescence quantile normalization fitted:</span><br><span class="line">  1.0% quantile: 3062.13</span><br><span class="line">  99.0% quantile: 125457.91</span><br><span class="line"></span><br><span class="line">Data preprocessing completed:</span><br><span class="line">  Toxin values - Min: 2123.58, Max: 15012381.51</span><br><span class="line">  Toxin values - Mean: 387255.93, Std: 1024443.36</span><br><span class="line">  Original fluo - Min: 3039.09, Max: 138955.24</span><br><span class="line">  Processed fluo - Min: 0.000, Max: 1.000</span><br><span class="line">Dataset initialized with 786 samples</span><br><span class="line">📊 数据集大小: 786 样本</span><br><span class="line">Stratified sampling setup:</span><br><span class="line">  Low stratum (&lt;= 4908.52): 209 samples</span><br><span class="line">  Mid stratum (4908.52 - 395973.25): 210 samples</span><br><span class="line">  High stratum (&gt; 395973.25): 209 samples</span><br><span class="line">  Samples per stratum per batch: 4</span><br><span class="line">  Total batches per epoch: 52</span><br><span class="line">Created stratified dataloaders:</span><br><span class="line">  Train batches: 52 (stratified)</span><br><span class="line">  Val batches: 14 (random)</span><br><span class="line">  Train samples: 628</span><br><span class="line">  Val samples: 158</span><br><span class="line">✅ 数据加载器创建成功 - 训练集: 52 批次, 验证集: 14 批次</span><br><span class="line">📏 重新创建target_scaler...</span><br><span class="line">   训练集统计 - Mean: 195042.59, Std: 357719.95</span><br><span class="line"></span><br><span class="line">📦 加载模型: /Users/schwertlilien/Downloads/test/best_unetplus_stratified_stratified.pth</span><br><span class="line">🔧 使用设备: mps</span><br><span class="line">✅ 模型加载成功 - 训练epoch: 58, 训练时验证R²: 0.6815</span><br><span class="line"></span><br><span class="line">🎯 使用正确的target_scaler进行评估...</span><br><span class="line">   批次 1/14: 预测 -8433-683708, 真实 2140-901964</span><br><span class="line">   批次 6/14: 预测 -2485-1483689, 真实 2125-1393777</span><br><span class="line">   批次 11/14: 预测 3495-857461, 真实 2283-869085</span><br><span class="line"></span><br><span class="line">📊 计算评估指标...</span><br><span class="line"></span><br><span class="line">============================================================</span><br><span class="line">📋 修复后的评估结果:</span><br><span class="line">----------------------------------------</span><br><span class="line">  R²             : 0.6825</span><br><span class="line">  RMSE           : 291919.1752</span><br><span class="line">  MAE            : 79573.9531</span><br><span class="line">  MAPE           : 84.41%</span><br><span class="line">  Median_RE      : 44.26%</span><br><span class="line">  STD_Error      : 290323.56%</span><br><span class="line">  Correlation    : 0.8297</span><br><span class="line">  MSE            : 85216804864.0000</span><br><span class="line"></span><br><span class="line">📊 对比结果:</span><br><span class="line">  训练时验证R²: 0.6815</span><br><span class="line">  修复后评估R²: 0.6825</span><br><span class="line">  差异: 0.0010</span><br></pre></td></tr></table></figure>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/11/24/2025-11-24/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/11/11/2025-11-11/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E4%BB%A3%E7%A0%81%E9%83%A8%E5%88%86"><span class="toc-content-number">1.</span> <span class="toc-content-text">代码部分</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#MultiModalDataset-py"><span class="toc-content-number">2.</span> <span class="toc-content-text">MultiModalDataset.py</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E4%B8%BB%E8%A6%81%E7%B1%BB%EF%BC%9A"><span class="toc-content-number">2.1.</span> <span class="toc-content-text">主要类：</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#UNet"><span class="toc-content-number">3.</span> <span class="toc-content-text">UNet++</span></a></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>

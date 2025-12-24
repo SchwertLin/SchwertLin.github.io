@@ -1,0 +1,202 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="MLO(Multi-level Optimization)迭代循环：$i$层的最优参数作为$i+1$层的输入  第一级：固定生成模型架构，在 GAN 框架下训练生成器和判别器，生成逼真图像。 第二级：用生成的图像 - 掩码对 + 少量真实数据，训练分割模型。 第三级：以分割模型的验证损失为目标，优化生成模型的架构，形成迭代闭环。  框架Stage1️⃣：训练 图像生成器（固定架构，先练参数） 目标">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Thu Nov 27 2025 00:00:00 GMT+0800 (中國標準時間)">
+<meta property="og:url" content="http://example.com/2025/11/27/2025-11-27/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="MLO(Multi-level Optimization)迭代循环：$i$层的最优参数作为$i+1$层的输入  第一级：固定生成模型架构，在 GAN 框架下训练生成器和判别器，生成逼真图像。 第二级：用生成的图像 - 掩码对 + 少量真实数据，训练分割模型。 第三级：以分割模型的验证损失为目标，优化生成模型的架构，形成迭代闭环。  框架Stage1️⃣：训练 图像生成器（固定架构，先练参数） 目标">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/SchwertLin/Pic/main/imgimage-20251127222511466.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/SchwertLin/Pic/main/imgimage-20251128110152371.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/SchwertLin/Pic/main/imgimage-20251127223319787.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/SchwertLin/Pic/main/imgimage-20251128172403160.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/SchwertLin/Pic/main/imgimage-20251128174942635.png">
+<meta property="article:published_time" content="2025-11-27T13:44:06.000Z">
+<meta property="article:modified_time" content="2025-12-24T03:44:18.732Z">
+<meta property="article:author" content="Schwertlilien">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/SchwertLin/Pic/main/imgimage-20251127222511466.png"><title>Thu Nov 27 2025 00:00:00 GMT+0800 (中國標準時間) - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>Thu Nov 27 2025 00:00:00 GMT+0800 (中國標準時間)</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-11-27</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-12-24</time></div>
+
+</div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约2.6K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><h2 id="MLO-Multi-level-Optimization"><a href="#MLO-Multi-level-Optimization" class="headerlink" title="MLO(Multi-level Optimization)"></a>MLO(Multi-level Optimization)</h2><p>迭代循环：$i$层的最优参数作为$i+1$层的输入</p>
+<ul>
+<li>第一级：固定生成模型架构，在 GAN 框架下训练生成器和判别器，生成逼真图像。</li>
+<li>第二级：用生成的图像 - 掩码对 + 少量真实数据，训练分割模型。</li>
+<li>第三级：以分割模型的验证损失为目标，优化生成模型的架构，形成迭代闭环。</li>
+</ul>
+<h2 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h2><h3 id="Stage1️⃣：训练-图像生成器（固定架构，先练参数）"><a href="#Stage1️⃣：训练-图像生成器（固定架构，先练参数）" class="headerlink" title="Stage1️⃣：训练 图像生成器（固定架构，先练参数）"></a>Stage1️⃣：训练 图像生成器（固定架构，先练参数）</h3><ul>
+<li><strong>目标</strong>：让生成模型先学会 “根据掩码生成看起来像真实医学图像的图片”，但此时不优化生成模型的架构（仅固定架构 A，练权重参数 G 和判别器 H）。</li>
+<li><strong>操作</strong>：<ul>
+<li>把真实的 “图像 - 掩码对” <strong>反过来用</strong>：以真实掩码 M 为输入，真实图像 I 为目标，构建 GAN 的训练数据集（M→I 的映射）。</li>
+<li>在 GAN 框架下训练：判别器 H 学 “区分真实图像和生成图像”，生成器 G 学 “骗过分判别器”，最终生成器能输出与掩码语义对齐的逼真图像（比如输入 “皮肤病变掩码”，生成对应 dermoscopy 图像）。</li>
+</ul>
+</li>
+<li><strong>关键衔接</strong>：这一步的生成器参数（G*）会传给第二级，作为生成 “辅助训练数据” 的基础。</li>
+</ul>
+<blockquote>
+<p>这个反过来使用比较有趣：真实人工标注掩码—&gt;图像增强—&gt;生成增强后掩码—&gt;通过生成模型，生成医学图像。</p>
+<p>其中“图像增强”有什么用？增强后的掩码与原掩码有何区别？</p>
+<p><img src="https://raw.githubusercontent.com/SchwertLin/Pic/main/imgimage-20251127222511466.png" alt="image-20251127222511466"></p>
+<p>这个地方使用的是GAN，算是比较老的方法了。</p>
+</blockquote>
+<h3 id="GAN结构中生成模型"><a href="#GAN结构中生成模型" class="headerlink" title="GAN结构中生成模型"></a>GAN结构中生成模型</h3><p><img src="https://raw.githubusercontent.com/SchwertLin/Pic/main/imgimage-20251128110152371.png" alt="image-20251128110152371"></p>
+<h3 id="Stage2️⃣：用-生成数据-少量真实数据训练分割模型"><a href="#Stage2️⃣：用-生成数据-少量真实数据训练分割模型" class="headerlink" title="Stage2️⃣：用 生成数据 + 少量真实数据训练分割模型"></a>Stage2️⃣：用 生成数据 + 少量真实数据训练分割模型</h3><ul>
+<li><p><strong>目标</strong>：检验第一级生成的数据是否 “有用”—— 如果生成数据质量高，用它训练的分割模型在真实验证集上表现会好（对应你选中的 “验证性能反映生成数据质量”）。</p>
+</li>
+<li><p><strong>损失函数：</strong>普通的GAN contrastive loss： “最大化区分真实图像和生成图像的损失”</p>
+<p><img src="https://raw.githubusercontent.com/SchwertLin/Pic/main/imgimage-20251127223319787.png" alt="image-20251127223319787"></p>
+</li>
+<li><p><strong>操作</strong>：</p>
+<ul>
+<li>生成辅助数据：用第一级训好的生成器，对真实掩码做基础增强（旋转、翻转等），生成大量 “合成图像 - 合成掩码对”（(\hat{I},\hat{M})）。</li>
+<li>混合训练：把 “合成数据 + 少量真实数据” 一起喂给分割模型（如 UNet/DeepLab），用<strong>分割损失（像素级交叉熵）</strong>训练分割模型参数 S。</li>
+<li>验证反馈：用<strong>真实医学图像 + 专家标注掩码</strong>组成的验证集，评估分割模型的性能（Dice/Jaccard）—— 如果性能差，说明生成数据质量低，需要优化生成模型。</li>
+</ul>
+</li>
+<li><p><strong>关键衔接</strong>：这一步的分割模型验证损失（(L_{seg}^{val})）会传给第三级，作为优化生成模型架构的 “信号”。</p>
+</li>
+</ul>
+<h3 id="Stage3️⃣：用分割验证损失，调Stage1️⃣架构"><a href="#Stage3️⃣：用分割验证损失，调Stage1️⃣架构" class="headerlink" title="Stage3️⃣：用分割验证损失，调Stage1️⃣架构"></a>Stage3️⃣：用分割验证损失，调Stage1️⃣架构</h3><p><strong>🫵：Stage2️⃣的训练下降是计算的DICE Loss。Val验证集上的结果只能看。</strong></p>
+<ul>
+<li><strong>目标</strong>：解决 “第一级固定架构可能不适配分割任务” 的问题 —— 比如某些架构生成的图像 “看起来真，但对分割模型没用”（比如生成了过多背景噪声，反而干扰病变分割），这一步通过分割验证损失优化架构 A。</li>
+<li><strong>操作</strong>：<ul>
+<li>把第二级的 “分割模型验证损失” 作为优化目标：最小化这个损失（即让分割模型在真实验证集上表现更好），反向调整生成模型的架构 A（比如选择更适合的卷积核大小、激活函数组合）。</li>
+<li>迭代闭环：架构 A 优化后，重新回到第一级（用新架构 A 再训生成器参数 G），重复 1→2→3，直到分割模型性能收敛。</li>
+</ul>
+</li>
+</ul>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><h3 id="1-对各数据集的分割性能进行展示"><a href="#1-对各数据集的分割性能进行展示" class="headerlink" title="1. 对各数据集的分割性能进行展示"></a>1. 对各数据集的分割性能进行展示</h3><p>图2/3/4:2/3展示结果，4展示以少量的数据就可以获得好的分割结果。</p>
+<p><img src="https://raw.githubusercontent.com/SchwertLin/Pic/main/imgimage-20251128172403160.png" alt="image-20251128172403160"></p>
+<h3 id="2-对比传统数据增强"><a href="#2-对比传统数据增强" class="headerlink" title="2.对比传统数据增强"></a>2.对比传统数据增强</h3><p>目的：医学分割中的常见数据增强方法是旋转、翻转、平移及组合（实际临床研究 / 应用中最易获取的提升方法）。证明方法比这些数据增强方法更有效。</p>
+<p><img src="https://raw.githubusercontent.com/SchwertLin/Pic/main/imgimage-20251128174942635.png" alt="image-20251128174942635"></p>
+<h2 id="我的疑问"><a href="#我的疑问" class="headerlink" title="我的疑问"></a>我的疑问</h2><ol>
+<li>要是我的理解没错的话，这个步骤是，先训练图片生成模型GAN，其损失函数是contrastive loss，也就是生成/判别之间的差异；然后得到暂时最优的图片生成模型，以其输出作为训练分割模型的输入，以预测分割与mask之间的差异来优化下降（DICE loss），得到一个最优的分割模型，这个分割模型将在val验证集上计算得到一个loss结果，根据这么一个loss结果，再去优化下降修改生成模型的结果？那么这样的流程不是非常复杂，而且势必会训练得非常慢，而且难以收敛吗？因为为了每得到一个val loss，我都要完整训练两个模型？</li>
+</ol>
+<p>对于MLO的理解问题。<strong>多水平优化（MLO）不是 “完整训练两个模型再循环”，而是 “增量迭代 + 梯度近似”</strong> ，本质是 “小步微调” 而非 “推倒重来”。</p>
+<ol>
+<li>医学分割与食品计算的区别？医学分割得益于人类具有各种各样的器官以及不同的疾病，所以可以针对每种疾病/器官收集数据，而且这每个数据集都是有用的，因为可以 识别人类的一种疾病。（这如同医院会针对每个身体部位设计不同的科室，但是对于食物就只有营养科），<strong>我想知道的是，能不能拔高做食品的意义？如何类推？</strong></li>
+</ol>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>指标名称</th>
+<th>英文全称</th>
+<th>数学公式</th>
+<th>符号说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>均方误差</td>
+<td>Mean Squared Error (MSE)</td>
+<td>(MSE = \frac{1}{n}\sum_{i=1}^n (y_i - \hat{y}_i)^2)</td>
+<td>(y_i)：第 i 个样本的真实值；(\hat{y}_i)：第 i 个样本的预测值；n：样本总数</td>
+</tr>
+<tr>
+<td>均方根误差</td>
+<td>Root Mean Squared Error (RMSE)</td>
+<td>(RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^n (y_i - \hat{y}_i)^2})</td>
+<td>同 MSE，为 MSE 的平方根，还原误差的量级维度</td>
+</tr>
+<tr>
+<td>平均绝对误差</td>
+<td>Mean Absolute Error (MAE)</td>
+<td>$MAE = \frac{1}{n}\sum_{i=1}^n\vert y_i - \hat{y}_i\vert$</td>
+<td>同 MSE，采用绝对值计算，降低异常值对误差评估的影响</td>
+</tr>
+<tr>
+<td>平均绝对百分比误差</td>
+<td>Mean Absolute Percentage Error (MAPE)</td>
+<td>$MAPE = \frac{1}{n}\sum_{i=1}^n \left\vert\frac{y_i - \hat{y}_i}{y_i} \right\vert\times 100\%$</td>
+<td>同 MSE，以真实值为基准计算相对误差，需满足(y_i \neq 0)</td>
+</tr>
+<tr>
+<td>决定系数</td>
+<td>Coefficient of Determination (R²)</td>
+<td>(R^2 = 1 - \frac{\sum_{i=1}^n (y_i - \hat{y}_i)^2}{\sum_{i=1}^n (y_i - \bar{y})^2})</td>
+<td>(\bar{y})：所有样本真实值的均值，衡量模型对数据的解释力</td>
+</tr>
+<tr>
+<td>相关系数</td>
+<td>Correlation</td>
+<td>(Correlation = \frac{\sum_{i=1}^n (y_i - \bar{y})(\hat{y}_i - \hat{\bar{y}})}{\sqrt{\sum_{i=1}^n (y_i - \bar{y})^2} \sqrt{\sum_{i=1}^n (\hat{y}_i - \hat{\bar{y}})^2}})</td>
+<td>(\hat{\bar{y}})：所有样本预测值的均值，衡量真实值与预测值的线性关联强度</td>
+</tr>
+<tr>
+<td>中位数相对误差</td>
+<td>Median Relative Error (Median_RE)</td>
+<td>$Median_RE = median\left( \left\vert\frac{y_i - \hat{y}_i}{y_i} \right\vert\times 100\% \right)$</td>
+<td>取相对误差的中位数，进一步降低极端值干扰，更稳健反映模型误差水平</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>现在我有一个方法，叫MCMoE，其相关的代码放在：/Users/schwertlilien/Downloads/test/MCMoE-main的文件夹中。我现在想使用这个方法在我的三模态数据上运行一个回归任务，对毒素进行预测。至于三模态的参考数据集你可以参考/Users/schwertlilien/Downloads/test/multimodalDataset.py。我要怎么做才能在这个方法上训练我的数据集？</p>
+<p>why diffusion models …</p>
+<p>Epoch: 70       Loss: 0.0466    Train Coef: 0.703   Test Loss: 215125910877.9747     Test Coef: 0.829    R²: 0.5416       RMSE: 463816.65 MAE: 280875.84  MAPE: 2708.91%</p>
+<p>  warnings.warn(warn_msg)<br>Epoch: 119      Loss: 0.0438    Train Coef: 0.742   Test Loss: 165065224606.7848     Test Coef: 0.921    R²: 0.6483       RMSE: 406282.22 MAE: 172450.53  MAPE: 1140.81%</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">    %% 定义输入节点</span><br><span class="line">    subgraph Inputs [输入层: 多模态数据]</span><br><span class="line">        style Inputs fill:#f9f,stroke:#333,stroke-width:2px,color:black</span><br><span class="line">        A[HSI 高光谱图像&lt;br&gt;Batch x C_hsi x H x W]</span><br><span class="line">        B[RGB 可见光图像&lt;br&gt;Batch x 3 x H_rgb x W_rgb]</span><br><span class="line">        C[Fluo 荧光数值&lt;br&gt;Batch]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    %% 定义三个并行的编码器分支</span><br><span class="line">    subgraph Encoders [多模态编码器分支 (并行处理)]</span><br><span class="line">        style Encoders fill:#ccf,stroke:#333,stroke-width:2px,color:black</span><br><span class="line">        </span><br><span class="line">        %% HSI 分支 (重点: SpectralCNN)</span><br><span class="line">        A --&gt; A1[全局平均池化&lt;br&gt;(去除空间维度)]</span><br><span class="line">        A1 -- &quot;变为[Batch, 1, C_hsi]&quot; --&gt; A2[SpectralCNN (1D卷积网络)&lt;br&gt;提取光谱特征]</span><br><span class="line">        A2 -- &quot;输出特征向量&quot; --&gt; A_feat[HSI 特征&lt;br&gt;[Batch, 256]]</span><br><span class="line">        </span><br><span class="line">        %% RGB 分支 (简单的CNN/MLP)</span><br><span class="line">        B --&gt; B1[自适应平均池化 (8x8)]</span><br><span class="line">        B1 --&gt; B2[展平 &amp; MLP编码]</span><br><span class="line">        B2 -- &quot;输出特征向量&quot; --&gt; B_feat[RGB 特征&lt;br&gt;[Batch, 256]]</span><br><span class="line">        </span><br><span class="line">        %% Fluo 分支 (简单的MLP投影)</span><br><span class="line">        C -- &quot;扩展维度&quot; --&gt; C1[MLP 投影层]</span><br><span class="line">        C1 -- &quot;输出特征向量&quot; --&gt; C_feat[Fluo 特征&lt;br&gt;[Batch, 128]]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    %% 定义融合和输出层</span><br><span class="line">    subgraph FusionAndOutput [融合与回归输出]</span><br><span class="line">        style FusionAndOutput fill:#ff9,stroke:#333,stroke-width:2px,color:black</span><br><span class="line">        </span><br><span class="line">        %% 融合方式：拼接</span><br><span class="line">        A_feat &amp; B_feat &amp; C_feat --&gt; D&#123;特征拼接 (Concatenation)&lt;br&gt;[Batch, 256+256+128 = 640]&#125;</span><br><span class="line">        </span><br><span class="line">        %% 融合层 MLP</span><br><span class="line">        D --&gt; E[融合层 (MLP)&lt;br&gt;维度统一到 [Batch, 512]]</span><br><span class="line">        </span><br><span class="line">        %% 回归头 MLP</span><br><span class="line">        E --&gt; F[回归头 (3层 MLP)&lt;br&gt;逐步降维: 512 -&gt; 256 -&gt; 128 -&gt; 1]</span><br><span class="line">        </span><br><span class="line">        %% 最终输出</span><br><span class="line">        F --&gt; G(最终输出: 预测标量值&lt;br&gt;Batch]&lt;br&gt;对应 log(Toxin + 1))</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    %% 样式优化</span><br><span class="line">    style A fill:#e1f5fe,stroke:#0277bd,color:black</span><br><span class="line">    style B fill:#e8f5e9,stroke:#2e7d32,color:black</span><br><span class="line">    style C fill:#fff3e0,stroke:#ef6c00,color:black</span><br><span class="line">    </span><br><span class="line">    style A_feat fill:#b3e5fc,stroke:#0277bd,color:black</span><br><span class="line">    style B_feat fill:#c8e6c9,stroke:#2e7d32,color:black</span><br><span class="line">    style C_feat fill:#ffe0b2,stroke:#ef6c00,color:black</span><br><span class="line"></span><br><span class="line">    style A2 fill:#bbdefb,stroke:#1565c0,color:black,stroke-dasharray: 5 5</span><br><span class="line">    style D fill:#d1c4e9,stroke:#512da8,color:black</span><br><span class="line">    style G fill:#ffecb3,stroke:#ff8f00,stroke-width:3px,color:black</span><br></pre></td></tr></table></figure>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/12/09/2025-12-9/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/11/24/2025-11-24/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#MLO-Multi-level-Optimization"><span class="toc-content-number">1.</span> <span class="toc-content-text">MLO(Multi-level Optimization)</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E6%A1%86%E6%9E%B6"><span class="toc-content-number">2.</span> <span class="toc-content-text">框架</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#Stage1%EF%B8%8F%E2%83%A3%EF%BC%9A%E8%AE%AD%E7%BB%83-%E5%9B%BE%E5%83%8F%E7%94%9F%E6%88%90%E5%99%A8%EF%BC%88%E5%9B%BA%E5%AE%9A%E6%9E%B6%E6%9E%84%EF%BC%8C%E5%85%88%E7%BB%83%E5%8F%82%E6%95%B0%EF%BC%89"><span class="toc-content-number">2.1.</span> <span class="toc-content-text">Stage1️⃣：训练 图像生成器（固定架构，先练参数）</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#GAN%E7%BB%93%E6%9E%84%E4%B8%AD%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B"><span class="toc-content-number">2.2.</span> <span class="toc-content-text">GAN结构中生成模型</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#Stage2%EF%B8%8F%E2%83%A3%EF%BC%9A%E7%94%A8-%E7%94%9F%E6%88%90%E6%95%B0%E6%8D%AE-%E5%B0%91%E9%87%8F%E7%9C%9F%E5%AE%9E%E6%95%B0%E6%8D%AE%E8%AE%AD%E7%BB%83%E5%88%86%E5%89%B2%E6%A8%A1%E5%9E%8B"><span class="toc-content-number">2.3.</span> <span class="toc-content-text">Stage2️⃣：用 生成数据 + 少量真实数据训练分割模型</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#Stage3%EF%B8%8F%E2%83%A3%EF%BC%9A%E7%94%A8%E5%88%86%E5%89%B2%E9%AA%8C%E8%AF%81%E6%8D%9F%E5%A4%B1%EF%BC%8C%E8%B0%83Stage1%EF%B8%8F%E2%83%A3%E6%9E%B6%E6%9E%84"><span class="toc-content-number">2.4.</span> <span class="toc-content-text">Stage3️⃣：用分割验证损失，调Stage1️⃣架构</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E5%AE%9E%E9%AA%8C"><span class="toc-content-number">3.</span> <span class="toc-content-text">实验</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#1-%E5%AF%B9%E5%90%84%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E5%88%86%E5%89%B2%E6%80%A7%E8%83%BD%E8%BF%9B%E8%A1%8C%E5%B1%95%E7%A4%BA"><span class="toc-content-number">3.1.</span> <span class="toc-content-text">1. 对各数据集的分割性能进行展示</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#2-%E5%AF%B9%E6%AF%94%E4%BC%A0%E7%BB%9F%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA"><span class="toc-content-number">3.2.</span> <span class="toc-content-text">2.对比传统数据增强</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E6%88%91%E7%9A%84%E7%96%91%E9%97%AE"><span class="toc-content-number">4.</span> <span class="toc-content-text">我的疑问</span></a></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>
