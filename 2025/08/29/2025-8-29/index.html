@@ -1,0 +1,142 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="目前数据存在的问题：菜品成分间的严重遮挡与长尾类别分布问题。 底层数据集构建：我的数据要怎么标注？➡️我的标签怎么制定？➡️现有的标签规则是否完善？ 支撑下游任务：  食材检测与识别：细粒度分割给出每种食材的掩码。 营养估计&#x2F;热量计算：基于精确的食材分割，根据食材类型和份额估计营养成分。 菜谱生成：食材分割结果提供了菜谱生成所需的“成分清单”。 菜品推荐与健康饮食辅助：通过分割获取食材及营养信息后">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-8-29">
+<meta property="og:url" content="http://example.com/2025/08/29/2025-8-29/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="目前数据存在的问题：菜品成分间的严重遮挡与长尾类别分布问题。 底层数据集构建：我的数据要怎么标注？➡️我的标签怎么制定？➡️现有的标签规则是否完善？ 支撑下游任务：  食材检测与识别：细粒度分割给出每种食材的掩码。 营养估计&#x2F;热量计算：基于精确的食材分割，根据食材类型和份额估计营养成分。 菜谱生成：食材分割结果提供了菜谱生成所需的“成分清单”。 菜品推荐与健康饮食辅助：通过分割获取食材及营养信息后">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mm.cs.uec.ac.jp/uecfoodpix/tile_ver0.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/SchwertLin/Pic/main/imgimage-20250901110949943.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/SchwertLin/Pic/main/imgimage-20250901112600460.png">
+<meta property="article:published_time" content="2025-08-29T09:42:07.000Z">
+<meta property="article:modified_time" content="2025-09-15T09:19:31.964Z">
+<meta property="article:author" content="Schwertlilien">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mm.cs.uec.ac.jp/uecfoodpix/tile_ver0.jpg"><title>2025-8-29 - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-8-29</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-08-29</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-09-15</time></div>
+
+</div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约1.4K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><p>目前数据存在的问题：菜品成分间的严重遮挡与长尾类别分布问题。</p>
+<p>底层数据集构建：我的数据要怎么标注？➡️我的标签怎么制定？➡️现有的标签规则是否完善？</p>
+<p>支撑下游任务：</p>
+<ol>
+<li><strong>食材检测与识别</strong>：细粒度分割给出每种食材的掩码。</li>
+<li><strong>营养估计/热量计算</strong>：基于精确的食材分割，根据食材类型和份额估计营养成分。</li>
+<li><strong>菜谱生成</strong>：食材分割结果提供了菜谱生成所需的“成分清单”。</li>
+<li><strong>菜品推荐与健康饮食辅助</strong>：通过分割获取食材及营养信息后，可以基于用户偏好和健康需求推荐菜谱或调整膳食计划。细粒度标注使得系统能判断食物的实际营养构成，辅助营养师或应用给出更科学的健康饮食建议。</li>
+<li><strong>多模态问答与语义理解</strong>：结合视觉分割和语言模型，可以实现如“图中有哪些食材？”、“这道菜卡路里是否过高？”等跨模态问答。</li>
+</ol>
+<h1 id="相关的菜品数据集"><a href="#相关的菜品数据集" class="headerlink" title="相关的菜品数据集"></a>相关的菜品数据集</h1><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>数据集</th>
+<th>说明</th>
+<th>标注粒度与掩码粒度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ECFoodPixComplete（2020-2021）</td>
+<td>包含约10,000张带分割掩码的食物图像，覆盖102个菜品类别（多为日式和西式混合菜肴，如寿司、乌冬面、披萨等）。训练集（9,000张）和测试集（1,000张）。每张图像可能包含多个菜盘，掩码为菜品级标签；图片分辨率较高（平均约442×349像素）。部分图像中不同菜肴存在遮挡或重叠（如混合摆盘的各类食品），但掩码仅标注菜品区域，没有显式区分盘子或餐具区域。</td>
+<td>采用<strong>菜品级（dish-level）语义分割</strong>。每张图像中的像素被赋予一个类别标签。由于标注时将菜肴整体作为目标，掩码类型相当于<strong>语义分割（semantic segmentation）</strong>，不区分同类菜品的不同实例。数据集未提供对盘子或餐具的标注层（背景以0值标记）。<strong>支持多菜品重叠情况的语义标注：若图像中有多个不同类别的菜肴，只要像素属于某一类就被标注，不管是否被其他物体部分遮挡。</strong></td>
+</tr>
+<tr>
+<td>FoodSeg103/FoodSeg154（2021）</td>
+<td>FoodSeg103由7,118张西式菜肴图像组成，FoodSeg154是在此基础上额外加入2,372张亚洲菜肴图像（55%类别与西式重叠），总计9,490张图像。其中FoodSeg103定义了103类细粒度<strong>食材</strong>标签，FoodSeg154合并后共154类食材标签，总掩码数约60,000个，平均每图约6个食材实例。图像主要来自Recipe1M食谱数据集（西式烹饪）及额外采集的亚洲菜肴，类别既有常见食材（如番茄、鸡蛋、牛肉等），也有区域特色食材。食材往往存在相互重叠和混杂现象（如盖饭上的肉与蛋部分重叠），因此是典型的复杂多实例分割场景。</td>
+<td>采用<strong>食材级（ingredient-level）语义分割</strong>。每个像素被标注为特定食材类别（如“西红柿”、“鸡蛋”、“牛肉”等）。这意味着，同一图中如果某个食材出现多次，所有像素均被赋同一类别标签，而没有单独的实例ID；因此本质上也是语义分割。该数据集特别关注食材间的重叠，例如牛肉覆盖在面条上，标注时要求严格按照可见边界分割。掩码类型为像素级分类掩码，每种食材一个类别。由于忽略&lt;5%面积的小区域，极小的食材碎屑一般不标注。尽管未明确提供“泛分割（panoptic）”标注，FoodSeg的数据性质使其可视为复杂场景下的语义分割基准，各食材类别可用于计算营养或作为多任务输入。</td>
+</tr>
+<tr>
+<td>Nutrition5k（2021）</td>
+<td>该数据集侧重于营养估计，由约5,000个实拍餐盘组成（采自自助餐厅），每个菜盘按照上餐顺序进行了称重和营养信息记录。数据集提供上视RGB-D视频和菜品逐步投入的视频，包含食材组成、重量和营养标注。部分工作利用Nutrition5k数据进行了像素级分割标注（将每种食材分割出来以估算体积和营养），但官方论文强调的是整体营养回归任务。该数据集的食材类别多（250余种），长尾分布明显，但严格的采集与称重流程提供了高精度的“地面真值”用于卡路里估计研究。</td>
+<td>部分研究基于Nutrition5k对菜盘进行了食材掩码分割，以便估计体积和营养成分（如通过掩码估算体素来计算卡路里。不过官方资源主要提供营养值标签，公开是否有完整掩码需进一步查证。总体来看，多数此类数据集提供的分割形式仍以语义分割为主。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="UECFoodPixComplete-10k"><a href="#UECFoodPixComplete-10k" class="headerlink" title="UECFoodPixComplete(10k)"></a>UECFoodPixComplete(10k)</h2><p><a target="_blank" rel="noopener" href="https://mm.cs.uec.ac.jp/uecfoodpix/">数据集的相关解释链接⬅️</a></p>
+<p><img src="https://mm.cs.uec.ac.jp/uecfoodpix/tile_ver0.jpg" alt="img"></p>
+<p>西式菜品。trainset9k，testset1k。其中共涉及到102类，大类，菜品标注级别。</p>
+<p>文件结构：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">UECFOODPIXCOMPLTE/</span><br><span class="line"> ├data/</span><br><span class="line"> 　└UECFoodPIXCOMPLTE/</span><br><span class="line"> 　　└train/</span><br><span class="line"> 　　│　└img/ .jpg</span><br><span class="line"> 　　│　└mask/ .png</span><br><span class="line"> 　　└test/</span><br><span class="line"> 　　│　└img/ .jpg</span><br><span class="line"> 　　│　└mask/ .png</span><br><span class="line"> 　　└category.txt</span><br><span class="line"> 　　└train.txt</span><br><span class="line"> 　　└test.txt</span><br></pre></td></tr></table></figure>
+<p>其中每张图片都会有<strong>一张</strong>对应的掩码图片。RGB值中仅使用了Red。所以是不同程度的红色作为掩码图片。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th><img src="https://raw.githubusercontent.com/SchwertLin/Pic/main/imgimage-20250901110949943.png" alt="图像示例"></th>
+<th><img src="https://raw.githubusercontent.com/SchwertLin/Pic/main/imgimage-20250901112600460.png" alt="不全的标签，共有102类"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="FoodSeg103-154"><a href="#FoodSeg103-154" class="headerlink" title="FoodSeg103/154"></a>FoodSeg103/154</h2><p>大小是9,490张。类别是154类。</p>
+<p>每张图片中平均有6个成分标签。</p>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/09/01/2025-9-1/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/08/28/2025-8-28/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#%E7%9B%B8%E5%85%B3%E7%9A%84%E8%8F%9C%E5%93%81%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-content-number">1.</span> <span class="toc-content-text">相关的菜品数据集</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#UECFoodPixComplete-10k"><span class="toc-content-number">1.1.</span> <span class="toc-content-text">UECFoodPixComplete(10k)</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#FoodSeg103-154"><span class="toc-content-number">1.2.</span> <span class="toc-content-text">FoodSeg103&#x2F;154</span></a></li></ol></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>

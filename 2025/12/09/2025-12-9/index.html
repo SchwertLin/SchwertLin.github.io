@@ -1,0 +1,157 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="有关分割的信息语义分割+卷积语义分割：不区分同类别的不同实例。 早期研究（2017）: 由卷积神经网络（CNN）主导，以全卷积网络（FCN）、DeepLab系列和Mask R-CNN为代表，确立了“编码器-解码器”（Encoder-Decoder）的标准架构范式。以扩大感受野为主。  [Mask RCNN cite:46840]He, Kaiming, et al. “Mask r-cnn.” P">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-12-9">
+<meta property="og:url" content="http://example.com/2025/12/09/2025-12-9/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="有关分割的信息语义分割+卷积语义分割：不区分同类别的不同实例。 早期研究（2017）: 由卷积神经网络（CNN）主导，以全卷积网络（FCN）、DeepLab系列和Mask R-CNN为代表，确立了“编码器-解码器”（Encoder-Decoder）的标准架构范式。以扩大感受野为主。  [Mask RCNN cite:46840]He, Kaiming, et al. “Mask r-cnn.” P">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/SchwertLin/Pic/main/imgimage-20251209175957802.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/SchwertLin/Pic/main/imgimage-20251209181336924.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/SchwertLin/Pic/main/imgimage-20251209181319223.png">
+<meta property="article:published_time" content="2025-12-09T07:28:22.000Z">
+<meta property="article:modified_time" content="2025-12-11T10:28:10.988Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="语义分割">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/SchwertLin/Pic/main/imgimage-20251209175957802.png"><title>2025-12-9 - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-12-9</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-12-09</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-12-11</time></div>
+
+<div class="post-tags"><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2/">语义分割</a></div></div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约2.1K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><h1 id="有关分割的信息"><a href="#有关分割的信息" class="headerlink" title="有关分割的信息"></a>有关分割的信息</h1><h2 id="语义分割-卷积"><a href="#语义分割-卷积" class="headerlink" title="语义分割+卷积"></a>语义分割+卷积</h2><p>语义分割：不区分同类别的不同实例。</p>
+<p>早期研究（2017）: 由卷积神经网络（CNN）主导，以全卷积网络（FCN）、DeepLab系列和Mask R-CNN为代表，确立了“编码器-解码器”（Encoder-Decoder）的标准架构范式。<strong>以扩大感受野为主。</strong></p>
+<blockquote>
+<p>[Mask RCNN cite:46840]He, Kaiming, et al. “Mask r-cnn.” <em>Proceedings of the IEEE international conference on computer vision</em>. 2017.</p>
+<p>[DeepLab cite:26157]Chen, Liang-Chieh, et al. “Deeplab: Semantic image segmentation with deep convolutional nets, atrous convolution, and fully connected crfs.” <em>IEEE transactions on pattern analysis and machine intelligence</em> 40.4 (2017): 834-848.</p>
+<p>[PSPNet cite:19248]Zhao, Hengshuang, et al. “Pyramid scene parsing network.” <em>Proceedings of the IEEE conference on computer vision and pattern recognition</em>. 2017.</p>
+</blockquote>
+<h3 id="DeepLab系列-空洞卷积dilated-conv"><a href="#DeepLab系列-空洞卷积dilated-conv" class="headerlink" title="DeepLab系列(空洞卷积dilated conv)"></a>DeepLab系列(空洞卷积dilated conv)</h3><p>Q：传统的CNN通过池化层（Pooling）逐步降低特征图分辨率以扩大感受野，但这导致了空间细节信息的不可逆丢失，使得分割边界模糊。（==下采样导致细节丢失==）</p>
+<p>A：DeepLab通过空洞卷积，在不降低特征图分辨率的情况下指数级扩大感受野。特别是<strong>DeepLabV3+</strong>，它结合了空洞空间金字塔池化（ASPP）模块，通过不同扩张率的并行卷积层捕获多尺度上下文信息，并引入了一个简单高效的解码器模块来恢复物体边缘细节。</p>
+<h3 id="PSPNet-Pyramid-Score-Parsing-Net"><a href="#PSPNet-Pyramid-Score-Parsing-Net" class="headerlink" title="PSPNet(Pyramid Score Parsing Net)"></a>PSPNet(Pyramid Score Parsing Net)</h3><p>A：提出了<strong>金字塔池化模块（Pyramid Pooling Module, PPM）</strong>。该模块将特征图划分为不同大小的子区域（如1x1, 2x2, 3x3, 6x6），分别进行池化操作并上采样，最后将不同尺度的全局先验信息与原始特征图拼接。</p>
+<h3 id="Mask-R-CNN-实例分割"><a href="#Mask-R-CNN-实例分割" class="headerlink" title="Mask R-CNN(实例分割)"></a>Mask R-CNN(实例分割)</h3><p>A：在Faster R-CNN检测框架之上，增加了一个并行的掩码预测分支。</p>
+<p>创新：提出了<strong>RoIAlign</strong>层，取代了传统的RoIPool。RoIAlign取消了坐标的量化取整操作，通过双线性插值精确提取特征，从而解决了<strong>特征图与原始图像之间的像素不对齐问题</strong>。这一改进对于生成精确的像素级掩码至关重要。</p>
+<h2 id="全景分割-LLM起步"><a href="#全景分割-LLM起步" class="headerlink" title="全景分割(?)+LLM起步"></a>全景分割(?)+LLM起步</h2><p>全景分割：统一语义分割（关注背景“Stuff”）和实例分割（关注前景“Things”）。</p>
+<p>近年(2017-2023):以Transformer为标志。ViT打破了卷积的局部性限制，引入了全局上下文建模能力。大模型开始崛起/2022年底，GPT发布。</p>
+<blockquote>
+<p>[!TIP]</p>
+<p>这个就非常的像SAM3的推理功能。</p>
+<p>[ViT cite:79811]Dosovitskiy, Alexey. “An image is worth 16x16 words: Transformers for image recognition at scale.” <em>arXiv preprint arXiv:2010.11929</em> (2020).</p>
+<p>[SegFormer cite:8360]Xie, Enze, et al. “SegFormer: Simple and efficient design for semantic segmentation with transformers.” <em>Advances in neural information processing systems</em> 34 (2021): 12077-12090.</p>
+<p>[OneFormer cite:632]Jain, Jitesh, et al. “Oneformer: One transformer to rule universal image segmentation.” <em>Proceedings of the IEEE/CVF conference on computer vision and pattern recognition</em>. 2023.</p>
+<p>[InternImage cite:1298,CVPR 2023 <strong>Highlight</strong>]Wang, Wenhai, et al. “Internimage: Exploring large-scale vision foundation models with deformable convolutions.” <em>Proceedings of the IEEE/CVF conference on computer vision and pattern recognition</em>. 2023.</p>
+</blockquote>
+<h3 id="SegFormer-简单高效-实时分割"><a href="#SegFormer-简单高效-实时分割" class="headerlink" title="SegFormer-简单高效/实时分割"></a>SegFormer-简单高效/实时分割</h3><p>A：解决了早期ViT在分割任务中计算量大、对位置编码敏感的问题。</p>
+<p>框架：</p>
+<ul>
+<li><strong>层次化结构</strong>：SegFormer采用类似CNN金字塔的层次化Transformer编码器，生成多尺度的特征图，这对于捕获大小不一的物体至关重要。</li>
+<li><strong>MLP解码器</strong>：其最令人惊讶的设计在于解码器极其简单，仅由几个全连接层（MLP）组成。这表明，只要编码器的特征足够强大（具备全局感受野），解码器可以非常轻量化。SegFormer在保持高效率的同时，在Cityscapes和ADE20K上均取得了优异性能，成为<strong>实时Transformer分割</strong>的首选 。 </li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/SchwertLin/Pic/main/imgimage-20251209175957802.png" alt="image-20251209175957802"></p>
+<h3 id="OneFormer-通用分割架构"><a href="#OneFormer-通用分割架构" class="headerlink" title="OneFormer-通用分割架构"></a>OneFormer-通用分割架构</h3><p>此前，MaskFormer和Mask2Former虽然统一了掩码分类范式，但在训练时仍需针对不同任务进行调整。  </p>
+<p>创新：</p>
+<ul>
+<li><p><strong>任务Token机制</strong>。OneFormer的核心创新在于引入了可学习的<strong>任务Token（Task Token）</strong>（例如 “The task is semantic segmentation”）。该Token作为查询条件输入模型，动态调节模型的注意力机制，使其在推理阶段能够根据指令在语义、实例或全景分割之间无缝切换。</p>
+</li>
+<li><p><strong>统一训练</strong>：OneFormer仅需在全景数据集上训练一次，即可在所有三个任务的基准测试中取得SOTA性能，极大地简化了训练流程和模型部署成本。</p>
+</li>
+</ul>
+<h3 id="InternImage-无敌参数量30B"><a href="#InternImage-无敌参数量30B" class="headerlink" title="InternImage-无敌参数量30B(?)"></a>InternImage-无敌参数量30B(?)</h3><p>创新：重新用回卷积，但是这个参数量是不是也太大了点？</p>
+<ul>
+<li><strong>可形变卷积v3 (DCNv3)</strong>：InternImage的核心算子是DCNv3。不同于ViT的全局自注意力（计算复杂度为二次方），DCNv3通过动态调整卷积核的采样位置来捕获长距离依赖，既保留了卷积的归纳偏置，又具备了类似Attention的自适应能力。</li>
+<li><strong>超大规模</strong>：InternImage成功将CNN扩展到了30亿参数规模，在COCO目标检测和ADE20K语义分割上均刷新了记录（ADE20K mIoU 62.9），证明了<strong>基于高级算子的CNN</strong>在基础模型时代仍有一席之地。</li>
+</ul>
+<h2 id="提示分割与SAM生态—-gt-开放词汇分割"><a href="#提示分割与SAM生态—-gt-开放词汇分割" class="headerlink" title="提示分割与SAM生态—&gt;开放词汇分割"></a>提示分割与SAM生态—&gt;开放词汇分割</h2><p>2023年4月，Meta AI发布的<strong>Segment Anything Model (SAM)</strong> 彻底改变了图像分割的研究方向。分割任务的目标不再仅仅是拟合某个数据集，而是构建能够响应任何提示（Prompt）的通用视觉基础模型。</p>
+<p>SAM的出现，将任务目标从封闭集合的类别预测转变为开放世界的“提示分割”；再结合LLM，则催生了“推理分割”（Reasoning Segmentation），赋予了模型理解复杂隐含指令的能力。</p>
+<blockquote>
+<p>[SAM cite:16088,ICCV2023]Kirillov, Alexander, et al. “Segment anything.” <em>Proceedings of the IEEE/CVF international conference on computer vision</em>. 2023.</p>
+<p>[SAM2 cite:2606]Ravi, Nikhila, et al. “Sam 2: Segment anything in images and videos.” <em>arXiv preprint arXiv:2408.00714</em> (2024).</p>
+</blockquote>
+<h3 id="SAM-基础模型"><a href="#SAM-基础模型" class="headerlink" title="SAM-基础模型"></a>SAM-基础模型</h3><blockquote>
+<p>[!NOTE]</p>
+<p>==为什么从SAM开始就叫Data Engine了？==</p>
+</blockquote>
+<p>Data Engine：SA-1B，1100w张img+11b的mask。</p>
+<p>超大数据集让SAM可以zero-shot泛化。</p>
+<p>架构：</p>
+<ul>
+<li><strong>图像编码器</strong>：使用重型ViT（如ViT-H）处理图像，生成一次性图像嵌入。</li>
+<li><strong>提示编码器</strong>：轻量级模块，将点、框、文本等提示映射为向量。</li>
+<li><strong>掩码解码器</strong>：基于Transformer的轻量级解码器，能在毫秒级时间内根据提示和图像嵌入生成掩码。</li>
+</ul>
+<p>歧义性处理：SAM承认分割的歧义性（例如，点击一个人的衬衫，是想分割衬衫还是整个人？），因此默认输出三个不同层级（整体、部分、子部分）的掩码。</p>
+<p><img src="https://raw.githubusercontent.com/SchwertLin/Pic/main/imgimage-20251209181336924.png" alt="image-20251209181336924"></p>
+<p><img src="https://raw.githubusercontent.com/SchwertLin/Pic/main/imgimage-20251209181319223.png" alt="image-20251209181319223"></p>
+<h3 id="基于SAM的改进“们”"><a href="#基于SAM的改进“们”" class="headerlink" title="基于SAM的改进“们”"></a>基于SAM的改进“们”</h3><h4 id="SAM2-扩展至视频"><a href="#SAM2-扩展至视频" class="headerlink" title="SAM2-扩展至视频"></a>SAM2-扩展至视频</h4><ul>
+<li><strong>流式记忆机制（Streaming Memory）</strong>：SAM 2的核心突破在于引入了记忆库。当在视频的第一帧分割了一个物体后，模型会将该物体的特征存储在记忆库中。处理后续帧时，模型不仅关注当前帧，还会通过注意力机制查询记忆库，从而实现对目标在遮挡、形变下的持续追踪。（==相当于是增加了内存开销？==）</li>
+<li><strong>统一架构</strong>：SAM 2将图像视为单帧视频，从而用一套架构统一了图像分割和视频对象分割（VOS）。在SA-V视频数据集上的测试表明，其性能大幅超越了传统的VOS方法，且交互次数减少了3倍 。  </li>
+</ul>
+<h4 id="HQ-SAM-改进细微处分割精度不足"><a href="#HQ-SAM-改进细微处分割精度不足" class="headerlink" title="HQ-SAM-改进细微处分割精度不足"></a>HQ-SAM-改进细微处分割精度不足</h4><ul>
+<li><strong>高频Token</strong>：HQ-SAM不改变SAM的预训练权重，而是引入了一个可学习的“高质量输出Token”到掩码解码器中。这个Token专门负责捕获高频细节信息。</li>
+<li><strong>数据微调</strong>：利用HQSeg-44K高精度数据集进行轻量级微调，使其在保持零样本能力的同时，大幅提升了边缘贴合度（IoU提升显著）。</li>
+</ul>
+<h4 id="FastSAM-基于YOLOv8"><a href="#FastSAM-基于YOLOv8" class="headerlink" title="FastSAM-基于YOLOv8"></a>FastSAM-基于YOLOv8</h4><blockquote>
+<p>现在都出到YOLOv12/13了</p>
+</blockquote>
+<h2 id="基于CLIP-融合文本和图片信息"><a href="#基于CLIP-融合文本和图片信息" class="headerlink" title="基于CLIP-融合文本和图片信息"></a>基于CLIP-融合文本和图片信息</h2><h3 id="SAM3-概念分割"><a href="#SAM3-概念分割" class="headerlink" title="SAM3 - 概念分割"></a>SAM3 - 概念分割</h3><h1 id="我的疑问"><a href="#我的疑问" class="headerlink" title="我的疑问"></a>我的疑问</h1><p>为什么只有mIoU的一个指标，对于Dice重叠度算一个/准确分类与否也算一个？关于语义分割的评估指标上。</p>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/12/23/%E5%88%B7%E9%A2%98%E6%97%A5%E8%AE%B0-1/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/11/24/2025-11-24/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#%E6%9C%89%E5%85%B3%E5%88%86%E5%89%B2%E7%9A%84%E4%BF%A1%E6%81%AF"><span class="toc-content-number">1.</span> <span class="toc-content-text">有关分割的信息</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2-%E5%8D%B7%E7%A7%AF"><span class="toc-content-number">1.1.</span> <span class="toc-content-text">语义分割+卷积</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#DeepLab%E7%B3%BB%E5%88%97-%E7%A9%BA%E6%B4%9E%E5%8D%B7%E7%A7%AFdilated-conv"><span class="toc-content-number">1.1.1.</span> <span class="toc-content-text">DeepLab系列(空洞卷积dilated conv)</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#PSPNet-Pyramid-Score-Parsing-Net"><span class="toc-content-number">1.1.2.</span> <span class="toc-content-text">PSPNet(Pyramid Score Parsing Net)</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#Mask-R-CNN-%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2"><span class="toc-content-number">1.1.3.</span> <span class="toc-content-text">Mask R-CNN(实例分割)</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E5%85%A8%E6%99%AF%E5%88%86%E5%89%B2-LLM%E8%B5%B7%E6%AD%A5"><span class="toc-content-number">1.2.</span> <span class="toc-content-text">全景分割(?)+LLM起步</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#SegFormer-%E7%AE%80%E5%8D%95%E9%AB%98%E6%95%88-%E5%AE%9E%E6%97%B6%E5%88%86%E5%89%B2"><span class="toc-content-number">1.2.1.</span> <span class="toc-content-text">SegFormer-简单高效&#x2F;实时分割</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#OneFormer-%E9%80%9A%E7%94%A8%E5%88%86%E5%89%B2%E6%9E%B6%E6%9E%84"><span class="toc-content-number">1.2.2.</span> <span class="toc-content-text">OneFormer-通用分割架构</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#InternImage-%E6%97%A0%E6%95%8C%E5%8F%82%E6%95%B0%E9%87%8F30B"><span class="toc-content-number">1.2.3.</span> <span class="toc-content-text">InternImage-无敌参数量30B(?)</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E6%8F%90%E7%A4%BA%E5%88%86%E5%89%B2%E4%B8%8ESAM%E7%94%9F%E6%80%81%E2%80%94-gt-%E5%BC%80%E6%94%BE%E8%AF%8D%E6%B1%87%E5%88%86%E5%89%B2"><span class="toc-content-number">1.3.</span> <span class="toc-content-text">提示分割与SAM生态—&gt;开放词汇分割</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#SAM-%E5%9F%BA%E7%A1%80%E6%A8%A1%E5%9E%8B"><span class="toc-content-number">1.3.1.</span> <span class="toc-content-text">SAM-基础模型</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%9F%BA%E4%BA%8ESAM%E7%9A%84%E6%94%B9%E8%BF%9B%E2%80%9C%E4%BB%AC%E2%80%9D"><span class="toc-content-number">1.3.2.</span> <span class="toc-content-text">基于SAM的改进“们”</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#SAM2-%E6%89%A9%E5%B1%95%E8%87%B3%E8%A7%86%E9%A2%91"><span class="toc-content-number">1.3.2.1.</span> <span class="toc-content-text">SAM2-扩展至视频</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#HQ-SAM-%E6%94%B9%E8%BF%9B%E7%BB%86%E5%BE%AE%E5%A4%84%E5%88%86%E5%89%B2%E7%B2%BE%E5%BA%A6%E4%B8%8D%E8%B6%B3"><span class="toc-content-number">1.3.2.2.</span> <span class="toc-content-text">HQ-SAM-改进细微处分割精度不足</span></a></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#FastSAM-%E5%9F%BA%E4%BA%8EYOLOv8"><span class="toc-content-number">1.3.2.3.</span> <span class="toc-content-text">FastSAM-基于YOLOv8</span></a></li></ol></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E5%9F%BA%E4%BA%8ECLIP-%E8%9E%8D%E5%90%88%E6%96%87%E6%9C%AC%E5%92%8C%E5%9B%BE%E7%89%87%E4%BF%A1%E6%81%AF"><span class="toc-content-number">1.4.</span> <span class="toc-content-text">基于CLIP-融合文本和图片信息</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#SAM3-%E6%A6%82%E5%BF%B5%E5%88%86%E5%89%B2"><span class="toc-content-number">1.4.1.</span> <span class="toc-content-text">SAM3 - 概念分割</span></a></li></ol></li></ol></li><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#%E6%88%91%E7%9A%84%E7%96%91%E9%97%AE"><span class="toc-content-number">2.</span> <span class="toc-content-text">我的疑问</span></a></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>

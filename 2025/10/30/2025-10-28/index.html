@@ -1,0 +1,163 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="实验说明数据 metadata: new_metadata.csv HSI 原始文件目录： processed_npy&#x2F; 有效样本数（过滤了无效 toxin_value）: 200 样本   值得说明的是：此处的样本数量是因为内存空间不足，导致目前仅能运行200样本。昨天已对服务器空间进行整理，后续可以用全部样本进行测量。   HSI 原始空间尺寸：多为 960×960（预处理会 resize 到">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Thu Oct 30 2025 00:00:00 GMT+0800 (中國標準時間)">
+<meta property="og:url" content="http://example.com/2025/10/30/2025-10-28/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="实验说明数据 metadata: new_metadata.csv HSI 原始文件目录： processed_npy&#x2F; 有效样本数（过滤了无效 toxin_value）: 200 样本   值得说明的是：此处的样本数量是因为内存空间不足，导致目前仅能运行200样本。昨天已对服务器空间进行整理，后续可以用全部样本进行测量。   HSI 原始空间尺寸：多为 960×960（预处理会 resize 到">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/SchwertLin/Pic/main/imgFigure_1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/SchwertLin/Pic/main/imgimage-20251102001925441.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/SchwertLin/Pic/main/imgimage-20251106114412890.png">
+<meta property="article:published_time" content="2025-10-30T01:54:34.000Z">
+<meta property="article:modified_time" content="2025-11-13T07:10:29.775Z">
+<meta property="article:author" content="Schwertlilien">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/SchwertLin/Pic/main/imgFigure_1.png"><title>Thu Oct 30 2025 00:00:00 GMT+0800 (中國標準時間) - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>Thu Oct 30 2025 00:00:00 GMT+0800 (中國標準時間)</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-10-30</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-11-13</time></div>
+
+</div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约1.8K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><h1 id="实验说明"><a href="#实验说明" class="headerlink" title="实验说明"></a>实验说明</h1><h2 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h2><ul>
+<li>metadata: new_metadata.csv</li>
+<li>HSI 原始文件目录： processed_npy/</li>
+<li>有效样本数（过滤了无效 toxin_value）: <strong>200 样本</strong></li>
+</ul>
+<blockquote>
+<p><strong>值得说明的是：</strong>此处的样本数量是因为内存空间不足，导致目前仅能运行200样本。昨天已对服务器空间进行整理，后续可以用全部样本进行测量。</p>
+</blockquote>
+<ul>
+<li>HSI 原始空间尺寸：多为 960×960（预处理会 resize 到 target_size）</li>
+<li>目标尺寸：256×256</li>
+<li>CBAM 检测到的 common spectral channels: 600（preprocess_data 输出）；实际用于训练时由 loader 返回的 channels = detected_input_channels（本实验自动使用该值构造模型）</li>
+<li>注意：部分 .npy 文件存在 header/大小不一致（示例：6-22.npy），已在 loader 中做容错（记录 bad_npy.log，并在必要时填充/裁剪）</li>
+</ul>
+<h2 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h2><p>已统一并复用 <code>CBAM_model.py</code> 的预处理流程（preprocess_data）：</p>
+<ul>
+<li>HSI:<ul>
+<li>resize -&gt; target_size (256×256)</li>
+<li>统一通道数推断/重采样（使用 CBAM 的 channel inference / resample 逻辑）</li>
+<li>全局 per-channel mean/std 计算并应用（Z-score 标准化） — 这保证 Fusion 与 CBAM 在 HSI 数值尺度上一致</li>
+</ul>
+</li>
+<li>Fluor (Value_Raw):<ul>
+<li>计算并记录 mean/std，training 时可做标准化（preprocess_data 已计算并可返回 scaler）</li>
+</ul>
+</li>
+<li>Toxin label:<ul>
+<li>计算并缓存 MinMax (或其他) scaler（preprocess_data 输出 label_scaler）</li>
+</ul>
+</li>
+<li>RGB:<ul>
+<li>通过 metadata 尝试定位并读取图像（若找不到，返回全零张量）；图像被 resize 到 target_size 并 ToTensor()</li>
+</ul>
+</li>
+</ul>
+<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><p>选用了不同的encoder对各个模态的数据提取特征之后，进行特征融合。此处选择了晚期融合的四种方式。</p>
+<ol>
+<li><strong>CBAMFusion</strong>: HSI 用 CBAM 卷积路径，RGB 用 ResNet18（fc 替换），Fluor 用小 MLP，late fusion（concat -&gt; fc）</li>
+<li><strong>SimpleFusion</strong>: 简单 late fusion（HSI-CNN + ResNet18 + Fluor-MLP -&gt; concat -&gt; classifier）</li>
+<li><strong>AttentionFusion</strong>: 3 模态特征后用小注意力网络学习加权融合</li>
+<li><strong>WeightedLateFusion</strong>: 可学习的模态权重（参数化向量 -&gt; softmax）</li>
+</ol>
+<h2 id="实验配置"><a href="#实验配置" class="headerlink" title="实验配置"></a>实验配置</h2><p>训练/验证划分：由 preprocess_data 返回（使用其默认划分策略）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">metadata_csv = <span class="string">&quot;/Users/.../processed_npy/new_metadata.csv&quot;</span></span><br><span class="line">npy_root = <span class="string">&quot;/Users/.../processed_npy&quot;</span></span><br><span class="line">batch_size = <span class="number">8</span></span><br><span class="line">num_epochs = <span class="number">50</span></span><br><span class="line">device = cpu (若 GPU 可用则自动使用 cuda)</span><br><span class="line">target_spectral_channels: <span class="number">30</span> （脚本中设置，但实际使用 detected channels）</span><br><span class="line">target_size = (<span class="number">256</span>, <span class="number">256</span>)</span><br><span class="line">optimizer = AdamW(model.parameters(), lr=<span class="number">1e-4</span>, weight_decay=<span class="number">1e-5</span>)</span><br><span class="line">loss = MSELoss()</span><br><span class="line">grad clipping: clip_grad_norm_ max_norm = <span class="number">1.0</span></span><br><span class="line">hidden_dim = <span class="number">128</span></span><br><span class="line">ResNet backbone: pretrained ResNet18 (weights handled <span class="keyword">with</span> torchvision API compatibility)</span><br></pre></td></tr></table></figure>
+<h2 id="实验运行结果"><a href="#实验运行结果" class="headerlink" title="实验运行结果"></a>实验运行结果</h2><p>评估指标选用：MAE、RMSE、R²</p>
+<ul>
+<li><p>训练时长：450min（例如：每 epoch 平均 3 分钟）</p>
+</li>
+<li><p>最佳验证 loss (MSE): 0.0006</p>
+<p>CBAMFusion      | MAE: 4.0241 | R²: 0.9961 | RMSE: 4.6529<br>SimpleFusion    | MAE: 3.5551 | R²: 0.9969 | RMSE: 4.1378<br>AttentionFusion | MAE: 2.7030 | R²: 0.9978 | RMSE: 3.4530<br>WeightedFusion  | MAE: 3.2109 | R²: 0.9970 | RMSE: 4.0845</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/SchwertLin/Pic/main/imgFigure_1.png" alt="Figure_1"></p>
+<p>我现在需要做一个消融实验，也就是对三种模态的数据检测：高光谱，rgb，荧光值分别单独输入模型得到的结果，从三个模态中选两个得到的结果，以及三个模态全用得到的训练结果。</p>
+<p>CBAMFusion      | MAE: 3.5327 | R²: 0.9967 | RMSE: 4.2312<br>SimpleFusion    | MAE: 3.6707 | R²: 0.9966 | RMSE: 4.3289<br>AttentionFusion | MAE: 2.5240 | R²: 0.9981 | RMSE: 3.2732<br>WeightedFusion  | MAE: 2.9873 | R²: 0.9973 | RMSE: 3.8291</p>
+<p><img src="https://raw.githubusercontent.com/SchwertLin/Pic/main/imgimage-20251102001925441.png" alt="image-20251102001925441"></p>
+<p>找</p>
+<p>我的数据集是具有三模态的数据高光谱.spe+.hdr，荧光值（标量），以及原始rgb图像.bmp.假如说我想按照我的数据集来加载入这个I2MoE的方法，用I2MoE的方法在我的数据集上训练得到回归数值的结果。那么我首先需要在/Users/schwertlilien/Downloads/test/I2MoE-main/src/common/datasets中加载入我的数据集，其模态是HRF（hsi，rgb，flour）。预测结果是回归得到数值。然后再在train_transformer.py中加载我的数据集，然后在/Users/schwertlilien/Downloads/test/I2MoE-main/scripts/train_scripts/imoe/transformer中写入脚本，我是否就能成功运行？首先告诉我我想要得到结果“用I2MoE的方法在我的数据集上训练得到回归数值的结果。”这个的步骤是否正确，然后指导我一步步的做。我的数据集的数据处理部分你可以参考/Users/schwertlilien/Downloads/test/I2MoE-main/CBAM_model.py，以及/Users/schwertlilien/Downloads/test/I2MoE-main/Fusion.py，/Users/schwertlilien/Downloads/test/I2MoE-main/src/common/datasets/mosi.py中的内容，并告知我如何一步步完成我的目的。需要说明的是，因为我的数据是三模态，做的回归任务，因此我认为也可以借鉴：/Users/schwertlilien/Downloads/test/I2MoE-main/src/common/datasets/mosi.py中的def load_and_preprocess_data_mosi_regression(args)</p>
+<p>再次训练了一下，得到的结果是：</p>
+<p>🎯 WeightedFusion 训练完成!<br>⏰ 总用时: 1407.15 秒 (23.45 分钟)<br>📊 平均每轮用时: 28.14 秒<br>✅ WeightedFusion Results:<br>   MAE: 315382.7500, R²: 0.2437, RMSE: 356854.2667</p>
+<p>MODEL COMPARISON RESULTS</p>
+<p>CBAMFusion      | MAE: 260728.6562 | R²: 0.4745 | RMSE: 297479.2839<br>SimpleFusion    | MAE: 225593.0156 | R²: 0.6269 | RMSE: 250650.9322<br>AttentionFusion | MAE: 184261.1094 | R²: 0.7401 | RMSE: 209189.9109<br>WeightedFusion  | MAE: 315382.7500 | R²: 0.2437 | RMSE: 356854.2667</p>
+<p>I2MoE：</p>
+<p>Best model saved to ./saves/imoe/transformer/hrf_regression/seed_0_modality_HRF_train_epochs_100_val_loss_0.00.pth<br>Weight sum statistics: min=0.9999998807907104, max=1.0000001192092896<br>{‘model’: ‘Interaction-MoE-Transformer’, ‘lr’: 0.0001, ‘temperature_rw’: 1, ‘hidden_dim_rw’: 256, ‘num_layer_rw’: 1, ‘interaction_loss_weight’: 0.01, ‘modality’: ‘HRF’, ‘data’: ‘hrf_regression’, ‘gate_loss_weight’: 0.01, ‘train_epochs’: 100, ‘num_experts’: 16, ‘num_layers_enc’: 1, ‘num_layers_fus’: 1, ‘num_layers_pred’: 1, ‘num_heads’: 4, ‘batch_size’: 2, ‘hidden_dim’: 128, ‘num_patches’: 16}<br>[Val] Average Loss: 0.0000 ± 0.0000<br>[Test] Mean Absolute Error: 0.0045 ± 0.0000</p>
+<p>无语了</p>
+<p><img src="https://raw.githubusercontent.com/SchwertLin/Pic/main/imgimage-20251106114412890.png" alt="image-20251106114412890"></p>
+<p>一些训练结果：Epoch 57/100 | LR: 4.83e-05 | Train Loss: 0.0039 | Val Loss: 0.0004 | Val R²: 0.8296 | Trigger: 11/15<br>Epoch 58/100: 100%|███████████████████████████████████████| 5/5 [00:56&lt;00:00, 11.40s/it]<br>Epoch 58/100 | LR: 4.65e-05 | Train Loss: 0.0041 | Val Loss: 0.0005 | Val R²: 0.7489 | Trigger: 12/15<br>Epoch 59/100: 100%|███████████████████████████████████████| 5/5 [00:54&lt;00:00, 10.90s/it]<br>Epoch 59/100 | LR: 4.48e-05 | Train Loss: 0.0059 | Val Loss: 0.0005 | Val R²: 0.7174 | Trigger: 13/15<br>Epoch 60/100: 100%|███████████████████████████████████████| 5/5 [00:53&lt;00:00, 10.79s/it]<br>Epoch 60/100 | LR: 4.30e-05 | Train Loss: 0.0063 | Val Loss: 0.0004 | Val R²: 0.8041 | Trigger: 14/15<br>Epoch 61/100: 100%|███████████████████████████████████████| 5/5 [00:54&lt;00:00, 10.86s/it]<br>Early stopping triggered! No improvement for 15 consecutive epochs.</p>
+<p>Training complete. Best model at epoch 46: R²: 0.8705, Loss: 0.0003<br>Toxin min=2139.00931444048, Toxin max=9499122.31743333</p>
+<p>—- Final Model Evaluation —-<br>Final performance on test set:<br>MAE (original scale): 123147.8203<br>R² Score (original scale): 0.7876<br>Best model achieved R²: 0.8705 at epoch 46</p>
+<p>[Seed 0/2] [Epoch 99/100] Task Loss: 1.90, Router Loss: 0.00 / Val Loss: 1.90, Val MAE: 2.41</p>
+<p>[Seed 0/2] [Epoch 100/100] Task Loss: 1.87, Router Loss: 0.00 / Val Loss: 1.87, Val MAE: 2.39</p>
+<p>再写一个PPT的，对结果进行总结</p>
+<p>CBAM原模型：</p>
+<p>Training complete. Best model at epoch 18: R²: 0.6562, Loss: 0.0002<br>Toxin min=2057.80681921, Toxin max=15012381.5119922</p>
+<p>—- Final Model Evaluation —-<br>Final performance on test set:<br>MAE (original scale): 116817.9766<br>R² Score (original scale): 0.6562<br>Best model achieved R²: 0.6562 at epoch 18</p>
+<p>CBAM fusion：144793.4844, R²: 0.6314, RMSE: 245337.0193</p>
+<p>SimpleFusion：120648.1797, R²: 0.6279, RMSE: 246501.0411</p>
+<p>120648.1797, R²: 0.6279, RMSE: 246501.0411</p>
+<p>Attn：125674.0234, R²: 0.6734, RMSE: 230937.7103</p>
+<p>MODEL COMPARISON RESULTS</p>
+<p>CBAMFusion      | MAE: 104706.8516 | R²: 0.6597 | RMSE: 235736.8306<br>SimpleFusion    | MAE: 154869.4531 | R²: 0.6070 | RMSE: 253328.5654<br>AttentionFusion | MAE: 125674.0234 | R²: 0.6734 | RMSE: 230937.7103<br>WeightedFusion  | MAE: 120461.5312 | R²: 0.6496 | RMSE: 239227.2487</p>
+<p>子集测试+消融实验—&gt;定位问题</p>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/11/10/2025-11-10/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/10/17/2025-10-17/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#%E5%AE%9E%E9%AA%8C%E8%AF%B4%E6%98%8E"><span class="toc-content-number">1.</span> <span class="toc-content-text">实验说明</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E6%95%B0%E6%8D%AE"><span class="toc-content-number">1.1.</span> <span class="toc-content-text">数据</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-content-number">1.2.</span> <span class="toc-content-text">数据预处理</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E6%A8%A1%E5%9E%8B"><span class="toc-content-number">1.3.</span> <span class="toc-content-text">模型</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E5%AE%9E%E9%AA%8C%E9%85%8D%E7%BD%AE"><span class="toc-content-number">1.4.</span> <span class="toc-content-text">实验配置</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E5%AE%9E%E9%AA%8C%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C"><span class="toc-content-number">1.5.</span> <span class="toc-content-text">实验运行结果</span></a></li></ol></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>

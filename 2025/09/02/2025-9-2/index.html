@@ -1,0 +1,185 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="CVPR2024: OVFoodSeg: Elevating Open-Vocabulary Food Image Segmentation via Image-Informed Textual Representation  以two-stage训练 一、Stage I：FoodLearner Pre-training 的 Loss总目标Stage I 是 FoodLearner 预训练，要解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2025-9-2">
+<meta property="og:url" content="http://example.com/2025/09/02/2025-9-2/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="CVPR2024: OVFoodSeg: Elevating Open-Vocabulary Food Image Segmentation via Image-Informed Textual Representation  以two-stage训练 一、Stage I：FoodLearner Pre-training 的 Loss总目标Stage I 是 FoodLearner 预训练，要解">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-09-02T09:02:38.000Z">
+<meta property="article:modified_time" content="2025-09-03T08:39:15.769Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="论文阅读">
+<meta name="twitter:card" content="summary"><title>2025-9-2 - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-9-2</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-09-02</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-09-03</time></div>
+
+<div class="post-tags"><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a></div></div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约1.2K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><blockquote>
+<p>CVPR2024: OVFoodSeg: Elevating Open-Vocabulary Food Image Segmentation via Image-Informed Textual Representation</p>
+</blockquote>
+<p>以two-stage训练</p>
+<h1 id="一、Stage-I：FoodLearner-Pre-training-的-Loss"><a href="#一、Stage-I：FoodLearner-Pre-training-的-Loss" class="headerlink" title="一、Stage I：FoodLearner Pre-training 的 Loss"></a>一、Stage I：FoodLearner Pre-training 的 Loss</h1><h3 id="总目标"><a href="#总目标" class="headerlink" title="总目标"></a>总目标</h3><p>Stage I 是 <strong>FoodLearner 预训练</strong>，要解决的问题：</p>
+<ul>
+<li><strong>ITC Loss</strong> → 图文全局对齐（image-text matching at embedding level）</li>
+<li><strong>ITM Loss</strong> → 图文局部匹配（二分类 matching/not matching）</li>
+<li><strong>LM Loss</strong> → 保证 FoodLearner 真的把视觉知识“注入”到文本中</li>
+</ul>
+<h2 id="1-ITC-Loss-Image-Text-Contrastive-Loss"><a href="#1-ITC-Loss-Image-Text-Contrastive-Loss" class="headerlink" title="1. ITC Loss (Image-Text Contrastive Loss)"></a>1. ITC Loss (Image-Text Contrastive Loss)</h2><h3 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h3><p>$L_{ITC} = \frac{1}{2}\big(CE(p_{t2i}, GT_{t2i}) + CE(p_{i2t}, GT_{i2t})\big)$</p>
+<h3 id="符号"><a href="#符号" class="headerlink" title="符号"></a>符号</h3><ul>
+<li>$\hat{T}_{query}$：图像经过 FoodLearner 得到的 query tokens（视觉增强后的表示）。</li>
+<li>$\hat{T}_{text}$：文本经过 FoodLearner 得到的文本 tokens。</li>
+<li>$\phi$：温度参数，控制分布的尖锐程度（越大越“硬”）。</li>
+<li>$\langle a, b \rangle$：余弦相似度（cosine similarity）。</li>
+<li>$p_{t2i}$：<strong>text-to-image 相似度概率分布</strong>，表示给定一段文本，它和不同图像匹配的概率。</li>
+<li>$p_{i2t}$：<strong>image-to-text 相似度概率分布</strong>，表示给定一张图，它和不同文本匹配的概率。</li>
+<li>$GT_{t2i}, GT_{i2t}$：真实标签（1 表示配对正确，0 表示错误）。</li>
+</ul>
+<h3 id="设计-ITC？"><a href="#设计-ITC？" class="headerlink" title="设计 ITC？"></a>设计 ITC？</h3><ul>
+<li>CLIP 训练的核心思想就是用 <strong>对比学习</strong> 让图像和文本 embedding 在语义空间对齐。</li>
+<li>在 FoodLearner 里保留 ITC，可以保证增强后的 embedding 仍然能维持这种 <strong>跨模态对齐能力</strong>。</li>
+</ul>
+<h2 id="2-ITM-Loss-Image-Text-Matching-Loss"><a href="#2-ITM-Loss-Image-Text-Matching-Loss" class="headerlink" title="2. ITM Loss (Image-Text Matching Loss)"></a>2. ITM Loss (Image-Text Matching Loss)</h2><h3 id="公式-1"><a href="#公式-1" class="headerlink" title="公式"></a>公式</h3><p>$L_{ITM} = CE(p_{itm}, GT_{itm})$$p_{itm} = \frac{1}{Q}\sum_{t=1}^Q FC(\tilde{T}^t_{query})$</p>
+<h3 id="符号解释"><a href="#符号解释" class="headerlink" title="符号解释"></a>符号解释</h3><ul>
+<li>$Q$：query token 的数量。</li>
+<li>$\tilde{T}_{query}$：图像 embedding + 文本 token 一起输入 FoodLearner 后得到的 multimodal token 表示。</li>
+<li>$FC(\cdot)$：全连接层输出一个概率。</li>
+<li>$p_{itm}$：预测的图文是否匹配的概率。</li>
+<li>$GT_{itm}$：ground truth（1 表示匹配，0 表示不匹配）。</li>
+</ul>
+<h3 id="为什么设计-ITM？"><a href="#为什么设计-ITM？" class="headerlink" title="为什么设计 ITM？"></a>为什么设计 ITM？</h3><ul>
+<li>ITC 是全局对齐，但可能忽略了细节。</li>
+<li>ITM 强制模型 <strong>逐对判断</strong> “这张图片和这句话是不是一对”，</li>
+<li>能让模型更细粒度地学习对齐关系。</li>
+<li>这也是很多 VLM（比如 BLIP2）常用的 trick。</li>
+</ul>
+<h2 id="3-LM-Loss-Language-Modeling-Loss"><a href="#3-LM-Loss-Language-Modeling-Loss" class="headerlink" title="3. LM Loss (Language Modeling Loss)"></a>3. LM Loss (Language Modeling Loss)</h2><h3 id="公式-2"><a href="#公式-2" class="headerlink" title="公式"></a>公式</h3><p>$L_{LM} = \frac{1}{W}\sum_{w=1}^W CE(p^w_{word}, GT_{word})$</p>
+<h3 id="符号解释-1"><a href="#符号解释-1" class="headerlink" title="符号解释"></a>符号解释</h3><ul>
+<li>$W$：句子中的 token 数。</li>
+<li>$T_{text}$：文本 tokens。</li>
+<li>$\hat{T}_{query}$：FoodLearner 生成的 query tokens，包含视觉信息。</li>
+<li>$\tilde{T}_{text} = FL(NULL, \hat{T}_{query}; T_{text})$：融合 query 和文本后得到的新文本 token 序列。</li>
+<li>$p^w_{word} = FC(\tilde{T}^w_{text})$：预测第 $w$ 个 token 的概率分布（softmax over vocabulary）。<ul>
+<li><strong>含义</strong>：在看到前面 token 和 query 的条件下，预测第 $w$ 个词是哪个词。</li>
+</ul>
+</li>
+<li>$GT_{word}$：真实的第 $w$ 个词。</li>
+</ul>
+<h3 id="为什么设计-LM？"><a href="#为什么设计-LM？" class="headerlink" title="为什么设计 LM？"></a>为什么设计 LM？</h3><ul>
+<li>如果只做 ITC/ITM，FoodLearner 可能只学到 <strong>embedding 层面的对齐</strong>，而没有真正把视觉知识“写进”文本 embedding。</li>
+<li>LM loss 让模型尝试 <strong>在文本生成中使用视觉信息</strong>，从而保证文本 embedding 真正带有图像特征。</li>
+<li>类似于“图像指导下的语言建模”。</li>
+</ul>
+<hr>
+<h2 id="Stage-I-总损失"><a href="#Stage-I-总损失" class="headerlink" title="Stage I 总损失"></a>Stage I 总损失</h2><p>$L_{StageI} = L_{ITC} + L_{ITM} + L_{LM}$</p>
+<p>👉 三者结合：</p>
+<ul>
+<li>ITC 保证语义空间对齐</li>
+<li>ITM 保证图文匹配更精细</li>
+<li>LM 保证视觉信息融入文本</li>
+</ul>
+<hr>
+<h1 id="二、Stage-II：Segmentation-Learning-的-Loss"><a href="#二、Stage-II：Segmentation-Learning-的-Loss" class="headerlink" title="二、Stage II：Segmentation Learning 的 Loss"></a>二、Stage II：Segmentation Learning 的 Loss</h1><p>Stage II 主要任务是 <strong>open-vocabulary segmentation</strong>，所以损失函数分为两个部分：<strong>分类 + 掩码</strong>。</p>
+<hr>
+<h2 id="1-分类损失（Cross-Entropy）"><a href="#1-分类损失（Cross-Entropy）" class="headerlink" title="1. 分类损失（Cross-Entropy）"></a>1. 分类损失（Cross-Entropy）</h2><h3 id="公式-3"><a href="#公式-3" class="headerlink" title="公式"></a>公式</h3><p>$P^i_{cls} = \frac{\exp(\tau \cdot \langle T_{proposal}, \tilde{E}^i_{text}\rangle)}{\sum_j \exp(\tau \cdot \langle T_{proposal}, \tilde{E}^j_{text}\rangle)}$$L_{cls} = CE(P_{cls}, GT_{cls})$</p>
+<h3 id="符号解释-2"><a href="#符号解释-2" class="headerlink" title="符号解释"></a>符号解释</h3><ul>
+<li>$T_{proposal}$：来自 SAN 的 region-level token（对应图像某个区域）。</li>
+<li>$\tilde{E}^i_{text}$：image-informed 的第 $i$ 类文本 embedding。</li>
+<li>$\langle \cdot, \cdot \rangle$：余弦相似度。</li>
+<li>$\tau$：温度参数（论文里设为 100）。</li>
+<li>$P^i_{cls}$：proposal 属于第 $i$ 类的概率。</li>
+<li>$GT_{cls}$：proposal 的真实类别。</li>
+</ul>
+<h3 id="为什么用-Cross-Entropy？"><a href="#为什么用-Cross-Entropy？" class="headerlink" title="为什么用 Cross-Entropy？"></a>为什么用 Cross-Entropy？</h3><ul>
+<li>分类任务标准做法就是 softmax + CE。</li>
+<li>能最大化正确类别的概率，同时压低错误类别的概率。</li>
+</ul>
+<hr>
+<h2 id="2-掩码损失（Dice-Loss）"><a href="#2-掩码损失（Dice-Loss）" class="headerlink" title="2. 掩码损失（Dice Loss）"></a>2. 掩码损失（Dice Loss）</h2><h3 id="公式-4"><a href="#公式-4" class="headerlink" title="公式"></a>公式</h3><p>$L_{mask} = Dice(P_{mask}, GT_{mask})$</p>
+<h3 id="符号解释-3"><a href="#符号解释-3" class="headerlink" title="符号解释"></a>符号解释</h3><ul>
+<li>$P_{mask}$：预测的二值 mask（像素概率）。</li>
+<li>$GT_{mask}$：真实的分割掩码。</li>
+</ul>
+<p>Dice 系数公式（用于衡量两个集合的重叠度）：</p>
+<p>$Dice(A, B) = \frac{2|A \cap B|}{|A| + |B|}$</p>
+<p>Dice Loss = $1 - Dice$。</p>
+<h3 id="为什么选-Dice-Loss？"><a href="#为什么选-Dice-Loss？" class="headerlink" title="为什么选 Dice Loss？"></a>为什么选 Dice Loss？</h3><ul>
+<li>在分割任务里，类别经常不平衡（前景小，背景大）。</li>
+<li>Dice Loss 专门解决这个问题，因为它直接衡量 <strong>预测区域和真实区域的重叠程度</strong>。</li>
+<li>比 CE 更适合 mask 预测。</li>
+</ul>
+<h2 id="Stage-II-总损失"><a href="#Stage-II-总损失" class="headerlink" title="Stage II 总损失"></a>Stage II 总损失</h2><p>$L_{StageII} = L_{cls} + L_{mask}$</p>
+<h1 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h1><ul>
+<li><strong>Stage I (FoodLearner Pre-training)</strong><ul>
+<li>ITC：全局语义对齐（保证 embedding 匹配）。</li>
+<li>ITM：细粒度对齐（二分类匹配任务）。</li>
+<li>LM：把图像知识融入文本表示。</li>
+</ul>
+</li>
+<li><strong>Stage II (Segmentation Learning)</strong><ul>
+<li>CE 分类损失：保证区域分类正确。</li>
+<li>Dice 掩码损失：保证像素分割正确，特别适合前景稀疏的场景。</li>
+</ul>
+</li>
+</ul>
+</div><div class="post-end"><div class="post-prev"><a href="/2025/09/03/2025-9-3/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/09/01/2025-9-1/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#%E4%B8%80%E3%80%81Stage-I%EF%BC%9AFoodLearner-Pre-training-%E7%9A%84-Loss"><span class="toc-content-number">1.</span> <span class="toc-content-text">一、Stage I：FoodLearner Pre-training 的 Loss</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E6%80%BB%E7%9B%AE%E6%A0%87"><span class="toc-content-number">1.0.1.</span> <span class="toc-content-text">总目标</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#1-ITC-Loss-Image-Text-Contrastive-Loss"><span class="toc-content-number">1.1.</span> <span class="toc-content-text">1. ITC Loss (Image-Text Contrastive Loss)</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%85%AC%E5%BC%8F"><span class="toc-content-number">1.1.1.</span> <span class="toc-content-text">公式</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E7%AC%A6%E5%8F%B7"><span class="toc-content-number">1.1.2.</span> <span class="toc-content-text">符号</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E8%AE%BE%E8%AE%A1-ITC%EF%BC%9F"><span class="toc-content-number">1.1.3.</span> <span class="toc-content-text">设计 ITC？</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#2-ITM-Loss-Image-Text-Matching-Loss"><span class="toc-content-number">1.2.</span> <span class="toc-content-text">2. ITM Loss (Image-Text Matching Loss)</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%85%AC%E5%BC%8F-1"><span class="toc-content-number">1.2.1.</span> <span class="toc-content-text">公式</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E7%AC%A6%E5%8F%B7%E8%A7%A3%E9%87%8A"><span class="toc-content-number">1.2.2.</span> <span class="toc-content-text">符号解释</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AE%BE%E8%AE%A1-ITM%EF%BC%9F"><span class="toc-content-number">1.2.3.</span> <span class="toc-content-text">为什么设计 ITM？</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#3-LM-Loss-Language-Modeling-Loss"><span class="toc-content-number">1.3.</span> <span class="toc-content-text">3. LM Loss (Language Modeling Loss)</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%85%AC%E5%BC%8F-2"><span class="toc-content-number">1.3.1.</span> <span class="toc-content-text">公式</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E7%AC%A6%E5%8F%B7%E8%A7%A3%E9%87%8A-1"><span class="toc-content-number">1.3.2.</span> <span class="toc-content-text">符号解释</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AE%BE%E8%AE%A1-LM%EF%BC%9F"><span class="toc-content-number">1.3.3.</span> <span class="toc-content-text">为什么设计 LM？</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#Stage-I-%E6%80%BB%E6%8D%9F%E5%A4%B1"><span class="toc-content-number">1.4.</span> <span class="toc-content-text">Stage I 总损失</span></a></li></ol></li><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#%E4%BA%8C%E3%80%81Stage-II%EF%BC%9ASegmentation-Learning-%E7%9A%84-Loss"><span class="toc-content-number">2.</span> <span class="toc-content-text">二、Stage II：Segmentation Learning 的 Loss</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#1-%E5%88%86%E7%B1%BB%E6%8D%9F%E5%A4%B1%EF%BC%88Cross-Entropy%EF%BC%89"><span class="toc-content-number">2.1.</span> <span class="toc-content-text">1. 分类损失（Cross-Entropy）</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%85%AC%E5%BC%8F-3"><span class="toc-content-number">2.1.1.</span> <span class="toc-content-text">公式</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E7%AC%A6%E5%8F%B7%E8%A7%A3%E9%87%8A-2"><span class="toc-content-number">2.1.2.</span> <span class="toc-content-text">符号解释</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E7%94%A8-Cross-Entropy%EF%BC%9F"><span class="toc-content-number">2.1.3.</span> <span class="toc-content-text">为什么用 Cross-Entropy？</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#2-%E6%8E%A9%E7%A0%81%E6%8D%9F%E5%A4%B1%EF%BC%88Dice-Loss%EF%BC%89"><span class="toc-content-number">2.2.</span> <span class="toc-content-text">2. 掩码损失（Dice Loss）</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%85%AC%E5%BC%8F-4"><span class="toc-content-number">2.2.1.</span> <span class="toc-content-text">公式</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E7%AC%A6%E5%8F%B7%E8%A7%A3%E9%87%8A-3"><span class="toc-content-number">2.2.2.</span> <span class="toc-content-text">符号解释</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%80%89-Dice-Loss%EF%BC%9F"><span class="toc-content-number">2.2.3.</span> <span class="toc-content-text">为什么选 Dice Loss？</span></a></li></ol></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#Stage-II-%E6%80%BB%E6%8D%9F%E5%A4%B1"><span class="toc-content-number">2.3.</span> <span class="toc-content-text">Stage II 总损失</span></a></li></ol></li><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#%E4%B8%89%E3%80%81%E6%80%BB%E7%BB%93"><span class="toc-content-number">3.</span> <span class="toc-content-text">三、总结</span></a></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>
