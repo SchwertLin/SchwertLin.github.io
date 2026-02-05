@@ -1,0 +1,239 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="数据这块持续推进。 但是对于方法这块我需要再斟酌： 1.我原先的使用强化学习的方法要全部放弃吗？是不是可以融入进来？ 2.这个相关的方法需要怎么写？ 3.实验方法&#x2F;对比方法&#x2F;消融实验我需要写表格写文档。  一句话说我要做的事情： 提高分割混合中餐菜品的精度。  Intro 回答：  为什么要做中餐？已答。 为什么要做语义分割？因为目标检测的精度不够。 为什么现有的方法失效了？ 为什么我的方法就会有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2026-1-4">
+<meta property="og:url" content="http://example.com/2026/01/04/2026-1-4/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="数据这块持续推进。 但是对于方法这块我需要再斟酌： 1.我原先的使用强化学习的方法要全部放弃吗？是不是可以融入进来？ 2.这个相关的方法需要怎么写？ 3.实验方法&#x2F;对比方法&#x2F;消融实验我需要写表格写文档。  一句话说我要做的事情： 提高分割混合中餐菜品的精度。  Intro 回答：  为什么要做中餐？已答。 为什么要做语义分割？因为目标检测的精度不够。 为什么现有的方法失效了？ 为什么我的方法就会有">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-01-04T12:22:58.000Z">
+<meta property="article:modified_time" content="2026-01-17T02:41:06.260Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="食品计算">
+<meta name="twitter:card" content="summary"><title>2026-1-4 - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2026-1-4</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2026-01-04</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2026-01-17</time></div>
+<div class="post-categories"><i class="icon fa-regular fa-folder-open" title="分类"></i><a class="post-category" href="/categories/%E5%B7%A5%E4%BD%9C/">工作</a></div>
+<div class="post-tags"><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E9%A3%9F%E5%93%81%E8%AE%A1%E7%AE%97/">食品计算</a></div></div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约3.2K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><p>数据这块持续推进。</p>
+<p>但是对于方法这块我需要再斟酌：</p>
+<p>1.我原先的使用强化学习的方法要全部放弃吗？是不是可以融入进来？</p>
+<p>2.这个相关的方法需要怎么写？</p>
+<p>3.实验方法/对比方法/消融实验我需要写表格写文档。</p>
+<blockquote>
+<p>一句话说我要做的事情：</p>
+<p>提高分割混合中餐菜品的精度。</p>
+</blockquote>
+<h1 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h1><blockquote>
+<p>回答：</p>
+<ol>
+<li>为什么要做中餐？已答。</li>
+<li>为什么要做语义分割？因为目标检测的精度不够。</li>
+<li>为什么现有的方法失效了？</li>
+<li>为什么我的方法就会有效？是针对挑战如何设计的模块，使得它是有效的？</li>
+</ol>
+</blockquote>
+<p>【背景】</p>
+<ol>
+<li>中餐很重要，占据全球很大一部分人口的饮食摄入。中餐的识别菜品是十分重要的。（帮助识别菜/有助于检索/营养评估等）直接关系到这些人的身体健康/营养摄入等。<em>吃中餐的人占全球人口的比例非常大，主要由中国十四亿人口和全球数千万的华侨华人构成，同时还有大量被中餐吸引的外国食客，使其成为全球影响力最广的菜系之一。</em></li>
+<li>考虑到在中餐食用的场景下，摄影一张中餐的图片。图片中会包含多道中餐菜品，甚至很大一部分的菜品会出现粘连的状态。但是现有的专用模型：目标检测/语义分割方法，通用大模型，在中餐的识别上准确度并不高。其原因可能与下列因素有关：<ol>
+<li>数据的收集上设想了理想场景：训练的图片都是分离的较开的图片/给定的label标注都比较粗泛（考虑到现有的中餐的数据集，分割和目标检测）</li>
+<li>以至于在设计方法上并不面向这种挑战进行设计。主要针对西餐（与中餐特点明显）</li>
+</ol>
+</li>
+<li>为了解决这个问题，我们从两个维度来处理问题：一是数据上收集了2.5w的中餐数据集，覆盖菜品混合/拍摄角度光线/汤汁流溢等多种复杂场景。二是从方法上提出了基于强化学习的方法。</li>
+</ol>
+<h1 id="Related-Work"><a href="#Related-Work" class="headerlink" title="Related Work"></a>Related Work</h1><p>OVFoodSeg：两个阶段。阶段一是是用100w的recipe 1m对应文字和食材信息学习食物大模型FoodLearner。阶段二是利用FoodSeg103微调大模型FoodLearner得到特征，直接输入SAN(分割模型)得到分割结果。</p>
+<blockquote>
+<p>我个人的想法是：如果引入大模型，那么第一步的训练大模型是没有必要的。可以直接利用LLM API得到相关的信息+SAM实现。因此去超越它应该不难？</p>
+</blockquote>
+<h1 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h1><p><strong>目标</strong>：解决目前中餐识别上的精度/性能问题。“中餐的高歧义性”需要“随机策略探索”来解决。</p>
+<p><strong>问题定位</strong>（到底现在面对的是什么问题？）：中餐有自己的特点（多食材炒作一道菜，一个碗里会有多道菜）。</p>
+<pre><code>1. 多食材炒成一道菜：这导致不同的类别看上去都很类似（有相似的食材/不同的烹饪方式等），即便是同一道菜，由于切割食材的方式不一样，看上去差别也会很大。类间距离大/类内距离小。  
+1. 不同的菜边界上混合：聚焦在重点问题，就是要识别出哪一块区域是什么菜，那么对于边界，我们只是需要定位到某一个菜的中点，找到它的区域。或许对于边界并不需要太严格？avg pool增加边界的稳定性。
+</code></pre><p><strong>方法</strong>：为了解决问题：</p>
+<pre><code>1. 施加对齐Align约束：类似于K-means聚类。
+1. avg pool：增加边界的稳定性。
+</code></pre><h2 id="模型框架"><a href="#模型框架" class="headerlink" title="模型框架"></a>模型框架</h2><p>图像（img）首先进入DeepEncoder架构提取图像特征。然后进入基于DeepSeek-MoE的Encoder框架。</p>
+<h3 id="DeepEncoder（pretrained-model）"><a href="#DeepEncoder（pretrained-model）" class="headerlink" title="DeepEncoder（pretrained-model）"></a>DeepEncoder（pretrained-model）</h3><p>DeepEncoder=SAM-Based ViTDET+Conv16x+CLIP img Encoder</p>
+<p>首先img分割成32x32的patch进入SAM-Based ViTDET，也就是使用SAM提取proposal的mask区域（这些mask应该是黑白的，然后与32x32的原图patch进行像素相加，突出显示可能是obj的地方），</p>
+<p>然后进入Conv16x：施加BottleNeck，降低维数。</p>
+<p>CLIP img encoder：得到更加高级/结合低级的特征进行。</p>
+<p><strong>Q：没有想好的是这个部分是否要freeze？</strong>如果冻结的话，那样提取出来的proposal是不会改变的。但是不冻结的话，更新会导致参数量变很多，或者如果不冻结能不能用LoRA？或者是$\Delta W$?</p>
+<p>A：先冻结查看结果，然后再尝试加LoRA/Adaptor</p>
+<h3 id="基于DeepSeek-MoE的Decoder"><a href="#基于DeepSeek-MoE的Decoder" class="headerlink" title="基于DeepSeek-MoE的Decoder"></a>基于DeepSeek-MoE的Decoder</h3><p>特征—&gt;RMS Norm+MHA(多头注意力机制)+残差+RMS Norm+DeepSeek-MoE(专用专家+共享专家)，输出+softmax+linear，得到对img的分割logits。</p>
+<p>这个框架基本就是transformer的Decoder，但是将FFN改成了DeepSeek-MoE，以及其他的一些小改动。</p>
+<p><strong>Q：对于Decoder的输出如何得到分割的结果我还是有点confused。</strong></p>
+<p>Encoder输出是：$F \in \mathbb{R}^{HW \times d}$, 然后reshape：</p>
+<script type="math/tex; mode=display">
+F(x,y) \in \mathbb{R}^d</script><p>对于$q_k \in \mathbb{R}^{N \times d}$,</p>
+<p>每个query Chans一个mask logit:</p>
+<script type="math/tex; mode=display">
+\hat{M}_k^i(x,y) = \langle q_k^i, F(x,y) \rangle
+= (q_k^i)^\top F(x,y)</script><p>其中：$q_k^i$：第 $i$ 个 mask prototype；$F(x,y)$：像素 $(x,y)$ 的 embedding</p>
+<p>Sigmoid激活得到概率mask：</p>
+<script type="math/tex; mode=display">
+M_k^i(x,y) = \sigma(\hat{M}_k^i(x,y))</script><p>mask组成最终分割：两种公式都可以，表示“只要有一个 prototype 覆盖该像素，就认为是前景”。</p>
+<script type="math/tex; mode=display">
+M_k(x,y) = \max_{i=1}^N M_k^i(x,y)\\
+M_k(x,y) = 1 - \prod_{i=1}^N (1 - M_k^i(x,y))</script><h3 id="计算loss"><a href="#计算loss" class="headerlink" title="计算loss"></a>计算loss</h3><script type="math/tex; mode=display">
+M^{gt} = \Phi(\text{polygon})\\
+\mathcal{L}_{dice}(M_k, M^{gt})
+= 1 - \frac{2|M_k \cap M^{gt}|}{|M_k| + |M^{gt}|}\\
+r_k
+= \mathcal{L}_{dice}(M_{k-1}, M^{gt})
+- \mathcal{L}_{dice}(M_k, M^{gt})</script><h3 id="策略优化"><a href="#策略优化" class="headerlink" title="策略优化"></a>策略优化</h3><blockquote>
+<p>三个重要假设（你自己可能还没意识到）：</p>
+<ol>
+<li>decoder 层 ≈ time step</li>
+<li>query 更新是一个 <strong>Markov decision process</strong></li>
+<li>“更深层 = 更接近语义最优解”</li>
+</ol>
+</blockquote>
+<p><strong>我们将第 $k$ 层 Decoder 的更新过程建模为马尔可夫决策过程（MDP）。</strong>将每个decoder的输出都建模为时序动作信息（假设模型得到的结果应该是一次比一次好的）。假设在第$k$层decoder中($k=1,\dots,n$)</p>
+<p>状态 $s_k$ 由当前的Query $q_k$ 定义。</p>
+<p>Query的语义：每个Query贡献一个mask basis/prototype,多个Query的mask叠加构成最终的segmentation。</p>
+<p><strong>状态$s_k$</strong>：query查询/将状态建模为一组并行的mask prototypes，是当前模型对整张图像中“可能存在的N个语义区域”的内部表示。</p>
+<script type="math/tex; mode=display">
+s_k=q_k\in \mathbb{R}^{N\times d}</script><p>$N$:查询对象的数量；$d$:隐藏层的特征维度；$q_k$:第$k$层decoder的query input，从$q_{k-1}$处理得到。每个 $q_k^i$：一个<strong>mask embedding</strong></p>
+<p>动作 $a_k$ 是 Query 的更新向量。</p>
+<script type="math/tex; mode=display">
+q_{k+1} \leftarrow q_k + \Delta q_k\\
+a_k: \Delta q_k,\quad
+\Delta q_k \sim \mathcal{N}(\mu_k, \Sigma_k)\\
+\mu_k=W_{\mu}h_k,\log\sigma^2_k=W_{\sigma}h_k\\</script><p>策略网络 $\pi_\theta(a_k|s_k)$ 输出动作的分布参数。</p>
+<script type="math/tex; mode=display">
+\begin{aligned} \mu_k &= \mathcal{F}_{\mu}(h_k) \\ \sigma_k &= \text{softplus}(\mathcal{F}_{\sigma}(h_k)) + \epsilon_{\min} \\ a_k &\sim \mathcal{N}(\mu_k, \text{diag}(\sigma_k^2)) \end{aligned}</script><blockquote>
+<p><strong>注意</strong>：这里使用了 <code>softplus</code> 保证方差为正，且加了 $\epsilon_{\min}$ 防止方差坍缩。</p>
+</blockquote>
+<p>其中 $h_k$ 是经过 MoE 和 Attention 处理后的隐变量：</p>
+<script type="math/tex; mode=display">
+h_k = \text{MoE}(\text{CrossAttn}(\text{SelfAttn}(q_k), x))</script><p>状态更新（下一层 Query）：</p>
+<script type="math/tex; mode=display">
+q_{k+1} = q_k + a_k</script><p>为了让 RL 训练更稳定，我们使用<strong>增量奖励 (Incremental Reward)</strong>，即：“这一步是否比上一步做得更好？”</p>
+<p>设 $M_k$ 为第 $k$ 层预测的 Mask，$C_k$ 为预测的类别概率，$M^{gt}$ 和 $C^{gt}$ 为真值。</p>
+<p><strong>单步奖励 $r_k$ 定义为：</strong></p>
+<script type="math/tex; mode=display">r_k = \underbrace{\lambda_{\text{geo}} \cdot ( \text{Dice}(M_k, M^{gt}) - \text{Dice}(M_{k-1}, M^{gt}) )}_{\text{几何增益：轮廓是否更准了？}} + \underbrace{\lambda_{\text{cls}} \cdot ( \mathcal{P}(C_k, C^{gt}) - \mathcal{P}(C_{k-1}, C^{gt}) )}_{\text{语义增益：类别是否更确信了？}}</script><ul>
+<li><strong>解释</strong>：<ul>
+<li>$\text{Dice}(\cdot)$：计算 Mask 和 GT 的 Dice 系数。</li>
+<li>$\mathcal{P}(C_k, C^{gt})$：预测正确类别的概率值（即 Softmax 后对应 GT 类别的分数）。</li>
+<li><strong>逻辑</strong>：如果第 $k$ 层的 Dice 比第 $k-1$ 层高，或者对正确类别的预测概率提升了，$r_k$ 就是正的，鼓励这个动作；反之则是负的，惩罚这个动作。</li>
+<li>$\lambda_{\text{geo}}, \lambda_{\text{cls}}$：平衡系数，通常设为 1.0 或 2.0。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>终极奖励 (Final Reward)：为了防止中间层“刷分”但最终结果不好，通常在最后一层 $K$ 额外加上绝对分数：</p>
+<p>$r_K = r_K + \text{Dice}(M_K, M^{gt}) + \text{Accuracy}(C_K, C^{gt})$</p>
+</blockquote>
+<p>$\mathcal{L}_{ce}$的公式是：</p>
+<script type="math/tex; mode=display">
+\mathcal{L}_{ce}=-\frac{1}{HW}\sum^H_{i=1}\sum^W_{j=1}\sum^C_{c=1}\text{sgn}(y_{ij}=c)\log p_{ij}^c</script><p>其中$sgn(\cdot )$表示其中条件成立=1，否则为0；$p_{ij}^c$是$\text{softmax}(M_k)_{ij}^c$，$y_{ij}$是GT像素标签。这个函数进行类别的判别，强制每个pixel只属于一个语义类别。</p>
+<p>$\mathcal{L}_{dice}$的公式：</p>
+<script type="math/tex; mode=display">
+\mathcal{L}_{dice}=\frac{1}{C}\sum^C_{c=1}(1-\frac{2\sum_{i,j}p_{ij}^cg_{ij}^c}{\sum_{i,j}p_{ij}^c+\sum_{i,j}g_{ij}^c+\epsilon})</script><p>其中$p_{ij}^c$：预测概率;$g_{ij}^c \in \{0,1\}$：one-hot GT;$\epsilon$：数值稳定项。这个函数用于缓解前景–背景 / 小区域不平衡，强调区域重叠质量</p>
+<h5 id="价值函数-V-q-k-i"><a href="#价值函数-V-q-k-i" class="headerlink" title="价值函数 $V(q_k^i)$"></a>价值函数 $V(q_k^i)$</h5><p>分割是集合预测问题，每个 Query 负责不同的物体。我们需要Per-Query Value Estimation。对于第 $k$ 层的第 $i$ 个 Query $q_k^i$：</p>
+<script type="math/tex; mode=display">
+V(q_k^i) = \text{MLP}_{\text{value}}(q_k^i)</script><ul>
+<li><strong>含义</strong>：这个 MLP 预测“当前这个 Query $q_k^i$ 在未来能获得多少累积奖励”。</li>
+</ul>
+<p><strong>优势函数 (Advantage)</strong> 使用 GAE (Generalized Advantage Estimation) 计算：</p>
+<script type="math/tex; mode=display">
+A_k^i = \sum_{t=k}^{T} (\gamma \lambda)^{t-k} \delta_t^i, \quad \text{其中 } \delta_t^i = r_t^i + \gamma V(q_{t+1}^i) - V(q_t^i)</script><p><em>这会让训练比简单的 $A = R - V$ 稳定得多。</em></p>
+<h4 id="强化学习优化目标"><a href="#强化学习优化目标" class="headerlink" title="强化学习优化目标"></a>强化学习优化目标</h4><p>在我们的场景下，可以简化为带 KL 约束的 PPO 形式。</p>
+<p>我们的优化目标是最大化以下期望：</p>
+<script type="math/tex; mode=display">\mathcal{L}(\theta) = \mathbb{E}_{q_k \sim \pi_{\theta_{\text{old}}}} \left[ \sum_{i=1}^{N} \left( \mathcal{L}_{\text{clip}}^i(\theta) - \beta \cdot \mathbb{D}_{\text{KL}}\left( \pi_\theta(\cdot|q_k^i) \| \pi_{\text{ref}}(\cdot|q_k^i) \right) \right) \right]</script><p>其中：</p>
+<ul>
+<li><p><strong>PPO Clip 项 $\mathcal{L}_{\text{clip}}^i(\theta)$</strong>：</p>
+<script type="math/tex; mode=display">\text{ratio} = \frac{\pi_\theta(a_k^i|q_k^i)}{\pi_{\theta_{\text{old}}}(a_k^i|q_k^i)}</script><script type="math/tex; mode=display">\mathcal{L}_{\text{clip}}^i = \min \left( \text{ratio} \cdot A_k^i, \quad \text{clip}(\text{ratio}, 1-\epsilon, 1+\epsilon) \cdot A_k^i \right)</script><p>  <em>这一项保证策略更新不要太激进，防止训练崩盘。</em></p>
+</li>
+<li><p><strong>KL 散度项 $\mathbb{D}_{\text{KL}}$</strong>：</p>
+<ul>
+<li><strong>$\pi_{\text{ref}}$ (参考策略)</strong>：建议设为一个<strong>预训练好的、冻结的 Base 模型</strong>（即没有 RL 之前的监督学习模型）。</li>
+<li><strong>作用</strong>：强迫你的 RL 模型不要忘记原本学到的知识（不要发生灾难性遗忘），只在 Base 模型的基础上做“微调优化”。</li>
+</ul>
+</li>
+</ul>
+<h1 id="Experiment"><a href="#Experiment" class="headerlink" title="Experiment"></a>Experiment</h1><h2 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h2><p>使用混合训练：</p>
+<ol>
+<li>前几百个 Epoch 使用标准 BP 预热（Warm-up），因为 RL 很难从零开始学特征。</li>
+<li>后半程加入 RL Loss 微调，声称这是为了“Refine uncertain boundaries”（精修模糊边界）。</li>
+</ol>
+<p><strong>在实验中你一定要做这组对比，否则 RL 很难说服人：</strong></p>
+<ol>
+<li>baseline：decoder + aux loss</li>
+<li>去掉 aux loss，只保留 final loss</li>
+<li>RL version（你这个）</li>
+</ol>
+<p>只要 <strong>(3) &gt; (1)</strong>，你这套 method 就是成立的。</p>
+<h2 id="消融实验"><a href="#消融实验" class="headerlink" title="消融实验"></a>消融实验</h2><p><strong>采样策略分析</strong>：对比 Deterministic Update vs. Stochastic Update (你的方法)。</p>
+<p><strong>Reward 设计</strong>：对比仅使用 Final Reward vs. Step-wise Reward (每一层都算 Reward)。</p>
+<p><strong>MoE 专家数量</strong>：证明 MoE 对中餐多变性的有效性。</p>
+<h1 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h1><p>为什么要使用RL？RL 是否真的比 deep supervision + aux loss 更有必要？</p>
+<ul>
+<li><em>建议修改为</em>：<strong>“解决多模态歧义（Multimodal Ambiguity）”</strong>。中餐图片中，一块模糊的区域可能同时像A也像B。传统的确定性 Decoder 只能选择一条路走到黑。引入 RL 的<strong>随机策略（Stochastic Policy）</strong>，使得 Query 建模为一个<strong>分布</strong>而非<strong>点估计</strong>。在训练早期，较大的方差允许 Query 探索不同的语义中心；在训练后期，方差收敛，锁定最优解。这类似于贝叶斯推断或变分推断（Variational Inference）。</li>
+</ul>
+<p>后续的研究方向：</p>
+<p>多层级的标签+建立图模型/层次的语义分割</p>
+<p>开放词汇的语义分割</p>
+</div><div class="post-end"><div class="post-prev"><a href="/2026/01/05/2026-1-5/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2025/12/29/%E6%90%9C%E5%B9%BF%E6%8E%A8%E7%AE%97%E6%B3%95%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#Intro"><span class="toc-content-number">1.</span> <span class="toc-content-text">Intro</span></a></li><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#Related-Work"><span class="toc-content-number">2.</span> <span class="toc-content-text">Related Work</span></a></li><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#Method"><span class="toc-content-number">3.</span> <span class="toc-content-text">Method</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E6%A8%A1%E5%9E%8B%E6%A1%86%E6%9E%B6"><span class="toc-content-number">3.1.</span> <span class="toc-content-text">模型框架</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#DeepEncoder%EF%BC%88pretrained-model%EF%BC%89"><span class="toc-content-number">3.1.1.</span> <span class="toc-content-text">DeepEncoder（pretrained-model）</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E5%9F%BA%E4%BA%8EDeepSeek-MoE%E7%9A%84Decoder"><span class="toc-content-number">3.1.2.</span> <span class="toc-content-text">基于DeepSeek-MoE的Decoder</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E8%AE%A1%E7%AE%97loss"><span class="toc-content-number">3.1.3.</span> <span class="toc-content-text">计算loss</span></a></li><li class="toc-content-item toc-content-level-3"><a class="toc-content-link" href="#%E7%AD%96%E7%95%A5%E4%BC%98%E5%8C%96"><span class="toc-content-number">3.1.4.</span> <span class="toc-content-text">策略优化</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-5"><a class="toc-content-link" href="#%E4%BB%B7%E5%80%BC%E5%87%BD%E6%95%B0-V-q-k-i"><span class="toc-content-number">3.1.4.0.1.</span> <span class="toc-content-text">价值函数 $V(q_k^i)$</span></a></li></ol></li><li class="toc-content-item toc-content-level-4"><a class="toc-content-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%BC%98%E5%8C%96%E7%9B%AE%E6%A0%87"><span class="toc-content-number">3.1.4.1.</span> <span class="toc-content-text">强化学习优化目标</span></a></li></ol></li></ol></li></ol></li><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#Experiment"><span class="toc-content-number">4.</span> <span class="toc-content-text">Experiment</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E8%AE%AD%E7%BB%83"><span class="toc-content-number">4.1.</span> <span class="toc-content-text">训练</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E6%B6%88%E8%9E%8D%E5%AE%9E%E9%AA%8C"><span class="toc-content-number">4.2.</span> <span class="toc-content-text">消融实验</span></a></li></ol></li><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#Discussion"><span class="toc-content-number">5.</span> <span class="toc-content-text">Discussion</span></a></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2026 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>

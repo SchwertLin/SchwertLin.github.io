@@ -1,14 +1,14 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="知识点Transformer [x] 介绍transformer架构 [x] 详细说一下Decoder的因果注意力 （也叫掩码自注意力）QKV分别来自哪 [x] self-attention: Attention为什么要做scaled 不做会怎么样 为什么用根号$\sqrt{d_k}$ [x] Transformer怎么做加速训练（KV缓存） 训练和推理有什么区别（并行化） [x] Attenti">
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="知识点Transformer [ ] 介绍transformer架构 [ ] 详细说一下Decoder的因果注意力 （也叫掩码自注意力）QKV分别来自哪 [ ] self-attention: Attention为什么要做scaled 不做会怎么样 为什么用根号$\sqrt{d_k}$ [ ] Transformer怎么做加速训练（KV缓存） 训练和推理有什么区别（并行化） [ ] Attenti">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2025-4-22-字节面试准备">
 <meta property="og:url" content="http://example.com/2025/04/22/2025-4-22-%E5%AD%97%E8%8A%82%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87/index.html">
 <meta property="og:site_name" content="Schwertlilien">
-<meta property="og:description" content="知识点Transformer [x] 介绍transformer架构 [x] 详细说一下Decoder的因果注意力 （也叫掩码自注意力）QKV分别来自哪 [x] self-attention: Attention为什么要做scaled 不做会怎么样 为什么用根号$\sqrt{d_k}$ [x] Transformer怎么做加速训练（KV缓存） 训练和推理有什么区别（并行化） [x] Attenti">
+<meta property="og:description" content="知识点Transformer [ ] 介绍transformer架构 [ ] 详细说一下Decoder的因果注意力 （也叫掩码自注意力）QKV分别来自哪 [ ] self-attention: Attention为什么要做scaled 不做会怎么样 为什么用根号$\sqrt{d_k}$ [ ] Transformer怎么做加速训练（KV缓存） 训练和推理有什么区别（并行化） [ ] Attenti">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/v2-65dcc3fe507b8ac8e7bdbb030006f38b_1440w.jpg">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/SchwertLin/Pic@main/img/E9C481EF1EECC6C346B42C946430FD2B">
 <meta property="article:published_time" content="2025-04-22T13:08:24.000Z">
-<meta property="article:modified_time" content="2025-05-15T13:00:06.000Z">
+<meta property="article:modified_time" content="2025-12-30T05:40:01.431Z">
 <meta property="article:author" content="Schwertlilien">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
@@ -20,15 +20,15 @@
 
 <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
 <meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
-<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-4-22-字节面试准备</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-04-22</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-05-15</time></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2025-4-22-字节面试准备</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2025-04-22</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2025-12-30</time></div>
 <div class="post-categories"><i class="icon fa-regular fa-folder-open" title="分类"></i><a class="post-category" href="/categories/%E9%9D%A2%E7%BB%8F/">面经</a></div>
 <div class="post-tags"><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></div></div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
-<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约1.1K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><h3 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h3><ul>
-<li>[x] 介绍transformer架构</li>
-<li>[x] 详细说一下Decoder的因果注意力 （也叫掩码自注意力）QKV分别来自哪</li>
-<li>[x] self-attention: Attention为什么要做scaled 不做会怎么样 为什么用根号$\sqrt{d_k}$</li>
-<li>[x] Transformer怎么做加速训练（KV缓存） 训练和推理有什么区别（并行化）</li>
-<li>[x] Attention的复杂度是多少？</li>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约1.2K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><h3 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h3><ul>
+<li>[ ] 介绍transformer架构</li>
+<li>[ ] 详细说一下Decoder的因果注意力 （也叫掩码自注意力）QKV分别来自哪</li>
+<li>[ ] self-attention: Attention为什么要做scaled 不做会怎么样 为什么用根号$\sqrt{d_k}$</li>
+<li>[ ] Transformer怎么做加速训练（KV缓存） 训练和推理有什么区别（并行化）</li>
+<li>[ ] Attention的复杂度是多少？</li>
 </ul>
 <blockquote>
 <div class="table-container">
@@ -112,7 +112,11 @@
 <li>[ ] MAP（最大后验概率）和似然函数有什么关系？</li>
 <li>[ ] 什么情况下，MAP的损失函数可以用NMSE来计算？（高斯噪声）</li>
 <li>[ ] 推荐算法了解哪些？</li>
+<li>[ ] 冷启动：指在推荐 / 搜索 / 广告系统中，系统在<strong>缺乏历史行为数据</strong>的情况下，仍然需要做出合理决策的问题。分为：用户冷启动、物品冷启动、系统冷启动。</li>
 </ul>
+<blockquote>
+<p>冷启动与长尾分布的区别：冷启动无数据，长尾数据极少。</p>
+</blockquote>
 <h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><ul>
 <li>[ ] 跳表和二叉树的区别是什么？</li>
 <li>[ ] b+ 树 和 b树的区别， 为什么innodb索引用b+ 不用b</li>
@@ -125,6 +129,7 @@
 <li>[ ] 智能指针？其作用？与auto区别？</li>
 <li>[ ] 野指针？</li>
 <li>[ ] 面向对象三要素：继承、多态、封装</li>
+<li>[ ] 面向对象概念</li>
 </ul>
 <h3 id="软工"><a href="#软工" class="headerlink" title="软工"></a>软工</h3><ul>
 <li>[ ] 设计模式：工厂模式等等</li>
@@ -162,7 +167,7 @@ MathJax.Hub.Queue(function() {
     all[i].SourceElement().parentNode.className += ' has-jax';
   }
 });
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2025 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2026 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
 <script>const GLOBAL_CONFIG = {
   comment: { theme: 'preferred_color_scheme'}
 }

@@ -1,0 +1,190 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="Schwertlilien"/><meta name="keyword"/><meta name="description" content="本周任务  对数据集所有分散的文件夹进行合并，  将标签替换成英文，  对标签进行检查是否标注正确、是否存在同义词食材、尽量合并菜品（只存在一个、标注食材过多） 完成数据集部分的文字写作，中英均可。  数据集逻辑：任务痛点→定义核心规格→严格控制标注质量→量化分析数据特征→对比现有数据集突出优势 一、数据集构造背景背景：构建数据集的动机。  现有的数据集都有哪些，存在什么问题。需要陈述的是中餐的炒">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2026-1-31">
+<meta property="og:url" content="http://example.com/2026/01/31/2026-1-31/index.html">
+<meta property="og:site_name" content="Schwertlilien">
+<meta property="og:description" content="本周任务  对数据集所有分散的文件夹进行合并，  将标签替换成英文，  对标签进行检查是否标注正确、是否存在同义词食材、尽量合并菜品（只存在一个、标注食材过多） 完成数据集部分的文字写作，中英均可。  数据集逻辑：任务痛点→定义核心规格→严格控制标注质量→量化分析数据特征→对比现有数据集突出优势 一、数据集构造背景背景：构建数据集的动机。  现有的数据集都有哪些，存在什么问题。需要陈述的是中餐的炒">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-01-31T09:33:56.000Z">
+<meta property="article:modified_time" content="2026-02-05T12:44:54.096Z">
+<meta property="article:author" content="Schwertlilien">
+<meta property="article:tag" content="食品计算">
+<meta name="twitter:card" content="summary"><title>2026-1-31 - Schwertlilien - -----personal blog-----</title><link rel="shortcut icon" href="/img/site-icon.png">
+<link rel="stylesheet" href="/css/style.css" id="dm-light">
+
+
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<meta name="generator" content="Hexo 7.3.0"></head><body><header><div class="top-nav" ondblclick="scrollToTop()"><div class="nav-info"><div class="nav-icon"><img id="nav-icon" src="/img/site-icon.png"/></div><div class="nav-title"><a id="nav-title" href="/" title="主页">Schwertlilien</a></div></div><div class="nav-ribbon"><div class="top-menu-expanded"><a class="top-menu-item" href="/archives"><span>归档</span></a><a class="top-menu-item" href="/categories"><span>分类</span></a><a class="top-menu-item" href="/tags"><span>标签</span></a><a class="top-menu-item" href="/about"><span>关于</span></a></div><div class="top-search" onclick="toggleSearchWindow()"><div id="top-search-btn" title="搜索"><i class="icon fa-solid fa-magnifying-glass"></i><span>搜索</span></div></div><div id="top-menu-btn" onclick="openTopMenu()" title="打开菜单"><i class="fa-solid fa-bars fa-lg"></i></div></div></div></header><div id="top-menu-hidden"><div class="menu-hidden-content"><div class="menu-hidden-nav"><a class="menu-hidden-item" href="/archives"><i class="fa-solid fa-box-archive fa-sm"></i><span>归档</span></a><a class="menu-hidden-item" href="/categories"><i class="fa-regular fa-folder-open fa-sm"></i><span>分类</span></a><a class="menu-hidden-item" href="/tags"><i class="fa-solid fa-tags fa-sm"></i><span>标签</span></a><a class="menu-hidden-item" href="/about"><i class="fa-solid fa-paw fa-sm"></i><span>关于</span></a></div></div><div class="menu-hidden-blank" onclick="closeTopMenu()"></div></div>
+<div class="blog-info"><div class="blog-pic"><img id="blog-pic" src="/img/site-icon.png"/></div><div class="blog-title"><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i><span>Schwertlilien</span><i class="fa-solid fa-paw fa-2xs fa-rotate-by"></i></div><div class="blog-desc">As a recoder: notes and ideas.</div></div><div class="main"><div class="main-content"><article class="post"><div class="post-title"><h1><i class="fa-solid fa-paw"></i>2026-1-31</h1></div><div class="post-info"><div class="post-info-first-line"><div class="post-date"><i class="icon fa-regular fa-calendar-plus" title="发布日期"></i><time class="publish-time">2026-01-31</time><i class="icon fa-regular fa-calendar-check" title="更新日期"></i><time class="update-time">2026-02-05</time></div>
+<div class="post-categories"><i class="icon fa-regular fa-folder-open" title="分类"></i><a class="post-category" href="/categories/%E5%B7%A5%E4%BD%9C/">工作</a></div>
+<div class="post-tags"><i class="icon fa-solid fa-tags" title="标签"></i><a class="post-tag" href="/tags/%E9%A3%9F%E5%93%81%E8%AE%A1%E7%AE%97/">食品计算</a></div></div><div class="post-info-second-line"><div class="post-copyright"><i class="icon fa-brands fa-creative-commons" title="版权声明"></i><span>版权声明: </span><a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh-hans" title="CC BY-NC-ND 4.0">署名-非商业性使用-禁止演绎 4.0</a></div>
+<div class="post-word-count"><i class="icon fa-solid fa-pen-to-square"></i><span>全文约1.5K字</span></div><div class="pageview-post"><i class="icon fa-regular fa-eye"></i><span id="busuanzi_container_page_pv">阅读次数: <span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner"></i></span></span></div></div></div><div class="post-content"><p>本周任务</p>
+<ol>
+<li><p>对数据集所有分散的文件夹进行合并，</p>
+</li>
+<li><p>将标签替换成英文，</p>
+</li>
+<li>对标签进行检查是否标注正确、是否存在同义词食材、尽量合并菜品（只存在一个、标注食材过多）</li>
+<li>完成数据集部分的文字写作，中英均可。</li>
+</ol>
+<h1 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h1><p>逻辑：任务痛点→定义核心规格→严格控制标注质量→量化分析数据特征→对比现有数据集突出优势</p>
+<h2 id="一、数据集构造背景"><a href="#一、数据集构造背景" class="headerlink" title="一、数据集构造背景"></a>一、数据集构造背景</h2><p>背景：构建数据集的动机。</p>
+<ol>
+<li>现有的数据集都有哪些，存在什么问题。需要陈述的是中餐的炒菜很难去做食材级别的分割标注。因为食材都混合在一起了。</li>
+<li>中餐食品图像分割的重要性。中餐的受众很广，很多人以此为食。但是与此同时，中餐的特殊性导致食材的外观差异大、分布长尾、目前性能不够好。<strong>没有专门支持的数据集。</strong></li>
+</ol>
+<h2 id="二、数据集规格说明"><a href="#二、数据集规格说明" class="headerlink" title="二、数据集规格说明"></a>二、数据集规格说明</h2><p>图片总数、类别总数、食材总数、掩码总数、每张图片平均类别总数</p>
+<p>图像分为几大主类，划分规则、每类中分割掩码数量统计、主要聚焦于中餐、也包含水果等。</p>
+<blockquote>
+<p>理由就是：我们是对中餐场景下进食的所有菜品进行统计，其中也会包含少量的西餐累的菜品和水果、汤；不仅仅只有中式炒菜。</p>
+</blockquote>
+<h2 id="三、数据集构建过程"><a href="#三、数据集构建过程" class="headerlink" title="三、数据集构建过程"></a>三、数据集构建过程</h2><p>首先总述：我们的数据集叫什么，有多少张图片、标签、掩码标注。这些照片来自？使用说明进行标注。</p>
+<ol>
+<li>食物图像的收集（筛选条件）</li>
+<li>食材标签的制定以及掩码的标注（类别定义、清洗数据、标注规范）</li>
+<li>对数据集整体进行分析（长尾分布等、超类/食材成分的存在）</li>
+</ol>
+<p>总结：对比现有的数据集+后续的可能用途。下游：营养评估/基准：用于评估对复杂中餐场景下的准确度。</p>
+<ul>
+<li>对比维度：数据类型（分类/分割）、食材类别数、掩码数、标注粒度（菜品/食材）、图像分辨率、模型性能（mIoU）。</li>
+</ul>
+<blockquote>
+<p>关键结论：FoodSeg是首个「食材级分割数据集」，掩码数（4万/6万）远高于UECFoodPix（1.4万/1.6万），且mIoU更低（34.2 vs 55.5），说明更具挑战性，适合作为基准数据集。</p>
+</blockquote>
+<h2 id="四、数据集可视化"><a href="#四、数据集可视化" class="headerlink" title="四、数据集可视化"></a>四、数据集可视化</h2><ul>
+<li>用「对比图」（标注方式、分割难度）体现创新性</li>
+<li>用「统计图」（分布、样本数）量化特征</li>
+<li>用「示例图」（掩码、精炼过程）展示细节。</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>图片类型</th>
+<th>核心内容</th>
+<th>用途（作者意图）</th>
+<th>可借鉴点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>分割效果示例图（图1、2）</td>
+<td>左：原始图像；右：像素级掩码（不同食材用不同颜色标注）</td>
+<td>直观展示数据集的标注方式（食材级掩码），对比「易例」和「难例」</td>
+<td>用「原始图+掩码图」对比，清晰呈现标注粒度；用颜色区分类别，便于可视化</td>
+</tr>
+<tr>
+<td>数据集难度示意图（图1）</td>
+<td>展示「同一食材不同外观」（菠萝熟吃vs生吃）、「不同食材相似外观」（菠萝vs土豆）</td>
+<td>说明食品分割的特殊性，凸显数据集覆盖复杂场景的价值</td>
+<td>用对比图直观呈现数据集的挑战性，比纯文字更有说服力</td>
+</tr>
+<tr>
+<td>类别分布统计图（图3）</td>
+<td>柱状图：展示超类/食材类别的样本数（如蔬菜类样本最多，沙拉类最少）</td>
+<td>量化数据长尾分布，为模型优化（如采样策略）提供依据</td>
+<td>用柱状图展示类别分布，清晰呈现数据不平衡特性</td>
+</tr>
+<tr>
+<td>标注方式对比图（图4）</td>
+<td>左：原始图；中：FoodSeg食材级掩码；右：UECFoodPix菜品级掩码</td>
+<td>突出FoodSeg的标注优势（细分食材），对比现有数据集的不足</td>
+<td>用同一张图对比不同标注方式，直观体现数据集的创新性</td>
+</tr>
+<tr>
+<td>标注精炼示例图（图5）</td>
+<td>左：原始图；中：精炼前（错误/混淆标签）；右：精炼后（修正标签）</td>
+<td>说明标注质量控制流程，体现数据集的可靠性</td>
+<td>展示「标注→精炼」的前后对比，证明数据集标注的严谨性</td>
+</tr>
+<tr>
+<td>跨域示例图（附录图11）</td>
+<td>亚洲食品的原始图+食材掩码（如面条、豆腐、香菇等东方食材）</td>
+<td>展示扩展集的内容，说明跨域测试的场景</td>
+<td>用特定区域食材示例，体现数据集的扩展性（覆盖不同地域食品）</td>
+</tr>
+<tr>
+<td>数据集结构示意图（图12）</td>
+<td>环形图：内圈=超类（如Main、Vegetable）；外圈=对应食材类（如米饭、番茄）</td>
+<td>可视化食材分类体系，说明「超类-子类」的层级关系</td>
+<td>用环形图展示分类结构，比表格更直观，适合呈现层级化的类别体系</td>
+</tr>
+<tr>
+<td>训练/测试集划分表（表6）</td>
+<td>表格展示3个数据集的训练/测试集图像数、掩码数</td>
+<td>明确数据集的划分方式，方便其他研究者复现实验</td>
+<td>用表格量化划分比例，清晰呈现数据分配逻辑</td>
+</tr>
+<tr>
+<td>超类样本统计表（表7）</td>
+<td>列出14个超类的食材样本数（如Vegetable 15719个，Salad 23个）</td>
+<td>详细呈现长尾分布，为模型设计提供参考（如对小众类采用过采样）</td>
+<td>用表格量化每个类别的样本数，体现数据集的细节完整性</td>
+</tr>
+<tr>
+<td>食材类别明细表（表9）</td>
+<td>列出154个食材的训练/测试集样本数（含西方+东方食材）</td>
+<td>提供完整的类别清单，方便研究者选择特定食材进行实验</td>
+<td>详细列出每个类别的样本分配，体现数据集的透明性（便于他人复用）</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div><div class="post-end"><div class="post-prev"><a href="/2026/02/04/2026-2-4/" title="上一篇文章"><i class="fa-solid fa-chevron-left fa-lg"></i></a></div><div class="post-next"><a href="/2026/01/20/2026-1-20/" title="下一篇文章"><i class="fa-solid fa-chevron-right fa-lg"></i></a></div></div></article><div class="comment" id="comment"><script src="https://giscus.app/client.js" data-repo="SchwertLin/SwertLin_Blog_Comment" data-repo-id="R_kgDONXjrCQ" data-category="Announcements" data-category-id="DIC_kwDONXjrCc4Cky9X" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async="async"></script></div><div id="post-toc"><aside class="toc-aside"><div class="toc-title"><span><i class="fa-solid fa-paw"></i>目录</span></div><div class="toc-container" id="toc-body"><ol class="toc-content"><li class="toc-content-item toc-content-level-1"><a class="toc-content-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-content-number">1.</span> <span class="toc-content-text">数据集</span></a><ol class="toc-content-child"><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E4%B8%80%E3%80%81%E6%95%B0%E6%8D%AE%E9%9B%86%E6%9E%84%E9%80%A0%E8%83%8C%E6%99%AF"><span class="toc-content-number">1.1.</span> <span class="toc-content-text">一、数据集构造背景</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E4%BA%8C%E3%80%81%E6%95%B0%E6%8D%AE%E9%9B%86%E8%A7%84%E6%A0%BC%E8%AF%B4%E6%98%8E"><span class="toc-content-number">1.2.</span> <span class="toc-content-text">二、数据集规格说明</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E4%B8%89%E3%80%81%E6%95%B0%E6%8D%AE%E9%9B%86%E6%9E%84%E5%BB%BA%E8%BF%87%E7%A8%8B"><span class="toc-content-number">1.3.</span> <span class="toc-content-text">三、数据集构建过程</span></a></li><li class="toc-content-item toc-content-level-2"><a class="toc-content-link" href="#%E5%9B%9B%E3%80%81%E6%95%B0%E6%8D%AE%E9%9B%86%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="toc-content-number">1.4.</span> <span class="toc-content-text">四、数据集可视化</span></a></li></ol></li></ol></div></aside><div class="toc-blank" onclick="tocToggle()"></div></div><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async="async"></script></div></div><div id="tool-bar"><div id="tool-bar-main"><div id="tool-toggle" onclick="toolToggle()" title="设置"><i class="fa-solid fa-gear"></i></div><div id="toc-toggle" onclick="tocToggle()" title="目录"><i class="fa-solid fa-list-ul"></i></div><div id="go-to-comment" onclick="gotoComment()" title="评论"><i class="fa-regular fa-message fa-flip-horizontal"></i></div><div id="back-to-top" onclick="scrollToTop()" title="返回顶部"><i class="fa-solid fa-chevron-up"></i></div></div><div id="tool-bar-more" style="display: none;"><div id="darkmode-switch" onclick="darkmodeSwitch()" title="深色模式"><i class="fa-solid fa-circle-half-stroke"></i></div><div id="font-size-increase" onclick="fontSizeIncrease()" title="放大字体"><i class="fa-solid fa-plus"></i></div><div id="font-size-decrease" onclick="fontSizeDecrease()" title="缩小字体"><i class="fa-solid fa-minus"></i></div></div></div><div id="search-panel"><div class="search-container"><div class="search-head"><div class="search-title"><span><i class="fa-solid fa-paw"></i>搜索</span></div><div class="search-close-btn" onclick="toggleSearchWindow()"><i class="fa-regular fa-circle-xmark"></i></div></div><div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search-input" type="text" placeholder="请输入需要搜索的内容……" value=""/></div><div class="search-body"><div id="search-count">匹配结果数: </div><div id="search-result"></div><div id="search-result-empty">未搜索到匹配的文章。</div></div></div></div><footer><div class="footer-content"><div class="copyright-info"><i class="fa-regular fa-copyright fa-xs"></i><span>2022 - 2026 </span><a href="/about">Schwertlilien</a><i class="fa-solid fa-cat fa-sm"></i><span>Powered by </span><a href="https://hexo.io/" target="_blank">Hexo</a><span> &amp; </span><a href="https://github.com/chanwj/hexo-theme-meow" target="_blank" title="v2.1.0">Theme Meow</a></div><div class="pageview-site"><span id="busuanzi_container_site_pv">总访问量 : <span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner"></i></span></span><span id="busuanzi_container_site_uv">总访客数 : <span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner"></i></span></span></div></div></footer>
+<script>const GLOBAL_CONFIG = {
+  comment: { theme: 'preferred_color_scheme'}
+}
+</script>
+<script src="/js/third-party/darkmode.js"></script>
+<script>var options = {
+  dark: '/css/darkmode.css',
+  startAt: '24:00',
+  endAt: '06:00',
+  checkSystemScheme: 'false',
+  saveOnToggle: 'true'
+};
+var darkMode = new DarkMode(options);
+// change comment theme synchronously 同步修改评论区主题
+if (darkMode.getMode() == "dark" && (true || true)) {
+  if (document.getElementById('comment')) {
+    document.getElementById('comment').getElementsByTagName('script')[0].setAttribute('data-theme', 'noborder_dark');
+  }
+}
+</script><script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post-content').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script>
+<script src="/js/theme/tool-bar.js"></script>
+
+
+<script src="/js/theme/menu.js"></script>
+
+
+<script src="/js/third-party/clipboard.min.js"></script>
+
+
+<script src="/js/theme/copy.js"></script>
+<script>copyCode();
+</script>
+<script src="/js/jquery-3.7.1.min.js"></script>
+
+
+<script src="/js/theme/search.js"></script>
+<script>searchFunc('/search.xml', 'search-input', 'search-result');
+</script></body></html>
